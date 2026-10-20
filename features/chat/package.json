@@ -1,0 +1,49 @@
+{
+	"name": "@day-one/chat",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@day-one/http": "workspace:*",
+		"@day-one/server": "workspace:*",
+		"@day-one/db": "workspace:*",
+		"@day-one/contracts": "workspace:*",
+		"@tanstack/react-query": "catalog:",
+		"react": "catalog:",
+		"hono": "catalog:",
+		"drizzle-orm": "catalog:",
+		"zod": "catalog:",
+		"@day-one/ai": "workspace:*"
+	},
+	"devDependencies": {
+		"@day-one/notes": "workspace:*"
+	},
+	"exports": {
+		"./create/contract": "./create/contract.ts",
+		"./create/client": "./create/client.ts",
+		"./create/state": "./create/state.ts",
+		"./create/server": "./create/server.ts",
+		"./list/contract": "./list/contract.ts",
+		"./list/client": "./list/client.ts",
+		"./list/state": "./list/state.ts",
+		"./list/server": "./list/server.ts",
+		"./history/contract": "./history/contract.ts",
+		"./history/client": "./history/client.ts",
+		"./history/state": "./history/state.ts",
+		"./history/server": "./history/server.ts",
+		"./send/contract": "./send/contract.ts",
+		"./send/client": "./send/client.ts",
+		"./send/state": "./send/state.ts",
+		"./send/server": "./send/server.ts",
+		"./status/contract": "./status/contract.ts",
+		"./status/client": "./status/client.ts",
+		"./status/state": "./status/state.ts",
+		"./status/server": "./status/server.ts",
+		"./shared/contract": "./shared/contract.ts",
+		"./shared/keys": "./shared/keys.ts",
+		"./state": "./state.ts",
+		"./shared/model.server": "./shared/model.server.ts",
+		"./shared/recovery.server": "./shared/recovery.server.ts",
+		"./shared/login.server": "./shared/login.server.ts"
+	}
+}

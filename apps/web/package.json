@@ -1,0 +1,32 @@
+{
+	"name": "@day-one/web",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "bun --bun vite build",
+		"routes:generate": "tsr generate"
+	},
+	"dependencies": {
+		"@day-one/contracts": "workspace:*",
+		"@clerk/react": "6.17.3",
+		"react": "catalog:",
+		"react-dom": "19.3.0",
+		"react-markdown": "10.1.0",
+		"remark-gfm": "4.0.1",
+		"@vitejs/plugin-react": "6.1.2",
+		"vite": "8.3.4",
+		"zod": "catalog:",
+		"@day-one/notes": "workspace:*",
+		"@day-one/chat": "workspace:*",
+		"@day-one/workspaces": "workspace:*",
+		"@day-one/http": "workspace:*",
+		"@tanstack/react-query": "catalog:",
+		"@tanstack/react-router": "1.170.44",
+		"@day-one/ui": "workspace:*"
+	},
+	"devDependencies": {
+		"@tanstack/router-plugin": "1.168.46",
+		"@tanstack/router-cli": "1.167.44"
+	}
+}

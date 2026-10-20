@@ -1,0 +1,32 @@
+{
+	"name": "@day-one/notes",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@day-one/http": "workspace:*",
+		"@day-one/server": "workspace:*",
+		"@day-one/db": "workspace:*",
+		"@day-one/contracts": "workspace:*",
+		"@tanstack/react-query": "catalog:",
+		"react": "catalog:",
+		"hono": "catalog:",
+		"drizzle-orm": "catalog:",
+		"zod": "catalog:",
+		"@day-one/ai": "workspace:*",
+		"typebox": "catalog:"
+	},
+	"exports": {
+		"./create/contract": "./create/contract.ts",
+		"./create/client": "./create/client.ts",
+		"./create/state": "./create/state.ts",
+		"./create/server": "./create/server.ts",
+		"./list/contract": "./list/contract.ts",
+		"./list/client": "./list/client.ts",
+		"./list/state": "./list/state.ts",
+		"./list/server": "./list/server.ts",
+		"./shared/contract": "./shared/contract.ts",
+		"./shared/keys": "./shared/keys.ts",
+		"./shared/tools.server": "./shared/tools.server.ts"
+	}
+}

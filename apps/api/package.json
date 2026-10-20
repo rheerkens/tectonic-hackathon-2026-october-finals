@@ -1,0 +1,21 @@
+{
+	"name": "@day-one/api",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {},
+	"dependencies": {
+		"@day-one/contracts": "workspace:*",
+		"@day-one/db": "workspace:*",
+		"@day-one/ai": "workspace:*",
+		"@clerk/backend": "3.20.1",
+		"hono": "catalog:",
+		"drizzle-orm": "catalog:",
+		"zod": "catalog:",
+		"typebox": "catalog:",
+		"@day-one/notes": "workspace:*",
+		"@day-one/chat": "workspace:*",
+		"@day-one/workspaces": "workspace:*",
+		"@day-one/server": "workspace:*"
+	}
+}

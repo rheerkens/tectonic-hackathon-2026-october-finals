@@ -1,0 +1,13 @@
+{
+	"name": "@day-one/ai",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {},
+	"dependencies": {
+		"@earendil-works/pi-agent-core": "0.99.1",
+		"@earendil-works/pi-ai": "0.99.1",
+		"typebox": "catalog:"
+	},
+	"exports": "./src/index.ts"
+}

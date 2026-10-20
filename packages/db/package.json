@@ -1,0 +1,17 @@
+{
+	"name": "@day-one/db",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"generate": "drizzle-kit generate",
+		"migrate": "bun src/cli.ts migrate",
+		"seed": "bun src/cli.ts seed"
+	},
+	"dependencies": {
+		"@day-one/contracts": "workspace:*",
+		"drizzle-orm": "catalog:",
+		"drizzle-kit": "0.31.11"
+	},
+	"exports": "./src/index.ts"
+}

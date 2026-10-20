@@ -1,0 +1,11 @@
+{
+	"name": "@day-one/dev",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {},
+	"dependencies": {
+		"@day-one/db": "workspace:*",
+		"zod": "catalog:"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"name": "@day-one/contracts",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {},
+	"dependencies": {
+		"zod": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./realtime": "./src/realtime.ts"
+	}
+}

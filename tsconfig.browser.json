@@ -1,0 +1,21 @@
+{
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"types": [],
+		"incremental": true,
+		"tsBuildInfoFile": "./node_modules/.cache/tsconfig.browser.tsbuildinfo"
+	},
+	"include": [
+		"apps/web/src",
+		"features/**/client.ts",
+		"features/**/state.ts",
+		"features/**/contract.ts",
+		"features/**/keys.ts",
+		"packages/contracts/src",
+		"packages/http/src",
+		"packages/ui/src",
+		"typechecks/browser-environment.ts"
+	],
+	"exclude": ["**/*.test.ts", "**/*.test.tsx"]
+}

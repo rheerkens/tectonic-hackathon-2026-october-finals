@@ -1,0 +1,23 @@
+{
+	"name": "@day-one/workspaces",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@day-one/http": "workspace:*",
+		"@day-one/server": "workspace:*",
+		"@day-one/db": "workspace:*",
+		"@day-one/contracts": "workspace:*",
+		"@tanstack/react-query": "catalog:",
+		"react": "catalog:",
+		"hono": "catalog:",
+		"drizzle-orm": "catalog:",
+		"zod": "catalog:"
+	},
+	"exports": {
+		"./list/contract": "./list/contract.ts",
+		"./list/client": "./list/client.ts",
+		"./list/state": "./list/state.ts",
+		"./list/server": "./list/server.ts"
+	}
+}

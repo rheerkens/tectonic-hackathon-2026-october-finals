@@ -1,0 +1,24 @@
+{
+	"scripts": {
+		"setup": "if [ -f \"$POLYSCOPE_ROOT_PATH/.env.local\" ] && [ ! -f .env.local ]; then cp \"$POLYSCOPE_ROOT_PATH/.env.local\" .env.local; fi && bun setup",
+		"archive": "bun run dev:stop",
+		"run": [
+			{ "label": "Check (merge gate)", "command": "bun run check" },
+			{ "label": "Tests (watch)", "command": "bun run test:watch" },
+			{ "label": "E2E smoke", "command": "bun run test:e2e" }
+		]
+	},
+	"preview": { "command": "bun dev" },
+	"tasks": [
+		{ "label": "Commit per feature", "prompt": "/commit-by-feature" },
+		{
+			"label": "Rebase on main",
+			"prompt": "Rebase this branch onto origin/main. Resolve conflicts, or ask when a resolution is not obvious. Do not push."
+		},
+		{ "label": "Code review", "prompt": "/code-review" },
+		{
+			"label": "Merge gate + PR",
+			"prompt": "Run bun run check and fix failures, then open a PR as described in AGENTS.md."
+		}
+	]
+}

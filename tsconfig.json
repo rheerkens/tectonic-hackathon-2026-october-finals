@@ -1,0 +1,20 @@
+{
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"types": ["bun"],
+		"incremental": true,
+		"tsBuildInfoFile": "./node_modules/.cache/tsconfig.runtime.tsbuildinfo"
+	},
+	"include": [
+		"apps/api",
+		"apps/web/vite.config.ts",
+		"apps/web/src/**/*.test.ts",
+		"apps/web/src/**/*.test.tsx",
+		"features",
+		"packages",
+		"tools/dev",
+		"tools/e2e",
+		"scripts"
+	]
+}

@@ -1,0 +1,17 @@
+node_modules/
+**/dist/
+.local/
+artifacts/
+playwright-report/
+test-results/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.tsbuildinfo
+.DS_Store
+.venv/
+__pycache__/

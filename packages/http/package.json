@@ -1,0 +1,14 @@
+{
+	"name": "@day-one/http",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"zod": "catalog:",
+		"@day-one/contracts": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./realtime": "./src/realtime.ts"
+	}
+}
