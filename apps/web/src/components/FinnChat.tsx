@@ -217,7 +217,7 @@ function Composer({
 	blocked: boolean;
 	voice: Voice;
 	onMore?: () => void;
-	onSent: () => void;
+	onSent: (conversationId: string) => void;
 	inputRef: RefObject<HTMLTextAreaElement | null>;
 }) {
 	const finn = useFinn(true);
@@ -235,10 +235,11 @@ function Composer({
 				onSubmit={(event) => {
 					event.preventDefault();
 					if (!text.trim() || held) return;
-					if (!finn.submitQuestion(text, target)) return;
+					const sent = finn.submitQuestion(text, target);
+					if (!sent) return;
 					if (voice.key === draftKey) voice.cancel();
 					finn.setDraft(draftKey, "");
-					onSent();
+					onSent(sent.conversationId);
 				}}
 			>
 				{onMore && (
@@ -328,7 +329,8 @@ export function FinnChat({
 	const input = useRef<HTMLTextAreaElement>(null);
 	const transcript = useRef<HTMLDivElement>(null);
 	// Presentation is local to each surface; another window's selection never retargets it.
-	const [view, setView] = useState<View>("launcher");
+	// Opening Finn lands straight in the new-chat field.
+	const [view, setView] = useState<View>("new");
 	const [rowsOpen, setRowsOpen] = useState(true);
 	const [chatId, setChatId] = useState<string | null>(null);
 	const [focused, setFocused] = useState(document.hasFocus());
@@ -347,7 +349,7 @@ export function FinnChat({
 	}, [engaged, inApp]);
 	useEffect(() => {
 		const reset = () => {
-			setView("launcher");
+			setView("new");
 			setRowsOpen(false);
 			setChatId(null);
 			// The shell hid the window under the pointer; the next show starts click-through again.
@@ -538,10 +540,7 @@ export function FinnChat({
 								setView("launcher");
 								setRowsOpen(true);
 							}}
-							onSent={() => {
-								setView("launcher");
-								setRowsOpen(true);
-							}}
+							onSent={openChat}
 						/>
 					)}
 					{chat && (
