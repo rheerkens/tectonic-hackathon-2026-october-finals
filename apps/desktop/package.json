@@ -13,7 +13,8 @@
 	},
 	"build": {
 		"appId": "dev.dayone.desktop",
-		"productName": "Day One",
+		"productName": "SDtrust",
+		"icon": "icon.png",
 		"directories": {
 			"output": "release"
 		},

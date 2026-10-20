@@ -9,6 +9,7 @@ const sourceIcons: Record<FinnSource["kind"], string> = {
 	mail: "✉️",
 	crm: "📇",
 	doc: "📄",
+	call: "📞",
 };
 
 /** Finn on the desktop. Dragging moves the window; a click opens or closes the mini chat. */

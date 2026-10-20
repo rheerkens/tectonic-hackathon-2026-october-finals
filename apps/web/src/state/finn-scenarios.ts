@@ -6,7 +6,7 @@
 
 export type FinnSource = {
 	code: string;
-	kind: "teams" | "mail" | "crm" | "doc";
+	kind: "teams" | "mail" | "crm" | "doc" | "call";
 	title: string;
 	author: string;
 	date: string;
@@ -19,7 +19,22 @@ export type FinnSource = {
 export type FinnNextStep =
 	| { kind: "none" }
 	| { kind: "clarify"; question: string }
-	| { kind: "contact_person"; person: string; message: string; threadId: string };
+	| {
+			kind: "contact_person";
+			person: string;
+			message: string;
+			threadId: string;
+			/** A scripted phone call: Finn's line is audio, the expert answers live on stage. */
+			call?: {
+				ring: string;
+				audio: string;
+				thanksAudio: string;
+				reply: string;
+				thanks: string;
+				/** The result Finn knows once the expert has confirmed it on the call. */
+				confirmedResultId: string;
+			};
+	  };
 
 export type FinnResult = {
 	id: string;
@@ -199,9 +214,55 @@ const d1November: FinnResult = {
 		kind: "contact_person",
 		person: "Roy",
 		message:
-			"Hi Roy, until when can Atlas submit payroll changes for November 2026? I only found the October exception (22 October, S4). Lotte asked the same in Teams on 29 September.",
+			"Hi Roy, this is Finn from SDtrust. I'm calling you because you own the Atlas client agreements, so you're the expert on this. Someone just asked until when Atlas can submit payroll changes for November. I only found the October exception, 22 October, and nothing approved for November. Can you confirm the November deadline?",
 		threadId: "thread-atlas-november",
+		call: {
+			ring: "/audio/call-ring.mp3",
+			audio: "/audio/finn-call-roy.mp3",
+			thanksAudio: "/audio/finn-call-thanks.mp3",
+			reply:
+				"Hi Finn. Yes, we agreed with Atlas that they can submit November payroll changes until Tuesday 24 November. I approved it last week, but I forgot to upload it to the knowledge base. Sorry about that.",
+			thanks:
+				"Thanks Roy. No need to upload anything. I've recorded your confirmation and added it to my knowledge, so next time I can answer this myself.",
+			confirmedResultId: "d1-payroll-changes-november-confirmed",
+		},
 	},
+};
+
+// D1 after the call: Roy's spoken confirmation is recorded as a new source and answers November.
+const d1NovemberConfirmed: FinnResult = {
+	...d1November,
+	id: "d1-payroll-changes-november-confirmed",
+	headline: "24 November 2026",
+	answer:
+		"Atlas can submit payroll changes for November until **24 November 2026** [S35]. Roy, the account owner, confirmed this on a call with Finn. Finn recorded it and added it to the knowledge base.",
+	trust: {
+		score: 0.9,
+		reasons: [
+			"Confirmed by the account owner (Roy) on a recorded call",
+			"Valid for Belgium, Atlas and November 2026",
+			"Added to the knowledge base automatically, so nobody has to call Roy again",
+			"The October exception (S4) does not apply to November",
+		],
+	},
+	steps: [
+		...d1November.steps,
+		{ tool: "record_confirmation", summary: "S35 Call with Roy added to the knowledge base" },
+	],
+	sources: [
+		{
+			code: "S35",
+			kind: "call",
+			title: "Call with Roy: Atlas November deadline",
+			author: "Roy",
+			date: "2026-10-20",
+			excerpt: "Atlas can submit November payroll changes until Tuesday 24 November 2026.",
+			supports: true,
+			note: "Confirmed by the account owner on a call, recorded by Finn",
+		},
+		...d1November.sources,
+	],
+	nextStep: { kind: "none" },
 };
 
 // D2: three different deadlines on screen; only the current Belgian procedure counts.
@@ -279,8 +340,146 @@ const d2: FinnResult = {
 	nextStep: { kind: "none" },
 };
 
+// Dashboard-only examples, kept apart from the pitch questions so the demo starts clean.
+const mealVouchers2027: FinnResult = {
+	id: "atlas-meal-vouchers-2027",
+	question: "What meal voucher value applies to Atlas from January 2027?",
+	context: { country: "BE", client: "Atlas", period: "2027-01" },
+	headline: null,
+	answer: null,
+	trust: {
+		score: 0.2,
+		reasons: [
+			"The current agreement (S40) only runs until 31 December 2026",
+			"The €10 in Teams is a proposal, Atlas did not sign it",
+			"Sebastian has not published the 2027 indexation yet",
+		],
+	},
+	steps: [
+		{ tool: "search_sources", summary: "3 sources on Atlas meal vouchers" },
+		{ tool: "assess_trust", summary: "Belgium · Atlas · January 2027: nothing applies" },
+		{ tool: "find_people", summary: "Sebastian owns the indexation procedure" },
+		{ tool: "contact_person", summary: "Teams message to Sebastian" },
+	],
+	sources: [
+		{
+			code: "S40",
+			kind: "crm",
+			title: "Client agreement Atlas: meal vouchers",
+			author: "Roy",
+			date: "2026-01-05",
+			excerpt: "Atlas grants meal vouchers of €8 per working day in 2026.",
+			supports: false,
+			note: "Only valid in 2026",
+		},
+		{
+			code: "S41",
+			kind: "teams",
+			title: "Teams Atlas: budget 2027",
+			author: "Wanne",
+			date: "2026-10-12",
+			excerpt: "Atlas is thinking about €10 per day next year, to be confirmed.",
+			supports: false,
+			note: "Not confirmed: a proposal, no signed agreement",
+		},
+		{
+			code: "S42",
+			kind: "doc",
+			title: "Indexation procedure Belgium",
+			author: "Sebastian",
+			date: "2026-03-01",
+			excerpt: "New meal voucher amounts are published in December for the next year.",
+			supports: false,
+			note: "Explains the gap: 2027 amounts are not out yet",
+		},
+	],
+	people: [{ name: "Sebastian", role: "Procedure owner", why: "Publishes the yearly indexation" }],
+	nextStep: {
+		kind: "contact_person",
+		person: "Sebastian",
+		message:
+			"Hi Sebastian, which meal voucher value applies to Atlas from January 2027? I only found the 2026 agreement (€8, S40) and an unconfirmed €10 in Teams.",
+		threadId: "thread-atlas-meal-vouchers",
+	},
+};
+
+const nlHolidayPay: FinnResult = {
+	id: "nl-holiday-pay",
+	question: "When is holiday pay paid out in the Netherlands?",
+	context: { country: "NL", client: null, period: "2026-10" },
+	headline: "In May",
+	answer:
+		"Dutch holiday pay (8% of gross salary) is paid out **with the May payroll** [S43]. The June date in the old procedure [S44] no longer applies.",
+	trust: {
+		score: 0.88,
+		reasons: [
+			"Current approved Dutch procedure by Sebastian",
+			"The June date is from a superseded version",
+		],
+	},
+	steps: [
+		{ tool: "search_sources", summary: "2 sources on holiday pay" },
+		{ tool: "assess_trust", summary: "Netherlands · October 2026" },
+		{ tool: "get_source", summary: "S43 Holiday pay Netherlands" },
+	],
+	sources: [
+		{
+			code: "S43",
+			kind: "doc",
+			title: "Holiday pay Netherlands (v2)",
+			author: "Sebastian",
+			date: "2026-02-01",
+			excerpt: "Holiday pay of 8% is paid out with the May payroll.",
+			supports: true,
+			note: "Approved general rule",
+		},
+		{
+			code: "S44",
+			kind: "doc",
+			title: "Holiday pay Netherlands (v1, old)",
+			author: "Sebastian",
+			date: "2024-01-01",
+			excerpt: "Holiday pay is paid out in June.",
+			supports: false,
+			note: "Superseded by S43",
+		},
+	],
+	people: [
+		{ name: "Sebastian", role: "Procedure owner", why: "Approved the Dutch holiday pay procedure" },
+	],
+	nextStep: { kind: "none" },
+};
+
+// Unasked: Finn spots the unapproved 25th in Teams (S3) and corrects it before anyone acts on it.
+const d1TeamsCheck: FinnResult = {
+	...d1October,
+	id: "d1-teams-check",
+	question: "Teams: “I thought Atlas could submit until the 25th this time?”",
+	answer:
+		"Careful: the 25th is not approved. Atlas can submit payroll changes until **22 October 2026** [S4], the exception Roy approved.",
+	trust: {
+		...d1October.trust,
+		reasons: [
+			"The 25th comes from a question in Teams, nobody approved it",
+			...d1October.trust.reasons,
+		],
+	},
+	steps: [
+		{ tool: "watch_signals", summary: "New Teams message about the Atlas deadline" },
+		...d1October.steps,
+	],
+};
+
 export const finnScenarios: Record<string, FinnResult> = Object.fromEntries(
-	[d1October, d1November, d2].map((result) => [result.id, result]),
+	[
+		d1October,
+		d1November,
+		d1NovemberConfirmed,
+		d1TeamsCheck,
+		d2,
+		mealVouchers2027,
+		nlHolidayPay,
+	].map((result) => [result.id, result]),
 );
 
 /** Demo questions in the order of the pitch. A follow-up answers within the previous conversation. */

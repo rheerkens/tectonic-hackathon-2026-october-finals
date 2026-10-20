@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { FinnDock, type FinnHint } from "../components/FinnDock";
 import { FinnResultContent } from "../components/FinnResultContent";
-import { getFinnResult } from "../state/finn";
+import { useFinnResult } from "../state/finn";
 import type { FinnResult } from "../state/finn-scenarios";
 
 // Same 80% line the answer card uses to call an answer confirmed.
@@ -19,7 +19,7 @@ function resultHint(result: FinnResult): FinnHint {
 		return {
 			key,
 			mood: "review",
-			text: `I'm not sure about this one. I've asked ${result.nextStep.person} to confirm.`,
+			text: `I'm not sure about this one. Let me call ${result.nextStep.person} to confirm.`,
 			target: "next-step",
 		};
 	if (result.nextStep.kind === "clarify")
@@ -32,7 +32,7 @@ function resultHint(result: FinnResult): FinnHint {
 	return { key, mood: "review", text: "Trust is low here. Check the sources before you act." };
 }
 export function ResultPage({ resultId }: { resultId: string }) {
-	const result = getFinnResult(resultId);
+	const result = useFinnResult(resultId);
 	return (
 		<>
 			<div className="result-page">

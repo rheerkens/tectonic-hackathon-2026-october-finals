@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, useLocation } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import { useSession } from "./auth/context";
-import { SignIn } from "./auth/SignIn";
 import { RealtimeProvider } from "./state/realtime";
 export function App() {
 	const session = useSession();
@@ -33,9 +32,7 @@ export function App() {
 						</RealtimeProvider>
 					</ToastProvider>
 				</div>
-			) : (
-				<SignIn />
-			)}
+			) : null}
 		</QueryClientProvider>
 	);
 }

@@ -5,13 +5,9 @@ import { createContext, useContext } from "react";
 export type Session = {
 	user: User | null;
 	drafts: DraftStore;
-	expired: boolean;
-	reauthUserId: string | null;
 	expire: () => void;
 	mode: "dev" | "clerk";
 	headers: () => Promise<Record<string, string>>;
-	signIn: (id: string) => void;
-	signOut: () => void;
 };
 export const SessionContext = createContext<Session | null>(null);
 export function useSession() {

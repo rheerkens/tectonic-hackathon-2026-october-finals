@@ -26,5 +26,7 @@ interface Window {
 		onPetScale?(listener: (scale: number) => void): () => void;
 		onFinnLanded?(listener: () => void): () => void;
 		onPose?(listener: (pose: string | null) => void): () => void;
+		/** The shell saw a new Teams message that Finn should correct unasked. */
+		onHeadsUp?(listener: () => void): () => void;
 	};
 }

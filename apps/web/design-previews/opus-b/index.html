@@ -666,11 +666,13 @@ const askNoor = () => toast("Voorbeeld: er wordt geen bericht verstuurd, geen ko
 $("#askBtn").onclick = askNoor;
 $("#askBtn2").onclick = askNoor;
 
+// Snapshot the original nodes (not HTML strings) so restoring never re-parses markup.
 const original = {
-  owner: $("#ownerText").innerHTML,
-  attention: $("#attentionText").innerHTML,
-  timeline: $("#timeline").innerHTML,
+  owner: $("#ownerText").cloneNode(true),
+  attention: $("#attentionText").cloneNode(true),
+  timeline: $("#timeline").cloneNode(true),
 };
+const restore = (sel, node) => $(sel).replaceChildren(...node.cloneNode(true).childNodes);
 function setConfirmed(done) {
   $("#proposal").hidden = done;
   $("#attention").classList.toggle("done", done);
@@ -689,9 +691,9 @@ function setConfirmed(done) {
     $("#attentionText").innerHTML = "<strong>Dossier is bijgewerkt.</strong> Er wacht niets meer op jou. Volgende controle op 15 januari 2027.";
     $("#timeline").insertAdjacentHTML("afterbegin", '<li class="new"><time>20 oktober 2026, 09:15</time><span>Wijziging bevestigd door jou, Team Operations beheert de checklist</span></li>');
   } else {
-    $("#ownerText").innerHTML = original.owner;
-    $("#attentionText").innerHTML = original.attention;
-    $("#timeline").innerHTML = original.timeline;
+    restore("#ownerText", original.owner);
+    restore("#attentionText", original.attention);
+    restore("#timeline", original.timeline);
     body.hidden = true;
     reviewBtn.setAttribute("aria-expanded", "false");
     reviewBtn.textContent = "Bekijk wijziging";

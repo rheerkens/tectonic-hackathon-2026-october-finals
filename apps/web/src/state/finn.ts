@@ -27,6 +27,8 @@ type Session = {
 	readIds: string[];
 	hiddenIds: string[];
 	drafts: Record<string, Draft>;
+	/** Result IDs an expert confirmed on a call; Finn answers them from then on. */
+	learned: string[];
 };
 type Message =
 	| { kind: "turn"; conversation: Omit<FinnConversation, "turns">; turn: FinnTurn }
@@ -34,6 +36,7 @@ type Message =
 	| { kind: "read"; ids: string[] }
 	| { kind: "hide"; id: string }
 	| { kind: "draft"; key: string; draft: Draft }
+	| { kind: "learn"; id: string }
 	| { kind: "snapshot"; session: Session };
 const idle: FinnState = { status: "idle", question: "", stepsShown: 0, result: null, message: "" };
 let session: Session = {
@@ -42,10 +45,16 @@ let session: Session = {
 	readIds: [],
 	hiddenIds: [],
 	drafts: {},
+	learned: [],
 };
 let channel: BroadcastChannel | null = null;
 const listeners = new Set<() => void>();
-const writer = crypto.randomUUID();
+// randomUUID only exists in secure contexts; plain HTTP over Tailscale still needs IDs.
+const uuid = () =>
+	typeof crypto.randomUUID === "function"
+		? crypto.randomUUID()
+		: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+const writer = uuid();
 const newer = (a: Draft, b: Draft | undefined) =>
 	!b || a.rev > b.rev || (a.rev === b.rev && a.by > b.by);
 const running = new Set<string>();
@@ -60,6 +69,9 @@ function apply(message: Message) {
 	if (message.kind === "select") session = { ...session, activeId: message.id };
 	if (message.kind === "hide") {
 		session = { ...session, hiddenIds: [...new Set([...session.hiddenIds, message.id])] };
+	}
+	if (message.kind === "learn") {
+		session = { ...session, learned: [...new Set([...session.learned, message.id])] };
 	}
 	if (message.kind === "read") {
 		session = { ...session, readIds: [...new Set([...session.readIds, ...message.ids])] };
@@ -99,6 +111,7 @@ function apply(message: Message) {
 			activeId: session.activeId ?? message.session.activeId,
 			readIds: [...new Set([...session.readIds, ...message.session.readIds])],
 			hiddenIds: [...new Set([...session.hiddenIds, ...(message.session.hiddenIds ?? [])])],
+			learned: [...new Set([...session.learned, ...(message.session.learned ?? [])])],
 			drafts: Object.fromEntries(
 				Object.entries({ ...message.session.drafts, ...session.drafts }).map(([key, draft]) => {
 					const theirs = message.session.drafts?.[key];
@@ -126,11 +139,17 @@ function subscribe(listener: () => void) {
 	return () => listeners.delete(listener);
 }
 
+/** Swaps a result for what Finn learned about it on a call, if anything. */
+function known(result: FinnResult | undefined) {
+	const call = result?.nextStep.kind === "contact_person" ? result.nextStep.call : undefined;
+	if (!result || !call || !session.learned.includes(result.id)) return result;
+	return finnScenarios[call.confirmedResultId] ?? result;
+}
 // The demo still matches the existing scenarios; it does not call external tools.
 function match(question: string) {
 	const text = question.toLowerCase();
 	if (/sick/.test(text)) return finnScenarios["d2-sick-leave"];
-	if (/november|next month/.test(text)) return finnScenarios["d1-payroll-changes-november"];
+	if (/november|next month/.test(text)) return known(finnScenarios["d1-payroll-changes-november"]);
 	if (/payroll|submit/.test(text)) return finnScenarios["d1-payroll-changes"];
 }
 const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
@@ -190,10 +209,10 @@ function startQuestion(question: string, conversationId: string | null) {
 	const text = question.trim();
 	let conversation = session.conversations.find((item) => item.id === conversationId);
 	if (!text || busy(latest(conversation))) return null;
-	conversation ??= { id: crypto.randomUUID(), title: text, createdAt: Date.now(), turns: [] };
+	conversation ??= { id: uuid(), title: text, createdAt: Date.now(), turns: [] };
 	const turn: FinnTurn = {
 		...idle,
-		id: crypto.randomUUID(),
+		id: uuid(),
 		createdAt: Date.now(),
 		revision: 0,
 		question: text,
@@ -217,6 +236,50 @@ function setDraft(key: string, text: string) {
 function appendDraft(key: string, text: string) {
 	const current = (session.drafts[key]?.text ?? "").trimEnd();
 	setDraft(key, current ? `${current} ${text}` : text);
+}
+/**
+ * Records the expert's confirmation from a call: Finn learns it, and every conversation waiting
+ * on that expert gets the confirmed answer.
+ */
+function confirmCall(resultId: string) {
+	publish({ kind: "learn", id: resultId });
+	const confirmed = known(finnScenarios[resultId]);
+	if (!confirmed || confirmed.id === resultId) return;
+	for (const conversation of session.conversations) {
+		for (const turn of conversation.turns) {
+			if (turn.status !== "waiting" || turn.result?.id !== resultId) continue;
+			publish({
+				kind: "turn",
+				conversation,
+				turn: {
+					...turn,
+					status: "done",
+					result: confirmed,
+					stepsShown: confirmed.steps.length,
+					revision: turn.revision + 1,
+				},
+			});
+		}
+	}
+}
+/** Finn speaks up unasked: a new Teams message contradicts what he knows, so he posts the correction. */
+function headsUp() {
+	const result = finnScenarios["d1-teams-check"];
+	if (!result) return null;
+	const conversation = { id: uuid(), title: result.question, createdAt: Date.now() };
+	const turn: FinnTurn = {
+		...idle,
+		id: uuid(),
+		createdAt: Date.now(),
+		revision: 1,
+		question: result.question,
+		status: "done",
+		result,
+		stepsShown: result.steps.length,
+	};
+	publish({ kind: "turn", conversation, turn });
+	publish({ kind: "select", id: conversation.id });
+	return conversation.id;
 }
 function markRead(id: string) {
 	const conversation = session.conversations.find((item) => item.id === id);
@@ -265,6 +328,8 @@ export function useFinn(followSelection = false) {
 		selectConversation,
 		submitQuestion: startQuestion,
 		markRead,
+		confirmCall,
+		headsUp,
 		hideConversation: (id: string) => publish({ kind: "hide", id }),
 		newChat: () => selectConversation(null),
 		reset: () => selectConversation(null),
@@ -292,6 +357,8 @@ export function useFinn(followSelection = false) {
 	};
 }
 
-export function getFinnResult(id: string): FinnResult | undefined {
-	return finnScenarios[id];
+/** A result as Finn knows it now: after a confirming call the open page shows the answer. */
+export function useFinnResult(id: string): FinnResult | undefined {
+	useSyncExternalStore(subscribe, () => session);
+	return known(finnScenarios[id]);
 }

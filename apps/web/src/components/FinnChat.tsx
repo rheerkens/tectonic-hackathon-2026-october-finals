@@ -10,6 +10,7 @@ import {
 import { type FinnConversation, type FinnTurn, useFinn } from "../state/finn";
 import { useVoice } from "../state/finn-voice";
 import { usePetScale } from "../state/pet-scale";
+import { FinnCall } from "./FinnCall";
 import { Icon } from "./Icon";
 
 /** Draft key for a chat that has not been sent yet. */
@@ -26,7 +27,7 @@ function preview(conversation: FinnConversation) {
 	if (turn?.status === "searching") return "Checking sources…";
 	if (turn?.message) return turn.message;
 	if (turn?.status === "waiting" && turn.result?.nextStep.kind === "contact_person")
-		return `Waiting for ${turn.result.nextStep.person} · simulated`;
+		return `Waiting for ${turn.result.nextStep.person} · call to confirm`;
 	return turn?.result?.answer ? plain(turn.result.answer) : "I'm not sure yet.";
 }
 
@@ -107,9 +108,10 @@ function Answer({
 					: "I'm not sure yet. I don't have enough confirmed information to answer."}
 			</p>
 			{result.nextStep.kind === "contact_person" && (
-				<p className="mini-result-waiting">
-					Waiting for {result.nextStep.person}. Contact is simulated.
-				</p>
+				<>
+					<p className="mini-result-waiting">Waiting for {result.nextStep.person}.</p>
+					<FinnCall result={result} compact />
+				</>
 			)}
 			<div className="mini-result-meta">
 				<span>{Math.round(result.trust.score * 100)}% trust</span>
@@ -216,7 +218,7 @@ function Composer({
 	voice: Voice;
 	onMore?: () => void;
 	onSent: () => void;
-	inputRef: RefObject<HTMLInputElement | null>;
+	inputRef: RefObject<HTMLTextAreaElement | null>;
 }) {
 	const finn = useFinn(true);
 	const text = finn.drafts[draftKey] ?? "";
@@ -249,12 +251,19 @@ function Composer({
 						<Icon name="x" size={18} />
 					</button>
 				)}
-				<input
+				<textarea
 					ref={inputRef}
+					rows={1}
 					aria-label={label}
 					placeholder={placeholder}
 					value={text}
 					onChange={(event) => finn.setDraft(draftKey, event.target.value)}
+					onKeyDown={(event) => {
+						// Enter sends like the old single-line field; Shift+Enter adds a line.
+						if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing) return;
+						event.preventDefault();
+						event.currentTarget.form?.requestSubmit();
+					}}
 					autoComplete="off"
 				/>
 				{voice.available &&
@@ -315,7 +324,8 @@ export function FinnChat({
 	const finn = useFinn(true);
 	const scale = usePetScale();
 	const root = useRef<HTMLElement>(null);
-	const input = useRef<HTMLInputElement>(null);
+	const overSurface = useRef(false);
+	const input = useRef<HTMLTextAreaElement>(null);
 	const transcript = useRef<HTMLDivElement>(null);
 	// Presentation is local to each surface; another window's selection never retargets it.
 	const [view, setView] = useState<View>("launcher");
@@ -340,6 +350,8 @@ export function FinnChat({
 			setView("launcher");
 			setRowsOpen(false);
 			setChatId(null);
+			// The shell hid the window under the pointer; the next show starts click-through again.
+			overSurface.current = false;
 		};
 		if (!open) reset();
 		return window.desktop?.onMiniReset?.(reset);
@@ -387,6 +399,18 @@ export function FinnChat({
 		return () => window.removeEventListener("keydown", escape);
 	}, [open, shownView, onHide]);
 
+	// Only the active surface gets this from the shell, so the correction is posted once.
+	useEffect(
+		() =>
+			window.desktop?.onHeadsUp?.(() => {
+				const id = finn.headsUp();
+				if (!id) return;
+				setChatId(id);
+				setView("chat");
+			}),
+		[finn.headsUp],
+	);
+
 	function openChat(id: string) {
 		finn.selectConversation(id);
 		setChatId(id);
@@ -432,8 +456,19 @@ export function FinnChat({
 			className={`finn-mini ${className}`}
 			style={{ "--finn-scale": scale / 100 } as CSSProperties}
 			aria-label="Chat with Finn"
-			onPointerEnter={() => !inApp && window.desktop?.setMiniHover?.(true)}
-			onPointerLeave={() => !inApp && window.desktop?.setMiniHover?.(false)}
+			// Only the pills count as hover: on macOS the window spans the transparent gaps too.
+			onMouseMove={(event) => {
+				if (inApp) return;
+				const inside = Boolean((event.target as Element).closest("[data-mini-surface]"));
+				if (inside === overSurface.current) return;
+				overSurface.current = inside;
+				window.desktop?.setMiniHover?.(inside);
+			}}
+			onPointerLeave={() => {
+				if (inApp) return;
+				overSurface.current = false;
+				window.desktop?.setMiniHover?.(false);
+			}}
 		>
 			<div className="finn-mini-head">
 				<div className="finn-mini-pet-slot">{pet}</div>

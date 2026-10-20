@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import type { FinnResult, FinnSource } from "../state/finn-scenarios";
+import { FinnCall } from "./FinnCall";
 import { Icon } from "./Icon";
 
 // Answer card and "Why this source?" table follow the semi-final app (Tectonic-hackathon2026 KennisPage).
@@ -49,6 +50,12 @@ export function FinnResultContent({ result }: { result: FinnResult }) {
 				<span className="answer-badge">
 					<Tick tone={tone} /> {status} · {score}% trust
 				</span>
+				{tone === "good" && (
+					<div className="result-seal" role="img" aria-label="Confirmed result">
+						<span>✓</span>
+						Confirmed
+					</div>
+				)}
 				{answer && best ? (
 					<>
 						<h2>{result.headline}</h2>
@@ -105,10 +112,17 @@ export function FinnResultContent({ result }: { result: FinnResult }) {
 					{result.nextStep.kind === "contact_person" ? (
 						<>
 							<h3>Waiting for {result.nextStep.person}</h3>
-							<blockquote className="answer-quote">{result.nextStep.message}</blockquote>
-							<p className="answer-meta">
-								Simulated contact in this demo. No message has been sent.
-							</p>
+							{result.nextStep.call ? (
+								<>
+									<p className="answer-text">
+										Finn calls {result.nextStep.person}, who owns this knowledge, and records the
+										answer in the knowledge base.
+									</p>
+									<FinnCall result={result} />
+								</>
+							) : (
+								<blockquote className="answer-quote">{result.nextStep.message}</blockquote>
+							)}
 						</>
 					) : (
 						<h3>{result.nextStep.question}</h3>

@@ -4,10 +4,12 @@ const {
 	app,
 	BrowserWindow,
 	dialog,
+	globalShortcut,
 	ipcMain,
 	Menu,
 	MenuItem,
 	nativeTheme,
+	Notification,
 	screen,
 	session,
 } = require("electron");
@@ -102,6 +104,8 @@ let miniLayoutVersion = 0;
 let miniHideTimer;
 let miniVisibilityVersion = 0;
 let miniEngaged = false;
+// Whether the pointer is over one of Mini's pills, as last reported by its page.
+let miniOverSurface = false;
 let mainWindow;
 let mainReady = Promise.resolve();
 let appUrl;
@@ -357,6 +361,7 @@ function hideMini() {
 	clearTimeout(miniHideTimer);
 	miniVisibilityVersion++;
 	miniEngaged = false;
+	miniOverSurface = false;
 	if (!mini || mini.isDestroyed()) return;
 	mini.hiddenAt = Date.now();
 	mini.hide();
@@ -367,8 +372,9 @@ function setMiniHover(inside) {
 	clearTimeout(miniHideTimer);
 	if (!inside) {
 		// Leave enough time to cross the transparent gap from Finn to the controls.
+		// Only the hover preview closes this way; a clicked-into Mini closes on blur.
 		miniHideTimer = setTimeout(() => {
-			if (!miniEngaged) hideMini();
+			if (!miniEngaged && !mini?.isFocused()) hideMini();
 		}, 400);
 	}
 }
@@ -380,12 +386,12 @@ async function positionMini() {
 	const anchor = petOpen() ? pet.getBounds() : null;
 	const { workArea } = screen.getDisplayMatching(anchor ?? screen.getCursorScreenPoint());
 	const width = Math.min(420, workArea.width);
-	// Keep the existing side layout on platforms where this presentation has not been validated.
-	const shaped = anchor && process.platform === "win32";
+	// Without Finn on screen there is nothing to anchor to: the controls open as a side panel.
+	const shaped = Boolean(anchor);
 	const above = anchor ? anchor.y - workArea.y : 440;
 	const below = anchor ? workArea.y + workArea.height - anchor.y - anchor.height : 440;
-	// Controls and activity sit below Finn, flipping above him near the bottom of the screen.
-	const placement = !shaped ? "side" : below < 240 && above > below ? "above" : "below";
+	// Controls and activity sit above Finn, flipping below him near the top of the screen.
+	const placement = !shaped ? "side" : above < 240 && below > above ? "below" : "above";
 	// About 90 px of the room goes to the toolbar, gaps and padding around the activity.
 	const contentHeight = Math.max(
 		80,
@@ -409,13 +415,16 @@ async function positionMini() {
 			}
 			const content = root.querySelector('.finn-mini-content')?.getBoundingClientRect();
 			const slot = root.querySelector('.finn-mini-pet-slot').getBoundingClientRect();
-			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y,
+			// Focusing the composer can scroll the page while the window is still too short;
+			// measure from the document top, where the resized window starts.
+			const sy = window.scrollY;
+			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y + sy,
 				surfaces: [...root.querySelectorAll('[data-mini-surface]')].map(el => {
 					const r = el.getBoundingClientRect();
 					const inContent = content && el.closest('.finn-mini-content');
 					const top = inContent ? Math.max(r.top, content.top) : r.top;
 					const bottom = inContent ? Math.min(r.bottom, content.bottom) : r.bottom;
-					return { x: Math.floor(r.x - 3), y: Math.floor(top - 3), width: Math.ceil(r.width + 6), height: Math.ceil(bottom - top + 6) };
+					return { x: Math.floor(r.x - 3), y: Math.floor(top + sy - 3), width: Math.ceil(r.width + 6), height: Math.ceil(bottom - top + 6) };
 				}).filter(r => r.width > 6 && r.height > 6) };
 		})()`);
 		if (!layout || version !== miniLayoutVersion || window.isDestroyed() || quitting) return;
@@ -434,7 +443,13 @@ async function positionMini() {
 			width,
 			height: miniHeight,
 		});
-		if (shaped) window.setShape(layout.surfaces);
+		// Clicks outside the pills reach Finn and the desktop: Windows cuts the window to the pills,
+		// macOS has no setShape, so the window ignores the mouse until the pointer is over a pill.
+		// A relayout keeps the pill under the pointer clickable: the page only reports changes.
+		window.shaped = shaped;
+		if (process.platform === "win32") {
+			if (shaped) window.setShape(layout.surfaces);
+		} else window.setIgnoreMouseEvents(shaped && !miniOverSurface, { forward: true });
 	} catch (error) {
 		if (!window.isDestroyed() && !quitting)
 			console.error("Could not position FINN controls", error);
@@ -468,6 +483,29 @@ function toggleMini() {
 	});
 }
 
+// Demo trigger: a Teams message contradicts what Finn knows, and he speaks up unasked.
+const HEADS_UP_KEY = "CommandOrControl+Alt+T";
+function teamsHeadsUp() {
+	if (Notification.isSupported())
+		new Notification({
+			title: "Microsoft Teams · Atlas payroll",
+			body: "I thought Atlas could submit until the 25th this time?",
+		}).show();
+	setTimeout(() => {
+		if (quitting) return;
+		if (mainOpen()) return mainWindow.webContents.send("finn:heads-up");
+		if (!mini || mini.isDestroyed() || !petOpen()) return;
+		mini.webContents.send("finn:heads-up");
+		if (!flying) {
+			pet.webContents.send("pet:pose", "waving");
+			setTimeout(() => petOpen() && !flying && pet.webContents.send("pet:pose", null), 1400);
+		}
+		void positionMini().then(() => {
+			if (!quitting && mini && !mini.isDestroyed() && !mainOpen()) mini.showInactive();
+		});
+	}, 1500);
+}
+
 function addFinnMenu(url) {
 	const menu = Menu.getApplicationMenu() ?? new Menu();
 	finnMenu = Menu.buildFromTemplate([
@@ -490,6 +528,7 @@ function addFinnMenu(url) {
 				}
 			},
 		},
+		{ label: "Simulate Teams message", accelerator: HEADS_UP_KEY, click: teamsHeadsUp },
 		{ type: "separator" },
 		{ label: "Quit", click: () => app.quit() },
 	]);
@@ -573,6 +612,10 @@ ipcMain.on("mini:show", (event) => {
 ipcMain.on("mini:hover", (event, inside) => {
 	if (trustedWindow(event, pet, "/pet") || trustedWindow(event, mini, "/mini"))
 		setMiniHover(inside === true);
+	if (!trustedWindow(event, mini, "/mini")) return;
+	miniOverSurface = inside === true;
+	if (process.platform !== "win32" && mini.shaped)
+		mini.setIgnoreMouseEvents(!miniOverSurface, { forward: true });
 });
 ipcMain.on("mini:engaged", (event, engaged) => {
 	if (trustedWindow(event, mini, "/mini")) miniEngaged = engaged === true;
@@ -643,6 +686,9 @@ app.whenReady().then(async () => {
 		// First launch or unreadable settings: keep the defaults.
 	}
 	if (!validScale(settings.petScale)) settings.petScale = 100;
+	// Packaged builds carry the icon in the bundle; `electron .` needs it set on the dock.
+	if (!app.isPackaged && process.platform === "darwin")
+		app.dock.setIcon(join(__dirname, "icon.png"));
 	// Microphone only, for Finn's voice input on the app's own pages; other permissions as before.
 	session.defaultSession.setPermissionRequestHandler((contents, permission, grant, details) => {
 		if (permission !== "media") return grant(true);
@@ -658,8 +704,9 @@ app.whenReady().then(async () => {
 		openMini(url);
 		addFinnMenu(url);
 		openPet(url);
+		globalShortcut.register(HEADS_UP_KEY, teamsHeadsUp);
 	} catch (error) {
-		dialog.showErrorBox("Day One could not start", String(error));
+		dialog.showErrorBox("SDtrust could not start", String(error));
 		app.quit();
 	}
 });
@@ -672,6 +719,7 @@ app.on("before-quit", () => {
 app.on("activate", () => {
 	if (appUrl && !quitting) void openMain().catch(reportOpenError);
 });
+app.on("will-quit", () => globalShortcut.unregisterAll());
 app.on("window-all-closed", () => app.quit());
 app.once("quit", () => {
 	api?.kill();

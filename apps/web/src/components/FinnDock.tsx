@@ -56,6 +56,7 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 			window.clearTimeout(hideTimer);
 		};
 	}, [bubble]);
+	useEffect(() => window.desktop?.onHeadsUp?.(() => setOpen(true)), []);
 	useEffect(
 		() => window.desktop?.onFinnLanded?.(() => setPhase((p) => (p === "waiting" ? "landing" : p))),
 		[],
