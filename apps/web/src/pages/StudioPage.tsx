@@ -20,45 +20,56 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 					Skip to content
 				</a>
 				<aside className="desktop-sidebar">
-					<Link className="desktop-brand" to="/w/$workspaceId" params={{ workspaceId }}>
-						<Brand />
-					</Link>
-					<nav className="desktop-nav" aria-label="Main navigation">
-						<Link
-							to="/w/$workspaceId"
-							params={{ workspaceId }}
-							className={view === "overview" ? "selected" : ""}
-						>
-							<Icon name="house" />
-							<span>Overview</span>
+					<span className="aurora-blob aurora-blob-a" aria-hidden="true" />
+					<span className="aurora-blob aurora-blob-b" aria-hidden="true" />
+					<span className="aurora-blob aurora-blob-c" aria-hidden="true" />
+					<div className="sidebar-glass">
+						<Link className="desktop-brand" to="/w/$workspaceId" params={{ workspaceId }}>
+							<Brand />
 						</Link>
-					</nav>
-					<div className="sidebar-bottom">
-						<Link
-							className={view === "settings" ? "sidebar-settings selected" : "sidebar-settings"}
-							to="/w/$workspaceId/settings"
-							params={{ workspaceId }}
-						>
-							<Icon name="settings" />
-							<span>Settings</span>
-						</Link>
-						<UserMenu
-							user={user}
-							role={workspace?.role ?? "Member"}
-							{...(session.mode === "dev"
-								? {
-										switchUsers: demoUsers,
-										onSwitch: (id: string) => {
-											void navigate({ to: "/" });
-											session.signIn(id);
-										},
-									}
-								: {})}
-							onSignOut={() => {
-								session.signOut();
-								void navigate({ to: "/" });
-							}}
-						/>
+						<nav className="desktop-nav" aria-label="Main navigation">
+							<Link
+								to="/w/$workspaceId"
+								params={{ workspaceId }}
+								className={view === "overview" ? "selected" : ""}
+							>
+								<span className="nav-icon">
+									<Icon name="house" size={18} />
+								</span>
+								<span>Overview</span>
+								<span className="nav-dot" aria-hidden="true" />
+							</Link>
+						</nav>
+						<div className="sidebar-bottom">
+							<Link
+								className={view === "settings" ? "sidebar-settings selected" : "sidebar-settings"}
+								to="/w/$workspaceId/settings"
+								params={{ workspaceId }}
+							>
+								<span className="nav-icon">
+									<Icon name="settings" size={18} />
+								</span>
+								<span>Settings</span>
+								<span className="nav-dot" aria-hidden="true" />
+							</Link>
+							<UserMenu
+								user={user}
+								role={workspace?.role ?? "Member"}
+								{...(session.mode === "dev"
+									? {
+											switchUsers: demoUsers,
+											onSwitch: (id: string) => {
+												void navigate({ to: "/" });
+												session.signIn(id);
+											},
+										}
+									: {})}
+								onSignOut={() => {
+									session.signOut();
+									void navigate({ to: "/" });
+								}}
+							/>
+						</div>
 					</div>
 				</aside>
 				<main className="desktop-main" id="main-content">
