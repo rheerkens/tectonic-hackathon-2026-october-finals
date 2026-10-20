@@ -83,6 +83,25 @@ function page(A, I, animated) {
 	const relieved = (animated && A.lotteRelievedSprite) || A.lotteRelieved;
 	const shrug = (animated ? A.lotteShrugSprite : A.lotteShrugStill) || A.lottePuzzled;
 	const footer = `<div class="footer"><img src="${A.logo}" alt=""><span>SDtrust · Tectonic hackathon finals · SD Worx challenge</span></div>`;
+	const videoSlide = (clip) => {
+		const i = clip.n - 1;
+		return {
+			cls: "dark",
+			notes: A.clips[i]
+				? clip.notes
+				: `Video ${clip.n}: Sebastien's clip ${clip.n} is not in docs/presentation/video yet. Rebuild the deck once it is pushed.`,
+			html: `
+			<div class="video" style="left:108px;top:50px;width:1384px;height:779px">
+				<video playsinline preload="auto"${A.clips[i] ? ` data-src="${A.clips[i]}"` : ""}></video>
+				<div class="placeholder">
+					<div class="play">${I.play}</div>
+					<b>Video ${clip.n} · coming from Sebastien</b>
+					<span>Drop a video file on this slide to preview it</span>
+				</div>
+			</div>
+			<p class="clip-label" style="left:108px;top:846px">Video ${clip.n} · ${clip.title}</p>`,
+		};
+	};
 	const slides = [
 		{
 			cls: "dark",
@@ -154,22 +173,7 @@ function page(A, I, animated) {
 				<small>Account owner, Atlas</small>
 			</div>`,
 		},
-		...CLIPS.map((clip, i) => ({
-			cls: "dark",
-			notes: A.clips[i]
-				? clip.notes
-				: `Video ${clip.n}: Sebastien's clip ${clip.n} is not in docs/presentation/video yet. Rebuild the deck once it is pushed.`,
-			html: `
-			<div class="video" style="left:108px;top:50px;width:1384px;height:779px">
-				<video playsinline preload="auto"${A.clips[i] ? ` data-src="${A.clips[i]}"` : ""}></video>
-				<div class="placeholder">
-					<div class="play">${I.play}</div>
-					<b>Video ${clip.n} · coming from Sebastien</b>
-					<span>Drop a video file on this slide to preview it</span>
-				</div>
-			</div>
-			<p class="clip-label" style="left:108px;top:846px">Video ${clip.n} · ${clip.title}</p>`,
-		})),
+		...CLIPS.slice(0, 3).map(videoSlide),
 		{
 			cls: "dark",
 			steps: 4,
@@ -213,6 +217,7 @@ function page(A, I, animated) {
 			<audio class="a1" preload="auto" src="${A.call1}"></audio>
 			<audio class="a2" preload="auto" src="${A.call2}"></audio>`,
 		},
+		...CLIPS.slice(3).map(videoSlide),
 		{
 			cls: "dark",
 			notes:

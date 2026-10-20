@@ -466,8 +466,8 @@ const MEDIA = {};
 
 	// 4-7. Sebastien's videos
 	pres.addSection({ title: "Demo" });
-	for (const clip of CLIPS) {
-		newSlide("SDtrust Dark", "Demo");
+	const addVideoSlide = (clip, section) => {
+		newSlide("SDtrust Dark", section);
 		text("Clip label", `Video ${clip.n} · ${clip.title}`, [108, 846, 800, 28], {
 			fontSize: 10,
 			bold: true,
@@ -484,7 +484,7 @@ const MEDIA = {};
 			MEDIA[slideNo] = { [`Video ${clip.n}`]: { dur: clip.dur, kind: "video" } };
 			group("auto", [{ name: `Video ${clip.n}`, fx: "play", delay: 0 }]);
 			s.addNotes(clip.notes);
-			continue;
+			return;
 		}
 		shape("Video placeholder", R.ROUNDED_RECTANGLE, [108, 50, 1384, 779], {
 			fill: { color: C.text1 },
@@ -508,7 +508,8 @@ const MEDIA = {};
 		s.addNotes(
 			`Video ${clip.n}: Sebastien's clip ${clip.n} is not in docs/presentation/video yet. Rebuild the deck once it is pushed.`,
 		);
-	}
+	};
+	for (const clip of CLIPS.slice(0, 3)) addVideoSlide(clip, "Demo");
 
 	// 6. The call
 	pres.addSection({ title: "Call" });
@@ -800,6 +801,9 @@ const MEDIA = {};
 			"CLICK 4, the CRM card appears. PRESENTER: Roy never opened the CRM. Finn wrote the agreement there himself, so the next person who asks gets the 22nd straight away.",
 		].join("\n"),
 	);
+
+	// After the call: Roy's answer is now a source
+	for (const clip of CLIPS.slice(3)) addVideoSlide(clip, "Call");
 
 	// 7. Close
 	pres.addSection({ title: "Close" });
