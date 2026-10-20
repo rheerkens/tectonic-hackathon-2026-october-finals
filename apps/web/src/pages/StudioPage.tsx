@@ -5,13 +5,16 @@ import { Brand } from "../components/Brand";
 import { FinnDock } from "../components/FinnDock";
 import { Icon } from "../components/Icon";
 import { UserMenu } from "../components/UserMenu";
+import { useLiveWorkspace } from "../state/realtime";
 import { StudioContext } from "../state/StudioContext";
 import { useStudio } from "../state/studio";
 
-export type DesktopView = "overview" | "experts" | "settings" | "result";
+type DesktopView = "overview" | "experts" | "settings" | "result";
 export function StudioPage({ workspaceId, view }: { workspaceId: string; view: DesktopView }) {
 	const studio = useStudio(workspaceId);
 	const { user, workspace } = studio;
+	// Live cache updates and presence; subscribe only once membership is confirmed.
+	useLiveWorkspace(workspace ? workspaceId : "");
 	return (
 		<StudioContext.Provider value={studio}>
 			<div className="studio desktop-studio">

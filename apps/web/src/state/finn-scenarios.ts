@@ -482,13 +482,6 @@ export const finnScenarios: Record<string, FinnResult> = Object.fromEntries(
 	].map((result) => [result.id, result]),
 );
 
-/** Demo questions in the order of the pitch. A follow-up answers within the previous conversation. */
-export const finnScript = [
-	{ question: d1October.question, resultId: d1October.id },
-	{ question: d1November.question, resultId: d1November.id, followUpOf: d1October.id },
-	{ question: d2.question, resultId: d2.id },
-];
-
 /** Who owns which knowledge in the demo, shown on the Experts page. */
 export const experts = [
 	{

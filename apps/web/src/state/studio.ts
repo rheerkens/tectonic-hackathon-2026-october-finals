@@ -2,7 +2,8 @@ import { createApiClient, errorMessage } from "@day-one/http";
 import { useListWorkspaces } from "@day-one/workspaces/list/state";
 import { useMemo } from "react";
 import { useSession } from "../auth/context";
-export function useWorkspaceDirectory() {
+
+function useWorkspaceDirectory() {
 	const session = useSession(),
 		user = session.user;
 	if (!user) throw new Error("Sign-in required.");
