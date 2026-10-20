@@ -1,0 +1,46 @@
+diff --git a/node_modules/electron-builder/.bun-tag-3a3e3ea7567c116 b/.bun-tag-3a3e3ea7567c116
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/out/builder.js b/out/builder.js
+index 9abb839546ebdccf325dcc91c7a4b798a903effb..4faf80f96664590a43b071e4a3e85ae357eaae1b 100644
+--- a/out/builder.js
++++ b/out/builder.js
+@@ -10,7 +10,9 @@ const app_builder_lib_1 = require("app-builder-lib");
+ const builder_util_1 = require("builder-util");
+ const builder_util_runtime_1 = require("builder-util-runtime");
+ const chalk = require("chalk");
+-const yargs = require("yargs");
++// yargs 18 is ESM-only and has no singleton: build the instance from process.argv.
++// It also finds package.json from the unresolved bin path, so pin our own --version.
++const yargs = require("yargs")(require("yargs/helpers").hideBin(process.argv)).version(require("../package.json").version);
+ function createYargs() {
+     return yargs.parserConfiguration({
+         "camel-case-expansion": false,
+diff --git a/out/cli/install-app-deps.js b/out/cli/install-app-deps.js
+index 9a4f89c0040f4c89f62d77fb31e2c728fbf85982..f1b61482fb969a9dcb82c91b60ffc6b34236d5c5 100644
+--- a/out/cli/install-app-deps.js
++++ b/out/cli/install-app-deps.js
+@@ -13,7 +13,8 @@ const builder_util_1 = require("builder-util");
+ const fs_extra_1 = require("fs-extra");
+ const lazy_val_1 = require("lazy-val");
+ const path = require("path");
+-const yargs = require("yargs");
++// yargs 18 is ESM-only and has no singleton: build the instance from process.argv.
++const yargs = require("yargs")(require("yargs/helpers").hideBin(process.argv));
+ /** @internal */
+ function configureInstallAppDepsCommand(yargs) {
+     // https://github.com/yargs/yargs/issues/760
+diff --git a/out/publish.js b/out/publish.js
+index 91373c2ada33d47eb6b82a08cc1d3b0b95f4b3ce..c115da308395ace0f1faac249b2c34fc35996c40 100644
+--- a/out/publish.js
++++ b/out/publish.js
+@@ -10,7 +10,8 @@ const config_1 = require("app-builder-lib/out/util/config/config");
+ const builder_util_1 = require("builder-util");
+ const chalk = require("chalk");
+ const path = require("path");
+-const yargs = require("yargs");
++// yargs 18 is ESM-only and has no singleton: build the instance from process.argv.
++const yargs = require("yargs")(require("yargs/helpers").hideBin(process.argv));
+ const builder_1 = require("./builder");
+ /** @internal */
+ function configurePublishCommand(yargs) {
