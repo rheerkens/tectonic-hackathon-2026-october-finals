@@ -317,9 +317,6 @@ body {
 		animation: none;
 	}
 }
-.desktop-studio .account-menu {
-	inset: auto auto 98px 20px;
-}
 .desktop-main {
 	padding: 18px clamp(24px, 3.2vw, 56px) 40px;
 	min-width: 0;
@@ -722,10 +719,6 @@ body {
 	}
 	.page-header h1 {
 		font-size: 28px;
-	}
-	.desktop-studio .account-menu {
-		left: 72px;
-		bottom: 20px;
 	}
 }
 
