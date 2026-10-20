@@ -1,8 +1,7 @@
-import { join } from "node:path";
 import { launch, stopStack } from "./launcher";
 import { listLeases, registryDir } from "./leases";
 import { isProcessAlive, readOwner } from "./lock";
-import { readRuntime, tailscaleHost } from "./runtime";
+import { readRuntime, runtimeFile, tailscaleHost } from "./runtime";
 import { assertProfile, localDir, resolveWorktree } from "./worktree";
 
 const args = process.argv.slice(2),
@@ -47,7 +46,7 @@ else if (command === "stop") {
 					profile,
 					tailscale: await tailscaleHost(),
 					runtime,
-					profileClaim: readOwner(join(local, "dev.lock")),
+					profileClaim: readOwner(runtimeFile(local, "dev.lock")),
 					leases: files.map((file) => {
 						const owner = readOwner(file);
 						return {

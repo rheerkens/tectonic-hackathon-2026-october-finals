@@ -580,6 +580,10 @@ dialog.sheet[open] { animation: slide .22s ease-out; }
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<template id="ownerDone">Vanaf 20 oktober 2026 wordt de onboarding checklist beheerd door <strong>Team Operations</strong>. Dit team zet de documenten klaar, verstuurt de welkomstmail en vraagt de toegang tot de systemen aan.<sup><button class="ref" data-src="4" aria-label="Bron 4">4</button></sup></template>
+<template id="attentionDone"><strong>Dossier is bijgewerkt.</strong> Er wacht niets meer op jou. Volgende controle op 15 januari 2027.</template>
+<template id="timelineDone"><li class="new"><time>20 oktober 2026, 09:15</time><span>Wijziging bevestigd door jou, Team Operations beheert de checklist</span></li></template>
+
 <script>
 const $ = (s) => document.querySelector(s);
 const root = document.documentElement;
@@ -619,25 +623,27 @@ $("#search").addEventListener("keydown", (e) => { if (e.key === "Enter") toast("
 // Sources
 const sources = {
   1: { kind: "Document", title: "Procesbeschrijving onboarding Atlas, versie 3", date: "2 september 2026", author: "Sebastien, Team Operations", place: "Gedeelde map Klanten",
-       excerpt: "Voor elke nieuwe medewerker van Atlas zet <mark>Team HR de documenten klaar, verstuurt de welkomstmail en vraagt toegang aan</mark>. Alles is geregeld voor de eerste werkdag.",
+       excerpt: ["Voor elke nieuwe medewerker van Atlas zet ", "Team HR de documenten klaar, verstuurt de welkomstmail en vraagt toegang aan", ". Alles is geregeld voor de eerste werkdag."],
        used: "Gebruikt in paragraaf 1 en 2." },
   2: { kind: "Gespreksverslag", title: "Teamgesprek onboarding Atlas", date: "5 oktober 2026", author: "Noor Peeters", place: "Teamoverleg Atlas",
-       excerpt: "Afgesproken: <mark>documenten staan uiterlijk vijf werkdagen voor de start klaar</mark>. Toegang tot portaal en tijdregistratie is de dag voor de start rond.",
+       excerpt: ["Afgesproken: ", "documenten staan uiterlijk vijf werkdagen voor de start klaar", ". Toegang tot portaal en tijdregistratie is de dag voor de start rond."],
        used: "Gebruikt in paragraaf 3 en 5." },
   3: { kind: "Notitie", title: "Projectnotities Atlas onboarding", date: "12 oktober 2026", author: "Noor Peeters", place: "Projectnotities",
-       excerpt: "Bij een start binnen vijf werkdagen <mark>plan ik een korte intake en regelen we documenten en toegang op dezelfde dag</mark>.",
+       excerpt: ["Bij een start binnen vijf werkdagen ", "plan ik een korte intake en regelen we documenten en toegang op dezelfde dag", "."],
        used: "Gebruikt in paragraaf 4. Nog geen tweede bron die dit bevestigt." },
   4: { kind: "Notitie", title: "Teamnotitie taakverdeling Atlas", date: "20 oktober 2026, 09:12", author: "Team Operations", place: "Interne communicatie",
-       excerpt: "Vanaf 20 oktober 2026 <mark>neemt Team Operations de onboarding checklist van Atlas over van Team HR</mark>. De stappen en termijnen blijven gelijk.",
+       excerpt: ["Vanaf 20 oktober 2026 ", "neemt Team Operations de onboarding checklist van Atlas over van Team HR", ". De stappen en termijnen blijven gelijk."],
        used: "Basis voor de voorgestelde wijziging in paragraaf 2." },
 };
 const sheet = $("#sheet");
+const node = (tag, text) => Object.assign(document.createElement(tag), { textContent: text });
 function openSource(id) {
   const s = sources[id];
   $("#sheetKicker").textContent = "Bron " + id + ", " + s.kind;
   $("#sheetTitle").textContent = s.title;
-  $("#sheetMeta").innerHTML = `<dt>Datum</dt><dd>${s.date}</dd><dt>Auteur</dt><dd>${s.author}</dd><dt>Locatie</dt><dd>${s.place}</dd>`;
-  $("#sheetExcerpt").innerHTML = s.excerpt;
+  $("#sheetMeta").replaceChildren(node("dt", "Datum"), node("dd", s.date), node("dt", "Auteur"), node("dd", s.author), node("dt", "Locatie"), node("dd", s.place));
+  const [before, marked, after] = s.excerpt;
+  $("#sheetExcerpt").replaceChildren(before, node("mark", marked), after);
   $("#sheetUsed").textContent = s.used;
   sheet.showModal();
 }
@@ -666,11 +672,11 @@ const askNoor = () => toast("Voorbeeld: er wordt geen bericht verstuurd, geen ko
 $("#askBtn").onclick = askNoor;
 $("#askBtn2").onclick = askNoor;
 
-const original = {
-  owner: $("#ownerText").innerHTML,
-  attention: $("#attentionText").innerHTML,
-  timeline: $("#timeline").innerHTML,
-};
+// Snapshots of the initial markup, cloned again on every restore.
+const nodes = (id) => [...$(id).childNodes].map((n) => n.cloneNode(true));
+const original = { owner: nodes("#ownerText"), attention: nodes("#attentionText"), timeline: nodes("#timeline") };
+const restore = (id, list) => $(id).replaceChildren(...list.map((n) => n.cloneNode(true)));
+const fill = (id) => $(id).content.cloneNode(true);
 function setConfirmed(done) {
   $("#proposal").hidden = done;
   $("#attention").classList.toggle("done", done);
@@ -678,20 +684,20 @@ function setConfirmed(done) {
   $("#tocFlag").hidden = done;
   $("#colState").textContent = done ? "Volledig geldig" : "Geldig, op één punt na";
   $("#colStateSub").textContent = done ? "Alle paragrafen bevestigd" : "Wie de checklist beheert is gewijzigd";
-  $("#colConfirmed").innerHTML = (done ? "20 oktober 2026" : "15 oktober 2026") + "<small>door Sebastien</small>";
+  $("#colConfirmed").replaceChildren(done ? "20 oktober 2026" : "15 oktober 2026", node("small", "door Sebastien"));
   const st = $("#m2Status");
   st.className = done ? "status" : "status wait";
   st.textContent = done ? "✓ Bevestigd vandaag" : "Wijziging voorgesteld";
   $("#m2Old").hidden = done;
   $("#m2Confirmed").textContent = done ? "20 oktober 2026" : "15 oktober 2026";
   if (done) {
-    $("#ownerText").innerHTML = 'Vanaf 20 oktober 2026 wordt de onboarding checklist beheerd door <strong>Team Operations</strong>. Dit team zet de documenten klaar, verstuurt de welkomstmail en vraagt de toegang tot de systemen aan.<sup><button class="ref" data-src="4" aria-label="Bron 4">4</button></sup>';
-    $("#attentionText").innerHTML = "<strong>Dossier is bijgewerkt.</strong> Er wacht niets meer op jou. Volgende controle op 15 januari 2027.";
-    $("#timeline").insertAdjacentHTML("afterbegin", '<li class="new"><time>20 oktober 2026, 09:15</time><span>Wijziging bevestigd door jou, Team Operations beheert de checklist</span></li>');
+    $("#ownerText").replaceChildren(fill("#ownerDone"));
+    $("#attentionText").replaceChildren(fill("#attentionDone"));
+    $("#timeline").prepend(fill("#timelineDone"));
   } else {
-    $("#ownerText").innerHTML = original.owner;
-    $("#attentionText").innerHTML = original.attention;
-    $("#timeline").innerHTML = original.timeline;
+    restore("#ownerText", original.owner);
+    restore("#attentionText", original.attention);
+    restore("#timeline", original.timeline);
     body.hidden = true;
     reviewBtn.setAttribute("aria-expanded", "false");
     reviewBtn.textContent = "Bekijk wijziging";

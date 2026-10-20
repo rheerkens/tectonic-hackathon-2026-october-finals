@@ -14,6 +14,7 @@ import {
 	assertProfileDir,
 	type Runtime,
 	readRuntime,
+	runtimeFile,
 	tailscaleHost,
 	writeRuntime,
 } from "./runtime";
@@ -25,7 +26,7 @@ export async function launch({ profile }: { profile: string }) {
 	mkdirSync(join(local, "logs"), { recursive: true });
 	assertProfileDir(local);
 	const owner = newOwner(worktree.root, profile);
-	const releaseProfile = claimFile(join(local, "dev.lock"), owner);
+	const releaseProfile = claimFile(runtimeFile(local, "dev.lock"), owner);
 	let lease: Awaited<ReturnType<typeof reservePorts>> | undefined;
 	const children: ManagedProcess[] = [];
 	let runtime: Runtime | undefined;
