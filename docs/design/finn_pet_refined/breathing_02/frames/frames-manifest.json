@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "chroma_key": {
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "threshold": 96.0
+  },
+  "rows": [
+    {
+      "state": "idle",
+      "frames": [
+        "C:\\Users\\Sebas\\.t3\\worktrees\\tectonic-hackathon-2026-october-finals\\feature-finn_animations\\docs\\design\\finn_pet_refined\\breathing_02\\frames\\idle\\00.png",
+        "C:\\Users\\Sebas\\.t3\\worktrees\\tectonic-hackathon-2026-october-finals\\feature-finn_animations\\docs\\design\\finn_pet_refined\\breathing_02\\frames\\idle\\01.png",
+        "C:\\Users\\Sebas\\.t3\\worktrees\\tectonic-hackathon-2026-october-finals\\feature-finn_animations\\docs\\design\\finn_pet_refined\\breathing_02\\frames\\idle\\02.png",
+        "C:\\Users\\Sebas\\.t3\\worktrees\\tectonic-hackathon-2026-october-finals\\feature-finn_animations\\docs\\design\\finn_pet_refined\\breathing_02\\frames\\idle\\03.png",
+        "C:\\Users\\Sebas\\.t3\\worktrees\\tectonic-hackathon-2026-october-finals\\feature-finn_animations\\docs\\design\\finn_pet_refined\\breathing_02\\frames\\idle\\04.png",
+        "C:\\Users\\Sebas\\.t3\\worktrees\\tectonic-hackathon-2026-october-finals\\feature-finn_animations\\docs\\design\\finn_pet_refined\\breathing_02\\frames\\idle\\05.png"
+      ],
+      "method": "components"
+    }
+  ]
+}

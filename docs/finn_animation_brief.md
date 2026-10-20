@@ -45,3 +45,15 @@ De tijdelijke assetserver luistert alleen op het eigen Tailscale adres en servee
 ## Volgende keuze
 
 Eerst beoordelen of deze rustigere cadans goed voelt. Daarna kan één echte ademcyclus met vaste voeten en minimale rompbeweging worden getekend. Alternatief is eerst de kleine contourverschillen in idle aanpakken. Uitbreidingen en aanpassingen aan de overige acht staten blijven voorstellen totdat de gebruiker een keuze maakt.
+
+## Proef 02 en inventaris
+
+De gebruiker vond proef 01 redelijk goed en gaf opdracht voor een subtiele ademproef plus een parallelle inventaris van bestaande en ontbrekende poses. Een aparte agent maakte uitsluitend docs/design/finn_pet_refined/pose_inventory.md op basis van bronbeelden, metadata en de gelezen huidige appkoppeling. De hoofdtaak heeft deze inventaris gecontroleerd. Alle negen animaties en zestien kijkrichtingen staan erin. De duidelijkste mogelijke toevoeging is een klein bevestigend knikje. Aandachtig luisteren en discreet wachten op een collega kunnen eerst bestaande beelden hergebruiken.
+
+docs/design/finn_pet_refined/breathing_02 bevat zes nieuw getekende ademposes uit de ingebouwde Imagegen tool, met de echte idle strip en idle.png als referentie. De nieuwe tekeningen zijn met de bestaande Pet scripts geëxtraheerd en gecontroleerd. Alleen rij 0 van een afzonderlijke kandidaat sheet is vervangen, de andere tien rijen zijn pixelgelijk aan de bron. Geen bronbestand is overschreven.
+
+De ademlus duurt 4400 ms, verdeeld als 900, 700, 600, 600, 700 en 900 ms. Deze losse proef houdt de ogen open. Ze combineert nog geen ademcyclus met de knippering van proef 01. Er zijn kleine tekenvariaties rond hoofd en schoenen. De globale alpha grenzen blijven exact gelijk en de voetenlijn blijft op y 202, maar dat bewijst geen pixelvaste lokale details.
+
+De GIF en lossless WebP exports, zes PNG frames, rijstrip, volledige kandidaat sheet, bronbeeld, gebruikte prompt en validatierapporten zijn opgeslagen. De validators rapporteren geen structurele fouten. De ingebouwde browserinspectie liep tweemaal vast op een timeout; een aparte Edge preview bevestigde daarna het afspelen, de veranderende frameposities en de weergave op lichte en donkere achtergrond. De vergelijking blijft beschikbaar op http://100.89.117.122:8767/finn_pet_refined/breathing_02/preview.html.
+
+docs/design/finn_pet_refined/overview.html bundelt de bewegende vergelijking en de volledige poseinventaris in een visueel overzicht. Dit is nog steeds uitsluitend een assetlevering. Appgedrag, accountinstellingen en bestaande state namen zijn niet gewijzigd. Er zijn geen unit tests of e2e tests geschreven of uitgevoerd.

@@ -1,0 +1,73 @@
+{
+  "name": "Finn breathing study 02",
+  "status": "candidate for user comparison, not integrated",
+  "state": "idle",
+  "row": 0,
+  "frames": 6,
+  "cellWidth": 192,
+  "cellHeight": 208,
+  "columns": 8,
+  "rows": 11,
+  "durationsMs": [
+    900,
+    700,
+    600,
+    600,
+    700,
+    900
+  ],
+  "loopDurationMs": 4400,
+  "loop": 0,
+  "gif": "animations/idle.gif",
+  "webp": "animations/idle.webp",
+  "framesDirectory": "frames/idle",
+  "rowStrip": "idle_row.png",
+  "spritesheet": "spritesheet.png",
+  "sourceAtlas": "../../finn_pet/spritesheet.png",
+  "sourceAtlasSha256": "4c441420de210d57ef4e84ee908081b0073b40af2710f5ed1914771471b25a88",
+  "generatedStrip": "decoded/idle.png",
+  "generatedStripSha256": "1c178af871aafaf78361e4a96bebd59232ae0a6de1a9bd183e78452b0c555075",
+  "imageGeneration": "Built-in image_gen; identity-preserve with original source_idle_strip.png and finn_pet/idle.png.",
+  "extraction": "Existing Pet extract_strip_frames.py, components method, shared row scale and vertical registration.",
+  "scope": "Only row 0 replaced in this candidate atlas; rows 1..10 preserved pixel for pixel. Original atlas unchanged.",
+  "frameSources": [
+    {
+      "index": 0,
+      "file": "frames/idle/00.png",
+      "sha256": "3eff607069cd39fcb39dbf61db72e05aa6a85d8c6bcadfacd2a5cfcc0820eab4",
+      "generatedPoseIndex": 0
+    },
+    {
+      "index": 1,
+      "file": "frames/idle/01.png",
+      "sha256": "6998ea548d53ebba4ff0ad2476ce2d5fd01857646123fe7ddbc9de2935da1d91",
+      "generatedPoseIndex": 1
+    },
+    {
+      "index": 2,
+      "file": "frames/idle/02.png",
+      "sha256": "36fa0d8266eed2711835cfda696f96e1c4aeb3b8d30b8b282fc570fbf157761a",
+      "generatedPoseIndex": 2
+    },
+    {
+      "index": 3,
+      "file": "frames/idle/03.png",
+      "sha256": "a6e959522b229f2cfb7c5b91760ff44d9acdac2664fed251ca03379a0797519c",
+      "generatedPoseIndex": 3
+    },
+    {
+      "index": 4,
+      "file": "frames/idle/04.png",
+      "sha256": "4746b0699e9254d6c18811d420dd40c9619a58b7515bde5e7cfa974aafb84bbc",
+      "generatedPoseIndex": 4
+    },
+    {
+      "index": 5,
+      "file": "frames/idle/05.png",
+      "sha256": "94ccfc6ef10c31645df6332ed7c13bebb9f1afb7c8d2771a7a626cf5a5ddbd32",
+      "generatedPoseIndex": 5
+    }
+  ],
+  "compatibility": "Existing idle name, six frames and 8x11 layout retained. Player must read custom durations. This is artwork only.",
+  "review": "Breathing is very subtle. All eyes open. Tiny frame-to-frame details still vary; candidate remains separate from approved source."
+}
