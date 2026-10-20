@@ -8,7 +8,7 @@ The finals pitch for the SD Worx challenge: Lotte's problem, SDtrust as the solu
 | [SDtrust-pitch-animated.html](SDtrust-pitch-animated.html) | Browser version with Lotte's sprite animations. One self-contained file, works offline. |
 | [SDtrust-pitch.html](SDtrust-pitch.html) | Browser version without character animation. |
 | [SDtrust-pitch.pdf](SDtrust-pitch.pdf) | Static backup of the PowerPoint. |
-| [call-script.html](call-script.html) | The call on slide 8 as a phone-sized script: Finn's lines, Roy's lines and when to click. |
+| [call-script.html](call-script.html) | The call on slide 7 as a phone-sized script: Finn's lines, Roy's lines and when to click. |
 
 Browser decks: click, arrow keys or space to advance, `F` for fullscreen, `N` for speaker notes.
 

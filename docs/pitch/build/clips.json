@@ -6,17 +6,17 @@
 	},
 	{
 		"title": "The answer and its source",
-		"file": "clip02/original/Finn_clip02_Edward.mp4",
+		"file": "clip02/refreshed/Finn_clip02_Edward.mp4",
 		"notes": "Video 2, 18 s, with narration: \"Ask Finn when Atlas can submit payroll changes. The deadline is 22 October, with a trust score and a source. Open the full result in SDtrust.\" Shows 22 October, 92% trust, source S4. Stay quiet; click when it ends."
 	},
 	{
 		"title": "Next month: Finn can't confirm",
-		"file": "clip03/original/Finn_clip03_Edward.mp4",
-		"notes": "Video 3, 17 s, with narration: \"And for next month? Finn cannot confirm the deadline. Roy can help. Contact is simulated in this prototype.\" Shows 15% trust and Waiting for Roy. Stay quiet; click when it ends."
+		"file": "clip03/refreshed/Finn_clip03_Edward.mp4",
+		"notes": "Video 3, 17 s, with narration: \"And for next month? Finn cannot confirm the deadline. Roy can help. Contact is simulated in this prototype.\" Shows 15% trust, Waiting for Roy and the Call Roy button. Stay quiet; click when it ends."
 	},
 	{
 		"title": "After Roy's answer",
 		"file": "clip04/original/Finn_clip04.mp4",
-		"notes": "Video 4, 13 s, silent. Roy's reply arrives (\"until Tuesday 24 November, I approved it last week but forgot to upload it\"), then Finn answers 24 November, 90% trust, source S35. PRESENTER, over the video: Roy answered once. Finn recorded it, and now anyone who asks gets 24 November straight away."
+		"notes": "Video 4 (after the live call), 13 s, silent. Roy's reply arrives (\"until Tuesday 24 November, I approved it last week but forgot to upload it\"), then Finn answers 24 November, 90% trust, source S35. PRESENTER, over the video: Roy answered once. Finn recorded it, and now anyone who asks gets 24 November straight away."
 	}
 ]
