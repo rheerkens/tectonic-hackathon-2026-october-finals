@@ -68,6 +68,54 @@ const png = async (file, width, extract) => {
 	return "image/png;base64," + (await img.resize({ width }).png().toBuffer()).toString("base64");
 };
 
+// Sebastien's recorded clips: docs/presentation/video/Finn_clip0N*.mp4
+const { execFileSync } = require("node:child_process");
+const VIDEO_DIR = path.join(REPO, "docs/presentation/video");
+const CLIPS = ["Meet Finn", "Clip 2", "Clip 3", "Clip 4"].map((title, i) => {
+	const name = fs.existsSync(VIDEO_DIR)
+		? fs
+				.readdirSync(VIDEO_DIR)
+				.find((f) => f.startsWith(`Finn_clip0${i + 1}`) && f.endsWith(".mp4"))
+		: undefined;
+	if (!name) return { n: i + 1, title, file: null };
+	const file = path.join(VIDEO_DIR, name);
+	const seconds = Number(
+		execFileSync("ffprobe", [
+			"-v",
+			"error",
+			"-show_entries",
+			"format=duration",
+			"-of",
+			"csv=p=0",
+			file,
+		])
+			.toString()
+			.trim(),
+	);
+	const poster = execFileSync("ffmpeg", [
+		"-v",
+		"error",
+		"-ss",
+		"0.3",
+		"-i",
+		file,
+		"-frames:v",
+		"1",
+		"-f",
+		"image2pipe",
+		"-vcodec",
+		"png",
+		"-",
+	]);
+	return {
+		n: i + 1,
+		title,
+		file,
+		dur: Math.round(seconds * 1000),
+		cover: "data:image/png;base64," + poster.toString("base64"),
+	};
+});
+
 // Animation plan, filled while building: slideNo -> [{ trigger: "auto" | "click", effects: [...] }]
 const ANIM = {};
 const MEDIA = {};
@@ -412,101 +460,53 @@ const MEDIA = {};
 		"That's the problem SD Worx asked us to solve: turn scattered knowledge into something people can trust, without anyone writing documentation. Our answer is SDtrust. It reads what your company already writes in Teams, mail, the CRM and procedures, decides which version to trust, and shows you why.",
 	);
 
-	// 4. Meet Finn
-	newSlide("SDtrust Light", "Solution");
-	text("Title", "Meet Finn", [72, 60, 1400, 80], { fontSize: PT(54), bold: true, color: C.text1 });
-	text("Sub", "Lives on your desktop. Out of the way until you need him.", [72, 162, 620, 60], {
-		fontSize: PT(22),
-		color: C.accent6,
-	});
-	gif("Finn idle", "finn-idle");
-	const fx4 = [];
-	[
-		[img.check, "The answer", "22 October 2026"],
-		[img.gauge, "How much to trust it", "92% · approved by the account owner"],
-		[img.file, "Where it came from", "CRM · client agreement · Roy"],
-	].forEach(([ic, label, value], i) => {
-		const y = 186 + i * 144;
-		shape(`Card ${i}`, R.ROUNDED_RECTANGLE, [720, y, 804, 120], {
-			fill: { color: C.background1 },
-			line: { color: HEX.border, width: 1 },
-			rectRadius: 0.15,
-			shadow: shadow(),
-		});
-		image(`Card icon ${i}`, ic, [756, y + 34, 52, 52]);
-		text(
-			`Card text ${i}`,
-			[
-				{ text: label, options: { fontSize: 10, color: C.accent6, breakLine: true } },
-				{ text: value, options: { fontSize: PT(26), bold: true, color: C.text1 } },
-			],
-			[828, y + 20, 670, 84],
-			{ valign: "middle" },
-		);
-		["Card", "Card icon", "Card text"].forEach((n) =>
-			fx4.push({ name: `${n} ${i}`, fx: "flyBottom", delay: 200 + i * 250, dur: 500 }),
-		);
-	});
-	shape("Card 3", R.ROUNDED_RECTANGLE, [720, 618, 804, 144], {
-		fill: { color: C.accent1 },
-		rectRadius: 0.15,
-	});
-	image("Card icon 3", img.users, [756, 664, 52, 52]);
-	text(
-		"Card text 3",
-		[
-			{ text: "Not sure?", options: { fontSize: 10, color: C.background1, breakLine: true } },
-			{
-				text: "Finn says so, and asks the colleague who knows",
-				options: { fontSize: PT(26), bold: true, color: C.background1 },
-			},
-		],
-		[828, 630, 670, 120],
-		{ valign: "middle" },
-	);
-	["Card", "Card icon", "Card text"].forEach((n) =>
-		fx4.push({ name: `${n} 3`, fx: "flyBottom", delay: 1000, dur: 500 }),
-	);
-	group("auto", fx4);
-	s.addNotes(
-		"And you talk to SDtrust through Finn. Every answer comes with how much you can trust it and where it came from. And when Finn isn't sure, it says so and asks the colleague who knows.",
-	);
-
-	// 5. Demo video
+	// 4-7. Sebastien's videos
 	pres.addSection({ title: "Demo" });
-	newSlide("SDtrust Dark", "Demo");
-	shape("Video placeholder", R.ROUNDED_RECTANGLE, [108, 66, 1384, 779], {
-		fill: { color: C.text1 },
-		line: { color: HEX.muted, width: 1, dashType: "dash" },
-		rectRadius: 0.2,
-	});
-	shape("Play", R.OVAL, [740, 310, 120, 120], { fill: { color: C.accent1 } });
-	image("Play icon", img.play, [776, 346, 52, 52]);
-	text("Video label", "Demo video · about 1:20 · no audio", [108, 470, 1384, 50], {
-		fontSize: PT(30),
-		bold: true,
-		color: C.background1,
-		align: "center",
-	});
-	text(
-		"Video hint",
-		"Replace this box: Insert › Video › This Device, then Playback › Start: Automatically",
-		[108, 528, 1384, 40],
-		{ fontSize: PT(19), color: C.background2, align: "center" },
-	);
-	s.addNotes(
-		[
-			"Narrate live over the silent video. Cues:",
-			"0:00 Finn idle: Finn lives on your desktop and stays out of the way.",
-			"0:08 Typing the question: Lotte just asks. 'Until when can Atlas submit payroll changes?'",
-			"0:20 Source icons orbit Finn: Finn searches what the company already writes. Teams, mail, CRM, procedures.",
-			"0:30 Answer, 22 October, trust 92%: 22 October, with high trust, and every source behind it.",
-			"0:45 Result page, rejected sources: And it shows what it rejected. The 23rd was a proposal in a meeting. The 25th was a question in chat.",
-			"1:05 Follow-up 'And for next month?': Then Lotte asks about November.",
-			"1:15 Trust 15%, no answer: Most AI would just say 22 October again. Finn says: I don't know. Nothing approved covers November. So Finn calls the one person who does.",
-			"(Video ends around 1:20. Click to the next slide: the call.)",
-		].join("\n"),
-	);
+	for (const clip of CLIPS) {
+		newSlide("SDtrust Dark", "Demo");
+		text("Clip label", `Video ${clip.n} · ${clip.title}`, [108, 846, 800, 28], {
+			fontSize: 10,
+			bold: true,
+			color: "8FA0B5",
+		});
+		if (clip.file) {
+			s.addMedia({
+				type: "video",
+				path: clip.file,
+				cover: clip.cover,
+				...box([108, 50, 1384, 779]),
+				objectName: `Video ${clip.n}`,
+			});
+			MEDIA[slideNo] = { [`Video ${clip.n}`]: { dur: clip.dur, kind: "video" } };
+			group("auto", [{ name: `Video ${clip.n}`, fx: "play", delay: 0 }]);
+			s.addNotes(
+				`Video ${clip.n}: ${clip.title}. It plays by itself with its own narration; stay quiet and click when it ends.`,
+			);
+			continue;
+		}
+		shape("Video placeholder", R.ROUNDED_RECTANGLE, [108, 50, 1384, 779], {
+			fill: { color: C.text1 },
+			line: { color: HEX.muted, width: 1, dashType: "dash" },
+			rectRadius: 0.2,
+		});
+		shape("Play", R.OVAL, [740, 300, 120, 120], { fill: { color: C.accent1 } });
+		image("Play icon", img.play, [776, 336, 52, 52]);
+		text("Video title", `Video ${clip.n} · coming from Sebastien`, [108, 460, 1384, 50], {
+			fontSize: PT(30),
+			bold: true,
+			color: C.background1,
+			align: "center",
+		});
+		text(
+			"Video hint",
+			"Replace this box: Insert › Video › This Device, then Playback › Start: Automatically",
+			[108, 518, 1384, 40],
+			{ fontSize: PT(19), color: C.background2, align: "center" },
+		);
+		s.addNotes(
+			`Video ${clip.n}: Sebastien's clip ${clip.n} is not in docs/presentation/video yet. Rebuild the deck once it is pushed.`,
+		);
+	}
 
 	// 6. The call
 	pres.addSection({ title: "Call" });
@@ -745,7 +745,10 @@ const MEDIA = {};
 		h: 0.5,
 		objectName: "Finn audio 2",
 	});
-	MEDIA[slideNo] = { "Finn audio 1": 10368, "Finn audio 2": 3216 };
+	MEDIA[slideNo] = {
+		"Finn audio 1": { dur: 10368, kind: "audio" },
+		"Finn audio 2": { dur: 3216, kind: "audio" },
+	};
 
 	group("auto", [
 		{ name: "Dot calling", fx: "fadeOut", delay: 2000, dur: 300 },
@@ -824,50 +827,50 @@ const MEDIA = {};
 		{ name: "Close 3", fx: "fade", delay: 1500, dur: 500 },
 	]);
 	s.addNotes(
-		"SDtrust: an answer you can trust, or an honest I don't know plus the right colleague. Zero unnecessary effort. Thank you.",
+		"SDtrust: an answer you can trust, or an honest I don't know plus the right colleague. Zero unnecessary effort.",
 	);
 
-	// 8. Backup
-	pres.addSection({ title: "Backup" });
-	newSlide("SDtrust Light", "Backup");
-	text("Title", "How Finn decides what to trust", [72, 60, 1400, 80], {
-		fontSize: PT(54),
+	// Thank you
+	newSlide("SDtrust Dark", "Close");
+	text("Thanks", "Thank you", [96, 190, 900, 140], {
+		fontSize: PT(120),
 		bold: true,
-		color: C.text1,
+		color: C.background1,
 	});
-	text("Sub", "Every percentage on screen comes with its reasons", [72, 162, 1200, 40], {
-		fontSize: PT(22),
-		color: C.accent6,
+	text("Questions", "Questions? Finn is listening.", [96, 350, 900, 70], {
+		fontSize: PT(42),
+		color: C.accent2,
 	});
-	[
-		[img.shield, "Authority", "Approved by the owner beats a chat message or a meeting proposal"],
-		[img.layers, "Scope", "Valid for this country, this client and this period"],
-		[img.calendar, "Validity", "Superseded or expired versions lose, even if they look official"],
-		[img.scale, "Agreement", "Conflicting sources lower trust. Too low? Finn asks the owner"],
-	].forEach(([ic, title, body], i) => {
-		const x = 72 + (i % 2) * 738;
-		const y = 264 + Math.floor(i / 2) * 258;
-		shape(`Factor ${title}`, R.ROUNDED_RECTANGLE, [x, y, 714, 228], {
-			fill: { color: C.background1 },
-			line: { color: HEX.border, width: 1 },
-			rectRadius: 0.15,
-			shadow: shadow(),
-		});
-		shape(`Factor dot ${title}`, R.OVAL, [x + 42, y + 48, 108, 108], {
-			fill: { color: C.background2 },
-		});
-		image(`Factor icon ${title}`, ic, [x + 70, y + 76, 52, 52]);
-		text(
-			`Factor text ${title}`,
-			[
-				{ text: title, options: { fontSize: PT(30), bold: true, color: C.text1, breakLine: true } },
-				{ text: body, options: { fontSize: PT(21), color: C.accent6 } },
-			],
-			[x + 186, y + 42, 500, 160],
-			{ paraSpaceAfter: 6 },
-		);
+	text("Team", "Sebastien · Roy · Wanne", [96, 560, 800, 36], {
+		fontSize: PT(20),
+		bold: true,
+		color: C.accent2,
 	});
-	s.addNotes("Backup for Q&A, question 'How is the trust score calculated?'. Show only if asked.");
+	text(
+		"Meta",
+		"Tectonic hackathon finals · SD Worx challenge · 20 October 2026",
+		[96, 604, 900, 30],
+		{
+			fontSize: PT(17),
+			color: C.background2,
+		},
+	);
+	image("Thanks logo", img.logo, [96, 680, 72, 72]);
+	text("Thanks brand", "SDtrust", [182, 680, 400, 72], {
+		fontSize: PT(34),
+		bold: true,
+		color: C.background1,
+		valign: "middle",
+	});
+	gif("Finn waving", "finn-waving-big");
+	group("auto", [{ name: "Questions", fx: "fade", delay: 400, dur: 500 }]);
+	s.addNotes(
+		[
+			"Thank the jury and open for questions.",
+			"If asked how trust is scored: four factors. Authority: an approved statement from the owner beats a proposal or a chat message. Scope: valid for this country, client and period. Validity: superseded or expired versions lose. Agreement: conflicting sources lower trust, and when trust is too low Finn asks the owner.",
+			"If asked whether this is real: the desktop app, the answer and evidence screens and the trust display are built. Sources and the call are simulated with demo data. Connecting Teams, mail and the CRM is the next step.",
+		].join("\n"),
+	);
 
 	await pres.writeFile({ fileName: OUT });
 	await applyTheme(OUT, THEME);
@@ -901,9 +904,12 @@ async function addAnimations(file) {
 			(_, id, name) => `<p:cNvPr id="${next++}" name="${name}"/>`,
 		);
 		// Audio is written as a video link; PowerPoint wants audioFile for an mp3
-		xml = xml.replace(/<a:videoFile r:link="(rId\d+)"\/>/g, (whole, rid) =>
-			MEDIA[no] ? `<a:audioFile r:link="${rid}"/>` : whole,
-		);
+		xml = xml.replace(/<p:pic>[\s\S]*?<\/p:pic>/g, (pic) => {
+			const name = pic.match(/name="([^"]*)"/)?.[1];
+			return MEDIA[no]?.[name]?.kind === "audio"
+				? pic.replace("<a:videoFile ", "<a:audioFile ")
+				: pic;
+		});
 		const kinds = {};
 		for (const m of xml.matchAll(
 			/<p:(sp|pic)>\s*<p:nv(?:Sp|Pic)Pr>\s*<p:cNvPr id="(\d+)" name="([^"]*)"/g,
@@ -963,7 +969,7 @@ function buildTiming(groups, ids, kinds, media, slideNo) {
 		const spid = ids[e.name];
 		if (!spid) throw new Error(`slide ${slideNo}: no shape named ${e.name}`);
 		if (e.fx === "play") {
-			return `<p:par><p:cTn id="${id()}" presetID="1" presetClass="mediacall" presetSubtype="0" fill="hold" nodeType="${nodeType}"><p:stCondLst><p:cond delay="${e.delay}"/></p:stCondLst><p:childTnLst><p:cmd type="call" cmd="playFrom(0.0)"><p:cBhvr><p:cTn id="${id()}" dur="${media[e.name]}" fill="hold"/>${tgt(spid)}</p:cBhvr></p:cmd></p:childTnLst></p:cTn></p:par>`;
+			return `<p:par><p:cTn id="${id()}" presetID="1" presetClass="mediacall" presetSubtype="0" fill="hold" nodeType="${nodeType}"><p:stCondLst><p:cond delay="${e.delay}"/></p:stCondLst><p:childTnLst><p:cmd type="call" cmd="playFrom(0.0)"><p:cBhvr><p:cTn id="${id()}" dur="${media[e.name].dur}" fill="hold"/>${tgt(spid)}</p:cBhvr></p:cmd></p:childTnLst></p:cTn></p:par>`;
 		}
 		if (kinds[e.name] === "sp") builds.add(spid);
 		const head = (presetID, cls, sub) =>
@@ -1021,9 +1027,10 @@ function buildTiming(groups, ids, kinds, media, slideNo) {
 		return `<p:par><p:cTn id="${outer}" fill="hold"><p:stCondLst>${start}</p:stCondLst><p:childTnLst><p:par><p:cTn id="${inner}" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>${effects}</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>`;
 	});
 	const audioNodes = Object.keys(media)
-		.map(
-			(name) =>
-				`<p:audio><p:cMediaNode vol="80000"><p:cTn id="${id()}" display="0" fill="hold"><p:stCondLst><p:cond delay="indefinite"/></p:stCondLst><p:endCondLst><p:cond evt="onStopAudio" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:endCondLst></p:cTn>${tgt(ids[name])}</p:cMediaNode></p:audio>`,
+		.map((name) =>
+			media[name].kind === "video"
+				? `<p:video><p:cMediaNode vol="80000"><p:cTn id="${id()}" display="0" fill="hold"><p:stCondLst><p:cond delay="indefinite"/></p:stCondLst></p:cTn>${tgt(ids[name])}</p:cMediaNode></p:video>`
+				: `<p:audio><p:cMediaNode vol="80000"><p:cTn id="${id()}" display="0" fill="hold"><p:stCondLst><p:cond delay="indefinite"/></p:stCondLst><p:endCondLst><p:cond evt="onStopAudio" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:endCondLst></p:cTn>${tgt(ids[name])}</p:cMediaNode></p:audio>`,
 		)
 		.join("");
 	const bld = builds.size

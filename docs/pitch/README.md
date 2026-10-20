@@ -1,6 +1,6 @@
 # SDtrust pitch
 
-The finals pitch for the SD Worx challenge: Lotte's problem, SDtrust as the solution, Finn, the demo video and Finn calling Roy.
+The finals pitch for the SD Worx challenge: Lotte's problem, SDtrust as the solution, four demo videos, Finn calling Roy, the close and a thank-you slide.
 
 | File | What it is |
 |---|---|
@@ -9,7 +9,9 @@ The finals pitch for the SD Worx challenge: Lotte's problem, SDtrust as the solu
 | [SDtrust-pitch.html](SDtrust-pitch.html) | Browser version without character animation. |
 | [SDtrust-pitch.pdf](SDtrust-pitch.pdf) | Static backup of the PowerPoint. |
 
-Browser decks: click, arrow keys or space to advance, `F` for fullscreen, `N` for speaker notes. Put `demo.mp4` next to the HTML file, or drop a video on the page, to fill the video slide. In the PowerPoint, insert the video on slide 5.
+Browser decks: click, arrow keys or space to advance, `F` for fullscreen, `N` for speaker notes.
+
+Slides 4 to 7 play Sebastien's clips from `docs/presentation/video/Finn_clip01*.mp4` to `Finn_clip04*.mp4`. Clips that are not there yet show a placeholder; rebuild with `html.cjs` and `pptx.cjs` to embed them. In a browser deck you can also drop a video file on a placeholder to preview it.
 
 Speaker notes in every format hold the full script, including Roy's live lines on the call slide.
 
@@ -26,5 +28,5 @@ The scripts in `build/` produced these files. They contain absolute paths from t
 - `cutout.py` removes the white background from a generated image.
 - `sprites.py` turns frame folders into looping animated WebP sprites.
 - `gifs.py` renders the sprites as GIFs on each slide's background, for PowerPoint.
-- `html.js` builds both HTML decks (`node`, needs `sharp`, `react`, `react-icons`).
-- `pptx.js` builds the PowerPoint and writes the click animations and audio into the slide XML (`node`, needs `pptxgenjs`, `jszip`, `sharp`).
+- `html.cjs` builds both HTML decks (`node`, needs `sharp`, `react`, `react-icons`).
+- `pptx.cjs` builds the PowerPoint and writes the click animations and audio into the slide XML (`node`, needs `pptxgenjs`, `jszip`, `sharp`).

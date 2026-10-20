@@ -8,6 +8,16 @@ const Lu = require("react-icons/lu");
 
 const REPO = "/home/royh/.t3/worktrees/tectonic-hackathon-2026-october-finals/t3-fc2c5f3d";
 const OUT = path.join(REPO, "docs/pitch");
+const VIDEO_DIR = path.join(REPO, "docs/presentation/video");
+const CLIP_TITLES = ["Meet Finn", "Clip 2", "Clip 3", "Clip 4"];
+const CLIPS = CLIP_TITLES.map((title, i) => {
+	const name = fs.existsSync(VIDEO_DIR)
+		? fs
+				.readdirSync(VIDEO_DIR)
+				.find((f) => f.startsWith(`Finn_clip0${i + 1}`) && f.endsWith(".mp4"))
+		: undefined;
+	return { n: i + 1, title, file: name ? path.join(VIDEO_DIR, name) : null };
+});
 
 const spriteOr = (p, fallback) =>
 	fs.existsSync(p) ? b64(fs.readFileSync(p), "image/webp") : fallback;
@@ -33,6 +43,7 @@ const icon = (Comp, color) =>
 		lotteShrugSprite: spriteOr(path.join(OUT, "sprites/lotte-shrug.webp"), null),
 		lotteShrugStill: spriteOr(path.join(OUT, "sprites/lotte-shrug-still.webp"), null),
 		lotteRelievedSprite: spriteOr(path.join(OUT, "sprites/lotte-relieved.webp"), null),
+		clips: CLIPS.map((clip) => (clip.file ? file(clip.file, "video/mp4") : null)),
 		finnIdle: file(path.join(REPO, "apps/web/public/pet/idle.webp"), "image/webp"),
 		finnHead: b64(
 			await sharp(path.join(REPO, "docs/design/finn.png"))
@@ -145,50 +156,22 @@ function page(A, I, animated) {
 				<small>Source: CRM · Roy</small>
 			</div>`,
 		},
-		{
-			cls: "light",
-			notes:
-				"And you talk to SDtrust through Finn. Every answer comes with how much you can trust it and where it came from. And when Finn isn't sure, it says so and asks the colleague who knows.",
-			html: `
-			<h2 class="title">Meet Finn</h2>
-			<p class="sub" style="left:72px;top:162px;width:620px">Lives on your desktop. Out of the way until you need him.</p>
-			${animated ? `<img class="finn sprite" src="${A.finnIdle}" alt="Finn" style="left:168px;top:262px;height:520px">` : `<img class="finn" src="${A.finn}" alt="Finn" style="left:90px;top:258px;width:540px">`}
-			${[
-				[I.check, "The answer", "22 October 2026"],
-				[I.gauge, "How much to trust it", "92% · approved by the account owner"],
-				[I.file, "Where it came from", "CRM · client agreement · Roy"],
-			]
-				.map(
-					([svg, label, value], i) =>
-						`<div class="card ${animated ? "rise" : ""}" style="left:720px;top:${186 + i * 144}px;--d:${0.2 + i * 0.25}s"><i>${svg}</i><span>${label}</span><b>${value}</b></div>`,
-				)
-				.join("")}
-			<div class="card coral ${animated ? "rise" : ""}" style="left:720px;top:618px;height:144px;--d:1s"><i>${I.users}</i><span>Not sure?</span><b>Finn says so, and asks the colleague who knows</b></div>
-			${footer}`,
-		},
-		{
+		...CLIPS.map((clip, i) => ({
 			cls: "dark",
-			notes: [
-				"Narrate live over the silent video. Cues:",
-				"0:00 Finn idle: Finn lives on your desktop and stays out of the way.",
-				"0:08 Typing the question: Lotte just asks. 'Until when can Atlas submit payroll changes?'",
-				"0:20 Source icons orbit Finn: Finn searches what the company already writes. Teams, mail, CRM, procedures.",
-				"0:30 Answer, 22 October, trust 92%: 22 October, with high trust. That's the client agreement Roy approved, valid for Belgium, Atlas and October.",
-				"0:45 Result page, rejected sources: And it shows what it rejected. The 23rd was a proposal in a meeting. The 25th was a question in chat.",
-				"1:05 Follow-up 'And for next month?': Then Lotte asks about November.",
-				"1:15 Trust 15%, no answer: Most AI would just say 22 October again. Finn says: I don't know. Nothing approved covers November. So Finn calls the one person who does.",
-				"(Video ends around 1:20. Click to the next slide: the call.)",
-			].join("\n"),
+			notes: A.clips[i]
+				? `Video ${clip.n}: ${clip.title}. It plays by itself with its own narration; stay quiet and click when it ends.`
+				: `Video ${clip.n}: Sebastien's clip ${clip.n} is not in docs/presentation/video yet. Rebuild the deck once it is pushed.`,
 			html: `
-			<div class="video" style="left:108px;top:66px;width:1384px;height:779px">
-				<video muted playsinline preload="auto"></video>
+			<div class="video" style="left:108px;top:50px;width:1384px;height:779px">
+				<video playsinline preload="auto"${A.clips[i] ? ` data-src="${A.clips[i]}"` : ""}></video>
 				<div class="placeholder">
 					<div class="play">${I.play}</div>
-					<b>Demo video · about 1:20 · no audio</b>
-					<span>Put <code>demo.mp4</code> next to this file, or drop a video file here</span>
+					<b>Video ${clip.n} · coming from Sebastien</b>
+					<span>Drop a video file on this slide to preview it</span>
 				</div>
-			</div>`,
-		},
+			</div>
+			<p class="clip-label" style="left:108px;top:846px">Video ${clip.n} · ${clip.title}</p>`,
+		})),
 		{
 			cls: "dark",
 			steps: 3,
@@ -232,7 +215,7 @@ function page(A, I, animated) {
 		{
 			cls: "dark",
 			notes:
-				"SDtrust: an answer you can trust, or an honest I don't know plus the right colleague. Zero unnecessary effort. Thank you.",
+				"SDtrust: an answer you can trust, or an honest I don't know plus the right colleague. Zero unnecessary effort.",
 			html: `
 			<img class="lotte" src="${relieved}" alt="Lotte, relieved, thumbs up" style="left:96px;top:156px;height:576px">
 			${animated ? `<div class="sparkles" style="left:296px;top:252px"><i></i><i></i><i></i><i></i></div>` : ""}
@@ -243,24 +226,19 @@ function page(A, I, animated) {
 			<div class="brand small" style="left:684px;top:654px"><img src="${A.logo}" alt=""><span>SDtrust</span></div>`,
 		},
 		{
-			cls: "light",
-			backup: true,
-			notes: "Backup for Q&A, question 'How is the trust score calculated?'. Show only if asked.",
+			cls: "dark",
+			notes: [
+				"Thank the jury and open for questions.",
+				"If asked how trust is scored: four factors. Authority: an approved statement from the owner beats a proposal or a chat message. Scope: valid for this country, client and period. Validity: superseded or expired versions lose. Agreement: conflicting sources lower trust, and when trust is too low Finn asks the owner.",
+				"If asked whether this is real: the desktop app, the answer and evidence screens and the trust display are built. Sources and the call are simulated with demo data. Connecting Teams, mail and the CRM is the next step.",
+			].join("\n"),
 			html: `
-			<h2 class="title">How Finn decides what to trust</h2>
-			<p class="sub" style="left:72px;top:162px">Every percentage on screen comes with its reasons</p>
-			${[
-				[I.shield, "Authority", "Approved by the owner beats a chat message or a meeting proposal"],
-				[I.layers, "Scope", "Valid for this country, this client and this period"],
-				[I.calendar, "Validity", "Superseded or expired versions lose, even if they look official"],
-				[I.scale, "Agreement", "Conflicting sources lower trust. Too low? Finn asks the owner"],
-			]
-				.map(
-					([svg, title, body], i) =>
-						`<div class="factor" style="left:${72 + (i % 2) * 738}px;top:${264 + Math.floor(i / 2) * 258}px"><i>${svg}</i><b>${title}</b><span>${body}</span></div>`,
-				)
-				.join("")}
-			${footer}`,
+			<h1 class="thanks" style="left:96px;top:190px">Thank you</h1>
+			<p class="close2" style="left:96px;top:350px">Questions? Finn is listening.</p>
+			<p class="team" style="left:96px;top:560px">Sebastien · Roy · Wanne</p>
+			<p class="meta" style="left:96px;top:606px">Tectonic hackathon finals · SD Worx challenge · 20 October 2026</p>
+			<div class="brand small" style="left:96px;top:680px"><img src="${A.logo}" alt=""><span>SDtrust</span></div>
+			<img class="finn-wave" src="${A.finnWave}" alt="Finn waving" style="left:1040px;top:200px;height:520px">`,
 		},
 	];
 
@@ -332,6 +310,8 @@ html, body { height: 100%; background: #000; overflow: hidden; font-family: Manr
 .placeholder b { font-size: 30px; font-weight: 800; }
 .placeholder span { font-size: 19px; color: var(--ivory); }
 .placeholder code { background: #0f1d31; padding: 2px 8px; border-radius: 6px; }
+.thanks { font-size: 120px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+.clip-label { font-size: 16px; font-weight: 700; color: #8fa0b5; letter-spacing: 1px; }
 .close1 { font-size: 54px; font-weight: 800; letter-spacing: -1px; }
 .close2 { font-size: 42px; line-height: 1.3; color: var(--amber); font-weight: 500; }
 .close3 { font-size: 28px; font-style: italic; color: var(--ivory); }
@@ -428,8 +408,7 @@ ${slides
 const slides = [...document.querySelectorAll(".slide")];
 const stage = document.getElementById("stage");
 const notes = document.getElementById("notes");
-const video = document.querySelector(".video video");
-const videoBox = document.querySelector(".video");
+const videos = [...document.querySelectorAll(".video video")];
 let index = 0;
 let step = 0;
 let callTimers = [];
@@ -448,7 +427,9 @@ function show(i) {
 	document.getElementById("count").textContent = (index + 1) + " / " + slides.length;
 	notes.textContent = active.dataset.notes;
 	history.replaceState(null, "", "#" + (index + 1));
-	if (active.contains(video) && videoBox.classList.contains("has-video")) { video.currentTime = 0; video.play().catch(() => {}); } else { video.pause(); }
+	videos.forEach((v) => {
+		if (active.contains(v) && v.closest(".video").classList.contains("has-video")) { v.currentTime = 0; v.play().catch(() => {}); } else { v.pause(); }
+	});
 	setStep(0, true);
 }
 function setStep(n, entering) {
@@ -516,7 +497,6 @@ addEventListener("keydown", (e) => {
 	else if (e.key.toLowerCase() === "n") document.body.classList.toggle("notes");
 });
 document.getElementById("viewport").addEventListener("click", (e) => {
-	if (e.target.closest(".video.has-video")) return;
 	e.clientX < innerWidth * 0.25 ? prev() : next();
 });
 document.getElementById("prev").onclick = (e) => { e.stopPropagation(); prev(); };
@@ -525,10 +505,10 @@ document.getElementById("nbtn").onclick = () => document.body.classList.toggle("
 document.getElementById("fbtn").onclick = fullscreen;
 
 // Video: demo.mp4 next to this file, or drag a file onto the page
-function useVideo(src) { video.src = src; video.onloadeddata = () => { videoBox.classList.add("has-video"); if (slides[index].contains(video)) video.play().catch(() => {}); }; }
-useVideo("demo.mp4");
+function useVideo(v, src) { v.src = src; v.onloadeddata = () => { v.closest(".video").classList.add("has-video"); if (slides[index].contains(v)) { v.currentTime = 0; v.play().catch(() => {}); } }; }
+videos.forEach((v) => v.dataset.src && useVideo(v, v.dataset.src));
 addEventListener("dragover", (e) => e.preventDefault());
-addEventListener("drop", (e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f && f.type.startsWith("video")) useVideo(URL.createObjectURL(f)); });
+addEventListener("drop", (e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; const v = slides[index].querySelector(".video video"); if (v && f && f.type.startsWith("video")) useVideo(v, URL.createObjectURL(f)); });
 
 let hideTimer;
 addEventListener("mousemove", () => {
