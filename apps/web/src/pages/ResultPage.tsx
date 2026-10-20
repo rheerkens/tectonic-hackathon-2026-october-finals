@@ -45,7 +45,7 @@ export function ResultPage({ resultId }: { resultId: string }) {
 			<div className="result-page">
 				{result ? (
 					<>
-						<header className="desktop-page-heading">
+						<header className="page-header">
 							{overview}
 							<h1>{result.question}</h1>
 							<p>

@@ -325,7 +325,7 @@ body {
 	min-width: 0;
 	max-width: 1500px;
 	width: 100%;
-	margin: auto;
+	margin: 0 auto;
 }
 .dashboard-heading {
 	display: flex;
@@ -353,7 +353,7 @@ body {
 	display: grid;
 	gap: 22px;
 }
-.dashboard-card {
+.card {
 	border: 1px solid var(--glass-border);
 	background: var(--glass);
 	border-radius: 20px;
@@ -361,7 +361,7 @@ body {
 	backdrop-filter: blur(18px) saturate(140%);
 	padding: 22px;
 }
-.dashboard-card h2 {
+.card h2 {
 	display: flex;
 	align-items: center;
 	gap: 14px;
@@ -370,7 +370,7 @@ body {
 	line-height: 1.4;
 	margin-bottom: 18px;
 }
-.dashboard-row {
+.list-row {
 	display: flex;
 	align-items: center;
 	gap: 16px;
@@ -380,10 +380,14 @@ body {
 	text-decoration: none;
 	color: var(--text);
 }
-.dashboard-row:last-child {
+.list-row:first-child {
+	border-top: 0;
+	padding-top: 0;
+}
+.list-row:last-child {
 	padding-bottom: 0;
 }
-.dashboard-row:hover .row-copy strong {
+.list-row:hover .row-copy strong {
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
@@ -396,7 +400,7 @@ body {
 	flex-shrink: 0;
 	transition: transform 0.25s ease;
 }
-.dashboard-row:hover .row-symbol {
+.list-row:hover .row-symbol {
 	transform: scale(1.06) rotate(-3deg);
 }
 .coral {
@@ -481,16 +485,16 @@ body {
 	display: inline-block;
 	margin-top: 10px;
 }
-.desktop-page-heading {
+.page-header {
 	margin-bottom: 30px;
 	display: grid;
 	gap: 10px;
 	justify-items: start;
 }
-.desktop-page-heading h1 {
+.page-header h1 {
 	font-size: 34px;
 }
-.desktop-page-heading p {
+.page-header p {
 	color: var(--muted);
 }
 .result-seal {
@@ -507,7 +511,7 @@ body {
 .answer-card:has(.result-seal) h2 {
 	padding-right: 80px;
 }
-.settings-page {
+.narrow-page {
 	max-width: 920px;
 }
 .settings-section {
@@ -620,7 +624,7 @@ body {
 	.row-meta {
 		display: none;
 	}
-	.dashboard-row {
+	.list-row {
 		gap: 11px;
 	}
 }
@@ -696,10 +700,10 @@ body {
 		font-size: 10px;
 		margin-bottom: 12px;
 	}
-	.dashboard-card {
+	.card {
 		padding: 18px 15px;
 	}
-	.dashboard-card h2 {
+	.card h2 {
 		font-size: 16px;
 		gap: 10px;
 	}
@@ -716,7 +720,7 @@ body {
 	.note-date {
 		display: none;
 	}
-	.desktop-page-heading h1 {
+	.page-header h1 {
 		font-size: 28px;
 	}
 	.desktop-studio .account-menu {

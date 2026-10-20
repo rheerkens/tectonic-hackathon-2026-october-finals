@@ -36,7 +36,7 @@ export function NotesPanel({
 	const [visibleCount, setVisibleCount] = useState(10);
 	return (
 		<section className="notes-panel">
-			<div className="page-heading">
+			<div className="notes-heading">
 				<div>
 					<h1>Workspace notes</h1>
 					<p className="muted">Small things worth keeping.</p>

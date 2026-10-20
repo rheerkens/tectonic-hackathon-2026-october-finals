@@ -26,7 +26,7 @@ function FinnSize() {
 		});
 	}
 	return (
-		<section className="dashboard-card settings-section">
+		<section className="card settings-section">
 			<h2>Finn's size</h2>
 			<p>Make Finn smaller or larger on your desktop and in SDtrust. Remembered on this device.</p>
 			<div className="finn-size">
@@ -60,12 +60,12 @@ export function SettingsPage() {
 	const { preference, setPreference } = useTheme();
 	const { user, workspace } = useStudioState();
 	return (
-		<div className="settings-page">
-			<header className="desktop-page-heading">
+		<div className="narrow-page">
+			<header className="page-header">
 				<h1>Settings</h1>
 				<p>Make SDtrust feel at home on your desktop.</p>
 			</header>
-			<section className="dashboard-card settings-section">
+			<section className="card settings-section">
 				<h2>Appearance</h2>
 				<p>Choose a theme. Your preference is remembered on this device.</p>
 				<fieldset className="theme-choices">
@@ -89,7 +89,7 @@ export function SettingsPage() {
 				</fieldset>
 			</section>
 			{window.desktop?.setPetScale && <FinnSize />}
-			<section className="dashboard-card settings-section">
+			<section className="card settings-section">
 				<h2>Your profile</h2>
 				<dl className="profile-details">
 					<div>

@@ -3,14 +3,14 @@ import { experts } from "../state/finn-scenarios";
 const colors = ["coral", "amber", "blue"];
 export function ExpertsPage() {
 	return (
-		<div className="settings-page">
-			<header className="desktop-page-heading">
+		<div className="narrow-page">
+			<header className="page-header">
 				<h1>Experts</h1>
 				<p>Who knows what in this workspace.</p>
 			</header>
-			<section className="dashboard-card">
+			<section className="card">
 				{experts.map((expert, index) => (
-					<div key={expert.name} className="dashboard-row">
+					<div key={expert.name} className="list-row">
 						<span className={`row-symbol ${colors[index % colors.length]}`}>
 							<strong>{expert.name[0]}</strong>
 						</span>

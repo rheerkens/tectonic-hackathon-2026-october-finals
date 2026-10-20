@@ -250,14 +250,14 @@ a {
 .notes-panel {
 	min-width: 0;
 }
-.page-heading {
+.notes-heading {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
 	gap: 12px;
 	margin-bottom: 18px;
 }
-.page-heading p {
+.notes-heading p {
 	margin-top: 4px;
 }
 .count {

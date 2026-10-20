@@ -1,8 +1,34 @@
 import { Button } from "@day-one/ui/button";
 import { Link } from "@tanstack/react-router";
-import { Icon } from "../components/Icon";
+import { Icon, type IconName } from "../components/Icon";
 import { useDashboard } from "../state/dashboard";
 import { useStudioState } from "../state/StudioContext";
+
+/** Demo results that need a closer look; each opens its FINN result page. */
+const attention: {
+	resultId: string;
+	title: string;
+	note: string;
+	tone: "coral" | "amber";
+	icon: IconName;
+	badge?: string;
+}[] = [
+	{
+		resultId: "atlas-meal-vouchers-2027",
+		title: "Atlas meal vouchers 2027",
+		note: "No confirmed agreement yet",
+		tone: "coral",
+		icon: "file-text",
+		badge: "Low trust",
+	},
+	{
+		resultId: "nl-holiday-pay",
+		title: "Holiday pay Netherlands",
+		note: "Review the supporting sources",
+		tone: "amber",
+		icon: "users",
+	},
+];
 export function DashboardPage() {
 	const data = useDashboard();
 	const { scope } = useStudioState();
@@ -27,47 +53,38 @@ export function DashboardPage() {
 				</div>
 			</header>
 			<div className="dashboard-stack">
-				<section className="dashboard-card">
+				<section className="card">
 					<h2>
 						<span className="coral">
 							<Icon name="bell" />
 						</span>
 						Needs your attention
 					</h2>
-					<Link
-						className="dashboard-row"
-						to="/w/$workspaceId/results/$resultId"
-						params={{ workspaceId: scope.workspaceId, resultId: "atlas-meal-vouchers-2027" }}
-					>
-						<span className="row-symbol coral">
-							<Icon name="file-text" />
-						</span>
-						<span className="row-copy">
-							<strong>Atlas meal vouchers 2027</strong>
-							<span>No confirmed agreement yet</span>
-						</span>
-						<span className="row-meta">
-							<span className="status-badge">Low trust</span>
-							<small>Example</small>
-						</span>
-						<Icon name="chevron-right" size={18} />
-					</Link>
-					<Link
-						className="dashboard-row"
-						to="/w/$workspaceId/results/$resultId"
-						params={{ workspaceId: scope.workspaceId, resultId: "nl-holiday-pay" }}
-					>
-						<span className="row-symbol amber">
-							<Icon name="users" />
-						</span>
-						<span className="row-copy">
-							<strong>Holiday pay Netherlands</strong>
-							<span>Review the supporting sources</span>
-						</span>
-						<Icon name="chevron-right" size={18} />
-					</Link>
+					{attention.map((item) => (
+						<Link
+							key={item.resultId}
+							className="list-row"
+							to="/w/$workspaceId/results/$resultId"
+							params={{ workspaceId: scope.workspaceId, resultId: item.resultId }}
+						>
+							<span className={`row-symbol ${item.tone}`}>
+								<Icon name={item.icon} />
+							</span>
+							<span className="row-copy">
+								<strong>{item.title}</strong>
+								<span>{item.note}</span>
+							</span>
+							{item.badge && (
+								<span className="row-meta">
+									<span className="status-badge">{item.badge}</span>
+									<small>Example</small>
+								</span>
+							)}
+							<Icon name="chevron-right" size={18} />
+						</Link>
+					))}
 				</section>
-				<section className="dashboard-card">
+				<section className="card">
 					<h2>
 						<Icon name="clock" />
 						Recent notes
@@ -82,7 +99,7 @@ export function DashboardPage() {
 						data.notes.slice(0, 2).map((note) => (
 							<Link
 								key={note.id}
-								className="dashboard-row"
+								className="list-row"
 								to="/w/$workspaceId/notes"
 								params={{ workspaceId: scope.workspaceId }}
 							>
