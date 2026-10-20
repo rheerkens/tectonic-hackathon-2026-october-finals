@@ -1,0 +1,243 @@
+{
+  "status": "rejected_by_user",
+  "cell": [
+    192,
+    208
+  ],
+  "durationsMs": [
+    100,
+    100,
+    140,
+    160,
+    120,
+    110,
+    110,
+    1560
+  ],
+  "loopDurationMs": 2400,
+  "imageGeneration": {
+    "tool": "built_in_image_gen",
+    "prompt": "prompt.txt",
+    "originalOutput": "generated-strip.png",
+    "originalOutputSize": [
+      2087,
+      754
+    ]
+  },
+  "extraction": [
+    {
+      "file": "transition-1.png",
+      "cell": [
+        0,
+        0,
+        696,
+        754
+      ],
+      "uniformScale": 0.29376854599406527,
+      "offset": [
+        -14,
+        0
+      ],
+      "bounds": [
+        26,
+        3,
+        190,
+        206
+      ]
+    },
+    {
+      "file": "transition-2.png",
+      "cell": [
+        696,
+        0,
+        1391,
+        754
+      ],
+      "uniformScale": 0.29376854599406527,
+      "offset": [
+        -1,
+        0
+      ],
+      "bounds": [
+        0,
+        3,
+        189,
+        206
+      ]
+    },
+    {
+      "file": "transition-3.png",
+      "cell": [
+        1391,
+        0,
+        2087,
+        754
+      ],
+      "uniformScale": 0.29376854599406527,
+      "offset": [
+        -2,
+        0
+      ],
+      "bounds": [
+        0,
+        3,
+        190,
+        207
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "file": "frames/00.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet\\frames\\waving\\00.png",
+      "sha256": "15f54de41c87d5bd953b0c5d336857c9d08615ceef013780d63e03fdd21f60d9",
+      "newDrawing": false,
+      "bounds": [
+        43,
+        5,
+        145,
+        203
+      ]
+    },
+    {
+      "frame": 1,
+      "file": "frames/01.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet_refined\\sessions\\waving\\inbetween-02\\transition-1.png",
+      "sha256": "6ebb347bd9fe43346b88e5bd09dc9d12438d3f57077829cad13cab94de169088",
+      "newDrawing": true,
+      "bounds": [
+        26,
+        3,
+        190,
+        206
+      ]
+    },
+    {
+      "frame": 2,
+      "file": "frames/02.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet\\frames\\waving\\01.png",
+      "sha256": "44e65ea34340967837f3e76f95bdbfaf6fd9660b17c937144ca06df4e9b57b2b",
+      "newDrawing": false,
+      "bounds": [
+        42,
+        5,
+        166,
+        203
+      ]
+    },
+    {
+      "frame": 3,
+      "file": "frames/03.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet\\frames\\waving\\02.png",
+      "sha256": "49d16754b4e9198bfeb8adaa9982defb4b2565a3103722c1014984c5a93197b5",
+      "newDrawing": false,
+      "bounds": [
+        44,
+        5,
+        168,
+        203
+      ]
+    },
+    {
+      "frame": 4,
+      "file": "frames/04.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet_refined\\sessions\\waving\\inbetween-02\\transition-2.png",
+      "sha256": "5aa7df20341877e128e1803b2be90668df5d7ecf5f40cfb7dd1c60acc08c1fde",
+      "newDrawing": true,
+      "bounds": [
+        0,
+        3,
+        189,
+        206
+      ]
+    },
+    {
+      "frame": 5,
+      "file": "frames/05.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet\\frames\\waving\\03.png",
+      "sha256": "72b97417b7d65b81723c2aa7a17e67722648d245dcf426a933c759341052a71f",
+      "newDrawing": false,
+      "bounds": [
+        42,
+        5,
+        166,
+        203
+      ]
+    },
+    {
+      "frame": 6,
+      "file": "frames/06.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet_refined\\sessions\\waving\\inbetween-02\\transition-3.png",
+      "sha256": "30479b1a7641c5a7dc89c7b4adc3264cf2fc6f7c6385d020f9cff0718fc96d71",
+      "newDrawing": true,
+      "bounds": [
+        0,
+        3,
+        190,
+        207
+      ]
+    },
+    {
+      "frame": 7,
+      "file": "frames/07.png",
+      "source": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals\\docs\\design\\finn_pet\\idle.png",
+      "sha256": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547",
+      "newDrawing": false,
+      "bounds": [
+        47,
+        5,
+        145,
+        203
+      ]
+    }
+  ],
+  "export": {
+    "file": "waving.webp",
+    "frames": 8,
+    "size": [
+      192,
+      208
+    ],
+    "decodedDurationsMs": [
+      100,
+      100,
+      140,
+      160,
+      120,
+      110,
+      110,
+      1560
+    ],
+    "sha256": "9c0728389d9c89929d9bf1bcb7cef878a93e905403501c07e0d7021d07e2c907"
+  },
+  "comparison": {
+    "file": "../comparison-02.html",
+    "characters": 435940,
+    "embeddedUniqueImages": 8
+  },
+  "limitations": [
+    "Generated transitions may have identity or contour variation. Visual review is decisive.",
+    "Mechanical extraction uses shared scale plus foot registration; original source files remain unchanged.",
+    "No runtime integration, trigger change or user approval."
+  ],
+  "review": {
+    "sourceHashesUnchanged": true,
+    "visibleRgbAndAlphaExactInWebp": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "pauseResumeObserved": true,
+    "browserUrlLoaded": true,
+    "visualAssessment": "Tussenposes voegen echte armstanden toe. Er blijven getekende verschillen rond gezicht, contour en schoenen tussen bronframes en nieuwe frames. Geen claim dat alle schokjes zijn opgelost.",
+    "alphaNote": "De gegenereerde cellen bevatten enkele zeer zwakke alpha pixels buiten de hoofdcontour. Deze zijn niet weggepoetst.",
+    "approval": "rejected",
+    "userFeedback": "Je kan nog atlijd met gemak die additionele frames spotten, finn wordt om de \u00e9\u00e9n of andere reden dikker"
+  }
+}

@@ -63,8 +63,10 @@ def main():
         clock += TIMINGS[i]
     contact.save(ROOT / 'timing_contact.png')
     source_meta = json.loads((SOURCE / 'animations.json').read_text())
+    decision_path = ROOT / 'session_status.json'
+    decision = json.loads(decision_path.read_text(encoding='utf-8')).get('idle', {}) if decision_path.exists() else {}
     manifest = {
-        'name': 'Finn idle timing study 01', 'status': 'awaiting user visual review',
+        'name': 'Finn idle timing study 01', 'status': 'approved' if decision.get('approvedForAdoption') else 'awaiting user visual review',
         'state': 'idle', 'row': 0, 'frames': 6, 'cellWidth': 192, 'cellHeight': 208,
         'durationsMs': TIMINGS, 'loopDurationMs': sum(TIMINGS), 'loop': 0,
         'gif': 'animations/idle.gif', 'webp': 'animations/idle.webp',

@@ -1,6 +1,6 @@
 {
   "name": "Finn idle timing study 01",
-  "status": "awaiting user visual review",
+  "status": "approved",
   "state": "idle",
   "row": 0,
   "frames": 6,
@@ -71,5 +71,6 @@
       "sha256": "3c8d43e12f05aa57c6b174999c18e8a56bd2e45df3ce2c72225fe3c70d39fba1"
     }
   ],
-  "imageGeneration": "Not used. No new or modified drawing in this timing study."
+  "imageGeneration": "Not used. No new or modified drawing in this timing study.",
+  "decisionSource": "session_status.json"
 }

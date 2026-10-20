@@ -1,0 +1,74 @@
+{
+  "candidate": "02",
+  "approval": "pending user review",
+  "browser": {
+    "all_nine_frames_seen": true,
+    "loop_return_seen": true,
+    "pause_and_resume": true,
+    "desktop_width": 728,
+    "mobile_width": 360
+  },
+  "visual_review": {
+    "improvement": "Smaller vertical steps in ascent and descent.",
+    "remaining": "Small drawing changes around folder and shoes; no anticipation crouch or landing rebound; original scale difference from idle remains.",
+    "loop_seam": "Original final and first grounded poses retained. No extra loop seam pose."
+  },
+  "inserted_frames": [
+    {
+      "name": "00.png",
+      "size": [
+        192,
+        208
+      ],
+      "mode": "RGBA",
+      "alpha_bounds": [
+        51,
+        11,
+        140,
+        199
+      ]
+    },
+    {
+      "name": "01.png",
+      "size": [
+        192,
+        208
+      ],
+      "mode": "RGBA",
+      "alpha_bounds": [
+        52,
+        6,
+        138,
+        190
+      ]
+    },
+    {
+      "name": "02.png",
+      "size": [
+        192,
+        208
+      ],
+      "mode": "RGBA",
+      "alpha_bounds": [
+        51,
+        7,
+        140,
+        193
+      ]
+    },
+    {
+      "name": "03.png",
+      "size": [
+        192,
+        208
+      ],
+      "mode": "RGBA",
+      "alpha_bounds": [
+        50,
+        12,
+        142,
+        202
+      ]
+    }
+  ]
+}

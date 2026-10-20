@@ -1,0 +1,110 @@
+{
+  "status": "approved",
+  "animation": "waiting",
+  "variant": "drawn_gesture_03",
+  "approvalQuote": "In orde zo, mag overgenomen worden",
+  "cellWidth": 192,
+  "cellHeight": 208,
+  "frames": [
+    {
+      "index": 0,
+      "file": "frames/00.png",
+      "sha256": "1dc078529e56479afe6cef96053d33d3f7624f0bfae6698b56d4ee6d1290dd43",
+      "source": "docs/design/finn_pet/frames/waiting/00.png"
+    },
+    {
+      "index": 1,
+      "file": "frames/01.png",
+      "sha256": "633fe90e009dc3d97617bce8338160c68c270232e03b869977b98b7e00e967a4",
+      "source": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_0.png"
+    },
+    {
+      "index": 2,
+      "file": "frames/02.png",
+      "sha256": "759af83de5dcc08c8190f9385c57f9f23e2ff91e3b0a4b418cb36a521a9f9ae9",
+      "source": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_1.png"
+    },
+    {
+      "index": 3,
+      "file": "frames/03.png",
+      "sha256": "a7cb71ae44b0488a13f90c6f8f044498a351738bf5bf87e5678e15d09329d9da",
+      "source": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_2.png"
+    },
+    {
+      "index": 4,
+      "file": "frames/04.png",
+      "sha256": "7eff4a237c87ad309a955afde129fb7a086762d3e65b2d76fe6e53b6bb4c3954",
+      "source": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_half.png"
+    },
+    {
+      "index": 5,
+      "file": "frames/05.png",
+      "sha256": "a19a384ae3589c4382d4a3c9391ccb8433504fecde2e3ef7a60c23403016b555",
+      "source": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_closed.png"
+    }
+  ],
+  "frameIndices": [
+    0,
+    1,
+    2,
+    3,
+    2,
+    1,
+    0,
+    4,
+    5,
+    4,
+    0
+  ],
+  "durationsMs": [
+    400,
+    90,
+    90,
+    650,
+    100,
+    100,
+    650,
+    50,
+    80,
+    70,
+    920
+  ],
+  "loopDurationMs": 3200,
+  "webp": {
+    "file": "waiting.webp",
+    "frames": 11,
+    "dimensions": [
+      192,
+      208
+    ],
+    "durationsMs": [
+      400,
+      90,
+      90,
+      650,
+      100,
+      100,
+      650,
+      50,
+      80,
+      70,
+      920
+    ],
+    "loop": 0,
+    "visibleRgbaMatchesSource": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "sha256": "88c13d30c2c600ca943c6953937147f4ab3cec7235bd4ccafd26f67518d683e2"
+  },
+  "integration": "pending_coordinator"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "arm_low",
+  "registrationTranslationPx": [
+    -1,
+    7
+  ],
+  "newArtworkRegion": [
+    108,
+    89,
+    148,
+    145
+  ],
+  "staticHeadAndFeetPreserved": true
+}

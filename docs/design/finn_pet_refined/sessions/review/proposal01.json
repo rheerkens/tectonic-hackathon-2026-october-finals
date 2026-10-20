@@ -1,0 +1,86 @@
+{
+  "animation": "review",
+  "sourceRow": 8,
+  "candidate": "proposal01",
+  "status": "candidate, not approved or integrated",
+  "cellWidth": 192,
+  "cellHeight": 208,
+  "changes": "Timing and order only. Source frame 01 is reused before the blink.",
+  "limitations": "No redrawing, morphing, crossfading, scaling or new inbetween poses. Existing hand jumps remain.",
+  "players": [
+    {
+      "name": "Origineel",
+      "sequence": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        280
+      ],
+      "loopDurationMs": 1030
+    },
+    {
+      "name": "Voorstel",
+      "sequence": [
+        0,
+        1,
+        2,
+        3,
+        1,
+        4,
+        5
+      ],
+      "durationsMs": [
+        320,
+        420,
+        200,
+        620,
+        240,
+        100,
+        1100
+      ],
+      "loopDurationMs": 3000
+    }
+  ],
+  "sourceFrames": [
+    {
+      "index": 0,
+      "file": "docs/design/finn_pet/frames/review/00.png",
+      "sha256": "eb171d8d0ea4241c96f27013361ca035897de00dcec93a369223f6153012f8e5"
+    },
+    {
+      "index": 1,
+      "file": "docs/design/finn_pet/frames/review/01.png",
+      "sha256": "d042da7c4f15bee125192a8d8a230a1488e9200b2dedc33ff9d67275ab6bf645"
+    },
+    {
+      "index": 2,
+      "file": "docs/design/finn_pet/frames/review/02.png",
+      "sha256": "58ca3f875de1f462bc1b69edfd0ff8625f37fc6c96fc666aa70d18e0c3a5c6ad"
+    },
+    {
+      "index": 3,
+      "file": "docs/design/finn_pet/frames/review/03.png",
+      "sha256": "46ae634f487468866403645f99d8d5e9b2bc1f8ccee998b48560b4206f8b6262"
+    },
+    {
+      "index": 4,
+      "file": "docs/design/finn_pet/frames/review/04.png",
+      "sha256": "c952c6d391168f26737db59cca77f758cd8587219932923f069aa20fa4ec13a9"
+    },
+    {
+      "index": 5,
+      "file": "docs/design/finn_pet/frames/review/05.png",
+      "sha256": "faa3746f20a87aa78596ca01f5fbd01c38121b805d2b745e3d56967951087c49"
+    }
+  ]
+}

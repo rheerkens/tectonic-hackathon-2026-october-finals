@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finn lopen rechts, tussenposes 02</title>
+<style>
+html,body{margin:0;background:transparent;color:var(--foreground,#242424);font-family:var(--font-sans,system-ui,sans-serif)}
+#finn-walk-comparison{width:100%}
+#finn-walk-comparison .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+#finn-walk-comparison figure{margin:0;min-width:0;text-align:center}
+#finn-walk-comparison figcaption{margin:0 0 12px}
+#finn-walk-comparison strong{font-weight:500;display:block}
+#finn-walk-comparison .detail{color:var(--muted-foreground,#666);margin-top:4px}
+#finn-walk-comparison .stage{padding:16px;background:var(--muted,#f0f0ed);border-radius:var(--radius,8px)}
+#finn-walk-comparison img{display:block;width:192px;height:208px;margin:auto;max-width:100%;object-fit:contain}
+#finn-walk-comparison .position{font-variant-numeric:tabular-nums;margin:10px 0 0}
+#finn-walk-comparison .controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+#finn-walk-comparison button{font:inherit;min-height:44px;padding:8px 16px;background:var(--secondary,#e8e8e6);color:var(--secondary-foreground,#242424);border:1px solid var(--border,#bbb);border-radius:var(--radius,8px)}
+#finn-walk-comparison .note{color:var(--muted-foreground,#666);margin:12px 0 0}
+@media(max-width:479px){#finn-walk-comparison .pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<section id="finn-walk-comparison" aria-label="Bewegende vergelijking van Finn, lopen naar rechts">
+<div class="pair">
+<figure>
+<figcaption><strong>Origineel</strong><div class="detail">8 frames · lus van 1060 ms</div></figcaption>
+<div class="stage"><img id="source" width="192" height="208" alt="Finn in de oorspronkelijke loop naar rechts"></div>
+<p class="position" id="source-position">Frame 1 van 8</p>
+</figure>
+<figure>
+<figcaption><strong>Voorstel 02</strong><div class="detail">12 frames · lus van 1060 ms</div></figcaption>
+<div class="stage"><img id="trial" width="192" height="208" alt="Finn met twee nieuwe tussenposes voor landen en uitstrekken"></div>
+<p class="position" id="trial-position">Frame 1 van 8</p>
+</figure>
+</div>
+<div class="controls"><button id="toggle" type="button" disabled>Pauzeren</button><span id="status" role="status">Beelden laden</span></div>
+<p class="note">Twee nieuwe tekeningen, elk op twee overgangen gebruikt. 192 bij 208 pixels; oorspronkelijke lusduur. Kandidaat voor gezamenlijke afstemming met lopen naar links.</p>
+</section>
+<script>
+(()=>{
+const root=document.getElementById('finn-walk-comparison');
+const frames=["C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/00.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/01.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/02.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/03.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/04.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/05.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/06.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet/frames/running-right/07.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/A_landing.png", "C:/Users/Sebas/projects/tectonic-hackathon-2026-october-finals/docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/C_extension.png"];
+const orders=[[0,1,2,3,4,5,6,7],[0, 8, 1, 2, 3, 9, 4, 8, 5, 6, 7, 9]];
+const durations=[[120,120,120,120,120,120,120,220],[70, 70, 130, 130, 65, 65, 70, 70, 130, 130, 65, 65]];
+const totals=durations.map(list=>list.reduce((a,b)=>a+b,0));
+const displays=[root.querySelector('#source'),root.querySelector('#trial')];
+const labels=[root.querySelector('#source-position'),root.querySelector('#trial-position')];
+const toggle=root.querySelector('#toggle'),status=root.querySelector('#status');
+let elapsed=0,previous=0,playing=true,ready=false;
+const last=[-1,-1];
+function draw(){
+  durations.forEach((list,index)=>{
+    const time=elapsed%totals[index];
+    let frame=0,end=list[0];
+    while(frame<list.length-1&&time>=end)end+=list[++frame];
+    if(last[index]!==frame){displays[index].src=frames[orders[index][frame]];displays[index].dataset.frame=String(frame);displays[index].dataset.asset=String(orders[index][frame]);last[index]=frame;}
+    labels[index].textContent='Frame '+(frame+1)+' van '+list.length+' · '+Math.floor(time)+' / '+totals[index]+' ms';
+  });
+  root.dataset.elapsed=String(Math.floor(elapsed));root.dataset.playing=String(playing);
+}
+function tick(now){
+  if(ready&&playing&&!document.hidden)elapsed+=now-previous;
+  previous=now;if(ready)draw();requestAnimationFrame(tick);
+}
+toggle.addEventListener('click',()=>{
+  playing=!playing;previous=performance.now();
+  toggle.textContent=playing?'Pauzeren':'Hervatten';
+  status.textContent=playing?'Beide animaties spelen':'Beide animaties gepauzeerd';draw();
+});
+document.addEventListener('visibilitychange',()=>{previous=performance.now();});
+Promise.all(frames.map(src=>new Promise((resolve,reject)=>{
+  const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;
+}))).then(images=>{
+  ready=true;toggle.disabled=false;previous=performance.now();
+  status.textContent='Beide animaties spelen';root.dataset.ready='true';draw();
+  console.log('Finn rechts 02: '+images.length+' unieke PNG beelden; 8 originele en 12 kandidaatframes; beide 1060 ms; één gedeelde klok.');
+}).catch(()=>{status.textContent='Beelden konden niet laden';console.error('Finn PNG laadfout');});
+requestAnimationFrame(tick);
+})();
+</script>
+</body></html>

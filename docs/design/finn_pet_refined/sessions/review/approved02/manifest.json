@@ -1,0 +1,150 @@
+{
+  "animation": "review",
+  "candidate": "drawn02",
+  "status": "approved for coordinator takeover",
+  "userApproval": "In orde mag overgenomen worden",
+  "imagegenMode": "built-in imagegen",
+  "cell": [
+    192,
+    208
+  ],
+  "players": [
+    {
+      "name": "Origineel",
+      "sequence": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        280
+      ],
+      "loopDurationMs": 1030
+    },
+    {
+      "name": "Voorstel",
+      "sequence": [
+        0,
+        1,
+        6,
+        7,
+        2,
+        3,
+        2,
+        7,
+        6,
+        1,
+        0
+      ],
+      "durationsMs": [
+        320,
+        100,
+        90,
+        90,
+        100,
+        650,
+        100,
+        90,
+        90,
+        100,
+        1070
+      ],
+      "loopDurationMs": 2800
+    }
+  ],
+  "newPoses": [
+    {
+      "index": 6,
+      "role": "hand leaving hip"
+    },
+    {
+      "index": 7,
+      "role": "hand nearing folder"
+    }
+  ],
+  "frameSources": [
+    {
+      "index": 0,
+      "path": "docs\\design\\finn_pet\\frames\\review\\00.png",
+      "sha256": "eb171d8d0ea4241c96f27013361ca035897de00dcec93a369223f6153012f8e5"
+    },
+    {
+      "index": 1,
+      "path": "docs\\design\\finn_pet\\frames\\review\\01.png",
+      "sha256": "d042da7c4f15bee125192a8d8a230a1488e9200b2dedc33ff9d67275ab6bf645"
+    },
+    {
+      "index": 2,
+      "path": "docs\\design\\finn_pet\\frames\\review\\02.png",
+      "sha256": "58ca3f875de1f462bc1b69edfd0ff8625f37fc6c96fc666aa70d18e0c3a5c6ad"
+    },
+    {
+      "index": 3,
+      "path": "docs\\design\\finn_pet\\frames\\review\\03.png",
+      "sha256": "46ae634f487468866403645f99d8d5e9b2bc1f8ccee998b48560b4206f8b6262"
+    },
+    {
+      "index": 4,
+      "path": "docs\\design\\finn_pet\\frames\\review\\04.png",
+      "sha256": "c952c6d391168f26737db59cca77f758cd8587219932923f069aa20fa4ec13a9"
+    },
+    {
+      "index": 5,
+      "path": "docs\\design\\finn_pet\\frames\\review\\05.png",
+      "sha256": "faa3746f20a87aa78596ca01f5fbd01c38121b805d2b745e3d56967951087c49"
+    },
+    {
+      "index": 6,
+      "path": "docs\\design\\finn_pet_refined\\sessions\\review\\drawn02\\arm_low.png",
+      "sha256": "2b2cc66c13cb8825e69845f9fb4938cc5594664dc0ba189a32793a58c3167114"
+    },
+    {
+      "index": 7,
+      "path": "docs\\design\\finn_pet_refined\\sessions\\review\\drawn02\\pair_0.png",
+      "sha256": "8081b9b8f8e11b28655aa43091cde5024ea7b57804ab3b09b9f9447093e7d3b2"
+    }
+  ],
+  "drawingBoundary": [
+    108,
+    89,
+    148,
+    145
+  ],
+  "processing": "Generated arm region cropped from registered imagegen output onto source 01. No motion interpolation or crossfade.",
+  "preserved": "All pixels outside drawingBoundary in both new poses, including face and feet, copied from original 01.",
+  "loopSeam": "First and last candidate steps both use original 00, byte identical.",
+  "limits": "Open eyes only; existing small head changes between source poses remain. Arm joins require visual review.",
+  "initialGeneration": "drawn02/raw_pair_rejected.png: too high for low pose. Left cell reused only as upper inbetween; right cell unused.",
+  "prompts": [
+    "drawn02/imagegen_prompt.txt",
+    "drawn02/low_arm_prompt.txt"
+  ],
+  "htmlCharacters": 414045,
+  "export": "review.webp",
+  "exportSha256": "24edd48d17273ed637f7fb874505be8293fc40698c3e075b181ece77f62e1c0f",
+  "decodedFrameCount": 11,
+  "decodedDurationsMs": [
+    320,
+    100,
+    90,
+    90,
+    100,
+    650,
+    100,
+    90,
+    90,
+    100,
+    1070
+  ],
+  "visiblePixelsAndAlphaExact": true,
+  "loop": 0,
+  "integrationStatus": "Prepared locally; coordinator owns shared and runtime takeover"
+}

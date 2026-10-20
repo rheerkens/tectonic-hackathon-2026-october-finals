@@ -1,0 +1,271 @@
+{
+  "candidate": "drawing_02",
+  "status": "approved",
+  "kind": "generated_lower_body_inserts",
+  "sourceFrameCount": 8,
+  "newUniquePoseCount": 4,
+  "candidateFrameCount": 12,
+  "cellSize": [
+    192,
+    208
+  ],
+  "sourceDurationsMs": [
+    120,
+    120,
+    120,
+    120,
+    120,
+    120,
+    120,
+    220
+  ],
+  "candidateDurationsMs": [
+    65,
+    65,
+    70,
+    70,
+    130,
+    130,
+    65,
+    65,
+    70,
+    70,
+    130,
+    130
+  ],
+  "candidateOrder": [
+    0,
+    8,
+    1,
+    9,
+    2,
+    3,
+    4,
+    10,
+    5,
+    11,
+    6,
+    7
+  ],
+  "sourceFrames": [
+    {
+      "path": "docs/design/finn_pet/frames/running-left/00.png",
+      "sha256": "3609610982b19aa17681247dd9163e7640a05eb05f6bba83bad95cadf4184fd2"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/01.png",
+      "sha256": "57ca38849bb9af4bb566e2e42ea7db2e17360f265660c6d051763a056eef576f"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/02.png",
+      "sha256": "4f26ec50573b000cab8a26f328bca891e4fcfe8b185669bc83ea15c1d10d6268"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/03.png",
+      "sha256": "f7f03e7b846f0e1f7505dfb893adb09ca125d893441480e5e1b7dcf0b5f1e93a"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/04.png",
+      "sha256": "70d76d337f14bcb1a83a3da0cf5320e82833ccba21778412b9a5d3524d58d5d0"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/05.png",
+      "sha256": "8476bc0fb306a46d90ba35928f0f5fec0a2afb6824b482539fbe66a8a75672ad"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/06.png",
+      "sha256": "75f4557ed8bd80e1e1cc6b0798571c275cf5d1ddf7c6c4e67e006a47d64c3265"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running-left/07.png",
+      "sha256": "ce4a11f1541cbfc3e0daf48b83b2f7a2253cf230651e0f8b28eee9d5f263a848"
+    }
+  ],
+  "embeddedFormat": "Lossless WebP, full RGBA roundtrip verified for all 12 frames; original PNG files unmodified",
+  "frameBank": [
+    "source 0",
+    "source 1",
+    "source 2",
+    "source 3",
+    "source 4",
+    "source 5",
+    "source 6",
+    "source 7",
+    "focused_landing",
+    "passing_a",
+    "landing_b",
+    "passing_b"
+  ],
+  "loopDurationMs": 1060,
+  "halfCycleMs": 530,
+  "newPoses": [
+    {
+      "name": "focused_landing",
+      "betweenSourceFrames": [
+        0,
+        1
+      ],
+      "generatedRaw": "focused_landing.png",
+      "generatedRawSha256": "c7c45f801da038b60f8c861b3d519a6aa9c135b318c2bf37c0115aa7732121c4",
+      "preparedPng": "focused_landing_prepared.png",
+      "preparedWebp": "focused_landing_prepared.webp",
+      "upperBodySource": 0,
+      "upperBodyRowsUnchanged": [
+        0,
+        129
+      ],
+      "insertRegistration": {
+        "cutY": 130,
+        "groundY": 202,
+        "xScale": 1.105263157894737,
+        "yScale": 1.1774193548387097,
+        "xOffset": -11.736842105263165
+      },
+      "visibleAlphaBounds": [
+        37,
+        6,
+        185,
+        203
+      ],
+      "pngSha256": "ff59e88c8a028cc95fe4a61fd6dbbb6e3e9b562e46b46033976d33619453cf69"
+    },
+    {
+      "name": "passing_a",
+      "betweenSourceFrames": [
+        1,
+        2
+      ],
+      "generatedRaw": "passing_a.png",
+      "generatedRawSha256": "89f10a7d5c695715f38b6ca3fc4907f747b4c5198cd2371d2f1c10e47819286c",
+      "preparedPng": "passing_a_prepared.png",
+      "preparedWebp": "passing_a_prepared.webp",
+      "upperBodySource": 1,
+      "upperBodyRowsUnchanged": [
+        0,
+        129
+      ],
+      "insertRegistration": {
+        "cutY": 130,
+        "groundY": 202,
+        "xScale": 1.206896551724138,
+        "yScale": 1.1967213114754098,
+        "xOffset": -23.379310344827587
+      },
+      "visibleAlphaBounds": [
+        47,
+        6,
+        142,
+        203
+      ],
+      "pngSha256": "3a845cfad9ef82676ab111830fa9d3916b28de5e3c9ce33b5fe2e24a4f6df60e"
+    },
+    {
+      "name": "landing_b",
+      "betweenSourceFrames": [
+        4,
+        5
+      ],
+      "generatedRaw": "landing_b.png",
+      "generatedRawSha256": "c556cd95d31b1f06d3077f53b66672199e379847d4438b24ca3abcd9e6cafe9c",
+      "preparedPng": "landing_b_prepared.png",
+      "preparedWebp": "landing_b_prepared.webp",
+      "upperBodySource": 4,
+      "upperBodyRowsUnchanged": [
+        0,
+        129
+      ],
+      "insertRegistration": {
+        "cutY": 130,
+        "groundY": 202,
+        "xScale": 1.0789473684210527,
+        "yScale": 1.123076923076923,
+        "xOffset": -7.3157894736842195
+      },
+      "visibleAlphaBounds": [
+        16,
+        5,
+        152,
+        203
+      ],
+      "pngSha256": "b038053139f9cf2d6ba5c4919fb6844040efe39222cc58ecb6198baf74315375"
+    },
+    {
+      "name": "passing_b",
+      "betweenSourceFrames": [
+        5,
+        6
+      ],
+      "generatedRaw": "passing_b.png",
+      "generatedRawSha256": "970d5a18b3b53df00a88caef01085c7b9e70556e8d042c62a71d0d4f65bdbf42",
+      "preparedPng": "passing_b_prepared.png",
+      "preparedWebp": "passing_b_prepared.webp",
+      "upperBodySource": 5,
+      "upperBodyRowsUnchanged": [
+        0,
+        129
+      ],
+      "insertRegistration": {
+        "cutY": 130,
+        "groundY": 202,
+        "xScale": 0.95,
+        "yScale": 1.106060606060606,
+        "xOffset": 9.650000000000006
+      },
+      "visibleAlphaBounds": [
+        51,
+        5,
+        138,
+        203
+      ],
+      "pngSha256": "74d276d6d1d82a7908f9668cd653b74f2a3ad66e0702e7492645560693ea8a4a"
+    }
+  ],
+  "generation": "Built-in imagegen, original Finn endpoint PNG references. Four separate targeted generations after a discarded four-pose sheet.",
+  "assembly": "Only generated legs below row 130 inserted. Original head, glasses, torso, hands and map above row 130 retained byte-for-byte. Generated legs affinely fitted at waist and ground; no crossfade or optical interpolation.",
+  "limitations": [
+    "Transitions 02 to 03 and 06 to 07 still use adjacent original drawings.",
+    "Waist joins, foot travel and knee paths require visual review.",
+    "Original 07 to 00 drawings preserved; final-frame hold shortened by timing only.",
+    "Candidate internal timing still requires coordination with the right-hand walking cycle."
+  ],
+  "htmlCharacters": 428254,
+  "externalImageResources": 0,
+  "approval": {
+    "candidate": "drawing_02",
+    "status": "approved",
+    "approvedAtUtc": "2026-10-20T09:48:26Z",
+    "userStatement": "Deze mag overgenomen worden en in de bovenliggend chat bevestigd worden dat het in orde is.",
+    "scope": "The existing twelve-frame drawing_02 candidate, unchanged",
+    "centralThreadId": "mcp:ae25e13e-5056-49d4-a4dc-07be5d68363b",
+    "sessionWork": "complete",
+    "integrationOwner": "central Finn coordination session"
+  },
+  "approvedAnimation": {
+    "file": "running-left.webp",
+    "sha256": "4ac79dd419e8153b406b9faf41aa9017fefc12cbcfbfcc2bc78cabde75840d7d",
+    "frameCount": 12,
+    "durationsMs": [
+      65,
+      65,
+      70,
+      70,
+      130,
+      130,
+      65,
+      65,
+      70,
+      70,
+      130,
+      130
+    ],
+    "loopDurationMs": 1060,
+    "loop": 0,
+    "size": [
+      192,
+      208
+    ],
+    "alphaAndVisiblePixelsMatchApprovedFrames": true
+  },
+  "sessionWork": "complete",
+  "integration": "not performed here; central coordination owns integration"
+}

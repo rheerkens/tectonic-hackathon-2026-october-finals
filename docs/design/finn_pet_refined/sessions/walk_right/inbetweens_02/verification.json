@@ -1,0 +1,24 @@
+{
+  "sha256": "9aa7f4637b809d4387622e44c93793fd21ffa2328bfe4526a87104633e346cf9",
+  "frameCount": 12,
+  "durationsMs": [
+    70,
+    70,
+    130,
+    130,
+    65,
+    65,
+    70,
+    70,
+    130,
+    130,
+    65,
+    65
+  ],
+  "totalMs": 1060,
+  "allCells192x208": true,
+  "allFramesHaveTransparency": true,
+  "loop": 0,
+  "allSourceHashesMatch": true,
+  "exportUnmodifiedByApproval": true
+}

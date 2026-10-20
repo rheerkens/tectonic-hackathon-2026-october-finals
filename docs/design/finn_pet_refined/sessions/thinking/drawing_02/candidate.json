@@ -1,0 +1,187 @@
+{
+    "state":  "running",
+    "status":  "approved_for_integration",
+    "candidate":  "thinking_drawing_02",
+    "tool":  "built-in image_gen",
+    "cell":  [
+                 192,
+                 208
+             ],
+    "original":  {
+                     "sequence":  [
+                                      0,
+                                      1,
+                                      2,
+                                      3,
+                                      4,
+                                      5
+                                  ],
+                     "durationsMs":  [
+                                         120,
+                                         120,
+                                         120,
+                                         120,
+                                         120,
+                                         220
+                                     ],
+                     "loopDurationMs":  820
+                 },
+    "candidateTimeline":  {
+                              "sequence":  [
+                                               0,
+                                               6,
+                                               7,
+                                               8,
+                                               7,
+                                               6
+                                           ],
+                              "durationsMs":  [
+                                                  3540,
+                                                  100,
+                                                  110,
+                                                  440,
+                                                  110,
+                                                  100
+                                              ],
+                              "loopDurationMs":  4400,
+                              "uniquePoses":  4,
+                              "newDrawnPosesUsed":  2
+                          },
+    "timelineExplanation":  "Original chin pose, newly drawn early lift, newly drawn middle lift, source temple arm, middle lift reversed, early lift reversed; back to the exact starting chin pose.",
+    "assembly":  "Original frame 00 is the fixed body. Only the arm region is replaced with actual generated or original artwork. No crossfades, no interpolated pixels.",
+    "rejectedPose":  "The second pose in the first raw generation was too close to the temple and is kept as an experiment only.",
+    "files":  [
+                  {
+                      "index":  0,
+                      "file":  "finn_pet/frames/running/00.png",
+                      "sha256":  "e4390367b8e16a5ab9a5008df4d814068983230e8e945587936414660c11016d"
+                  },
+                  {
+                      "index":  1,
+                      "file":  "finn_pet/frames/running/01.png",
+                      "sha256":  "284042cf1137f7a8fb9356788769af10228130f44637d4e4cc06ac312ea580ad"
+                  },
+                  {
+                      "index":  2,
+                      "file":  "finn_pet/frames/running/02.png",
+                      "sha256":  "0729ae2ca7f96bfb7eb96eb492f3e064d3a24bed85f03af834e85f8e27324c08"
+                  },
+                  {
+                      "index":  3,
+                      "file":  "finn_pet/frames/running/03.png",
+                      "sha256":  "6e23b90dabcea134985413200664bbce2daa26ba0d913361edeffdb8c322b402"
+                  },
+                  {
+                      "index":  4,
+                      "file":  "finn_pet/frames/running/04.png",
+                      "sha256":  "bf7819320780cd9e169a400f6592eead52810b668bd29608d095858b5a2b4d6f"
+                  },
+                  {
+                      "index":  5,
+                      "file":  "finn_pet/frames/running/05.png",
+                      "sha256":  "370fc062600c1829ed212b37aaef6e0bec900d18abf841c125978205b10a5b38"
+                  },
+                  {
+                      "index":  6,
+                      "file":  "finn_pet_refined/sessions/thinking/drawing_02/low.png",
+                      "sha256":  "c298bd5011d29ce3a33906166c24de1e5aacaae5a3345bd2b52c7363b7ad6323"
+                  },
+                  {
+                      "index":  7,
+                      "file":  "finn_pet_refined/sessions/thinking/drawing_02/middle.png",
+                      "sha256":  "ea84cf05940094e3d29c2f58b5ff63fcd7787dcb52b78e768522ec6474403076"
+                  },
+                  {
+                      "index":  8,
+                      "file":  "finn_pet_refined/sessions/thinking/drawing_02/temple.png",
+                      "sha256":  "beb43edc4eec72d8b1f12e272a9b0bc00cfe61a90c207cae57994335a71a74c4"
+                  }
+              ],
+    "validation":  [
+                       {
+                           "file":  "low.png",
+                           "size":  [
+                                        192,
+                                        208
+                                    ],
+                           "mode":  "RGBA",
+                           "alphaBounds":  [
+                                               45,
+                                               5,
+                                               152,
+                                               203
+                                           ],
+                           "pixelsOutsideArmRegionUnchanged":  true,
+                           "lowerBodyAndFeetUnchanged":  true
+                       },
+                       {
+                           "file":  "middle.png",
+                           "size":  [
+                                        192,
+                                        208
+                                    ],
+                           "mode":  "RGBA",
+                           "alphaBounds":  [
+                                               45,
+                                               5,
+                                               152,
+                                               203
+                                           ],
+                           "pixelsOutsideArmRegionUnchanged":  true,
+                           "lowerBodyAndFeetUnchanged":  true
+                       },
+                       {
+                           "file":  "temple.png",
+                           "size":  [
+                                        192,
+                                        208
+                                    ],
+                           "mode":  "RGBA",
+                           "alphaBounds":  [
+                                               45,
+                                               5,
+                                               152,
+                                               203
+                                           ],
+                           "pixelsOutsideArmRegionUnchanged":  true,
+                           "lowerBodyAndFeetUnchanged":  true
+                       }
+                   ],
+    "htmlCharacters":  468584,
+    "priorExperiment":  "../compare_01.html remains unchanged",
+    "generationSources":  [
+                              {
+                                  "file":  "imagegen_raw.png",
+                                  "sha256":  "b683c17962dd035054e7e8620ae31ff9819076aa479cec24bf73890f33b4aa6a"
+                              },
+                              {
+                                  "file":  "low_raw.png",
+                                  "sha256":  "be17360ce0fd36c83c5f507915359a5352622377f8cba25d026bbd1f46c53d18"
+                              },
+                              {
+                                  "file":  "prompt.txt",
+                                  "sha256":  "6465cf72dd2643beedeff3dcc6d33d6f3f6644578cbb52ec69e8bb3dd52250e8"
+                              },
+                              {
+                                  "file":  "low_prompt.txt",
+                                  "sha256":  "e3ae3c26fc0f520045cf8ae354bb79c823f3bdf6570fa09a38ca77515cc8dd10"
+                              }
+                          ],
+    "visualStatus":  "User approved this shown candidate on 2026-10-20 after disclosure of the small finger shape change near the chin. See approval.json. Integration belongs to the central Finn coordinator.",
+    "webpValidation":  {
+                           "frames":  6,
+                           "durationsMs":  [
+                                               3540,
+                                               100,
+                                               110,
+                                               440,
+                                               110,
+                                               100
+                                           ],
+                           "loop":  0,
+                           "size":  [
+                                        192,
+                                        208
+                                    ]
+                       }
+}

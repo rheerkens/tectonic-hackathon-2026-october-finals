@@ -1,0 +1,38 @@
+{
+  "status": "approved_for_adoption",
+  "comparison": "../comparison-03.html",
+  "basis": "docs/design/finn_pet/frames/waving/00.png",
+  "armSources": "../inbetween-02/metadata.json",
+  "durationsMs": [
+    100,
+    100,
+    140,
+    160,
+    120,
+    110,
+    110,
+    1560
+  ],
+  "loopDurationMs": 2400,
+  "armWindowSvgPath": "M137 35H192V153H136L126 131L128 111L122 81L135 70Z",
+  "method": "Browser renders an unchanged original basis outside the arm window. Existing original or generated images supply only the arm window. No new drawing, scaling or PNG modification.",
+  "limitations": [
+    "De goedgekeurde variant is een lagencompositie; voor runtimegebruik dezelfde compositie exporteren of als lagen afspelen.",
+    "De volledige figuren uit inbetween-02/waving.webp zijn afgekeurd en mogen niet worden ge?ntegreerd.",
+    "Integratie blijft bij de centrale Finn sessie."
+  ],
+  "review": {
+    "bodySourceStableAcrossAllEightSteps": true,
+    "allEightStepsObserved": true,
+    "pauseResumeObserved": true,
+    "visualAssessment": "De gebruiker heeft de getoonde lagencompositie met vaste basis expliciet goedgekeurd.",
+    "approval": "approved_by_user"
+  },
+  "userDecision": {
+    "quote": "In orde mag overgenomen worden",
+    "date": "2026-10-20",
+    "scope": "Exacte lagencompositie uit comparison-03.html, vaste oorspronkelijke basis plus bewegend armgebied."
+  },
+  "sessionStatus": "completed",
+  "integrationStatus": "handed_off_to_central_session_not_integrated_here"
+}

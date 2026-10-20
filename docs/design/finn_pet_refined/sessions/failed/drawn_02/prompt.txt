@@ -1,0 +1,10 @@
+Use case: identity-preserve. Asset type: production sprite in-between drawings for Finn's disappointed gesture.
+Inputs: image 1 is the exact lower-arm resting endpoint, image 2 is the exact raised-hand endpoint. These are real Finn assets, not merely style inspiration.
+Create ONLY THREE new full-body in-between poses, arranged left to right in three equally sized cells in ONE horizontal transparent sprite strip, each cell the same aspect ratio 192:208. The characters must all be identically sized and placed, matching the references. No labels, no borders.
+The moving arm is the character's LEFT arm, on VIEWER RIGHT. The OTHER hand must keep holding the yellow folder with white shield.
+Pose A: hand has just left the trouser pocket on viewer right, wrist raised to lower ribs, elbow slightly out.
+Pose B: same hand halfway up, wrist level with upper chest, elbow bent, forearm rising toward the face.
+Pose C: same hand just below the temple, fingertips beside cheek and outer edge of glasses, clearly between pose B and reference 2.
+These must be genuinely distinct evenly spaced ANATOMICAL arm poses, not fades, motion blur or a moved whole sprite. Preserve the worried open-eyed expression of image 1 in all three. Keep the head stationary, do not look down, do not close eyes. Preserve the exact character identity, large round brown glasses, brown wavy hair, red cardigan, white shirt, yellow folder with white shield, dark trousers and yellow white sneakers. Preserve frontal three-quarter facing orientation.
+CRITICAL: Treat this as an edit of image 1. Change ONLY the viewer-right sleeve, forearm and hand to form each in-between pose. The head, hair, face, glasses, left half of torso, folder, holding hand, legs and shoes should be unchanged and aligned to image 1. Both feet remain firmly fixed on the exact same baseline in all cells. No scaling differences, no body rotation, no floating. Maintain original clean illustrated 3D sprite rendering, shading and soft alpha edges. Transparent background, no shadows beyond the existing sprite, no text.
+Return one tightly framed horizontal strip of exactly three equally spaced full body figures.

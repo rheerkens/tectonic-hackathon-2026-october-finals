@@ -1,0 +1,40 @@
+{
+  "frames": [
+    {
+      "file": "arm_low.png",
+      "size": [
+        192,
+        208
+      ],
+      "alphaBounds": [
+        46,
+        5,
+        146,
+        203
+      ],
+      "changedPixels": 1629,
+      "changesOutsideArm": 0,
+      "feetExact": true
+    },
+    {
+      "file": "pair_0.png",
+      "size": [
+        192,
+        208
+      ],
+      "alphaBounds": [
+        46,
+        5,
+        148,
+        203
+      ],
+      "changedPixels": 1753,
+      "changesOutsideArm": 0,
+      "feetExact": true
+    }
+  ],
+  "rawFiles": {
+    "raw_pair_rejected.png": "f343d71fe0b749c3ce4857818bc1aeeb3e533aaf4544737987e847b348839c4b",
+    "raw_low.png": "8b4be2833eed3fcdf477bb4012266f9311053991baf963231e1ada79d714fba9"
+  }
+}

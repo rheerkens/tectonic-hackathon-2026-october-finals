@@ -1,0 +1,34 @@
+[
+  {
+    "file": "blink_half.png",
+    "size": [
+      192,
+      208
+    ],
+    "alphaDifferences": 0,
+    "changedPixelCount": 599,
+    "changedBounds": [
+      78,
+      42,
+      123,
+      63
+    ],
+    "outsideLensRegionDifferences": 0
+  },
+  {
+    "file": "blink_closed.png",
+    "size": [
+      192,
+      208
+    ],
+    "alphaDifferences": 0,
+    "changedPixelCount": 602,
+    "changedBounds": [
+      78,
+      42,
+      123,
+      63
+    ],
+    "outsideLensRegionDifferences": 0
+  }
+]

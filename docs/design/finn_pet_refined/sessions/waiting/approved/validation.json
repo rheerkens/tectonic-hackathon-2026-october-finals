@@ -1,0 +1,35 @@
+{
+  "frames": 11,
+  "dimensions": [
+    192,
+    208
+  ],
+  "durationsMs": [
+    400,
+    90,
+    90,
+    650,
+    100,
+    100,
+    650,
+    50,
+    80,
+    70,
+    920
+  ],
+  "loop": 0,
+  "visibleRgbaMatchesSource": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "sha256": "88c13d30c2c600ca943c6953937147f4ab3cec7235bd4ccafd26f67518d683e2"
+}

@@ -1,0 +1,147 @@
+{
+  "animation": "waiting",
+  "displayName": "Iets vragen",
+  "variant": "drawn_gesture_03",
+  "status": "approved",
+  "userFeedback": "Proef 02 is te statisch, meer animatie gewenst.",
+  "cellWidth": 192,
+  "cellHeight": 208,
+  "original": {
+    "frameIndices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "durationsMs": [
+      150,
+      150,
+      150,
+      150,
+      150,
+      260
+    ],
+    "loopDurationMs": 1010
+  },
+  "candidate": {
+    "frameIndices": [
+      0,
+      1,
+      2,
+      3,
+      2,
+      1,
+      0,
+      4,
+      5,
+      4,
+      0
+    ],
+    "durationsMs": [
+      400,
+      90,
+      90,
+      650,
+      100,
+      100,
+      650,
+      50,
+      80,
+      70,
+      920
+    ],
+    "loopDurationMs": 3200,
+    "uniqueFrameCount": 6,
+    "playbackStepCount": 11
+  },
+  "candidateFrameTable": [
+    {
+      "index": 0,
+      "path": "docs/design/finn_pet/frames/waiting/00.png",
+      "sha256": "1dc078529e56479afe6cef96053d33d3f7624f0bfae6698b56d4ee6d1290dd43"
+    },
+    {
+      "index": 1,
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_0.png",
+      "sha256": "633fe90e009dc3d97617bce8338160c68c270232e03b869977b98b7e00e967a4"
+    },
+    {
+      "index": 2,
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_1.png",
+      "sha256": "759af83de5dcc08c8190f9385c57f9f23e2ff91e3b0a4b418cb36a521a9f9ae9"
+    },
+    {
+      "index": 3,
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_2.png",
+      "sha256": "a7cb71ae44b0488a13f90c6f8f044498a351738bf5bf87e5678e15d09329d9da"
+    },
+    {
+      "index": 4,
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_half.png",
+      "sha256": "7eff4a237c87ad309a955afde129fb7a086762d3e65b2d76fe6e53b6bb4c3954"
+    },
+    {
+      "index": 5,
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_closed.png",
+      "sha256": "a19a384ae3589c4382d4a3c9391ccb8433504fecde2e3ef7a60c23403016b555"
+    }
+  ],
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "prompt": "drawn_03/prompt.txt",
+    "raw": "drawn_03/generated_strip.png",
+    "extraction": "drawn_03/extract.ps1",
+    "newPoses": "Drie opeenvolgende standen van de vrije arm en open hand.",
+    "retained": "Hoofd, gezicht, map, romp en voeten uit bronframe 00; twee oogstanden uit proef 02."
+  },
+  "patches": [
+    {
+      "path": "drawn_03/arm_patch_0.png",
+      "x": 118,
+      "y": 78,
+      "width": 63,
+      "height": 57
+    },
+    {
+      "path": "drawn_03/arm_patch_1.png",
+      "x": 118,
+      "y": 78,
+      "width": 63,
+      "height": 57
+    },
+    {
+      "path": "drawn_03/arm_patch_2.png",
+      "x": 118,
+      "y": 78,
+      "width": 63,
+      "height": 57
+    },
+    {
+      "path": "drawn_03/blink_patch_half.png",
+      "x": 78,
+      "y": 42,
+      "width": 46,
+      "height": 22
+    },
+    {
+      "path": "drawn_03/blink_patch_closed.png",
+      "x": 78,
+      "y": 42,
+      "width": 46,
+      "height": 22
+    }
+  ],
+  "htmlCharacters": 355589,
+  "limitations": [
+    "Three drawn arm steps can still look stepped, especially at enlarged scale.",
+    "No head or torso motion added; this candidate isolates the asking hand gesture.",
+    "Not user approved or integrated."
+  ],
+  "approvalQuote": "In orde zo, mag overgenomen worden",
+  "delivery": {
+    "manifest": "approved/manifest.json",
+    "animation": "approved/waiting.webp"
+  }
+}

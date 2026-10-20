@@ -1,0 +1,264 @@
+{
+  "animation": "jumping",
+  "proposal": "02",
+  "status": "unapproved visual candidate",
+  "generation": "Built-in imagegen, identity-preserve, original five PNGs as references",
+  "promptFile": "proposal02-prompt.txt",
+  "generatedSheet": "proposal02-generated-sheet.png",
+  "originalSequence": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "proposalSequence": [
+    0,
+    5,
+    1,
+    6,
+    2,
+    7,
+    3,
+    8,
+    4
+  ],
+  "originalDurationsMs": [
+    140,
+    140,
+    140,
+    140,
+    280
+  ],
+  "proposalDurationsMs": [
+    120,
+    60,
+    60,
+    60,
+    120,
+    60,
+    60,
+    60,
+    1200
+  ],
+  "originalLoopMs": 840,
+  "proposalLoopMs": 1800,
+  "newPoses": [
+    "early lift",
+    "late ascent",
+    "early descent",
+    "approaching ground"
+  ],
+  "normalization": [
+    {
+      "cell": 0,
+      "sheetCrop": [
+        0,
+        0,
+        602,
+        652
+      ],
+      "significantAlphaBounds": [
+        195,
+        47,
+        463,
+        619
+      ],
+      "crop": [
+        192,
+        44,
+        466,
+        622
+      ],
+      "uniformScale": 0.32517482517482516,
+      "position": [
+        51,
+        11
+      ],
+      "outputAlphaBounds": [
+        51,
+        11,
+        140,
+        199
+      ],
+      "targetBounds": [
+        50,
+        12,
+        141,
+        198
+      ]
+    },
+    {
+      "cell": 1,
+      "sheetCrop": [
+        602,
+        0,
+        1205,
+        652
+      ],
+      "significantAlphaBounds": [
+        117,
+        36,
+        380,
+        605
+      ],
+      "crop": [
+        114,
+        33,
+        383,
+        608
+      ],
+      "uniformScale": 0.31985940246045697,
+      "position": [
+        52,
+        6
+      ],
+      "outputAlphaBounds": [
+        52,
+        6,
+        138,
+        190
+      ],
+      "targetBounds": [
+        50,
+        7,
+        140,
+        189
+      ]
+    },
+    {
+      "cell": 2,
+      "sheetCrop": [
+        0,
+        652,
+        602,
+        1305
+      ],
+      "significantAlphaBounds": [
+        195,
+        17,
+        464,
+        585
+      ],
+      "crop": [
+        192,
+        14,
+        467,
+        588
+      ],
+      "uniformScale": 0.323943661971831,
+      "position": [
+        51,
+        7
+      ],
+      "outputAlphaBounds": [
+        51,
+        7,
+        140,
+        193
+      ],
+      "targetBounds": [
+        50,
+        8,
+        141,
+        192
+      ]
+    },
+    {
+      "cell": 3,
+      "sheetCrop": [
+        602,
+        652,
+        1205,
+        1305
+      ],
+      "significantAlphaBounds": [
+        118,
+        25,
+        387,
+        587
+      ],
+      "crop": [
+        115,
+        22,
+        390,
+        590
+      ],
+      "uniformScale": 0.33451957295373663,
+      "position": [
+        50,
+        12
+      ],
+      "outputAlphaBounds": [
+        50,
+        12,
+        142,
+        202
+      ],
+      "targetBounds": [
+        50,
+        13,
+        141,
+        201
+      ]
+    }
+  ],
+  "cell": [
+    192,
+    208
+  ],
+  "crossfade": false,
+  "limitations": [
+    "Generated details may differ from neighboring originals.",
+    "No new anticipation crouch or landing rebound.",
+    "Original jumping scale retained; difference from idle is not corrected."
+  ],
+  "files": [
+    {
+      "path": "frames\\jumping\\00.png",
+      "origin": "original",
+      "sha256": "4141251ade3476ee66e174cb86ab874c4d3d1a1e3a450a384cf9b990229e5d46"
+    },
+    {
+      "path": "frames\\jumping\\01.png",
+      "origin": "original",
+      "sha256": "692e1251205bccc989127af7d679b2481cfd28c620cb0973a7abd922cba100e4"
+    },
+    {
+      "path": "frames\\jumping\\02.png",
+      "origin": "original",
+      "sha256": "0890645b1c39e92028d8acfb1b849b8146a7ca973372143aea96239b3ac83827"
+    },
+    {
+      "path": "frames\\jumping\\03.png",
+      "origin": "original",
+      "sha256": "0339bd24c8a409925320393f1345c12a1d66fc388f30084ff323f0a0e528a9d1"
+    },
+    {
+      "path": "frames\\jumping\\04.png",
+      "origin": "original",
+      "sha256": "2326a291d9f0a9cc17e6ed71465d5c507d9e855f4cedafed64c5d6413dc41828"
+    },
+    {
+      "path": "proposal02-frames\\00.png",
+      "origin": "generated",
+      "sha256": "af41ab2f97e150b0b19332feff5127e0514610e80873bc109a77b683b69e8bad"
+    },
+    {
+      "path": "proposal02-frames\\01.png",
+      "origin": "generated",
+      "sha256": "445668c23d89f653dc0d5b7e9dac255a9b730eb54dc0135b71cbae2bb820bb89"
+    },
+    {
+      "path": "proposal02-frames\\02.png",
+      "origin": "generated",
+      "sha256": "965639c3b993502771d74c33e89fc5f147cd3e999e0578e9d8873a27e4e90940"
+    },
+    {
+      "path": "proposal02-frames\\03.png",
+      "origin": "generated",
+      "sha256": "7757aa858254a4984df167e37524979caae08c5256fe0d2f21241a1cc24cfa18"
+    }
+  ],
+  "htmlCharacters": 407667
+}

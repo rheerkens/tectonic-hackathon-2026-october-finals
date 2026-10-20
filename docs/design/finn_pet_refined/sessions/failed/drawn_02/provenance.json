@@ -1,0 +1,235 @@
+{
+  "animation": "failed",
+  "trial": "drawn_02",
+  "status": "rejected_by_user",
+  "userFeedback": "De extra frames passen niet goed bij het origineel. Finn lijkt ineens dikker te worden.",
+  "rejectionReason": "Full-body generated frames change Finn's proportions. Matching height and shoe baseline does not preserve torso width, head proportions or folder shape.",
+  "cellSize": [
+    192,
+    208
+  ],
+  "original": {
+    "durationsMs": [
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      240
+    ],
+    "loopDurationMs": 1220
+  },
+  "candidate": {
+    "frameIds": [
+      "docs/design/finn_pet/frames/failed/00.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_low.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_chest.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_cheek.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_temple.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_cheek.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_chest.png",
+      "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_low.png",
+      "docs/design/finn_pet/frames/failed/00.png"
+    ],
+    "durationsMs": [
+      120,
+      90,
+      90,
+      90,
+      240,
+      100,
+      100,
+      100,
+      2470
+    ],
+    "loopDurationMs": 3400,
+    "exactSameFirstAndLastImage": true
+  },
+  "newArt": {
+    "tool": "built-in imagegen",
+    "newPoses": [
+      "hand_low",
+      "hand_chest",
+      "hand_cheek",
+      "hand_temple"
+    ],
+    "references": [
+      "docs\\design\\finn_pet\\frames\\failed\\00.png",
+      "docs\\design\\finn_pet\\frames\\failed\\03.png"
+    ],
+    "prompts": [
+      "prompt.txt",
+      "prompt-second.txt",
+      "prompt-near-face.txt"
+    ],
+    "rejectedOutput": "rejected-first-output.png",
+    "rejectionReason": "Changed proportions, glasses and background. Not used in playback."
+  },
+  "processing": "Crop generated cells, uniformly resize each silhouette to 198 pixels tall, place by shoes in 192x208 transparent cells. No crossfade, interpolation or body warping.",
+  "normalization": [
+    {
+      "name": "hand_low",
+      "sourceCrop": [
+        171,
+        16,
+        526,
+        720
+      ],
+      "scale": 0.28125,
+      "placement": [
+        46,
+        5
+      ],
+      "alphaBounds": [
+        46,
+        5,
+        146,
+        203
+      ],
+      "significantAlphaBounds": [
+        46,
+        5,
+        146,
+        203
+      ]
+    },
+    {
+      "name": "hand_chest",
+      "sourceCrop": [
+        164,
+        17,
+        542,
+        720
+      ],
+      "scale": 0.28165007112375534,
+      "placement": [
+        46,
+        5
+      ],
+      "alphaBounds": [
+        46,
+        5,
+        152,
+        203
+      ],
+      "significantAlphaBounds": [
+        46,
+        5,
+        152,
+        203
+      ]
+    },
+    {
+      "name": "hand_cheek",
+      "sourceCrop": [
+        317,
+        33,
+        918,
+        1187
+      ],
+      "scale": 0.17157712305025996,
+      "placement": [
+        48,
+        5
+      ],
+      "alphaBounds": [
+        48,
+        5,
+        151,
+        203
+      ],
+      "significantAlphaBounds": [
+        48,
+        5,
+        151,
+        203
+      ]
+    },
+    {
+      "name": "hand_temple",
+      "sourceCrop": [
+        153,
+        17,
+        541,
+        720
+      ],
+      "scale": 0.28165007112375534,
+      "placement": [
+        46,
+        5
+      ],
+      "alphaBounds": [
+        46,
+        5,
+        155,
+        203
+      ],
+      "significantAlphaBounds": [
+        46,
+        5,
+        155,
+        203
+      ]
+    }
+  ],
+  "inlineEncoding": "Lossless WebP, RGBA decode checked byte for byte against each PNG. Unique images embedded once.",
+  "htmlCharacters": 465780,
+  "sources": [
+    {
+      "path": "docs/design/finn_pet/frames/failed/00.png",
+      "sha256": "ce75ca3a3042cc19afb3bbf8b06e8c1bbf278268b5c5a36ab4b92cb45138bfc4"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/01.png",
+      "sha256": "4018d313778b48d36a7a50c87d648bdad526186141e5a7a3733452c014d9971b"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/02.png",
+      "sha256": "2ff8b3dcb91af0e0273bcfb329f16aafaeb33521a3e2c04e3879cd4d0465a2b9"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/03.png",
+      "sha256": "92a3fe4753d79338a70e19a7c4779b1545d4c4b8761948d94ecb08b72c88b4b9"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/04.png",
+      "sha256": "7b47670b3c60294ff5813c159e14641ba5b028850d949eebcede009e362b544a"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/05.png",
+      "sha256": "8ab30e807d44b71e0f1d0f437ace23c625ca0b11df009224156aa9ba0897b66b"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/06.png",
+      "sha256": "3aad62bd76d3ee735b03f79edf443a985356e177e5ba046583109e4a54a1415c"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/07.png",
+      "sha256": "4715f22ab20f958997d179c645583b4a27c40d8e2f0dcc4bed50642f37979569"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_low.png",
+      "sha256": "1ca0f9d97dc39789b7d1bbb99fa9c055c9a4b917a03e2df8606008baba703011"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_chest.png",
+      "sha256": "93ced211ff50cefbf3f6f3cf6a87ef36ce189a69dde719ddaa42c05e40a9b24d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_cheek.png",
+      "sha256": "d4551815e1c40d11a9185cea2e38f9a77c75949fb13cabca13bf5edcd8133205"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_temple.png",
+      "sha256": "f5b5c3bd5491ef867480b235efe3c33f419de932059a811344fc2563fc4b1c27"
+    }
+  ],
+  "limitations": [
+    "Generated drawings may still differ in face, folder, clothing and shoe detail; requires visual review.",
+    "Reverse playback reuses the same arm poses.",
+    "The rest is static and still looks worried.",
+    "No application integration or user approval."
+  ]
+}

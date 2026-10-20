@@ -44,7 +44,7 @@ De tijdelijke assetserver luistert alleen op het eigen Tailscale adres en servee
 
 ## Volgende keuze
 
-Eerst beoordelen of deze rustigere cadans goed voelt. Daarna kan één echte ademcyclus met vaste voeten en minimale rompbeweging worden getekend. Alternatief is eerst de kleine contourverschillen in idle aanpakken. Uitbreidingen en aanpassingen aan de overige acht staten blijven voorstellen totdat de gebruiker een keuze maakt.
+De idle keuze is afgerond: de gebruiker koos proef 01 en vraagt geen nieuwe ademcyclus of verdere verfijning. Zie het definitieve besluit onderaan. Uitbreidingen en aanpassingen aan de overige acht staten blijven afzonderlijke voorstellen totdat de gebruiker een keuze maakt.
 
 ## Proef 02 en inventaris
 
@@ -61,3 +61,67 @@ docs/design/finn_pet_refined/overview.html bundelt de bewegende vergelijking en 
 ## Visuele beoordeling na proef 02
 
 De gebruiker vindt proef 02 visueel te statisch. De zes frames en exporttimings zijn technisch correct, maar vormen geen duidelijk leesbare ademcyclus. Proef 02 geldt daarom als visueel onvoldoende en blijft uitsluitend een bewaard experiment. Proef 01 blijft de voorkeur. Geen van deze proeven vervangt automatisch de originele assets in de app.
+
+## Gezamenlijk beoordelen met annotaties
+
+`docs/design/finn_pet_refined/review.html` toont de negen bronanimaties, beide idle proeven, de zestien statische kijkrichtingen en vijf kaarten voor ontbrekende bewegingen of voorstellen. De voorstelkaarten tonen uitdrukkelijk een stilstaande referentie, geen gegenereerde of afgewerkte animatie. Bevestigend knikken, leesbaar ademen en overgangen ontbreken nog; aandachtig kijken en wachten op een collega kunnen eerst bestaande poses gebruiken.
+
+Elke bewegende kaart gebruikt de bestaande PNG frames en vastgelegde frametijden. Afspelen, pauzeren, een tijdstip kiezen, half tempo en een lichte of donkere achtergrond helpen bij beoordeling. Met `Noteer dit frame` wordt het gekozen framenummer en tijdstip in de notitie gezet. Keuzes en vrije tekst blijven in lokale browseropslag. `Kopieer feedback`, de zichtbare feedbacktekst en een download als tekstbestand dienen als expliciete overdracht naar de chat. Opslaan in de pagina verstuurt niets naar een agent en voert geen wijzigingen uit.
+
+`build_review.py` maakt de volledige zelfstandige HTML met ongewijzigde PNG beelden en daarnaast `review.embed.html` voor weergave in de chat. Alleen die compacte kijkversie gebruikt naar 96 bij 104 pixels verkleinde WebP beelden. Voor detailbeoordeling is de volledige versie bedoeld. De browseropslag van de chatweergave en de afzonderlijk geopende pagina kan verschillen; vul feedback op één plek in en geef die expliciet door.
+
+De volledige review is bereikbaar op http://100.89.117.122:8768/finn_pet_refined/review.html zolang de eigen statische server actief is. De bestaande server op poort 8767 en de oude werkmap blijven onaangeroerd. Browsercontrole bevestigde geladen beelden, afspelen, pauzeren, framekeuze, notities bewaren na herladen, feedbacktekst en een mobiele indeling zonder horizontale overflow. Er zijn geen unit of e2e tests uitgevoerd. Geen bronasset of applicatiebestand is gewijzigd.
+
+## Definitief besluit: idle afgerond
+
+De gebruiker heeft proef 01 expliciet goedgekeurd voor overname: de bestaande zes oorspronkelijke frames, in dezelfde volgorde, met tijden 1400, 900, 90, 110, 120 en 1780 ms. Totale lusduur: 4400 ms. De rustigere timing is voldoende; een ademanimatie of verdere verfijning is niet nodig. Proef 02 blijft visueel onvoldoende en is niet gekozen.
+
+De afzonderlijke sessie is mcp:f1ac0a33-e6ea-44a4-bfd8-38f4ddc70784. Het gebruikersbesluit staat in docs/design/finn_pet_refined/sessions/idle/status.md. De centrale coördinatie heeft dit overgenomen in docs/design/finn_pet_refined/session_status.json en het idle manifest op approved gezet. De centrale review en het overzicht markeren de gekozen variant als goedgekeurd en afgerond. De oorspronkelijke idle blijft zichtbaar als vergelijkingsbron.
+
+De bestaande exports animations/idle.webp en animations/idle.gif onder finn_pet_refined zijn de goedgekeurde levering. Bij overname zijn alle zes PNG bronkopieën byte voor byte vergeleken; beide exports zijn opnieuw uitgelezen en bevatten exact de zes goedgekeurde tijden, zes frames en de celmaat 192 bij 208. De SHA256 van WebP is 0bd5acd7d4d84111416627b81aff42613d4eed46acf24dc002a23851fd78731a. De bestanden zelf zijn niet opnieuw gegenereerd of gewijzigd. Deze overname betreft de centrale assetkeuze en documentatie; de coördinatiesessie heeft geen applicatiebestanden of oorspronkelijke bronassets vervangen.
+
+## Definitief besluit: lopen naar links afgerond
+
+De gebruiker heeft drawing_02 expliciet goedgekeurd: "Deze mag overgenomen worden en in de bovenliggend chat bevestigd worden dat het in orde is." De keuze betreft twaalf frames met vier nieuwe beenposes, niet de eerdere timingproef. Het oorspronkelijke bovenlijf is behouden. De tijden zijn 65, 65, 70, 70, 130, 130, 65, 65, 70, 70, 130 en 130 ms, samen 1060 ms. De cadans blijft dus gelijk aan het uitgangspunt voor rechts; centrale afstemming mag deze expliciete goedkeuring niet stilzwijgend vervangen.
+
+De centrale keuze staat in session_status.json. Bronbesluit en bewijs staan in sessions/walk_left/status.md en sessions/walk_left/drawing_02/approval.json en manifest.json. De geselecteerde export is sessions/walk_left/drawing_02/running-left.webp, SHA256 4ac79dd419e8153b406b9faf41aa9017fefc12cbcfbfcc2bc78cabde75840d7d. Bij centrale overname opnieuw uitgelezen: twaalf frames, 192 bij 208 pixels, exact de opgegeven tijden, onbeperkte lus en alle alpha en zichtbare pixels gelijk aan de goedgekeurde framevolgorde.
+
+De centrale review toont de gekozen versie naast de andere beslissingen; de oorspronkelijke acht bronframes blijven als vergelijking beschikbaar. De vergelijking van de sessie staat op http://100.89.117.122:8768/finn_pet_refined/sessions/walk_left/drawing_02/comparison.html. Eerdere proeven blijven bewaard. Deze overname wijzigt geen bronassets of appbestanden en voert geen Git mutaties uit.
+
+## Definitieve besluiten: Nadenken, Lopen naar rechts en Controleren
+
+Nadenken is goedgekeurd als thinking_drawing_02, technische state running. Het gekozen bestand is sessions/thinking/drawing_02/candidate.webp, SHA256 6beafe3b04733d6e3a7e043b1da266b0b3bfd42c370f793f35dc608ed7a270b0. Zes frames met tijden 3540, 100, 110, 440, 110 en 100 ms, samen 4400 ms. Vier unieke houdingen: de oorspronkelijke kinpose, low, middle en temple. De terugweg hergebruikt middle en low. Pixels buiten de armregio, inclusief benen en schoenen, zijn behouden. De gemelde kleine vormwissel bij vingers en kin is door de gebruiker gezien en geaccepteerd. Het oude compare_01 blijft bewaard; de keuze is compare_02 en geen timingproef.
+
+Lopen naar rechts is goedgekeurd als inbetweens_02, technische state running-right. Het gekozen bestand is sessions/walk_right/inbetweens_02/candidate.webp, SHA256 9aa7f4637b809d4387622e44c93793fd21ffa2328bfe4526a87104633e346cf9. Twaalf frames met tijden 70, 70, 130, 130, 65, 65, 70, 70, 130, 130, 65 en 65 ms, samen 1060 ms en twee helften van 530 ms. Twee nieuwe poses, A_landing en C_extension, zijn elk tweemaal opgenomen naast de acht oorspronkelijke frames. De afgewezen pose B is uitgesloten. De goedgekeurde linkse variant blijft ongewijzigd; beide richtingen behouden hun eigen goedgekeurde framevolgorde en dezelfde totale cadans.
+
+Controleren is goedgekeurd als drawn02, technische state review. Het gekozen bestand is sessions/review/approved02/review.webp, SHA256 24edd48d17273ed637f7fb874505be8293fc40698c3e075b181ece77f62e1c0f. Elf frames met tijden 320, 100, 90, 90, 100, 650, 100, 90, 90, 100 en 1070 ms, samen 2800 ms. Twee nieuwe armhoudingen worden ook op de terugweg gebruikt. Ogen blijven open en begin en einde zijn identiek. Dit is inspectie, geen succesbevestiging. De gebruiker keurde comparison02 goed, niet timingproef 01.
+
+Alle drie zijn als completed en centraal overgenomen geregistreerd in session_status.json. Goedkeuring en oorspronkelijke bewijsstukken blijven in de eigen sessiemappen. Centrale decodecontrole bevestigt voor alle drie de genoemde hashes, frametijden, oneindige lus, celmaat 192 bij 208 en exacte alpha en zichtbare pixels tegenover de goedgekeurde framevolgorde. De centrale review en het overzicht tonen de geselecteerde versies. Er is geen nieuwe verfijningsronde uitgevoerd en geen bronasset of applicatiebestand vervangen. Runtimeovername is door deze coördinatiesessie niet uitgevoerd.
+
+## Definitief besluit: Springen afgerond
+
+De gebruiker keurde tekenproef 02 expliciet goed: "In orde mag overgenomen worden". De gekozen export is sessions/jumping/approved/jumping.webp, SHA256 7b93e19b1888efa7550af39564ab726c19405f6968e8a5ddc277eeadf39dac25. Negen frames, 192 bij 208, transparant, oneindige lus. Tijden: 120, 60, 60, 60, 120, 60, 60, 60 en 1200 ms, samen 1800 ms. Vier nieuwe tussenposes wisselen af met de vijf oorspronkelijke poses. Centrale decodecontrole bevestigt de hash, frametijden en exacte alpha en zichtbare pixels tegenover de goedgekeurde PNG reeks.
+
+De lichte tekenverschillen rond map en schoenen en het oorspronkelijke schaalverschil tegenover idle blijven in de goedgekeurde versie. De eerdere timingproef is niet gekozen. Goedkeuring en herkomst staan in sessions/jumping/approval.json en approved/manifest.json; de centrale registratie staat op completed. Negen frames passen niet in de oorspronkelijke atlasrij met acht kolommen. De overname verwijst naar de WebP; een eventuele atlasaanpassing vereist afzonderlijke afstemming. Geen nieuwe verfijningsronde, bronvervanging of appintegratie is uitgevoerd.
+
+## Definitieve besluiten: Teleurstelling en Iets vragen
+
+Teleurstelling is uitsluitend goedgekeurd als arm_03, technische state failed. De gebruiker zei: "In orde zo, mag overgelomen worden". De gekozen export is sessions/failed/arm_03/approved/failed.webp, SHA256 a467a398d234f32e07ed6a5cad540ae6d5ea9e7d037764a9ae5234be4a3f3863. Negen stappen met tijden 120, 90, 90, 90, 240, 100, 100, 100 en 2470 ms, samen 3400 ms. De oorspronkelijke lichaamsbouw blijft behouden; alleen nieuwe armstukken zijn opgenomen. Begin en einde gebruiken hetzelfde originele frame. Drawn_02 blijft afgekeurd wegens het dikker worden van Finn. Geen verdere verfijning gevraagd.
+
+Iets vragen is goedgekeurd als drawn_gesture_03, technische state waiting. De gebruiker zei: "In orde zo, mag overgenomen worden". De gekozen export is sessions/waiting/approved/waiting.webp, SHA256 88c13d30c2c600ca943c6953937147f4ab3cec7235bd4ccafd26f67518d683e2. Zes unieke beelden in elf stappen met tijden 400, 90, 90, 650, 100, 100, 650, 50, 80, 70 en 920 ms, samen 3200 ms. Drie getekende armstanden en de knippering zijn gekozen. Proeven 01 en 02 blijven eerdere experimenten.
+
+Beide zijn centraal als completed geregistreerd. Decodecontrole bevestigt hashes, exacte tijden, celmaat 192 bij 208, oneindige lus en zichtbare RGB en alpha gelijk aan de goedgekeurde PNG volgorde. Centrale review en overzicht tonen beide keuzes. Er zijn nu acht goedgekeurde animaties; Begroeten staat nog open. Geen bronasset of applicatiebestand is vervangen.
+
+## Visuele les uit Begroeten, alleen voor nog openstaand werk
+
+De gebruiker herkent nieuw ingevoegde frames doordat de volledig opnieuw getekende Finn dikker wordt. Dezelfde celmaat en voetregistratie bewijzen geen gelijke lichaamsproporties. Vergelijk ook gezicht, romp, map, benen en silhouet. Begroeten proef 02 is afgekeurd en blijft bewaard. De nieuwe comparison-03.html gebruikt een vaste oorspronkelijke basispose met alleen wijzigingen binnen het bewegende armgebied; acht stappen op 2400 ms. De schouder- en heupaansluiting moeten nog visueel beoordeeld worden. Dit is een gelaagde browserproef, geen goedgekeurde finale spriteexport. Deze les heropent geen goedgekeurde animaties.
+
+## Definitief besluit en export: Begroeten afgerond
+
+De gebruiker heeft daarna de exacte lagencompositie comparison-03.html goedgekeurd: "In orde mag overgenomen worden". De vaste basis is de oorspronkelijke waving/00.png. Alleen het vastgelegde armvenster wisselt, met de bronvolgorde 00, transition-1, 01, 02, transition-2, 03, transition-3, rust. Begin en einde tonen de volledige vaste basis. De eerder afgekeurde inbetween-02/waving.webp met volledig gegenereerde lichamen is niet overgenomen.
+
+De coördinatiesessie heeft dezelfde compositie met de oorspronkelijke SVG maskers en clip path via Chromium naar acht PNG frames gerenderd en lossless als approved/waving03/waving.webp geëxporteerd. Dit is geen nieuwe hertekening. Tijden: 100, 100, 140, 160, 120, 110, 110 en 1560 ms, samen 2400 ms. Celmaat 192 bij 208, transparant, oneindige lus. SHA256: 866885506d43358475b38aa197d340e9bd487f3d9c32696216fb344044bc58e4.
+
+Alle acht afgebeelde stappen uit de oorspronkelijke goedgekeurde HTML zijn in de browser vergeleken met de geëxporteerde PNG frames: nul afwijkende zichtbare pixels of alpha. De WebP is vervolgens gedecodeerd en op exacte tijden en dezelfde alpha en zichtbare pixels gecontroleerd. Begin en einde zijn identiek; het gebied buiten het armvenster blijft gelijk. Herkomst, bronhashes en exportgegevens staan in approved/waving03/manifest.json. De exportvergelijking is approved/waving03/comparison.html.
+
+Alle negen animaties staan nu centraal geregistreerd als completed met een geselecteerde export. De review en het overzicht gebruiken uitsluitend deze goedgekeurde keuzes naast de oorspronkelijke vergelijkingsbronnen. De animaties zijn niet opnieuw geopend. Dit sluit de assetselectie af; appbestanden en oorspronkelijke atlas zijn door de coördinatiesessie nog niet gewijzigd.

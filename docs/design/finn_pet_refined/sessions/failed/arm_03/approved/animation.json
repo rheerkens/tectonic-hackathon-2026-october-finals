@@ -1,0 +1,124 @@
+{
+  "animation": "failed",
+  "approvedVariant": "arm_03",
+  "approval": {
+    "userMessage": "In orde zo, mag overgelomen worden",
+    "scope": "arm_03, de variant met vaste originele lichaamsbouw; overname door de centrale Finn coordinatiesessie",
+    "integrationPerformedInThisSession": false
+  },
+  "frames": 9,
+  "size": [
+    192,
+    208
+  ],
+  "durationsMs": [
+    120,
+    90,
+    90,
+    90,
+    240,
+    100,
+    100,
+    100,
+    2470
+  ],
+  "loopDurationMs": 3400,
+  "loop": 0,
+  "webp": "failed.webp",
+  "sha256": "a467a398d234f32e07ed6a5cad540ae6d5ea9e7d037764a9ae5234be4a3f3863",
+  "frameFiles": [
+    "frames/00.png",
+    "frames/01.png",
+    "frames/02.png",
+    "frames/03.png",
+    "frames/04.png",
+    "frames/05.png",
+    "frames/06.png",
+    "frames/07.png",
+    "frames/08.png"
+  ],
+  "validation": [
+    {
+      "frame": 0,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 1,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 2,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 3,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 4,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 5,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 6,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 7,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    },
+    {
+      "frame": 8,
+      "size": [
+        192,
+        208
+      ],
+      "alphaEqual": true,
+      "visibleRGBEqual": true
+    }
+  ],
+  "integrationPerformed": false
+}

@@ -1,0 +1,152 @@
+{
+  "animation": "running-right",
+  "trial": "inbetweens_02",
+  "status": "approved",
+  "frameSize": [
+    192,
+    208
+  ],
+  "originalFrameCount": 8,
+  "candidateFrameCount": 12,
+  "originalDurationsMs": [
+    120,
+    120,
+    120,
+    120,
+    120,
+    120,
+    120,
+    220
+  ],
+  "candidateDurationsMs": [
+    70,
+    70,
+    130,
+    130,
+    65,
+    65,
+    70,
+    70,
+    130,
+    130,
+    65,
+    65
+  ],
+  "candidateOrder": [
+    0,
+    8,
+    1,
+    2,
+    3,
+    9,
+    4,
+    8,
+    5,
+    6,
+    7,
+    9
+  ],
+  "totalMs": 1060,
+  "halfCycleMs": 530,
+  "sharedClock": true,
+  "uniqueNewDrawings": 2,
+  "insertions": [
+    {
+      "drawing": "A_landing",
+      "afterSourceFramesZeroBased": [
+        0,
+        4
+      ],
+      "purpose": "Weight transfer from extended stride into tucked support"
+    },
+    {
+      "drawing": "C_extension",
+      "afterSourceFramesZeroBased": [
+        3,
+        7
+      ],
+      "purpose": "Unfold raised knee into next extended stride, including loop closure"
+    }
+  ],
+  "unusedGeneratedDrawing": {
+    "file": "frames/B_knee_rejected.png",
+    "reason": "Too high airborne; feet stop short of expected path. Not included."
+  },
+  "generation": {
+    "tool": "built-in image_gen.imagegen",
+    "prompt": "prompt.txt",
+    "output": "generated_strip.png",
+    "originalOutput": "C:/Users/Sebas/.codex/generated_images/01a1589e-d0d9-7823-a519-9a270e71302b/exec-c3a6e8ef-dfe0-4132-b41d-f5351cf6a9eb.png",
+    "referenceFramesZeroBased": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "extraction": "prepare_frames.py",
+    "sharedScale": 0.28
+  },
+  "sources": [
+    {
+      "assetIndex": 0,
+      "file": "docs/design/finn_pet/frames/running-right/00.png",
+      "sha256": "fbf01511318cdf5eed1f89114396047b9c109cfbfa3ab58246377cafdbffeb95"
+    },
+    {
+      "assetIndex": 1,
+      "file": "docs/design/finn_pet/frames/running-right/01.png",
+      "sha256": "f8f5baedc4e5109bd799533434dd3a47240a89a704334614e3b2cf9739efd8c8"
+    },
+    {
+      "assetIndex": 2,
+      "file": "docs/design/finn_pet/frames/running-right/02.png",
+      "sha256": "50c6d0cdae79840ad4b2c19729f9e009da47c0a0f1900b931ddc4a083a19dada"
+    },
+    {
+      "assetIndex": 3,
+      "file": "docs/design/finn_pet/frames/running-right/03.png",
+      "sha256": "c63c49b3f6e0a55e63e96788696392fa3ab0c235e149834c2e02bb081c888865"
+    },
+    {
+      "assetIndex": 4,
+      "file": "docs/design/finn_pet/frames/running-right/04.png",
+      "sha256": "e334db62d60a0d4ac89604a6e609d26327b4e25fcc0d08566c77d30fbd6a3957"
+    },
+    {
+      "assetIndex": 5,
+      "file": "docs/design/finn_pet/frames/running-right/05.png",
+      "sha256": "9b989d445a9e4f6503925932dfc56a3fbbe0f096b50778bfa63c873cb3396ffa"
+    },
+    {
+      "assetIndex": 6,
+      "file": "docs/design/finn_pet/frames/running-right/06.png",
+      "sha256": "11052d3d771622634d034a4ed5e33c0f5fb11aa0caa0de4cc7a66477b8d8da4c"
+    },
+    {
+      "assetIndex": 7,
+      "file": "docs/design/finn_pet/frames/running-right/07.png",
+      "sha256": "1ef3f00c62d39d915982db3f5b7e0131dc29fbc930780aa0bc0a8161c34f0333"
+    },
+    {
+      "assetIndex": 8,
+      "file": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/A_landing.png",
+      "sha256": "3f99d3cc69edaf306be4ed5ae7720759d8759a014d980e48adbb3834e99d66d8"
+    },
+    {
+      "assetIndex": 9,
+      "file": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/C_extension.png",
+      "sha256": "b949b18bdecad5612995c477b83491b0688127a27d59e10a46f8c7c4ae7f42cc"
+    }
+  ],
+  "htmlCharacters": 469995,
+  "uniqueEmbeddedImages": 10,
+  "limitations": [
+    "Drawing transition from original frames 02 to 03 and 06 to 07 remains unchanged.",
+    "Generated upper-body details can vary; no claim of pixel identical identity.",
+    "Candidate preserves 1060 ms but changed internal cadences require joint review with left.",
+    "No crossfade, optical-flow or application integration. Earlier timing_01 retained."
+  ],
+  "approval": "approval.json",
+  "export": "candidate.webp",
+  "exportSha256": "9aa7f4637b809d4387622e44c93793fd21ffa2328bfe4526a87104633e346cf9"
+}

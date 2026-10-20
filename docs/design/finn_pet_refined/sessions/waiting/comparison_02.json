@@ -1,0 +1,121 @@
+{
+    "animation":  "waiting",
+    "displayName":  "Iets vragen",
+    "variant":  "drawn_blink_02",
+    "status":  "candidate_awaiting_user_review",
+    "cellWidth":  192,
+    "cellHeight":  208,
+    "original":  {
+                     "frameIndices":  [
+                                          0,
+                                          1,
+                                          2,
+                                          3,
+                                          4,
+                                          5
+                                      ],
+                     "durationsMs":  [
+                                         150,
+                                         150,
+                                         150,
+                                         150,
+                                         150,
+                                         260
+                                     ],
+                     "loopDurationMs":  1010
+                 },
+    "candidate":  {
+                      "frameIndices":  [
+                                           0,
+                                           6,
+                                           7,
+                                           6,
+                                           0
+                                       ],
+                      "durationsMs":  [
+                                          2100,
+                                          50,
+                                          80,
+                                          70,
+                                          1900
+                                      ],
+                      "loopDurationMs":  4200,
+                      "uniqueFrameCount":  3,
+                      "playbackStepCount":  5
+                  },
+    "frameTable":  [
+                       {
+                           "index":  0,
+                           "path":  "docs/design/finn_pet/frames/waiting/00.png",
+                           "sha256":  "1dc078529e56479afe6cef96053d33d3f7624f0bfae6698b56d4ee6d1290dd43"
+                       },
+                       {
+                           "index":  1,
+                           "path":  "docs/design/finn_pet/frames/waiting/01.png",
+                           "sha256":  "be4bec206fd4e9e9bc6a76c115df8c43a88441ed1b005649ff81403dd489008d"
+                       },
+                       {
+                           "index":  2,
+                           "path":  "docs/design/finn_pet/frames/waiting/02.png",
+                           "sha256":  "1a73788c8bf31c751fd3d0d61fe1a638035202253c8c42cc90874e9d794f929f"
+                       },
+                       {
+                           "index":  3,
+                           "path":  "docs/design/finn_pet/frames/waiting/03.png",
+                           "sha256":  "5eec8b93c8ac5f3eb7bf987b9acc76da4d807dd1e4a0ab6f6c7741d7f4bcb12a"
+                       },
+                       {
+                           "index":  4,
+                           "path":  "docs/design/finn_pet/frames/waiting/04.png",
+                           "sha256":  "6abfd02835690465eac21bba35a08a758e8f84009cfcae9a4776afcf238da3ca"
+                       },
+                       {
+                           "index":  5,
+                           "path":  "docs/design/finn_pet/frames/waiting/05.png",
+                           "sha256":  "e4b79fce44274cbef912dd9c6cb90507db20906a5b35e531a5efae1314a9e337"
+                       },
+                       {
+                           "index":  6,
+                           "path":  "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_half.png",
+                           "sha256":  "7eff4a237c87ad309a955afde129fb7a086762d3e65b2d76fe6e53b6bb4c3954"
+                       },
+                       {
+                           "index":  7,
+                           "path":  "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_closed.png",
+                           "sha256":  "a19a384ae3589c4382d4a3c9391ccb8433504fecde2e3ef7a60c23403016b555"
+                       }
+                   ],
+    "generation":  {
+                       "tool":  "image_gen.imagegen",
+                       "mode":  "built-in transparent edit",
+                       "rawOutput":  "drawn_02/generated_strip.png",
+                       "prompt":  "drawn_02/prompt.txt",
+                       "reference":  "drawn_02/reference_three_cells.png",
+                       "extraction":  "drawn_02/extract.ps1",
+                       "usedGeneratedCells":  [
+                                                  0,
+                                                  1
+                                              ],
+                       "unusedGeneratedCells":  [
+                                                    2
+                                                ]
+                   },
+    "processing":  [
+                       "Two generated eyelid drawings were extracted and fitted to original lens interiors.",
+                       "Original RGB outside those interiors, original glasses rims and the complete alpha channel are retained.",
+                       "The same half closed drawing is used when closing and reopening. No temporal crossfade.",
+                       "Generated third cell looked open rather than partly reopening and was not used."
+                   ],
+    "changes":  [
+                    "Removed the original closed eye frame which also tilts the head.",
+                    "Removed the original smile accent from timing trial 01, avoiding its mouth and face jump.",
+                    "Added half closed eyelids before and after a newly drawn closed eye pose.",
+                    "Blink lasts 200 ms within an unchanged 4200 ms overall cadence. Last and first poses are the same original image."
+                ],
+    "limitations":  [
+                        "Open hand stays extended. No new lifting or lowering gesture.",
+                        "Static hold between blinks; no breathing motion.",
+                        "Visual candidate, not user approved or integrated."
+                    ],
+    "htmlCharacters":  446313
+}

@@ -1,0 +1,13 @@
+Use case: identity-preserve.
+Asset type: a transparent animation sprite sheet containing FOUR NEW IN-BETWEEN POSES for Finn's existing small vertical jump.
+Input images 1 through 5 are the five exact consecutive original frames of ONE jump: grounded, rising, apex, descending, grounded. These are strict identity and rendering references, not a character redesign. They are each 192 by 208 pixels.
+Primary request: DRAW the missing intermediate anatomical poses between the supplied original frames, so that interleaving your four new poses with the five originals makes the movement smoother. Do not simply duplicate, crossfade, ghost or motion-blur the references. Draw single clean figures.
+Output layout: precisely four equal cells in a 2 by 2 grid. Each cell has the same 192:208 aspect ratio, identical framing and character scale. Full sprite sheet aspect ratio 192:208. Transparent RGBA background, absolutely no text, labels, divider lines, ground, shadow, scenery, or additional objects.
+Cells read left to right, top to bottom:
+A top left: halfway from reference 1 to reference 2, the early lift, with soles about 197 pixels from the top in 192x208 coordinates, top of hair at y12.
+B top right: halfway from reference 2 to reference 3, the late ascent, soles at y188, top of hair at y7.
+C bottom left: halfway from reference 3 to reference 4, the early descent, soles at y191, hair top at y8.
+D bottom right: halfway from reference 4 to reference 5, approaching ground, soles at y200, hair top at y13. Legs beginning to accept the landing very subtly.
+All coordinates are local to each cell and scale proportionally at output resolution. Keep the figure horizontally centered near x96 and about x50 to x141 in visible width. Keep precisely the original head to body proportions, face and glasses size, leg length and torso width. Do not enlarge the character to fill the panel.
+Identity invariants: brown swooped curly hair, same large brown eyes and warm smile, round orange glasses, red cardigan with original buttons and neckline, white shirt, black trousers, orange and white sneakers, mustard yellow folder held by the same arm on image LEFT, white shield with dark check mark. Image RIGHT hand remains in trouser pocket. No extra hands, no raised arms, no altered expression, no larger head, no shortened legs.
+Rendering invariants: exactly match the source's soft shaded crisp illustrated 3D cartoon finish and colors. No stylistic reinterpretation. Keep all elements registered so the result can be interleaved with the originals. Real alpha transparency around every figure and empty cell space. Preserve the feet as separate shoes, no floor shadow.

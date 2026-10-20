@@ -1,0 +1,165 @@
+{
+  "description": "Observed on the playing candidate through the browser. Sampling times are not encoded animation timings.",
+  "seen": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "changes": [
+    {
+      "step": 10,
+      "frame": "0",
+      "elapsed": "5330"
+    },
+    {
+      "step": 0,
+      "frame": "0",
+      "elapsed": "5613"
+    },
+    {
+      "step": 1,
+      "frame": "1",
+      "elapsed": "5930"
+    },
+    {
+      "step": 2,
+      "frame": "6",
+      "elapsed": "6030"
+    },
+    {
+      "step": 3,
+      "frame": "7",
+      "elapsed": "6113"
+    },
+    {
+      "step": 4,
+      "frame": "2",
+      "elapsed": "6213"
+    },
+    {
+      "step": 5,
+      "frame": "3",
+      "elapsed": "6330"
+    },
+    {
+      "step": 6,
+      "frame": "2",
+      "elapsed": "6980"
+    },
+    {
+      "step": 7,
+      "frame": "7",
+      "elapsed": "7063"
+    },
+    {
+      "step": 8,
+      "frame": "6",
+      "elapsed": "7146"
+    },
+    {
+      "step": 9,
+      "frame": "1",
+      "elapsed": "7230"
+    },
+    {
+      "step": 10,
+      "frame": "0",
+      "elapsed": "7330"
+    },
+    {
+      "step": 0,
+      "frame": "0",
+      "elapsed": "8413"
+    },
+    {
+      "step": 1,
+      "frame": "1",
+      "elapsed": "8730"
+    },
+    {
+      "step": 2,
+      "frame": "6",
+      "elapsed": "8846"
+    },
+    {
+      "step": 3,
+      "frame": "7",
+      "elapsed": "8930"
+    },
+    {
+      "step": 4,
+      "frame": "2",
+      "elapsed": "9013"
+    },
+    {
+      "step": 5,
+      "frame": "3",
+      "elapsed": "9113"
+    },
+    {
+      "step": 6,
+      "frame": "2",
+      "elapsed": "9763"
+    },
+    {
+      "step": 7,
+      "frame": "7",
+      "elapsed": "9863"
+    },
+    {
+      "step": 8,
+      "frame": "6",
+      "elapsed": "9946"
+    },
+    {
+      "step": 9,
+      "frame": "1",
+      "elapsed": "10063"
+    },
+    {
+      "step": 10,
+      "frame": "0",
+      "elapsed": "10146"
+    },
+    {
+      "step": 0,
+      "frame": "0",
+      "elapsed": "11213"
+    },
+    {
+      "step": 1,
+      "frame": "1",
+      "elapsed": "11529"
+    },
+    {
+      "step": 2,
+      "frame": "6",
+      "elapsed": "11629"
+    },
+    {
+      "step": 3,
+      "frame": "7",
+      "elapsed": "11713"
+    },
+    {
+      "step": 4,
+      "frame": "2",
+      "elapsed": "11813"
+    },
+    {
+      "step": 5,
+      "frame": "3",
+      "elapsed": "11913"
+    }
+  ],
+  "pauseStable": true,
+  "resumed": true
+}

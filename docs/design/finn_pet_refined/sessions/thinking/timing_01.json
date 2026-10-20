@@ -1,0 +1,80 @@
+{
+  "state": "running",
+  "label": "Nadenken",
+  "candidate": "thinking_timing_01",
+  "status": "unapproved_candidate",
+  "change": "Timing only; original frame order, unchanged PNG bytes, no new drawing or integration",
+  "cell": {
+    "width": 192,
+    "height": 208
+  },
+  "original": {
+    "row": 7,
+    "durationsMs": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      220
+    ],
+    "loopDurationMs": 820
+  },
+  "proposal": {
+    "durationsMs": [
+      1800,
+      120,
+      120,
+      120,
+      120,
+      2120
+    ],
+    "loopDurationMs": 4400,
+    "frameOrder": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "rationale": "Hold chin poses 00 and 05 longer. Keep frames 01 through 04 at their original 120 ms so the gesture itself remains quick.",
+  "limitations": [
+    "No intermediate arm pose added",
+    "Existing drawing differences remain",
+    "Long holds contain no new breathing or blinking"
+  ],
+  "layoutReference": "docs/design/finn_pet_refined/sessions/idle/current-comparison.html, read only",
+  "frames": [
+    {
+      "path": "docs/design/finn_pet/frames/running/00.png",
+      "sha256": "e4390367b8e16a5ab9a5008df4d814068983230e8e945587936414660c11016d"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running/01.png",
+      "sha256": "284042cf1137f7a8fb9356788769af10228130f44637d4e4cc06ac312ea580ad"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running/02.png",
+      "sha256": "0729ae2ca7f96bfb7eb96eb492f3e064d3a24bed85f03af834e85f8e27324c08"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running/03.png",
+      "sha256": "6e23b90dabcea134985413200664bbce2daa26ba0d913361edeffdb8c322b402"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running/04.png",
+      "sha256": "bf7819320780cd9e169a400f6592eead52810b668bd29608d095858b5a2b4d6f"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/running/05.png",
+      "sha256": "370fc062600c1829ed212b37aaef6e0bec900d18abf841c125978205b10a5b38"
+    }
+  ],
+  "html": {
+    "file": "compare_01.html",
+    "characters": 311580,
+    "embeddedPngCount": 6
+  }
+}

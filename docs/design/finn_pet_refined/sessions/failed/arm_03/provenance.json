@@ -1,0 +1,396 @@
+{
+  "animation": "failed",
+  "trial": "arm_03",
+  "status": "approved_by_user_for_coordinator_takeover",
+  "approval": {
+    "userMessage": "In orde zo, mag overgelomen worden",
+    "scope": "arm_03, de variant met vaste originele lichaamsbouw; overname door de centrale Finn coordinatiesessie",
+    "integrationPerformedInThisSession": false
+  },
+  "correction": "Rejected full-body redraws are replaced by arm-only composites over an original-source body plate.",
+  "newGenerationThisRevision": false,
+  "artOrigin": "Only the generated arm and hand pixels from drawn_02 are reused. Their built-in imagegen prompts and raw outputs remain archived there.",
+  "fixedBody": "Original failed/00.png. Previously occluded torso edge uses a small static patch from original failed/03.png shifted two pixels right.",
+  "cellSize": [
+    192,
+    208
+  ],
+  "original": {
+    "durationsMs": [
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      240
+    ],
+    "loopDurationMs": 1220
+  },
+  "candidate": {
+    "frameIds": [
+      "docs/design/finn_pet/frames/failed/00.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_low.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_chest.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_cheek.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_temple.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_cheek.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_chest.png",
+      "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_low.png",
+      "docs/design/finn_pet/frames/failed/00.png"
+    ],
+    "durationsMs": [
+      120,
+      90,
+      90,
+      90,
+      240,
+      100,
+      100,
+      100,
+      2470
+    ],
+    "loopDurationMs": 3400,
+    "firstAndLastSameOriginal": true
+  },
+  "validation": [
+    {
+      "name": "hand_low",
+      "changedPixelsOutsideArmRegion": 0,
+      "alphaBounds": [
+        47,
+        5,
+        146,
+        203
+      ],
+      "polygon": [
+        [
+          123,
+          85
+        ],
+        [
+          131,
+          88
+        ],
+        [
+          141,
+          100
+        ],
+        [
+          148,
+          109
+        ],
+        [
+          148,
+          120
+        ],
+        [
+          142,
+          127
+        ],
+        [
+          134,
+          128
+        ],
+        [
+          127,
+          122
+        ],
+        [
+          130,
+          113
+        ],
+        [
+          127,
+          102
+        ],
+        [
+          123,
+          94
+        ]
+      ]
+    },
+    {
+      "name": "hand_chest",
+      "changedPixelsOutsideArmRegion": 0,
+      "alphaBounds": [
+        47,
+        5,
+        152,
+        203
+      ],
+      "polygon": [
+        [
+          123,
+          85
+        ],
+        [
+          130,
+          81
+        ],
+        [
+          134,
+          77
+        ],
+        [
+          141,
+          76
+        ],
+        [
+          149,
+          82
+        ],
+        [
+          153,
+          93
+        ],
+        [
+          152,
+          105
+        ],
+        [
+          147,
+          112
+        ],
+        [
+          137,
+          114
+        ],
+        [
+          129,
+          108
+        ],
+        [
+          125,
+          98
+        ]
+      ]
+    },
+    {
+      "name": "hand_cheek",
+      "changedPixelsOutsideArmRegion": 0,
+      "alphaBounds": [
+        47,
+        5,
+        151,
+        203
+      ],
+      "polygon": [
+        [
+          124,
+          86
+        ],
+        [
+          128,
+          80
+        ],
+        [
+          131,
+          77
+        ],
+        [
+          129,
+          72
+        ],
+        [
+          130,
+          66
+        ],
+        [
+          133,
+          63
+        ],
+        [
+          139,
+          64
+        ],
+        [
+          144,
+          70
+        ],
+        [
+          147,
+          83
+        ],
+        [
+          152,
+          94
+        ],
+        [
+          151,
+          104
+        ],
+        [
+          146,
+          110
+        ],
+        [
+          138,
+          114
+        ],
+        [
+          130,
+          108
+        ],
+        [
+          127,
+          99
+        ]
+      ]
+    },
+    {
+      "name": "hand_temple",
+      "changedPixelsOutsideArmRegion": 0,
+      "alphaBounds": [
+        47,
+        5,
+        155,
+        203
+      ],
+      "polygon": [
+        [
+          122,
+          45
+        ],
+        [
+          126,
+          43
+        ],
+        [
+          133,
+          47
+        ],
+        [
+          141,
+          55
+        ],
+        [
+          144,
+          66
+        ],
+        [
+          143,
+          73
+        ],
+        [
+          151,
+          80
+        ],
+        [
+          156,
+          92
+        ],
+        [
+          154,
+          101
+        ],
+        [
+          149,
+          107
+        ],
+        [
+          140,
+          111
+        ],
+        [
+          131,
+          106
+        ],
+        [
+          126,
+          98
+        ],
+        [
+          123,
+          89
+        ],
+        [
+          125,
+          80
+        ],
+        [
+          130,
+          77
+        ],
+        [
+          135,
+          76
+        ],
+        [
+          135,
+          70
+        ],
+        [
+          130,
+          64
+        ],
+        [
+          126,
+          59
+        ],
+        [
+          123,
+          55
+        ]
+      ]
+    }
+  ],
+  "export": "Lossless WebP decoded RGBA equals PNG. No crossfade. No whole-body scaling or movement.",
+  "htmlCharacters": 462433,
+  "sources": [
+    {
+      "path": "docs/design/finn_pet/frames/failed/00.png",
+      "sha256": "ce75ca3a3042cc19afb3bbf8b06e8c1bbf278268b5c5a36ab4b92cb45138bfc4"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/01.png",
+      "sha256": "4018d313778b48d36a7a50c87d648bdad526186141e5a7a3733452c014d9971b"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/02.png",
+      "sha256": "2ff8b3dcb91af0e0273bcfb329f16aafaeb33521a3e2c04e3879cd4d0465a2b9"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/03.png",
+      "sha256": "92a3fe4753d79338a70e19a7c4779b1545d4c4b8761948d94ecb08b72c88b4b9"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/04.png",
+      "sha256": "7b47670b3c60294ff5813c159e14641ba5b028850d949eebcede009e362b544a"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/05.png",
+      "sha256": "8ab30e807d44b71e0f1d0f437ace23c625ca0b11df009224156aa9ba0897b66b"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/06.png",
+      "sha256": "3aad62bd76d3ee735b03f79edf443a985356e177e5ba046583109e4a54a1415c"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/07.png",
+      "sha256": "4715f22ab20f958997d179c645583b4a27c40d8e2f0dcc4bed50642f37979569"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_low.png",
+      "sha256": "b9bd5ab80bb86bec559c1161490b01e18e61577d5c4e14ba3d0495c29fb85970"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_chest.png",
+      "sha256": "4c87896f329f49f10d090aea693ce86d16e0b2b2b96420a2f1af1c7a7ca45a72"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_cheek.png",
+      "sha256": "d8604b0c15aa627abcd35106000a46afe5b3635e7ca2d2b70f989ef77304aa8e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_temple.png",
+      "sha256": "14e4486e54345df438a24c258b2ac820fb50539a7e637bf6d1dc210cb05cdd30"
+    }
+  ],
+  "limitations": [
+    "Small differences in sleeve shading and shoulder connection still require visual review.",
+    "The temple hand overlays a small part of the original glasses.",
+    "Static torso-edge reconstruction is hidden by the resting arm."
+  ]
+}

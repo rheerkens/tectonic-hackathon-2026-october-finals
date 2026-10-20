@@ -1,0 +1,93 @@
+{
+    "animation":  "running-right",
+    "trial":  "timing_01",
+    "status":  "candidate_for_joint_review_with_running_left",
+    "sourceRow":  1,
+    "cellWidth":  192,
+    "cellHeight":  208,
+    "originalDurationsMs":  [
+                                120,
+                                120,
+                                120,
+                                120,
+                                120,
+                                120,
+                                120,
+                                220
+                            ],
+    "candidateDurationsMs":  [
+                                 140,
+                                 130,
+                                 130,
+                                 130,
+                                 140,
+                                 130,
+                                 130,
+                                 130
+                             ],
+    "originalLoopMs":  1060,
+    "candidateLoopMs":  1060,
+    "candidateHalfCycleMs":  530,
+    "frameOrder":  [
+                       0,
+                       1,
+                       2,
+                       3,
+                       4,
+                       5,
+                       6,
+                       7
+                   ],
+    "redraw":  false,
+    "scaleChange":  false,
+    "originalPngBytesEmbedded":  true,
+    "sharedClock":  true,
+    "frames":  [
+                   {
+                       "frame":  0,
+                       "source":  "docs/design/finn_pet/frames/running-right/00.png",
+                       "sha256":  "fbf01511318cdf5eed1f89114396047b9c109cfbfa3ab58246377cafdbffeb95"
+                   },
+                   {
+                       "frame":  1,
+                       "source":  "docs/design/finn_pet/frames/running-right/01.png",
+                       "sha256":  "f8f5baedc4e5109bd799533434dd3a47240a89a704334614e3b2cf9739efd8c8"
+                   },
+                   {
+                       "frame":  2,
+                       "source":  "docs/design/finn_pet/frames/running-right/02.png",
+                       "sha256":  "50c6d0cdae79840ad4b2c19729f9e009da47c0a0f1900b931ddc4a083a19dada"
+                   },
+                   {
+                       "frame":  3,
+                       "source":  "docs/design/finn_pet/frames/running-right/03.png",
+                       "sha256":  "c63c49b3f6e0a55e63e96788696392fa3ab0c235e149834c2e02bb081c888865"
+                   },
+                   {
+                       "frame":  4,
+                       "source":  "docs/design/finn_pet/frames/running-right/04.png",
+                       "sha256":  "e334db62d60a0d4ac89604a6e609d26327b4e25fcc0d08566c77d30fbd6a3957"
+                   },
+                   {
+                       "frame":  5,
+                       "source":  "docs/design/finn_pet/frames/running-right/05.png",
+                       "sha256":  "9b989d445a9e4f6503925932dfc56a3fbbe0f096b50778bfa63c873cb3396ffa"
+                   },
+                   {
+                       "frame":  6,
+                       "source":  "docs/design/finn_pet/frames/running-right/06.png",
+                       "sha256":  "11052d3d771622634d034a4ed5e33c0f5fb11aa0caa0de4cc7a66477b8d8da4c"
+                   },
+                   {
+                       "frame":  7,
+                       "source":  "docs/design/finn_pet/frames/running-right/07.png",
+                       "sha256":  "1ef3f00c62d39d915982db3f5b7e0131dc29fbc930780aa0bc0a8161c34f0333"
+                   }
+               ],
+    "limitations":  [
+                        "Timing only; no new foot contact or in-between poses.",
+                        "Not approved or integrated; coordinate timing with left direction."
+                    ],
+    "htmlChars":  373371,
+    "embeddedImageCount":  8
+}

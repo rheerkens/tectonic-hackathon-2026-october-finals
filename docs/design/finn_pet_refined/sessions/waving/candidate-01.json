@@ -1,0 +1,85 @@
+{
+  "animation": "waving",
+  "status": "candidate_not_approved",
+  "type": "existing_source_frames_with_timing_and_idle_hold",
+  "cell": {
+    "width": 192,
+    "height": 208
+  },
+  "original": {
+    "frameIds": [
+      "waving_00",
+      "waving_01",
+      "waving_02",
+      "waving_03"
+    ],
+    "durationsMs": [
+      140,
+      140,
+      140,
+      280
+    ],
+    "loopDurationMs": 700
+  },
+  "candidate": {
+    "frameIds": [
+      "waving_00",
+      "waving_01",
+      "waving_02",
+      "waving_03",
+      "idle_00"
+    ],
+    "durationsMs": [
+      200,
+      200,
+      240,
+      200,
+      1560
+    ],
+    "loopDurationMs": 2400
+  },
+  "sources": [
+    {
+      "id": "waving_00",
+      "path": "docs/design/finn_pet/frames/waving/00.png",
+      "sha256": "15f54de41c87d5bd953b0c5d336857c9d08615ceef013780d63e03fdd21f60d9"
+    },
+    {
+      "id": "waving_01",
+      "path": "docs/design/finn_pet/frames/waving/01.png",
+      "sha256": "44e65ea34340967837f3e76f95bdbfaf6fd9660b17c937144ca06df4e9b57b2b"
+    },
+    {
+      "id": "waving_02",
+      "path": "docs/design/finn_pet/frames/waving/02.png",
+      "sha256": "49d16754b4e9198bfeb8adaa9982defb4b2565a3103722c1014984c5a93197b5"
+    },
+    {
+      "id": "waving_03",
+      "path": "docs/design/finn_pet/frames/waving/03.png",
+      "sha256": "72b97417b7d65b81723c2aa7a17e67722648d245dcf426a933c759341052a71f"
+    },
+    {
+      "id": "idle_00",
+      "path": "docs/design/finn_pet/idle.png",
+      "sha256": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547"
+    }
+  ],
+  "comparison": "current-comparison.html",
+  "reviewed": {
+    "sourceImagesLoaded": true,
+    "frameChangesObserved": true,
+    "pauseResumeObserved": true,
+    "layoutWidths": [
+      360,
+      728
+    ],
+    "visualAssessment": "De rustfase vermindert de herhalingsdruk. De handovergang naar idle blijft abrupt; timing voegt geen tussenposes toe."
+  },
+  "limits": [
+    "Geen nieuwe tekeningen of interpolatie.",
+    "Geen correctie van oorspronkelijke lokale contourverschillen.",
+    "Geen runtimewijziging of begroetingstrigger.",
+    "Geen goedkeuring of integratie."
+  ]
+}

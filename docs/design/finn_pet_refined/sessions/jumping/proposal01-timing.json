@@ -1,0 +1,57 @@
+{
+  "animation": "jumping",
+  "proposal": "01",
+  "status": "unapproved timing candidate",
+  "cell": {
+    "width": 192,
+    "height": 208
+  },
+  "sourceRow": 4,
+  "frameOrder": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "originalDurationsMs": [
+    140,
+    140,
+    140,
+    140,
+    280
+  ],
+  "originalLoopMs": 840,
+  "proposalDurationsMs": [
+    140,
+    80,
+    160,
+    80,
+    1340
+  ],
+  "proposalLoopMs": 1800,
+  "changes": "Timing only. Source PNG bytes embedded once and shared by both players.",
+  "limits": "No redraw, rescale or interpolation. Missing anticipation and landing compression remain; smaller scale than idle remains.",
+  "frames": [
+    {
+      "file": "docs/design/finn_pet/frames/jumping/00.png",
+      "sha256": "4141251ade3476ee66e174cb86ab874c4d3d1a1e3a450a384cf9b990229e5d46"
+    },
+    {
+      "file": "docs/design/finn_pet/frames/jumping/01.png",
+      "sha256": "692e1251205bccc989127af7d679b2481cfd28c620cb0973a7abd922cba100e4"
+    },
+    {
+      "file": "docs/design/finn_pet/frames/jumping/02.png",
+      "sha256": "0890645b1c39e92028d8acfb1b849b8146a7ca973372143aea96239b3ac83827"
+    },
+    {
+      "file": "docs/design/finn_pet/frames/jumping/03.png",
+      "sha256": "0339bd24c8a409925320393f1345c12a1d66fc388f30084ff323f0a0e528a9d1"
+    },
+    {
+      "file": "docs/design/finn_pet/frames/jumping/04.png",
+      "sha256": "2326a291d9f0a9cc17e6ed71465d5c507d9e855f4cedafed64c5d6413dc41828"
+    }
+  ]
+}

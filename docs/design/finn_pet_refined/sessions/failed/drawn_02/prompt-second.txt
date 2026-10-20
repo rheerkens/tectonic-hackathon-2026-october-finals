@@ -1,0 +1,8 @@
+Edit the attached three-cell Finn sprite sheet IN PLACE. The sheet is the edit target, not a style suggestion. Preserve the original image framing, aspect ratio, cell positions, small-body proportions, shoes, folder, face, hair, glasses, clothing and exact pixel-art-like illustrated rendering. Do NOT create a new portrait or repaint the whole character.
+There are exactly three identical full body figures. Change ONLY the free arm on VIEWER RIGHT of each figure. Draw three consecutive in-between poses for this same arm lifting from the trouser pocket to the temple.
+LEFT cell: the free hand just out of the pocket, at lower rib height, elbow slightly bent.
+MIDDLE cell: hand at upper chest height on the right side, halfway raised, forearm angled up toward the head.
+RIGHT cell: fingers at cheekbone level just below the temple, nearly reaching the outer edge of the glasses, elbow lifted.
+Do not change the other hand holding the yellow folder. Keep the worried expression and open eyes IDENTICAL across all three cells. Keep face, body, legs and shoes stationary with identical scale and exact same ground baseline. Make only the three free-arm poses different.
+Genuine transparent empty background, alpha zero outside the characters; NO scenery, NO haze, NO backdrop glow, NO shadow floor, NO text, NO grid lines.
+The attached second image shows only the target endpoint at the temple. Use it to understand the arm movement, but preserve the appearance and positions of the three figures in image 1. The result must remain a horizontal three-cell sprite strip in the same proportions as image 1.

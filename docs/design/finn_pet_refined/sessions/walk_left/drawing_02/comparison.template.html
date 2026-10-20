@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finn lopen naar links, vergelijking</title>
+<style>
+html,body{margin:0;background:transparent;color:var(--foreground,#242424);font-family:var(--font-sans,system-ui,sans-serif)}
+#finn-left-drawing-comparison{width:100%}
+#finn-left-drawing-comparison .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+#finn-left-drawing-comparison figure{margin:0;min-width:0;text-align:center}
+#finn-left-drawing-comparison figcaption{margin:0 0 12px}
+#finn-left-drawing-comparison strong{font-weight:500;display:block}
+#finn-left-drawing-comparison .detail{color:var(--muted-foreground,#666);margin-top:4px}
+#finn-left-drawing-comparison .stage{padding:16px;background:var(--muted,#f0f0ed);border-radius:var(--radius,8px)}
+#finn-left-drawing-comparison img{display:block;width:192px;height:208px;margin:auto;max-width:100%;object-fit:contain}
+#finn-left-drawing-comparison .position{font-variant-numeric:tabular-nums;margin:10px 0 0}
+#finn-left-drawing-comparison .controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+#finn-left-drawing-comparison button{font:inherit;min-height:44px;padding:8px 16px;background:var(--secondary,#e8e8e6);color:var(--secondary-foreground,#242424);border:1px solid var(--border,#bbb);border-radius:var(--radius,8px)}
+#finn-left-drawing-comparison .note{color:var(--muted-foreground,#666);margin:12px 0 0}
+@media(max-width:479px){#finn-left-drawing-comparison .pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<section id="finn-left-drawing-comparison" aria-label="Bewegende vergelijking van Finn, lopen naar links">
+  <div class="pair">
+    <figure>
+      <figcaption><strong>Origineel</strong><div class="detail">8 frames · lus van 1060 ms</div></figcaption>
+      <div class="stage"><img id="left-source" width="192" height="208" alt="Finn in de oorspronkelijke loop naar links"></div>
+      <p class="position" id="source-position">Frame 1 van 8</p>
+    </figure>
+    <figure>
+      <figcaption><strong>Voorstel</strong><div class="detail">12 frames · lus van 1060 ms</div></figcaption>
+      <div class="stage"><img id="left-trial" width="192" height="208" alt="Finn met nieuw getekende tussenposes voor de benen"></div>
+      <p class="position" id="trial-position">Frame 1 van 8</p>
+    </figure>
+  </div>
+  <div class="controls"><button class="btn" id="left-toggle" type="button" disabled>Pauzeren</button><span id="left-status" role="status">Beelden laden</span></div>
+  <p class="note">Tekenproef 02 · vier nieuwe tussenposes · nog te beoordelen.</p>
+</section>
+<script>
+(() => {
+  const root = document.getElementById('finn-left-drawing-comparison');
+  const frames = __FRAMES_JSON__;
+  const orders = [[0, 1, 2, 3, 4, 5, 6, 7], [0, 8, 1, 9, 2, 3, 4, 10, 5, 11, 6, 7]];
+  const durations = __DURATIONS_JSON__;
+  const totals = durations.map(list => list.reduce((a,b) => a+b,0));
+  const displays = [root.querySelector('#left-source'),root.querySelector('#left-trial')];
+  const labels = [root.querySelector('#source-position'),root.querySelector('#trial-position')];
+  const toggle = root.querySelector('#left-toggle');
+  const status = root.querySelector('#left-status');
+  let elapsed = 0;
+  let base = 0;
+  let playing = false;
+  let ready = false;
+  const last = [-1,-1];
+  const history = [];
+  const position = (time,list) => {
+    let end = 0;
+    for(let index=0;index<list.length;index++){
+      end += list[index];
+      if(time < end) return index;
+    }
+    return list.length-1;
+  };
+  const timeNow = (now=performance.now()) => elapsed + (playing ? now-base : 0);
+  function draw(now=performance.now()){
+    const sharedTime = timeNow(now);
+    let changed = false;
+    durations.forEach((list,index) => {
+      const time = sharedTime % totals[index];
+      const frame = position(time,list);
+      if(last[index] !== frame){
+        displays[index].src = frames[orders[index][frame]];
+        displays[index].dataset.frame = String(frame+1);
+        last[index] = frame;
+        changed = true;
+      }
+      labels[index].textContent = 'Frame '+(frame+1)+' van '+list.length+' · '+list[frame]+' ms';
+    });
+    root.dataset.elapsed = String(Math.floor(sharedTime));
+    root.dataset.playing = String(playing);
+    if(changed){history.push({elapsed:Math.round(sharedTime),frames:last.map(f=>f+1)});if(history.length>80)history.shift();}
+  }
+  function tick(now){
+    if(ready && playing) draw(now);
+    requestAnimationFrame(tick);
+  }
+  toggle.addEventListener('click',() => {
+    const now = performance.now();
+    elapsed = timeNow(now);
+    base = now;
+    playing = !playing;
+    toggle.textContent = playing ? 'Pauzeren' : 'Hervatten';
+    status.textContent = playing ? 'Beide animaties spelen' : 'Beide animaties gepauzeerd';
+    draw(now);
+  });
+  window.finnLeftComparison = {
+    get ready(){return ready},get playing(){return playing},get elapsed(){return timeNow()},
+    get frames(){return last.map(f=>f+1)},get history(){return history.slice()},
+    get durations(){return durations.map(list=>list.slice())},get totals(){return totals.slice()}
+  };
+  Promise.all(frames.map(src => new Promise((resolve,reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  }))).then(() => {
+    ready = true;
+    playing = true;
+    toggle.disabled = false;
+    base = performance.now();
+    status.textContent = 'Beide animaties spelen';
+    root.dataset.ready = 'true';
+    draw(base);
+    console.log('Finn links tekenproef: 8 bronbeelden en 4 echte beenposes; beide lussen 1060 ms.');
+  }).catch(() => {status.textContent = 'Beelden konden niet laden';console.error('Finn PNG laadfout');});
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2413 @@
+{
+  "createdAtUtc": "2026-10-20T09:59:13.447857+00:00",
+  "workspace": "C:\\Users\\Sebas\\projects\\tectonic-hackathon-2026-october-finals",
+  "branch": "main",
+  "sourceHead": "b8b32e0fb50d7499200b1612e9c0d9b7caa14fa3",
+  "writeStatus": "frozen_until_user_final_message",
+  "scopes": [
+    "docs/design/finn_pet_refined/",
+    "docs/finn_animation_brief.md"
+  ],
+  "coordinationThread": "mcp:ae25e13e-5056-49d4-a4dc-07be5d68363b",
+  "activeAnimationWriters": 0,
+  "allNineAnimationThreadsCompleted": true,
+  "approvedSelections": {
+    "idle": {
+      "status": "completed",
+      "threadId": "mcp:f1ac0a33-e6ea-44a4-bfd8-38f4ddc70784",
+      "sourceDecision": "sessions/idle/status.md",
+      "selectedVariant": "trial01",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "animations/idle.webp",
+      "gif": "animations/idle.gif",
+      "framesDirectory": "frames/idle",
+      "durationsMs": [
+        1400,
+        900,
+        90,
+        110,
+        120,
+        1780
+      ],
+      "loopDurationMs": 4400,
+      "furtherRefinementRequested": false,
+      "breathingRequired": false,
+      "rejectedVariant": "breathing_02",
+      "decision": "De rustigere timing volstaat. Geen nieuwe ademhaling of verdere verfijning nodig.",
+      "sha256": "0bd5acd7d4d84111416627b81aff42613d4eed46acf24dc002a23851fd78731a"
+    },
+    "running-left": {
+      "status": "completed",
+      "threadId": "mcp:832f66ec-0c65-4860-b57c-9a72aa94cf0a",
+      "sourceDecision": "sessions/walk_left/status.md",
+      "approval": "sessions/walk_left/drawing_02/approval.json",
+      "manifest": "sessions/walk_left/drawing_02/manifest.json",
+      "selectedVariant": "drawing_02",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/walk_left/drawing_02/running-left.webp",
+      "sha256": "4ac79dd419e8153b406b9faf41aa9017fefc12cbcfbfcc2bc78cabde75840d7d",
+      "frameCount": 12,
+      "newPoseCount": 4,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        65,
+        65,
+        70,
+        70,
+        130,
+        130,
+        65,
+        65,
+        70,
+        70,
+        130,
+        130
+      ],
+      "loopDurationMs": 1060,
+      "furtherRefinementRequested": false,
+      "decision": "Drawing 02 is expliciet goedgekeurd. Niet vervangen door de eerdere timingproef of een nieuwe variant zonder gebruikersbesluit."
+    },
+    "running": {
+      "status": "completed",
+      "title": "Nadenken",
+      "threadId": "mcp:8a956000-23bb-40bf-bb94-2c377cb384c4",
+      "approval": "sessions/thinking/drawing_02/approval.json",
+      "manifest": "sessions/thinking/drawing_02/candidate.json",
+      "selectedVariant": "thinking_drawing_02",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/thinking/drawing_02/candidate.webp",
+      "sha256": "6beafe3b04733d6e3a7e043b1da266b0b3bfd42c370f793f35dc608ed7a270b0",
+      "frameCount": 6,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        3540,
+        100,
+        110,
+        440,
+        110,
+        100
+      ],
+      "loopDurationMs": 4400,
+      "furtherRefinementRequested": false,
+      "description": "Zes frames met vier unieke houdingen. Bronpixels buiten de armregio blijven behouden. De kleine vormwissel bij vingers en kin is door de gebruiker geaccepteerd.",
+      "decision": "Expliciet goedgekeurde bestaande kandidaat. Niet vervangen door timing_01 of een nieuwe variant zonder gebruikersbesluit.",
+      "knownAcceptedLimitation": "Kleine vormwissel bij vingers en kin is getoond en door de gebruiker geaccepteerd."
+    },
+    "running-right": {
+      "status": "completed",
+      "title": "Lopen rechts",
+      "threadId": "mcp:7a6b3591-038d-4ae8-8aa5-220da4b316b2",
+      "approval": "sessions/walk_right/inbetweens_02/approval.json",
+      "manifest": "sessions/walk_right/inbetweens_02/candidate.json",
+      "selectedVariant": "inbetweens_02",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/walk_right/inbetweens_02/candidate.webp",
+      "sha256": "9aa7f4637b809d4387622e44c93793fd21ffa2328bfe4526a87104633e346cf9",
+      "frameCount": 12,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        70,
+        70,
+        130,
+        130,
+        65,
+        65,
+        70,
+        70,
+        130,
+        130,
+        65,
+        65
+      ],
+      "loopDurationMs": 1060,
+      "furtherRefinementRequested": false,
+      "description": "Twaalf frames, met A_landing en C_extension elk tweemaal naast de acht bronframes. Lus 1060 ms; beide helften 530 ms.",
+      "decision": "Expliciet goedgekeurde bestaande kandidaat. Niet vervangen door timing_01 of een nieuwe variant zonder gebruikersbesluit.",
+      "excludedPose": "B_knee_rejected is niet opgenomen; de eerdere timingproef is niet gekozen."
+    },
+    "review": {
+      "status": "completed",
+      "title": "Controleren",
+      "threadId": "mcp:42c5d7ab-e52e-4a13-b081-dc8646a6f8a7",
+      "sourceDecision": "sessions/review/status.md",
+      "approval": "sessions/review/approved02/manifest.json",
+      "manifest": "sessions/review/approved02/manifest.json",
+      "selectedVariant": "drawn02",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/review/approved02/review.webp",
+      "sha256": "24edd48d17273ed637f7fb874505be8293fc40698c3e075b181ece77f62e1c0f",
+      "frameCount": 11,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        320,
+        100,
+        90,
+        90,
+        100,
+        650,
+        100,
+        90,
+        90,
+        100,
+        1070
+      ],
+      "loopDurationMs": 2800,
+      "furtherRefinementRequested": false,
+      "description": "Elf frames met twee nieuwe armhoudingen, ook op de terugweg. Ogen open en begin en einde identiek. Dit blijft inspectie, geen succesbevestiging.",
+      "decision": "Laatste comparison02 met drawn02 expliciet goedgekeurd, niet timingproef 01."
+    },
+    "jumping": {
+      "status": "completed",
+      "title": "Springen",
+      "threadId": "mcp:d22f39f5-766f-4055-8c3c-22d9f858a1eb",
+      "approval": "sessions/jumping/approval.json",
+      "manifest": "sessions/jumping/approved/manifest.json",
+      "selectedVariant": "proposal02",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/jumping/approved/jumping.webp",
+      "sha256": "7b93e19b1888efa7550af39564ab726c19405f6968e8a5ddc277eeadf39dac25",
+      "frameCount": 9,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        120,
+        60,
+        60,
+        60,
+        120,
+        60,
+        60,
+        60,
+        1200
+      ],
+      "loopDurationMs": 1800,
+      "furtherRefinementRequested": false,
+      "description": "Negen frames met vier nieuwe tussenposes. Dezelfde goedgekeurde tekenproef 02; niet timingproef 01.",
+      "knownAcceptedLimitations": [
+        "Lichte tekenverschillen rond map en schoenen.",
+        "Oorspronkelijk schaalverschil tegenover idle."
+      ],
+      "atlasCompatibility": "Negen frames passen niet in de bestaande achtkolomsrij. Gebruik WebP; eventuele atlasaanpassing apart afstemmen.",
+      "decision": "Expliciet goedgekeurde tekenproef 02. Geen nieuwe verfijningsronde."
+    },
+    "failed": {
+      "status": "completed",
+      "title": "Teleurstelling",
+      "threadId": "mcp:b75719a2-33ea-4762-b6ea-d780ff4e70bf",
+      "approval": "sessions/failed/arm_03/provenance.json",
+      "manifest": "sessions/failed/arm_03/approved/animation.json",
+      "selectedVariant": "arm_03",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/failed/arm_03/approved/failed.webp",
+      "sha256": "a467a398d234f32e07ed6a5cad540ae6d5ea9e7d037764a9ae5234be4a3f3863",
+      "frameCount": 9,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        120,
+        90,
+        90,
+        90,
+        240,
+        100,
+        100,
+        100,
+        2470
+      ],
+      "loopDurationMs": 3400,
+      "furtherRefinementRequested": false,
+      "description": "Negen frames met vaste oorspronkelijke lichaamsbouw. Alleen de armstukken bewegen; begin en einde zijn hetzelfde bronbeeld.",
+      "rejectedVariant": "drawn_02",
+      "decision": "Uitsluitend arm_03 is goedgekeurd. Drawn_02 blijft afgekeurd wegens veranderde lichaamsbouw."
+    },
+    "waiting": {
+      "status": "completed",
+      "title": "Iets vragen",
+      "threadId": "mcp:bf4ab744-c256-4fa8-804c-4492e6b23f20",
+      "sourceDecision": "sessions/waiting/status.md",
+      "approval": "sessions/waiting/approved/manifest.json",
+      "manifest": "sessions/waiting/approved/manifest.json",
+      "selectedVariant": "drawn_gesture_03",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "sessions/waiting/approved/waiting.webp",
+      "sha256": "88c13d30c2c600ca943c6953937147f4ab3cec7235bd4ccafd26f67518d683e2",
+      "frameCount": 11,
+      "uniqueFrameCount": 6,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        400,
+        90,
+        90,
+        650,
+        100,
+        100,
+        650,
+        50,
+        80,
+        70,
+        920
+      ],
+      "loopDurationMs": 3200,
+      "furtherRefinementRequested": false,
+      "description": "Drie getekende armstanden, vragend gebaar en knippering. Zes unieke beelden in elf afspeelstappen.",
+      "decision": "Proef 03 expliciet goedgekeurd. Proeven 01 en 02 blijven eerdere experimenten."
+    },
+    "waving": {
+      "status": "completed",
+      "title": "Begroeten",
+      "threadId": "mcp:d71a4a8f-08b8-457c-ae70-dddf9e66b47b",
+      "sourceDecision": "sessions/waving/status.md",
+      "approval": "sessions/waving/body-lock-03/metadata.json",
+      "manifest": "approved/waving03/manifest.json",
+      "selectedVariant": "body_lock_03",
+      "approvedForAdoption": true,
+      "adoptedInCoordination": true,
+      "runtimeIntegrationPerformedByCoordinator": false,
+      "webp": "approved/waving03/waving.webp",
+      "sha256": "866885506d43358475b38aa197d340e9bd487f3d9c32696216fb344044bc58e4",
+      "frameCount": 8,
+      "cellSize": [
+        192,
+        208
+      ],
+      "durationsMs": [
+        100,
+        100,
+        140,
+        160,
+        120,
+        110,
+        110,
+        1560
+      ],
+      "loopDurationMs": 2400,
+      "furtherRefinementRequested": false,
+      "description": "Acht stappen met vaste oorspronkelijke basis en uitsluitend wisselend armgebied. De export is pixelgelijk aan de goedgekeurde browsercompositie.",
+      "rejectedVariant": "sessions/waving/inbetween-02/waving.webp",
+      "decision": "Uitsluitend comparison-03 lagencompositie goedgekeurd. Geen volledige gegenereerde lichamen of proef 01 overnemen."
+    }
+  },
+  "runtimeReplacementsPerformed": false,
+  "gitMutationsPerformed": false,
+  "retention": "All experiments, rejected candidates, source captures and exports retained. Only approvedSelections identifies chosen variants.",
+  "inventoryExcludesThisManifest": true,
+  "fileCountExcludingThisManifest": 416,
+  "bytesExcludingThisManifest": 56724962,
+  "files": [
+    {
+      "path": "docs/design/finn_pet_refined/animations/idle.gif",
+      "bytes": 61626,
+      "sha256": "e31c3d4ba3470b37c31047090d64dcd70316d5d1551c407e796e98f9490d72a2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/animations/idle.webp",
+      "bytes": 166088,
+      "sha256": "0bd5acd7d4d84111416627b81aff42613d4eed46acf24dc002a23851fd78731a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/animations.json",
+      "bytes": 2546,
+      "sha256": "a04096421a9a174bb6dc8fa433feba18ef0d60397c93004d9d215eecdbee8e03"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/build_export.py",
+      "bytes": 7075,
+      "sha256": "d31715ca47ddd0b2e3d6a603e96a2102bcae5ca42d8c6cdd02135e21bcf6f544"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/comparison.html",
+      "bytes": 3375,
+      "sha256": "3236cddd71e6cb152bcd7a20d940a1909f2e0d5e23bafe2589cb82cd436c376f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/composition.json",
+      "bytes": 431037,
+      "sha256": "fe5882e9a93d80def27130ee0393ff965209239f7ce39d9e71f5c4e913ff3148"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/00.png",
+      "bytes": 41674,
+      "sha256": "c2afc0bcd336b0fa0d4b293087552b2d13c419d87767933c1b5794a9a105d1fd"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/01.png",
+      "bytes": 44254,
+      "sha256": "089e9b32aa8da763405ec44cf6af7b3f1a4a32eabc4ba38910991812ca1f7966"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/02.png",
+      "bytes": 44539,
+      "sha256": "043cb2e660b444fa9483705a2c23568172179878f220c63e5afff71ed2cce232"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/03.png",
+      "bytes": 44376,
+      "sha256": "27c6d306e2d49679f832ebff2811fa0f7293584eb37756b5920ca3866fffa4f4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/04.png",
+      "bytes": 44765,
+      "sha256": "4fcc16f1880af10d8d9084904ffe88792b89947a5172cbb5b212589253433f3e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/05.png",
+      "bytes": 43148,
+      "sha256": "13554e598f05328f877c23e20824df256db723272cbafff8a3475bda5101b454"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/06.png",
+      "bytes": 43269,
+      "sha256": "d88908ab4c48bd8379c3ab93509add5375177a55322c33a2f8aa6058e6541864"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/frames/07.png",
+      "bytes": 41674,
+      "sha256": "c2afc0bcd336b0fa0d4b293087552b2d13c419d87767933c1b5794a9a105d1fd"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/manifest.json",
+      "bytes": 2448,
+      "sha256": "c55f18edd19551bc3074b204a98feb1899ad411ad10b4cb73bdb5c7c1a15954f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/approved/waving03/waving.webp",
+      "bytes": 55828,
+      "sha256": "866885506d43358475b38aa197d340e9bd487f3d9c32696216fb344044bc58e4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/actual_prompt.txt",
+      "bytes": 1822,
+      "sha256": "dfb998210ab7d306bbd9d7fe011e185efb4b13f0850fa3ae49159d2eb16f9886"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/animations/idle.gif",
+      "bytes": 60237,
+      "sha256": "ebcb4aa4a7d88e13655e35b3f0ba4a72c7c23950c8710e98db3c096d115e391f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/animations/idle.webp",
+      "bytes": 169724,
+      "sha256": "ceb8fd86f759e47a45644e40445dd9a005384f2aea93a58146cc01196ad74563"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/animations.json",
+      "bytes": 2533,
+      "sha256": "a6c403c2c43b570c6748036e746eed1ffa994023a85d9598a89713e29c48b5d0"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/atlas_validation.json",
+      "bytes": 18372,
+      "sha256": "4697dbee5884a7dcab8e0eb4f51b8b91934049dfb0d9a9debed9dc431d53c50b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/build_exports.py",
+      "bytes": 6583,
+      "sha256": "d76c91b105ed1582c7c33b8cfd99960e759913419d08e488d11bd62e2d21a1e4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/checksums.json",
+      "bytes": 2545,
+      "sha256": "97c75bd1bc5500d434322b2afddbfed0b4ace913521bf61ceec52168c18f4343"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/decoded/idle.png",
+      "bytes": 1106386,
+      "sha256": "1c178af871aafaf78361e4a96bebd59232ae0a6de1a9bd183e78452b0c555075"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frame_inspection.json",
+      "bytes": 3389,
+      "sha256": "84b6ef7ec718658628e5d657da3803ab1c0d467e1e9a45442c4137ce37e8c80c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/frames-manifest.json",
+      "bytes": 1301,
+      "sha256": "b4cf183839af10d8d41c4f0e9d8400995b93082baf031d049d1f5ed7f3c35141"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/idle/00.png",
+      "bytes": 38033,
+      "sha256": "3eff607069cd39fcb39dbf61db72e05aa6a85d8c6bcadfacd2a5cfcc0820eab4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/idle/01.png",
+      "bytes": 38084,
+      "sha256": "6998ea548d53ebba4ff0ad2476ce2d5fd01857646123fe7ddbc9de2935da1d91"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/idle/02.png",
+      "bytes": 38124,
+      "sha256": "36fa0d8266eed2711835cfda696f96e1c4aeb3b8d30b8b282fc570fbf157761a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/idle/03.png",
+      "bytes": 38229,
+      "sha256": "a6e959522b229f2cfb7c5b91760ff44d9acdac2664fed251ca03379a0797519c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/idle/04.png",
+      "bytes": 38104,
+      "sha256": "4746b0699e9254d6c18811d420dd40c9619a58b7515bde5e7cfa974aafb84bbc"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/frames/idle/05.png",
+      "bytes": 38075,
+      "sha256": "94ccfc6ef10c31645df6332ed7c13bebb9f1afb7c8d2771a7a626cf5a5ddbd32"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/idle_row.png",
+      "bytes": 222855,
+      "sha256": "8badc9dd1c84083cd26db4969fe764dac2c98841e41bb57f91894c62d5a5640d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/imagegen-jobs.json",
+      "bytes": 18064,
+      "sha256": "f5dac423be359daec8153fcca80dc0a45e5f4a0502ddcd6422b89ef6d841cb96"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/pet_request.json",
+      "bytes": 8289,
+      "sha256": "f96b778e27a0466dbd78748a8026e25dfb1abdd0d6a0d3999c9d13b1e2bbf352"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/preview.html",
+      "bytes": 6024,
+      "sha256": "dcd7d6ee89c2a45731d8b6faa53d87cd857d0b3e3e2ed9009bade3c8a9ef6a85"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/base-pet.md",
+      "bytes": 921,
+      "sha256": "69c7509f5a26a560ed78a54497bf98fffe6c41065f39b5542f0066f42680cded"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/look-anchor-repairs/000.md",
+      "bytes": 860,
+      "sha256": "f716abd77049cdae58f5628afe9cf08540e2f4386a7888b8394c6e23ecea5769"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/look-anchor-repairs/090.md",
+      "bytes": 877,
+      "sha256": "f4f243a62023980627888422401bb38b6347eb223b5b2c5f3549335985049aec"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/look-anchor-repairs/180.md",
+      "bytes": 865,
+      "sha256": "4e5fee16b67cc5a8c044a502396c6eae035afce8743c9c94a9dd41f6316433c7"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/look-anchor-repairs/270.md",
+      "bytes": 875,
+      "sha256": "5080bb74008c6752006b0f827c1cc72dcaf7d665159583dfe20f3b8e240b3f4b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/look-cardinals.md",
+      "bytes": 1444,
+      "sha256": "5e9c694b26d88600cc7631e820252da85feb16f43cdfa451dfc6c0bf412b38a4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/failed.md",
+      "bytes": 1270,
+      "sha256": "56b0061bf69165d22276b09424c5cd7ceb8e36193010c4a7c42ac5dcbaf101b3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/idle.md",
+      "bytes": 1806,
+      "sha256": "ba64c0ff851af29a314d05c501f57c4125d825cc5ee1a818d17adf44a98973b0"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/jumping.md",
+      "bytes": 1268,
+      "sha256": "8fb92794180503f165c10c8e48f461c018d5c9aa01fa650eaded1358d12a3f47"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/look-row-10.md",
+      "bytes": 3667,
+      "sha256": "7cb3639efd361ede6aa75e2d0080c27537fc9e20d00b7031822e00edfb719335"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/look-row-9.md",
+      "bytes": 3583,
+      "sha256": "05c183754a662bb6dbed67576b7992f68fc1e97dd5f7cfca78cb6b9108208318"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/review.md",
+      "bytes": 1154,
+      "sha256": "12ff75a05f134ff14d6ee36b1e575a554182321b4a6fed48923986d23e5ef685"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/running-left.md",
+      "bytes": 1260,
+      "sha256": "2c73dba1138f52c3243504ffd5cf8fe407b9bff9c160fffa9d7dd7b7e93fd982"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/running-right.md",
+      "bytes": 1265,
+      "sha256": "8f8eabec1d8898a0451830d5235c4686f60dd1d902c834d364e04149efd2d2a8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/running.md",
+      "bytes": 1499,
+      "sha256": "3f9152353ee7424bcc7ad0a0507d73eeea85efc1e1bf9eb91828099284e24ca5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/waiting.md",
+      "bytes": 1067,
+      "sha256": "d4b96df9e694d098933bf760c8c15d40d59ec78e57217ea6a831bd8bd4261f1b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/row-retries/waving.md",
+      "bytes": 1077,
+      "sha256": "ef02c8aa49ddf099a051ddc9d72c31837dfb3cce4a8aa6ff70b8088e5cf43b40"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/failed.md",
+      "bytes": 2033,
+      "sha256": "0d5afbf2d8553300b2974dbcc923a0f443c05a294bfa424fedf6b65389ccbceb"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/idle.md",
+      "bytes": 2569,
+      "sha256": "bb4178a4ee6541b379d8c34172aadcd246315cc1f937745a8a68b4e353d7da97"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/jumping.md",
+      "bytes": 2031,
+      "sha256": "7860aefd4b51d7cabefdf07c6e4e491b0bec21da93a7008cd5e4d36f82acd7eb"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/look-row-10.md",
+      "bytes": 4775,
+      "sha256": "e47c5d5bfa2c279ed8ae49f4937bde001f884eca57eb6300c3411df8635dd9bc"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/look-row-9.md",
+      "bytes": 4705,
+      "sha256": "6d891ebcde21ad530d8832bea0cdc7e3d211f1fe169f301c3af5b20d06b88ad8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/review.md",
+      "bytes": 1917,
+      "sha256": "c4efe857d868ef0ce5ec36b0b4f8c7d83efcecb6e89939da10579e6956cb4bcc"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/running-left.md",
+      "bytes": 2023,
+      "sha256": "c5f04272bcfcdcc913e10a4ec41c3300ab900a54602af50fa79652d6202d3a4d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/running-right.md",
+      "bytes": 2028,
+      "sha256": "19b3e520504903d6c67be027cac60476b5346d3268d942eb7ace5d07711187f5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/running.md",
+      "bytes": 2262,
+      "sha256": "f699506c68dc6e84fb77af22101f64844094b53ca07dfd6a8f9e27d402174cc6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/waiting.md",
+      "bytes": 1830,
+      "sha256": "39233b4c9f285f5e1b3b520a795c7e39d3fae0b323abfbff68f7e12451d1add5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/prompts/rows/waving.md",
+      "bytes": 1840,
+      "sha256": "5b295e96a0d5126104fd3b7605b0712f55dfff8f3b52cbd542e2b23b06a18d27"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/qa/native_comparison.png",
+      "bytes": 425358,
+      "sha256": "000f8b3da6f21f22f6b8c936b145dae9f73cc8d354a5ca8ae079506a6fc51ecb"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/README.md",
+      "bytes": 3505,
+      "sha256": "ef3dfc220aa3dd6ea1fb31d0c117f4ec48a078bf68440758dc60eb7f07a75ca9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/failed.png",
+      "bytes": 2355,
+      "sha256": "6d67d00f341f39f1535fd37776b19b366e4e78ee38f7ef002d368ecb1d765c40"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/idle.png",
+      "bytes": 1942,
+      "sha256": "8530deda4e33f28621ebd871739ad0414e0721bdd45eb363cc13b5305aa35545"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/jumping.png",
+      "bytes": 1740,
+      "sha256": "dd6f193a159ae50013b1c4368d9a02ab29bdffaa48fa978a9628801cfd0a0a29"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/look-cardinals.png",
+      "bytes": 1522,
+      "sha256": "5ccc2ce66b4677a2891ddc78b2e0c1457c8dd4c48ee03135135bf334ee782002"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/look-row-10.png",
+      "bytes": 2355,
+      "sha256": "6d67d00f341f39f1535fd37776b19b366e4e78ee38f7ef002d368ecb1d765c40"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/look-row-9.png",
+      "bytes": 2355,
+      "sha256": "6d67d00f341f39f1535fd37776b19b366e4e78ee38f7ef002d368ecb1d765c40"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/review.png",
+      "bytes": 1942,
+      "sha256": "8530deda4e33f28621ebd871739ad0414e0721bdd45eb363cc13b5305aa35545"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/running-left.png",
+      "bytes": 2355,
+      "sha256": "6d67d00f341f39f1535fd37776b19b366e4e78ee38f7ef002d368ecb1d765c40"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/running-right.png",
+      "bytes": 2355,
+      "sha256": "6d67d00f341f39f1535fd37776b19b366e4e78ee38f7ef002d368ecb1d765c40"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/running.png",
+      "bytes": 1942,
+      "sha256": "8530deda4e33f28621ebd871739ad0414e0721bdd45eb363cc13b5305aa35545"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/waiting.png",
+      "bytes": 1942,
+      "sha256": "8530deda4e33f28621ebd871739ad0414e0721bdd45eb363cc13b5305aa35545"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/layout-guides/waving.png",
+      "bytes": 1522,
+      "sha256": "5ccc2ce66b4677a2891ddc78b2e0c1457c8dd4c48ee03135135bf334ee782002"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/references/reference-01.png",
+      "bytes": 38886,
+      "sha256": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/spritesheet.png",
+      "bytes": 2664510,
+      "sha256": "0083db3bdc1b0bfeca49079acde93afa34130e3866ea7235b3513aee6fbf8aaa"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/breathing_02/validation.json",
+      "bytes": 3148,
+      "sha256": "0fd39a3e9950c46723a97af9c1395d0a5f1ff9ec5562f4a71280c93c528c9505"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/build_overview.py",
+      "bytes": 7070,
+      "sha256": "06e6722b06a7ae6829346389af4f8b3e3eeef9874d916d07bbd9ff253901818a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/build_review.py",
+      "bytes": 10233,
+      "sha256": "18d97de2907a36e246d9bc49b49e8e153e470088c6c7de690bef214a836ff23c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/build_trial.py",
+      "bytes": 8042,
+      "sha256": "bb8e3ec47f046d1c7a830382b79f55884ac7a09f3f65d52e0f12c3f1cce45273"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/checksums.json",
+      "bytes": 1301,
+      "sha256": "d573c60a41ff4377b4289f0971f1ace785567e6b95d91c957671c3e9d03974b4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frame_inspection.json",
+      "bytes": 3283,
+      "sha256": "66e13db28ab33c18057daae2942ef8745ddc405ec2ac9770227e4e320da9750d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frames/idle/00.png",
+      "bytes": 38886,
+      "sha256": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frames/idle/01.png",
+      "bytes": 38763,
+      "sha256": "25a9f4056e58f76add0946678c2ebea82b166e9fae5785b322b172a0fa36a43d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frames/idle/02.png",
+      "bytes": 38760,
+      "sha256": "16f3eb47d6616a71fc604be564b1a34e730aa7ed254b607beea55768a004b271"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frames/idle/03.png",
+      "bytes": 38589,
+      "sha256": "189c539e6ea1afb7afd2cb1913c507f5b764ebd67a13cae4c59eeb3b5090b3f6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frames/idle/04.png",
+      "bytes": 38869,
+      "sha256": "174fd9af88438bc99a53d9c46b6f2e29e3080f1f8fb349761544a1201ce508ad"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/frames/idle/05.png",
+      "bytes": 38766,
+      "sha256": "3c8d43e12f05aa57c6b174999c18e8a56bd2e45df3ce2c72225fe3c70d39fba1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/idle_row.png",
+      "bytes": 228716,
+      "sha256": "bf82307e50772de4a1d4410c849ae8980ba424e22dbb414978447cabf8f98183"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/overview.html",
+      "bytes": 12309,
+      "sha256": "f4d7819d82e3388bf622f410bdb98a6282f68e1a6cfef0122d8b5910f165b679"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/pose_inventory.md",
+      "bytes": 14459,
+      "sha256": "b39e85f7a7dfb84411e79e9005e74295a92f26c1f014830c77ecb6ca04b47857"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/preview.html",
+      "bytes": 5913,
+      "sha256": "2e8dee8a88f48379b387fccf88a2c12a03c5ca41bf3a5c60e933a490f3d87898"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/review.embed.html",
+      "bytes": 473723,
+      "sha256": "affdc191eb1761b4cce3e07932bf7ebf1f335ca456c2e06645edac10667666d9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/review.html",
+      "bytes": 5579966,
+      "sha256": "d03072ae85a396288d48f98e08daafe185553a2064dfcbc848fc1fd0044c91e8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/review.template.html",
+      "bytes": 13151,
+      "sha256": "0dffde74c114db9948698bfdb18eb9929ae9ec388b6702cbdf6d2862181f651b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/session_status.json",
+      "bytes": 10573,
+      "sha256": "ea79db351d202e5b4c99a12f57e6c6895c9eb34cab0a3cc13fd6801a419a0fd3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/animation.json",
+      "bytes": 2220,
+      "sha256": "9e743d4bd07f4232b0aa03e70d1230a6027a7a38bf44c2f99f342661591b7129"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/failed.webp",
+      "bytes": 49680,
+      "sha256": "a467a398d234f32e07ed6a5cad540ae6d5ea9e7d037764a9ae5234be4a3f3863"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/00.png",
+      "bytes": 37638,
+      "sha256": "ce75ca3a3042cc19afb3bbf8b06e8c1bbf278268b5c5a36ab4b92cb45138bfc4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/01.png",
+      "bytes": 37832,
+      "sha256": "b9bd5ab80bb86bec559c1161490b01e18e61577d5c4e14ba3d0495c29fb85970"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/02.png",
+      "bytes": 38218,
+      "sha256": "4c87896f329f49f10d090aea693ce86d16e0b2b2b96420a2f1af1c7a7ca45a72"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/03.png",
+      "bytes": 38512,
+      "sha256": "d8604b0c15aa627abcd35106000a46afe5b3635e7ca2d2b70f989ef77304aa8e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/04.png",
+      "bytes": 38253,
+      "sha256": "14e4486e54345df438a24c258b2ac820fb50539a7e637bf6d1dc210cb05cdd30"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/05.png",
+      "bytes": 38512,
+      "sha256": "d8604b0c15aa627abcd35106000a46afe5b3635e7ca2d2b70f989ef77304aa8e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/06.png",
+      "bytes": 38218,
+      "sha256": "4c87896f329f49f10d090aea693ce86d16e0b2b2b96420a2f1af1c7a7ca45a72"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/07.png",
+      "bytes": 37832,
+      "sha256": "b9bd5ab80bb86bec559c1161490b01e18e61577d5c4e14ba3d0495c29fb85970"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/frames/08.png",
+      "bytes": 37638,
+      "sha256": "ce75ca3a3042cc19afb3bbf8b06e8c1bbf278268b5c5a36ab4b92cb45138bfc4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/arm-detail.png",
+      "bytes": 50794,
+      "sha256": "ffb3ea04f25993070b4a663a691180558e46ea964fb1f80d4e91585067ff852b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/arm-reference.png",
+      "bytes": 90711,
+      "sha256": "0f9e2e535d1f107190c78309e6bb357011579c279d41442f1be3640ed0c1cbac"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/body-plate.png",
+      "bytes": 36088,
+      "sha256": "1c36b047c6fea85c98b8591069b32512f6de1194bb967eb6da0cb1e39bb36af2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/build_comparison.py",
+      "bytes": 3962,
+      "sha256": "f090f28b9abf5f9185bc72f19226bcae12c5ab0e97f6465403fb3b27e29c7cb1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/build_frames.py",
+      "bytes": 3014,
+      "sha256": "29393a19ccf11450f9eb67ccb8bb6fdab3d9e2b92254c6717eaabb749365cdb6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/comparison.html",
+      "bytes": 462529,
+      "sha256": "f82e366e8f8ae18479906bb63266b3bc875a768312c72393d4625f07ce6aad57"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/export_approved.py",
+      "bytes": 2138,
+      "sha256": "80ea2fb6f16966894251c735db145f93a67465b82b3ed5dc5d47d726d083bc85"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frame-validation.json",
+      "bytes": 3342,
+      "sha256": "3e5108774202fb56bd0e1b85066783256cbd7f60aed21db545b8aa26309d1326"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_cheek.png",
+      "bytes": 38512,
+      "sha256": "d8604b0c15aa627abcd35106000a46afe5b3635e7ca2d2b70f989ef77304aa8e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_chest.png",
+      "bytes": 38218,
+      "sha256": "4c87896f329f49f10d090aea693ce86d16e0b2b2b96420a2f1af1c7a7ca45a72"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_low.png",
+      "bytes": 37832,
+      "sha256": "b9bd5ab80bb86bec559c1161490b01e18e61577d5c4e14ba3d0495c29fb85970"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_temple.png",
+      "bytes": 38253,
+      "sha256": "14e4486e54345df438a24c258b2ac820fb50539a7e637bf6d1dc210cb05cdd30"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/rest.png",
+      "bytes": 37638,
+      "sha256": "ce75ca3a3042cc19afb3bbf8b06e8c1bbf278268b5c5a36ab4b92cb45138bfc4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/layer-hand_cheek.png",
+      "bytes": 3057,
+      "sha256": "a70b6c538b669d5b50a9ad98dd2b80904d4983c4e367f7201abe233596f370e3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/layer-hand_chest.png",
+      "bytes": 2915,
+      "sha256": "dddf47b91fcf349a49591640faf0bca93c058973b0d2ff5536d3ef8e048bf7e3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/layer-hand_low.png",
+      "bytes": 2560,
+      "sha256": "36587981c54cebee7e9be30b3ec97238b5cb86b7f210e59697fd02abebd14433"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/layer-hand_temple.png",
+      "bytes": 3591,
+      "sha256": "2a2bda43a95a45890557ee5d451d189d06e500edaaf939c714af15ff4b68d5f2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/mask-hand_cheek.png",
+      "bytes": 320,
+      "sha256": "9cb84b03c08b24caeb2f5ee235076bd31bd236534043c88ae575d19d01bd0338"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/mask-hand_chest.png",
+      "bytes": 275,
+      "sha256": "2299c59210dc4f6ef87f15d3d188a8e5989efe37342213f134cd29cb306f2e9b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/mask-hand_low.png",
+      "bytes": 299,
+      "sha256": "1cc5f06c0e1b6030ede3e4b7807759b3a7143bcd607ecbe7b1628134bc6ad3f4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/mask-hand_temple.png",
+      "bytes": 392,
+      "sha256": "d518f057a12da1d4e2472c37b311531d472eeb3d0c3581846077a6e9e7b5271c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/pose-strip.png",
+      "bytes": 54270,
+      "sha256": "fc6dfffe88d82deaf4b4c09bacf3d1ed41f7641ab68d5b463e061e519b73dcc7"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/provenance.json",
+      "bytes": 8359,
+      "sha256": "429d3d1c4eacb9f9f97094a3094bcb4b395dea4e11d85c369136db64337bdb0e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/review.md",
+      "bytes": 2547,
+      "sha256": "d0f9239d31d2035cb81361931479e57f3387a978fc0320413096511b4d8b5c16"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/build_comparison.py",
+      "bytes": 6509,
+      "sha256": "6278d209c80b8227285a72f76fa58d40b81f32639315b816efc8d0f7230cbdc5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/build_drawn_comparison.py",
+      "bytes": 5651,
+      "sha256": "284cfcb68b907f07f915eef736c8ca34749e8915bfa85760a7b4b0bf1d090c02"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/current-comparison.html",
+      "bytes": 462529,
+      "sha256": "f82e366e8f8ae18479906bb63266b3bc875a768312c72393d4625f07ce6aad57"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/current.html",
+      "bytes": 454238,
+      "sha256": "b6ce9fe1944e1c54466fc044269c4444177903be06c772150154c0d9cd5933a3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/comparison.html",
+      "bytes": 465878,
+      "sha256": "8e083e2a0233d5e1385694f4c9704e776893fe051f9fc11971b468730b8683c2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/edit-target.png",
+      "bytes": 69524,
+      "sha256": "e4fa36cc94048bdff027bddcfc8f1b309c2e245b4219ca7863b1bd606bbe17ef"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_cheek.png",
+      "bytes": 39946,
+      "sha256": "d4551815e1c40d11a9185cea2e38f9a77c75949fb13cabca13bf5edcd8133205"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_chest.png",
+      "bytes": 39456,
+      "sha256": "93ced211ff50cefbf3f6f3cf6a87ef36ce189a69dde719ddaa42c05e40a9b24d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_low.png",
+      "bytes": 39124,
+      "sha256": "1ca0f9d97dc39789b7d1bbb99fa9c055c9a4b917a03e2df8606008baba703011"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/frames/hand_temple.png",
+      "bytes": 40364,
+      "sha256": "f5b5c3bd5491ef867480b235efe3c33f419de932059a811344fc2563fc4b1c27"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/generated-near-face.png",
+      "bytes": 809389,
+      "sha256": "05805aafa1d0d0c5cf10227636956e68dee5f54bd2a14dc913370cd2c926d6bc"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/generated-strip.png",
+      "bytes": 1019109,
+      "sha256": "3174d795d5974f0e58f3674a56e302acb67f7938dd480a44f04314a7abb3fdf6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/normalized-strip-draft.png",
+      "bytes": 113672,
+      "sha256": "d2ad142f087c410e7926b754095cee98bdcac9efabf1759f60c5539e621dd869"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/pose-strip.png",
+      "bytes": 192533,
+      "sha256": "78a75435595761c50a214f77e149906517a0368ebc2a26fca3f7fe0d7c537b51"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/prompt-near-face.txt",
+      "bytes": 1367,
+      "sha256": "e64c7e50289ba5dfed7ec6ae33ad17d03e8f0482460960e8a66270b67b81486f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/prompt-second.txt",
+      "bytes": 1604,
+      "sha256": "f7f6803d379e69cd1d841f28df6245cd3c565c4466e5d46ccde880fb2ec69602"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/prompt.txt",
+      "bytes": 2161,
+      "sha256": "6da383159ca8e65213cf205994c3416d1138b427b00be2880d12611a3ce3df7b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/provenance.json",
+      "bytes": 6437,
+      "sha256": "83ed119fca5d3208341ee59564bb7d1c8fbc3bed987ce14f29287a28a2328d67"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/rejected-first-output.png",
+      "bytes": 1853604,
+      "sha256": "7655eeaf5eb28d1bcff86d76b19fe95dd03192dc95de41f9b869dbe7a2b8d660"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/review.md",
+      "bytes": 2410,
+      "sha256": "af09f9e2b49dd9326205b4c62e3c15cf6e3fe4b46aad8de7a8a44d5f602e75af"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/timing-01-comparison.html",
+      "bytes": 406896,
+      "sha256": "80ccce56bd48b133d9a022ab8694b952c00bd3ef3ae979f34d256b595c580931"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/failed/timing_01.json",
+      "bytes": 2592,
+      "sha256": "4f5c15c72e1f3aa9adc6d08ee8fcba31c3810325ab609064731a725853d74b74"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/idle/current-comparison.html",
+      "bytes": 315480,
+      "sha256": "9fa09a27493089dedb857887b5c9114c736553d81c776127a308cbdd79c92fc3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/idle/status.md",
+      "bytes": 1429,
+      "sha256": "f00d048d9c22999bfdfebf15a465e2311693a4b8b9608f651f7d71f2b1b09dc7"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approval.json",
+      "bytes": 2208,
+      "sha256": "b2a289e9ad761cfb1666a57ed6d8ebd6095b896374ab9af4f45cdf8d1f88de9a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/00.png",
+      "bytes": 34576,
+      "sha256": "4141251ade3476ee66e174cb86ab874c4d3d1a1e3a450a384cf9b990229e5d46"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/01.png",
+      "bytes": 33628,
+      "sha256": "af41ab2f97e150b0b19332feff5127e0514610e80873bc109a77b683b69e8bad"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/02.png",
+      "bytes": 32813,
+      "sha256": "692e1251205bccc989127af7d679b2481cfd28c620cb0973a7abd922cba100e4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/03.png",
+      "bytes": 32437,
+      "sha256": "445668c23d89f653dc0d5b7e9dac255a9b730eb54dc0135b71cbae2bb820bb89"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/04.png",
+      "bytes": 32107,
+      "sha256": "0890645b1c39e92028d8acfb1b849b8146a7ca973372143aea96239b3ac83827"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/05.png",
+      "bytes": 33253,
+      "sha256": "965639c3b993502771d74c33e89fc5f147cd3e999e0578e9d8873a27e4e90940"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/06.png",
+      "bytes": 33299,
+      "sha256": "0339bd24c8a409925320393f1345c12a1d66fc388f30084ff323f0a0e528a9d1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/07.png",
+      "bytes": 35041,
+      "sha256": "7757aa858254a4984df167e37524979caae08c5256fe0d2f21241a1cc24cfa18"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/08.png",
+      "bytes": 34562,
+      "sha256": "2326a291d9f0a9cc17e6ed71465d5c507d9e855f4cedafed64c5d6413dc41828"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/jumping.webp",
+      "bytes": 221482,
+      "sha256": "7b93e19b1888efa7550af39564ab726c19405f6968e8a5ddc277eeadf39dac25"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/approved/manifest.json",
+      "bytes": 2208,
+      "sha256": "b2a289e9ad761cfb1666a57ed6d8ebd6095b896374ab9af4f45cdf8d1f88de9a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/build_comparison.py",
+      "bytes": 6870,
+      "sha256": "2c2a37eed5775eb400105038aea6edea72a3905a7576a85eb2d1671af534a17b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/build_interposed.py",
+      "bytes": 5300,
+      "sha256": "70012894fef79173c1ef6c1996dbed02ec2b62954da764e3be2105b3e4eb04b5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/current-comparison.html",
+      "bytes": 407763,
+      "sha256": "205b2815c62e631e67210fd83e70b1b8ef4825d54e1ba37f19175c451235bc16"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/jumping-original.html",
+      "bytes": 279196,
+      "sha256": "74433c050536c0ab47e15324c762fe3fb6b34c325a03adf1fe7db9eff8fbfa81"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/prepare_approved.py",
+      "bytes": 2974,
+      "sha256": "8303d5b44cb0a6ff1047477ed70e71ba733b0e59de0af2d88c9f1dad85fb3834"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal01-comparison.html",
+      "bytes": 228389,
+      "sha256": "4038e5cd8f378d0e035009c106537a7cecbefaa7d947bf2fe9cf9561ba07755c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal01-timing.json",
+      "bytes": 1503,
+      "sha256": "7bf6d2ca1e0eaec6cd3750bc5c13056576a0d12a0a65db69ecc4d094c1d68588"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-comparison.html",
+      "bytes": 407763,
+      "sha256": "205b2815c62e631e67210fd83e70b1b8ef4825d54e1ba37f19175c451235bc16"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-frames/00.png",
+      "bytes": 33628,
+      "sha256": "af41ab2f97e150b0b19332feff5127e0514610e80873bc109a77b683b69e8bad"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-frames/01.png",
+      "bytes": 32437,
+      "sha256": "445668c23d89f653dc0d5b7e9dac255a9b730eb54dc0135b71cbae2bb820bb89"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-frames/02.png",
+      "bytes": 33253,
+      "sha256": "965639c3b993502771d74c33e89fc5f147cd3e999e0578e9d8873a27e4e90940"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-frames/03.png",
+      "bytes": 35041,
+      "sha256": "7757aa858254a4984df167e37524979caae08c5256fe0d2f21241a1cc24cfa18"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-generated-sheet.png",
+      "bytes": 897461,
+      "sha256": "9faada6f29389760c6049e378f4578df4250f08396f2ad5263801438bd13831e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-prompt.txt",
+      "bytes": 2670,
+      "sha256": "b478650735fc3636bb9a3fa3b3603d5da28c3870992a8b6876d403dd8fffc2d3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-provenance.json",
+      "bytes": 5032,
+      "sha256": "809fb097b71d1d2d5971179a817ce2184e2d30aefa2f72490ca3436ea62b2e87"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-review.json",
+      "bytes": 1427,
+      "sha256": "96fe46f8bc9ff7d8d6fae346faa1178f4f207ebcc16fa1be73b05f2a0e72a081"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/00.png",
+      "bytes": 38576,
+      "sha256": "eb171d8d0ea4241c96f27013361ca035897de00dcec93a369223f6153012f8e5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/01.png",
+      "bytes": 38185,
+      "sha256": "d042da7c4f15bee125192a8d8a230a1488e9200b2dedc33ff9d67275ab6bf645"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/02.png",
+      "bytes": 37954,
+      "sha256": "2b2cc66c13cb8825e69845f9fb4938cc5594664dc0ba189a32793a58c3167114"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/03.png",
+      "bytes": 38512,
+      "sha256": "8081b9b8f8e11b28655aa43091cde5024ea7b57804ab3b09b9f9447093e7d3b2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/04.png",
+      "bytes": 38115,
+      "sha256": "58ca3f875de1f462bc1b69edfd0ff8625f37fc6c96fc666aa70d18e0c3a5c6ad"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/05.png",
+      "bytes": 38261,
+      "sha256": "46ae634f487468866403645f99d8d5e9b2bc1f8ccee998b48560b4206f8b6262"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/06.png",
+      "bytes": 38115,
+      "sha256": "58ca3f875de1f462bc1b69edfd0ff8625f37fc6c96fc666aa70d18e0c3a5c6ad"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/07.png",
+      "bytes": 38512,
+      "sha256": "8081b9b8f8e11b28655aa43091cde5024ea7b57804ab3b09b9f9447093e7d3b2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/08.png",
+      "bytes": 37954,
+      "sha256": "2b2cc66c13cb8825e69845f9fb4938cc5594664dc0ba189a32793a58c3167114"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/09.png",
+      "bytes": 38185,
+      "sha256": "d042da7c4f15bee125192a8d8a230a1488e9200b2dedc33ff9d67275ab6bf645"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/10.png",
+      "bytes": 38576,
+      "sha256": "eb171d8d0ea4241c96f27013361ca035897de00dcec93a369223f6153012f8e5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/manifest.json",
+      "bytes": 3891,
+      "sha256": "bcec552882617877f509d5eefa5055042ee0c2c90be1c01e2bc4fedd5abb7031"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/approved02/review.webp",
+      "bytes": 211874,
+      "sha256": "24edd48d17273ed637f7fb874505be8293fc40698c3e075b181ece77f62e1c0f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/build_comparison.py",
+      "bytes": 2048,
+      "sha256": "875592b6e4738100a17f13112955a866e5b1a99e3583ef12b8df7a565c71038b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/build_drawn_comparison.py",
+      "bytes": 3931,
+      "sha256": "44e515e71c13b2d9b213faac8a9c07a9b677a752ebd9dc59eae4fbd21f76dabe"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/comparison.template.html",
+      "bytes": 5107,
+      "sha256": "6cebe55d63c834e1f95e53440d3da387b587dbae48cb3505cac0a865d940f00d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/comparison01.html",
+      "bytes": 312098,
+      "sha256": "c0b23bbca6111555135dd21a114581ab954e499db38d05e20b4171da83e27bcf"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/comparison02.html",
+      "bytes": 414154,
+      "sha256": "64ce787df3596a44db8689b1f2a3858046bf58eb51b88a0a4f9d84c9da517ab0"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/current.html",
+      "bytes": 309707,
+      "sha256": "999fd82fed5e71b6501aa84d677ec7c961521d5d9f3d15d58b6d125ba0ef317d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/__pycache__/extract_pair.cpython-313.pyc",
+      "bytes": 3919,
+      "sha256": "ddd60731286b6ea941ddc631f499b6e047da7ad3d0a0d83bfe44c97a8c240db3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/arm_low.png",
+      "bytes": 37954,
+      "sha256": "2b2cc66c13cb8825e69845f9fb4938cc5594664dc0ba189a32793a58c3167114"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/arm_low_full.png",
+      "bytes": 36797,
+      "sha256": "dc5e68ee71efa7f100e85e52b026648cb189a3e560f172e608bd0a3307a7fc30"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/arm_reference.png",
+      "bytes": 53788,
+      "sha256": "a6d1135456188c22596f1b315a91e457a380dbd7d0d6ed082dd5f271989713bf"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/asset_checks.json",
+      "bytes": 772,
+      "sha256": "dfdaa783028eafb84e21863127ae43c25baef754f84826402f26afe5fea02c17"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/extract_low.py",
+      "bytes": 325,
+      "sha256": "515164389118f0db26ebba2901282e39596c4fef026bfd5ee734359694e7e7ae"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/extract_pair.py",
+      "bytes": 1663,
+      "sha256": "110f96187a9a7111e5462ad6ea96c53560d3a49ef8f6fba010086b698f1530d7"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/imagegen_prompt.txt",
+      "bytes": 2197,
+      "sha256": "e474c200e19d31ff4958e726be10439233336137bae81c0cbc8c64a10bcbe6de"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/low_arm_prompt.txt",
+      "bytes": 1526,
+      "sha256": "e63606cfadc56e3f5541d69527f68f40d0cdae9f15062dc4cf975b625becd291"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/low_extraction.json",
+      "bytes": 189,
+      "sha256": "343e07b1200316da8b54a67b97003fbea40cc580f6d2c603444ecba62feda806"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_0.png",
+      "bytes": 38512,
+      "sha256": "8081b9b8f8e11b28655aa43091cde5024ea7b57804ab3b09b9f9447093e7d3b2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_0_full.png",
+      "bytes": 38373,
+      "sha256": "10c8c5da9db9d8b1070c00b4a2e5e0f64d62bef617be073fc8871d6d8eec182d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_1.png",
+      "bytes": 38035,
+      "sha256": "de5edca3f6bfa9d8d1e5903c7c5867cfda540cf5fddb20e196f52caa027ab01b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_1_full.png",
+      "bytes": 38040,
+      "sha256": "ed1bac07fc9354fe27aec0de8ab5052277e13ebbe249056ceed5e4952787abe1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_extraction.json",
+      "bytes": 440,
+      "sha256": "c9702ca982bc2b6385e814a8a9eab173daf3b3c3d8368bde38a866eabc7fd079"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/playback_observations.json",
+      "bytes": 2440,
+      "sha256": "db2817bcbcf171e5a84280b3e8542899f08528653aed4a49920309e6af637d77"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/playback_strip.base64",
+      "bytes": 38277,
+      "sha256": "43b9adec6a423dc5c2f3799a34c02bc6fdb357aeee4b5235919b9768103af6e8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/playback_strip.webp",
+      "bytes": 28706,
+      "sha256": "248e1faeb0871d44e00e1e4f9019aa7f779f1e7b65fb43e0aa3e78d784e61d42"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/raw_low.png",
+      "bytes": 839781,
+      "sha256": "8b4be2833eed3fcdf477bb4012266f9311053991baf963231e1ada79d714fba9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/raw_pair_rejected.png",
+      "bytes": 953602,
+      "sha256": "f343d71fe0b749c3ce4857818bc1aeeb3e533aaf4544737987e847b348839c4b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/export_approved.py",
+      "bytes": 2414,
+      "sha256": "0d86d184bffd8e9412069c5c6e528f364ea43babcbc867192fca6b83dc1c19bb"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/prepare_arm_reference.py",
+      "bytes": 519,
+      "sha256": "90e6ff7759d80b70ff5125b8390177f28d2bd53ad93d7d224afd3aed88ebecce"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/proposal01.json",
+      "bytes": 2104,
+      "sha256": "5f7c5b7246e3696fd1fb2aac10f2e75bc0e39c40ac352ca37715ffc45d327ea4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/proposal01_notes.md",
+      "bytes": 2281,
+      "sha256": "544b2df79a841286648711a1b3b12d5430ee9f781189719c23e0d906b5187c11"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/proposal02.json",
+      "bytes": 3466,
+      "sha256": "8f1dd34cbb9c1fd676feab63ed3a107c8b9e094de5024e0ff61f7d93a2306c92"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/proposal02_notes.md",
+      "bytes": 4207,
+      "sha256": "5a36094691d7e19bd35973efe834dee2cf4cc1699fad4459a5be4fffe98516c7"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/status.md",
+      "bytes": 1478,
+      "sha256": "28b871cbd1c24548f163b9762b1736899ae257a9e0ab431af7e11bf736dd24a7"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/build_compare_01.py",
+      "bytes": 3864,
+      "sha256": "55b1523f92a0d74cba51191b18e420a38a30c89fb308a60fb285296775adaf98"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/compare_01.html",
+      "bytes": 311693,
+      "sha256": "e221f77d2cbc50c76a4777023d219b143ab1c88103887e2e4d3d1695fa720f72"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/compare_02.html",
+      "bytes": 468730,
+      "sha256": "01acb4ecb86fe52c553f0778d6a058a3d4cbfd27131b69e95ad9b767d59f3ea8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/current.html",
+      "bytes": 310027,
+      "sha256": "dee8a2f384245ec2d9d922c4afec99233cb4f52c02badb7cfaf33edd24c9bc97"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/approval.json",
+      "bytes": 719,
+      "sha256": "a0591e0ab018bdcd3d4e4e5eecfb9a7d14154a918edc77b4cece3cc9ebf7b375"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/arm_region.png",
+      "bytes": 346,
+      "sha256": "f61d03cf132502a01e165ee1c2319c29d9a88c72ddff56ea176f6c1004a42832"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/assemble_poses.py",
+      "bytes": 2017,
+      "sha256": "0bbb53244b702bd2cca07465396653fa8bed479e9cf46a4219c9535cd371ab82"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/assembled_contact.png",
+      "bytes": 62553,
+      "sha256": "e1ece1510d8f3bdd31cade09ed2f972af704f4046f7d189d400d699094f028ea"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/assembly.json",
+      "bytes": 845,
+      "sha256": "f2aced3d8fab99e68a24e0b22f96ae4384c851ce7dc7e3c1d00bda98bf609c04"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/build_comparison.py",
+      "bytes": 5347,
+      "sha256": "95fed3f92a70647d622d67d72a9ae84a0a7457e471719b2974a7d4263febc58a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/candidate.json",
+      "bytes": 9230,
+      "sha256": "ae2a7dd631fbebc0f9885c7ca5c509595117f2e025f41c8624257a8aa0d4fe95"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/candidate.webp",
+      "bytes": 65040,
+      "sha256": "6beafe3b04733d6e3a7e043b1da266b0b3bfd42c370f793f35dc608ed7a270b0"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/extract_frames.py",
+      "bytes": 1996,
+      "sha256": "e536870d00805cba0181a9250d41cd9ee6fba491a0a4148492de9c91c5dab643"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/extract_low.py",
+      "bytes": 970,
+      "sha256": "f11ca325f9aeba406d4fcd8525fa4472136a5e5df41df1a2ba8f6f47998b5efb"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/extraction.json",
+      "bytes": 891,
+      "sha256": "b31f6a4da1821d1ecfde87c530a8d0c824bd6a47010ae5a0066b16c3aacc6e23"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/high_experiment.png",
+      "bytes": 39667,
+      "sha256": "eea37f94b7a88ce5927e092d9b20c3b9d8c7a3cc1f422b8cb1a08b9ec549a295"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/imagegen_raw.png",
+      "bytes": 947381,
+      "sha256": "b683c17962dd035054e7e8620ae31ff9819076aa479cec24bf73890f33b4aa6a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/inbetween_1.png",
+      "bytes": 39473,
+      "sha256": "462c95323ee4617ce82a422632b9782a467d8b74a1437096b17a52a97cf3f138"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/inbetween_2.png",
+      "bytes": 39589,
+      "sha256": "c0d50f7fd32b84874f762e0d9687a5431965ff0bd1bbd5dd9e82b7c704d3d31e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low.png",
+      "bytes": 39154,
+      "sha256": "c298bd5011d29ce3a33906166c24de1e5aacaae5a3345bd2b52c7363b7ad6323"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low_extracted.png",
+      "bytes": 39902,
+      "sha256": "da461e54164007813895ec5af6da27c5195e40ce0a69b765562f84dcf491bb91"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low_extraction.json",
+      "bytes": 179,
+      "sha256": "03079d35858d326e9ca27e0ae728bf014fd8f267660dad5b7d70697c04614fe3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low_prompt.txt",
+      "bytes": 1531,
+      "sha256": "e3ae3c26fc0f520045cf8ae354bb79c823f3bdf6570fa09a38ca77515cc8dd10"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low_raw.png",
+      "bytes": 833308,
+      "sha256": "be17360ce0fd36c83c5f507915359a5352622377f8cba25d026bbd1f46c53d18"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/middle.png",
+      "bytes": 39514,
+      "sha256": "ea84cf05940094e3d29c2f58b5ff63fcd7787dcb52b78e768522ec6474403076"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/pose_contact.png",
+      "bytes": 154184,
+      "sha256": "b13470d6f8ee085d28f97e02a311d33793559ebdcdaad03f676412788bc1379d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/prompt.txt",
+      "bytes": 2089,
+      "sha256": "6465cf72dd2643beedeff3dcc6d33d6f3f6644578cbb52ec69e8bb3dd52250e8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/README.md",
+      "bytes": 2570,
+      "sha256": "38a6ea6499501018f6c3fa92738107fe9f5bd9e270a9cde004ae95270361015d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/rest.png",
+      "bytes": 37901,
+      "sha256": "e4390367b8e16a5ab9a5008df4d814068983230e8e945587936414660c11016d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/temple.png",
+      "bytes": 38931,
+      "sha256": "beb43edc4eec72d8b1f12e272a9b0bc00cfe61a90c207cae57994335a71a74c4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/thinking/timing_01.json",
+      "bytes": 2187,
+      "sha256": "0703aa8de37245cff00cdc5d7c3ab90c4d11571a054609fb280f1f664d9cb931"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/00.png",
+      "bytes": 40316,
+      "sha256": "1dc078529e56479afe6cef96053d33d3f7624f0bfae6698b56d4ee6d1290dd43"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/01.png",
+      "bytes": 45596,
+      "sha256": "633fe90e009dc3d97617bce8338160c68c270232e03b869977b98b7e00e967a4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/02.png",
+      "bytes": 46281,
+      "sha256": "759af83de5dcc08c8190f9385c57f9f23e2ff91e3b0a4b418cb36a521a9f9ae9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/03.png",
+      "bytes": 46705,
+      "sha256": "a7cb71ae44b0488a13f90c6f8f044498a351738bf5bf87e5678e15d09329d9da"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/04.png",
+      "bytes": 45058,
+      "sha256": "7eff4a237c87ad309a955afde129fb7a086762d3e65b2d76fe6e53b6bb4c3954"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/05.png",
+      "bytes": 45039,
+      "sha256": "a19a384ae3589c4382d4a3c9391ccb8433504fecde2e3ef7a60c23403016b555"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/manifest.json",
+      "bytes": 2482,
+      "sha256": "1735d7fb4f8c1964b3b6a62cf3adda56aee1c2d9f55a674d8a634ce0275c9ac5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/validation.json",
+      "bytes": 450,
+      "sha256": "a6f7ba5fe858fab0aa894ccf2303f97829a4d523d71d840821cbeebbd0e0273d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/approved/waiting.webp",
+      "bytes": 82108,
+      "sha256": "88c13d30c2c600ca943c6953937147f4ab3cec7235bd4ccafd26f67518d683e2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/build_comparison.ps1",
+      "bytes": 7873,
+      "sha256": "7f8be8b7d1807ec05f83791697a347e09967a3f4f4bc5699488315abc4759dd9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/build_comparison_02.ps1",
+      "bytes": 4413,
+      "sha256": "a8dd4dc7ecb9de158b2830fd6ad7dc3132f4515a753b98f145586e41760b378b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/build_comparison_03.ps1",
+      "bytes": 7632,
+      "sha256": "1f359fbd52322ba462dc86c78ea0cf71ef180ae4393450ed146d1805afda53da"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_01.html",
+      "bytes": 326006,
+      "sha256": "c52c6d1cdeb2bf837a5563306c3c93d898cac6f24daaa110f56700349912a143"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_01.json",
+      "bytes": 4329,
+      "sha256": "99a1e86e77c21185a9e69a5ced45a2face948570231c7040fe47bcd8e1b69537"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_01_review.md",
+      "bytes": 2435,
+      "sha256": "3413312fb5f89bc2fd0b27ee07bf2f3d8aae9be5fe1693dfa4ca1a42dc5627a1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_02.html",
+      "bytes": 446313,
+      "sha256": "49da9f0da64ebfdee9618463f148bf275dbfb036d7d06f347611cb73a9c12cb1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_02.json",
+      "bytes": 6301,
+      "sha256": "826d5d131583b5850ce8d28e80804543156d16b24a5fac6d487e9bd6e0af2944"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_02_review.md",
+      "bytes": 3755,
+      "sha256": "01564e9658bfb591867397cb11c6c279db103e00e65b411579e43f185693f65c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_03.html",
+      "bytes": 355589,
+      "sha256": "1366f4e5ec36c536e2c8487843c1a5ab49446b29000af9c528e047c24d841c92"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_03.json",
+      "bytes": 3599,
+      "sha256": "571ceac486380e3411ef7f02f857008a652a8fa07c5779772574ca9aaf084225"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_03_review.md",
+      "bytes": 3187,
+      "sha256": "3f1903ce9e832075e4d4d485a5f6eb145550415e3a8ea1581585d481a5ff4ae9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_closed.png",
+      "bytes": 45039,
+      "sha256": "a19a384ae3589c4382d4a3c9391ccb8433504fecde2e3ef7a60c23403016b555"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/blink_half.png",
+      "bytes": 45058,
+      "sha256": "7eff4a237c87ad309a955afde129fb7a086762d3e65b2d76fe6e53b6bb4c3954"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/composite_face_0.png",
+      "bytes": 26773,
+      "sha256": "5e4051bcd7ebefd44077732959d345dcb098135874df48eb20642c347f9c8cb6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/composite_face_1.png",
+      "bytes": 26457,
+      "sha256": "3c07ae569ce46c6e3eeb341d0f5f86034f313c4d61462f77135db644947ccb44"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/extract.ps1",
+      "bytes": 4299,
+      "sha256": "bdd77f41bda99485edcb7602450ba37cab972b0d166f6a0adf5c695d8e038ab5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/face_0.png",
+      "bytes": 27359,
+      "sha256": "befbb3278775f314b0212da84585cda66406d252f5380c1368c61fa334ae04b1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/face_1.png",
+      "bytes": 26905,
+      "sha256": "3c9b9156dfcc43816ce7485a8ff702fba874611415a9f4795f44957963fe6d4a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/face_2.png",
+      "bytes": 26427,
+      "sha256": "4ccc686b5104fe7590757256ff3693ef94baa445b4ff0628a1d78d4ff7016fef"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/generated_normalized_0.png",
+      "bytes": 44821,
+      "sha256": "1cfe561e28ebaa60d782f0de08234a091710d9d2b22b418bb1653c10792e3f31"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/generated_normalized_1.png",
+      "bytes": 44763,
+      "sha256": "2d0fe015d6f7e529f657e23cf43a89b42568a10902deb3978d1fd69fb1e081fc"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/generated_normalized_2.png",
+      "bytes": 44575,
+      "sha256": "ffc0430cf524ecbf5a47e03a7b9b8c4371a56e694781472a7dd153ab8bf9d905"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/generated_strip.png",
+      "bytes": 1092106,
+      "sha256": "a99b28405deda75e41f4e151369faeb5503c1069d7d55d8d63eb08e80e2b7eca"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/pixel_inspection.json",
+      "bytes": 531,
+      "sha256": "4d74fbd6c37d402f103f183c43b8703f760c27ae05af30d80ab4480cba8c14c8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/prompt.txt",
+      "bytes": 2171,
+      "sha256": "d737bd2e015d02e96391ea1542204f68012ead402e232fd259fe8885f10dd849"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/reference_three_cells.png",
+      "bytes": 46756,
+      "sha256": "80c072a67ae9274cd64bc0c71cc0b548e9eb3b176c042ed116f1d5e34fc8b299"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/source_face_inspection.png",
+      "bytes": 28282,
+      "sha256": "20f2cef845dcfdf7f6c9ce1ed2d1881ee18252ce3be8902834dd9cafb0631a01"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_0.png",
+      "bytes": 45596,
+      "sha256": "633fe90e009dc3d97617bce8338160c68c270232e03b869977b98b7e00e967a4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_1.png",
+      "bytes": 46281,
+      "sha256": "759af83de5dcc08c8190f9385c57f9f23e2ff91e3b0a4b418cb36a521a9f9ae9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_2.png",
+      "bytes": 46705,
+      "sha256": "a7cb71ae44b0488a13f90c6f8f044498a351738bf5bf87e5678e15d09329d9da"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_inspection_0.png",
+      "bytes": 10068,
+      "sha256": "0ad08fde0cc20730a4b90b95a844af899517dbd82e3c1f54a84c5d25ba786280"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_inspection_1.png",
+      "bytes": 12092,
+      "sha256": "3b6df73b7cc72e1622afd3b496772680ec6b4b0082efe96c122547fb32679a6b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_inspection_2.png",
+      "bytes": 14183,
+      "sha256": "88c355099b3cf92ac21dbad20dc808a216fc3b4d209014a230656da5344b0efe"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_patch_0.png",
+      "bytes": 4379,
+      "sha256": "3747fa5b120d1addc818b1a6663b84f8f0e7de5dd63f0982f1500b98a5848d5f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_patch_1.png",
+      "bytes": 4987,
+      "sha256": "1570f68c8a888779bebbf46cc842cd16b4a85a812c5753289139171fa8d01613"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/arm_patch_2.png",
+      "bytes": 5355,
+      "sha256": "764a3b4e6e3627f760c89e0010d0e3012a141de8a57422a7c26d9cbb4793f3d9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/blink_patch_closed.png",
+      "bytes": 3379,
+      "sha256": "e8c49b905052f211b9480cf0abc469446e3890f164f7d15b99ba5cc21cb4709b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/blink_patch_half.png",
+      "bytes": 3387,
+      "sha256": "647b16870b26455ff119ed2259bc11f1dbdb0643ec039867350545963df38d09"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/candidate_contact.png",
+      "bytes": 62233,
+      "sha256": "9fb126d6cc9ae3cb63e22553b15852cf408beb938f3ba3e517ece7e9302ca453"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/extract.ps1",
+      "bytes": 4288,
+      "sha256": "93ed40a5c3846389f41c5ccc4352b0a0399ce27a4878b91260f6b6d7f7a6db76"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/generated_strip.png",
+      "bytes": 1059253,
+      "sha256": "1993711c89ab680d9f6fcadd7de406a183106b1b3d19658d44f9f55b3cf38f32"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/normalization_contact.png",
+      "bytes": 175659,
+      "sha256": "6e73e947ff812fce553aa375e1efaa0277b0ca543914715ddad82c290296aa8b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/normalized_0.png",
+      "bytes": 44455,
+      "sha256": "d7640b6b4866fbb3b68e11132bcf2f92b673fe9a47ab836df64d2e574c7ef8a5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/normalized_1.png",
+      "bytes": 44781,
+      "sha256": "41ba154e35f1a55eb507a99f116add919d629401fae749157dd7beef09d51936"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/normalized_2.png",
+      "bytes": 45163,
+      "sha256": "9d3390d46df55c690f5c9d0a0c6a24ea2a2e1377771c0bfcd24ba6512dc09f8e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/pixel_inspection.json",
+      "bytes": 785,
+      "sha256": "7d156559fe99ac7ed6aba2dffbbe7b64cf666e319b7d840290c9899d3206cde4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/prompt.txt",
+      "bytes": 2234,
+      "sha256": "fb636d9b961ddf9350c322ce22a4100c379d24c303f55972ae24b7cbe574f47c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/original_visualization.html",
+      "bytes": 324076,
+      "sha256": "558fdf75c5e7c679a8adca0ed67380e6129bb0a7e411c62c3e1fd14217d8256c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waiting/status.md",
+      "bytes": 824,
+      "sha256": "fa4f9b9c5a7353f0bf3c0f3296727a806ce1ac210168c2b55d94e2b9c22e0054"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/build_comparison.py",
+      "bytes": 3361,
+      "sha256": "46e1fb3c70a98032adcd74f934b1a8b9cb29ee5e337838a19434d7be687266c8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/build_drawing_02.py",
+      "bytes": 7714,
+      "sha256": "c3a2e897aa90db940dbab48827ba0858f997cb8407d7e670c609ecb7f9f91c59"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/comparison.template.html",
+      "bytes": 5660,
+      "sha256": "87d7a456bb53608528bc64f9b6bc0b391edd661875c60de26fc1a060b75c628b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/current.html",
+      "bytes": 382842,
+      "sha256": "aa2eec2522cff9c58eb96321e56d0f71896c2d236f5c7763df79bf86d25df995"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/approval.json",
+      "bytes": 438,
+      "sha256": "88a9ee095067fae17daf4f84ac70c715a735aba095a090753a0cc17bb8cad147"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/comparison.html",
+      "bytes": 428362,
+      "sha256": "ff05b23a5dc8c74af8f3ef862681eac442046e815482399ecd710c936a21fa97"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/comparison.template.html",
+      "bytes": 6006,
+      "sha256": "0619a2e2e8325e905c333aa8884e8da51eadb7317fda132e6f3db1d287208b33"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/focused_landing.png",
+      "bytes": 736862,
+      "sha256": "c7c45f801da038b60f8c861b3d519a6aa9c135b318c2bf37c0115aa7732121c4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/focused_landing_prepared.png",
+      "bytes": 37185,
+      "sha256": "ff59e88c8a028cc95fe4a61fd6dbbb6e3e9b562e46b46033976d33619453cf69"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/focused_landing_prepared.webp",
+      "bytes": 27946,
+      "sha256": "08148ca7edf6d74259d10e6c33b78e7574f80db4ab6ecb552171c20ed370b590"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/generated_contact.png",
+      "bytes": 115175,
+      "sha256": "3946bcb67780ea2d99777928256b579fe3aa21087adad894a07aeb2b2ae2be00"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/generated_sheet.png",
+      "bytes": 772177,
+      "sha256": "27bb5617b1f0162cd558de2b92ac2bcb841b1a8abf68abe4a57fc1bef380d24c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/handoff.json",
+      "bytes": 442,
+      "sha256": "f5235d032b61860094bd564ef5a92db1bb1d92c5085f198c9c5c8c21f74a760a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/landing_192.png",
+      "bytes": 34337,
+      "sha256": "b393495fd3580143b1806e5040cd3027de6630f9221ba1210b49f0ed00fe89ef"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/landing_b.png",
+      "bytes": 692033,
+      "sha256": "c556cd95d31b1f06d3077f53b66672199e379847d4438b24ca3abcd9e6cafe9c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/landing_b_prepared.png",
+      "bytes": 35248,
+      "sha256": "b038053139f9cf2d6ba5c4919fb6844040efe39222cc58ecb6198baf74315375"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/landing_b_prepared.webp",
+      "bytes": 26490,
+      "sha256": "6dbd33910339f7269fbefbd234f0be258c862c52adf5d77ef7c94b9895ea91ad"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/landing_contact.png",
+      "bytes": 103715,
+      "sha256": "dce1e03d0f29a2d3e06429fd2dcd0f0e1b7c48710df92e1712f7ee2909f1e649"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/manifest.json",
+      "bytes": 7579,
+      "sha256": "c9b08750c51d0b2d34774242e7b34fbbe68e9d18f29c52cc2e8a1cf50eb43a51"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/notes.md",
+      "bytes": 3653,
+      "sha256": "f571478981c4a99240c3863d6c52298ad227ac8a30d190ee6d1dc10787c5e8bf"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/passing_a.png",
+      "bytes": 610749,
+      "sha256": "89f10a7d5c695715f38b6ca3fc4907f747b4c5198cd2371d2f1c10e47819286c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/passing_a_prepared.png",
+      "bytes": 33968,
+      "sha256": "3a845cfad9ef82676ab111830fa9d3916b28de5e3c9ce33b5fe2e24a4f6df60e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/passing_a_prepared.webp",
+      "bytes": 25922,
+      "sha256": "5145d0186f19bedfd732a466b7261f2c47ee66b01853d9388e0174e9bac854ff"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/passing_b.png",
+      "bytes": 661976,
+      "sha256": "970d5a18b3b53df00a88caef01085c7b9e70556e8d042c62a71d0d4f65bdbf42"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/passing_b_prepared.png",
+      "bytes": 31693,
+      "sha256": "74d276d6d1d82a7908f9668cd653b74f2a3ad66e0702e7492645560693ea8a4a"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/passing_b_prepared.webp",
+      "bytes": 23952,
+      "sha256": "c34f26907f97f381a4f45f8da499dfebcbd01c4a14e17778dd0e479504b84ef3"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/prepared_contact.png",
+      "bytes": 307359,
+      "sha256": "a725cd0600186c93ae2704bfec4b9b541aa64746fc401a8c702ed3960aa50c2c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/prompt.txt",
+      "bytes": 2958,
+      "sha256": "e5f996783333bdddca22eb94bbffcf1a142093723c8c6aea38bd844993be0329"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/prompt_focused.txt",
+      "bytes": 1630,
+      "sha256": "778fdb3ac93a5f9b6cf0f5e62c51243c58915087185ebf11359e5a6a03077801"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/prompt_landing_b.txt",
+      "bytes": 1292,
+      "sha256": "1c8fb580688f80b1fb068bb418187be4b02737ab7a2dd95524c1a7f124d242e2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/prompt_passing_a.txt",
+      "bytes": 1357,
+      "sha256": "f158ab38f9a04a1bf4c5097f4289381f7307b99e89591443faddcc79f2fdd734"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/prompt_passing_b.txt",
+      "bytes": 1253,
+      "sha256": "efd751729cd1277c0c0edbd019ec8bccf5e362ee5d7c322852c7b362aec6fd87"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/reference_sheet.png",
+      "bytes": 253129,
+      "sha256": "fc997c5accd4a00a43a7a62e679c8cd9976440c3e5d52bb85dc3ed34efa1d8df"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/running-left.webp",
+      "bytes": 288602,
+      "sha256": "4ac79dd419e8153b406b9faf41aa9017fefc12cbcfbfcc2bc78cabde75840d7d"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/finalize_approval.py",
+      "bytes": 3277,
+      "sha256": "77a635f5595ebf054a90dad5a428250e3c0a512b6b4a352763d3731927ea13a4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/prepare_drawing_02.py",
+      "bytes": 622,
+      "sha256": "764eb141cd1b73b8da47cfb15ad2fba492abc2b291e1bfbac4dcee8706ad5cf4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/status.md",
+      "bytes": 1467,
+      "sha256": "9c64beaaad6e6a340acffa954e4143ddb0eda2452adacb6d5ab816f6334b6ff2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/timing_01.json",
+      "bytes": 3416,
+      "sha256": "9a376cb4b579690bbd93a7f60422d017ce5447d6ff1cd4a24915b3222dc4eebd"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/timing_01_comparison.html",
+      "bytes": 383200,
+      "sha256": "9250dcd268558190b67c32ff90d02076413cffd1193bee38291e38a3451db0ef"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_left/timing_01_notes.md",
+      "bytes": 1757,
+      "sha256": "8af601ab7e57843cb4a18598775b9546ada2589864d379df3f32b981e9709506"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/comparison.template.html",
+      "bytes": 5596,
+      "sha256": "b15ff7b47f9ccbe63f9b2094a69d367678aac73016f0b0993cb4c4c4de61ed15"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/current-comparison.html",
+      "bytes": 373376,
+      "sha256": "5a0bfffdeb504f7f45f7cd530c87e544d8f6e01bf11bfcc22a6ad2a05c312aae"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/current.html",
+      "bytes": 372316,
+      "sha256": "4a0464a262fb58448eb1297af6b27717b1236ffcfb3189578f5128dfcb596cc9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens-comparison.html",
+      "bytes": 470082,
+      "sha256": "e950de9745d7ef989c099aa4d916dc06a487ff02dcc40eaee01cdb347a063e17"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/approval.json",
+      "bytes": 520,
+      "sha256": "4ee004aa7ccc7eaed9cc88bc0552177392075ae2ceb3f62073231836684af4be"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/build_comparison.py",
+      "bytes": 5677,
+      "sha256": "fbb9de077ff72855b3404d2d1fc38b454e0dbbe59b17459474fcc34f873f30d6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/candidate.json",
+      "bytes": 4282,
+      "sha256": "e7f0cf58db669569cef7660f1dc31b4988f1717bc5e4ba7be0088480c0471153"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/candidate.webp",
+      "bytes": 369170,
+      "sha256": "9aa7f4637b809d4387622e44c93793fd21ffa2328bfe4526a87104633e346cf9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/comparison.template.html",
+      "bytes": 6216,
+      "sha256": "9cf45ab3901ffaad2a004b52158db2e02f5a123bbd64f03f2c8ef72cce25f861"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/extraction.json",
+      "bytes": 1063,
+      "sha256": "74a388d9be78475035b82a91d7ddddd508a1a9d3940c5d0793d85152a1cb2be5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/A_landing.png",
+      "bytes": 36074,
+      "sha256": "3f99d3cc69edaf306be4ed5ae7720759d8759a014d980e48adbb3834e99d66d8"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/B_knee_rejected.png",
+      "bytes": 34451,
+      "sha256": "e3fab1c1b0c14110153c46cc2deea161d9d219418c1ef483ec55c01a2e347ecf"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/C_extension.png",
+      "bytes": 36177,
+      "sha256": "b949b18bdecad5612995c477b83491b0688127a27d59e10a46f8c7c4ae7f42cc"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/generated_strip.png",
+      "bytes": 925389,
+      "sha256": "dd55f6a7ee3aa1019e0a0b301c017ad5f82c3916dbf17e8b508d12af19d9534b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/handoff.json",
+      "bytes": 314,
+      "sha256": "5c6ddd2de1311583b45030c3a680a3b9865d3ac0e4291d64c83724d9de978419"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/prepare_frames.py",
+      "bytes": 1668,
+      "sha256": "d0fe2b88a2c1ed728a3bee38a25edfc67d341dd4433c9a7969f8819af68d5fb6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/prompt.txt",
+      "bytes": 3078,
+      "sha256": "143777a496dce376f2f095761ecdb6d06730eb3f16adfcaa59f91d42957f16e6"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/verification.json",
+      "bytes": 414,
+      "sha256": "b66ad7eab311104b8b40fa0cb2171f2efb10078d1c54f5edbfdb1d72d14eeee1"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/visual_review.md",
+      "bytes": 2658,
+      "sha256": "a7b38df6dd2f802da899fe7917937f76128c9613940f6e257dfe568b1fc04ecb"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/status.md",
+      "bytes": 1400,
+      "sha256": "7a26b45de69d0e6763f03c101882129ef234479a94107da133b573485b1b2821"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/walk_right/timing_01.json",
+      "bytes": 3903,
+      "sha256": "3b4fd4a7a4af75d0fe7ed4946258f7e41500c28dc0db9608f515ca14947c4e07"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/body-lock-03/build.py",
+      "bytes": 4385,
+      "sha256": "71c05452953cbeb7ff4e6284aca5e29f9ce90644c28a467e2147665426ae101c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/body-lock-03/metadata.json",
+      "bytes": 1534,
+      "sha256": "80178c90fea71fc990fa995ba7764dbff856b72a79d3017c4fd40f84e75204ef"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/candidate-01.json",
+      "bytes": 2135,
+      "sha256": "57637afe2d46106385bac594314fca68b41497670448e996894923859ed5c6d4"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/comparison-02.html",
+      "bytes": 436055,
+      "sha256": "6ce7206d6e680591ec68ad456c448d4c394a756a347545fd14680e54d86a9157"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/comparison-03.html",
+      "bytes": 437119,
+      "sha256": "75cc11e3334d3d66f6f8618d5df1639a7ae4a2d091a1ad9e8b104c5f9855b067"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/current-comparison.html",
+      "bytes": 270284,
+      "sha256": "c6fdabbea4222cc91009b1e73c82b05e154242c0ad35c032dd6115eec16e6ad9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/build.py",
+      "bytes": 6202,
+      "sha256": "e4761ad33ff3b72dd4d366c1d5d736e099698d8ad2fb8905669b8e4310bf2006"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/00.png",
+      "bytes": 38109,
+      "sha256": "15f54de41c87d5bd953b0c5d336857c9d08615ceef013780d63e03fdd21f60d9"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/01.png",
+      "bytes": 41454,
+      "sha256": "6ebb347bd9fe43346b88e5bd09dc9d12438d3f57077829cad13cab94de169088"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/02.png",
+      "bytes": 41239,
+      "sha256": "44e65ea34340967837f3e76f95bdbfaf6fd9660b17c937144ca06df4e9b57b2b"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/03.png",
+      "bytes": 40826,
+      "sha256": "49d16754b4e9198bfeb8adaa9982defb4b2565a3103722c1014984c5a93197b5"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/04.png",
+      "bytes": 41834,
+      "sha256": "5aa7df20341877e128e1803b2be90668df5d7ecf5f40cfb7dd1c60acc08c1fde"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/05.png",
+      "bytes": 39731,
+      "sha256": "72b97417b7d65b81723c2aa7a17e67722648d245dcf426a933c759341052a71f"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/06.png",
+      "bytes": 40800,
+      "sha256": "30479b1a7641c5a7dc89c7b4adc3264cf2fc6f7c6385d020f9cff0718fc96d71"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/frames/07.png",
+      "bytes": 38886,
+      "sha256": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/generated-strip.png",
+      "bytes": 1019417,
+      "sha256": "c9d848da46f62cb1d2754d61e683d910d58efa79d4c03b1a977b6e16ec99b60e"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/metadata.json",
+      "bytes": 6149,
+      "sha256": "4c69003d8f18ed8226520310072f1bcea5b5c6f02f5b9952d9d505cdf01cebea"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/prompt.txt",
+      "bytes": 2517,
+      "sha256": "d983cb9d9166bbc9c297fd3d972a12fad6dc331fc06b7eadfac56880dcd4921c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/transition-1.png",
+      "bytes": 41454,
+      "sha256": "6ebb347bd9fe43346b88e5bd09dc9d12438d3f57077829cad13cab94de169088"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/transition-2.png",
+      "bytes": 41834,
+      "sha256": "5aa7df20341877e128e1803b2be90668df5d7ecf5f40cfb7dd1c60acc08c1fde"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/transition-3.png",
+      "bytes": 40800,
+      "sha256": "30479b1a7641c5a7dc89c7b4adc3264cf2fc6f7c6385d020f9cff0718fc96d71"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/waving.webp",
+      "bytes": 232592,
+      "sha256": "9c0728389d9c89929d9bf1bcb7cef878a93e905403501c07e0d7021d07e2c907"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/sessions/waving/status.md",
+      "bytes": 1981,
+      "sha256": "2afd3b1eb15db46c1bcc7784a654e600990d768fea08c9d0dd2e0942d30db07c"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/source_idle_strip.png",
+      "bytes": 225905,
+      "sha256": "0922177d10e049f84a057a64dc0d6784f8844fb44a0ad9301985ea0753f377a2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/source_motion_metrics.json",
+      "bytes": 5444,
+      "sha256": "799e33ce2e8888b95939040194e2e117a2a884f4d38790f0bb5e86c4fc8843ed"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/source_playback.mp4",
+      "bytes": 4665820,
+      "sha256": "2f9059dae2ac5691ab3b72591585f9e84018d96af04f677f364942b1e67e78bf"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/source_playback_samples.png",
+      "bytes": 379158,
+      "sha256": "5b05b9df3b8762b47f7161f5a2c2acf74140338e9871906b108db724a89b3fcd"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/source_validation.json",
+      "bytes": 18350,
+      "sha256": "46c9c2ab5d3b310b1875167c8a00efe158574452489d76fe655d7b405dd188e2"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/timing_contact.png",
+      "bytes": 183987,
+      "sha256": "5c4d34f2142b0f3020fa2f256b7b0bc1cc55353bea8635c644169631ad2cc242"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/trial_playback.mp4",
+      "bytes": 3934406,
+      "sha256": "64e20b3c3c93aba2d2449e7253ea9193036ab73f3e34db79806b4ca38b7c2663"
+    },
+    {
+      "path": "docs/design/finn_pet_refined/validation.json",
+      "bytes": 2686,
+      "sha256": "857a8c002a5e735858a9c1dda8eb0dbb37e77e8e008ff562a83ba9887203d264"
+    },
+    {
+      "path": "docs/finn_animation_brief.md",
+      "bytes": 21137,
+      "sha256": "0bb5380a930c39860305b5ae7f5b6f438b37e9e9bbf5f95b370160b1f29bda88"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "animation": "jumping",
+  "approvedCandidate": "02",
+  "userMessage": "In orde mag overgenomen worden",
+  "recordedAtUtc": "2026-10-20T09:51:57.198126+00:00",
+  "status": "approved, awaiting coordinator integration",
+  "frameCount": 9,
+  "cell": [
+    192,
+    208
+  ],
+  "durationsMs": [
+    120,
+    60,
+    60,
+    60,
+    120,
+    60,
+    60,
+    60,
+    1200
+  ],
+  "loopDurationMs": 1800,
+  "webp": {
+    "file": "approved/jumping.webp",
+    "sha256": "7b93e19b1888efa7550af39564ab726c19405f6968e8a5ddc277eeadf39dac25",
+    "loop": 0
+  },
+  "frames": [
+    {
+      "file": "frames/00.png",
+      "sha256": "4141251ade3476ee66e174cb86ab874c4d3d1a1e3a450a384cf9b990229e5d46",
+      "origin": "original"
+    },
+    {
+      "file": "frames/01.png",
+      "sha256": "af41ab2f97e150b0b19332feff5127e0514610e80873bc109a77b683b69e8bad",
+      "origin": "generated"
+    },
+    {
+      "file": "frames/02.png",
+      "sha256": "692e1251205bccc989127af7d679b2481cfd28c620cb0973a7abd922cba100e4",
+      "origin": "original"
+    },
+    {
+      "file": "frames/03.png",
+      "sha256": "445668c23d89f653dc0d5b7e9dac255a9b730eb54dc0135b71cbae2bb820bb89",
+      "origin": "generated"
+    },
+    {
+      "file": "frames/04.png",
+      "sha256": "0890645b1c39e92028d8acfb1b849b8146a7ca973372143aea96239b3ac83827",
+      "origin": "original"
+    },
+    {
+      "file": "frames/05.png",
+      "sha256": "965639c3b993502771d74c33e89fc5f147cd3e999e0578e9d8873a27e4e90940",
+      "origin": "generated"
+    },
+    {
+      "file": "frames/06.png",
+      "sha256": "0339bd24c8a409925320393f1345c12a1d66fc388f30084ff323f0a0e528a9d1",
+      "origin": "original"
+    },
+    {
+      "file": "frames/07.png",
+      "sha256": "7757aa858254a4984df167e37524979caae08c5256fe0d2f21241a1cc24cfa18",
+      "origin": "generated"
+    },
+    {
+      "file": "frames/08.png",
+      "sha256": "2326a291d9f0a9cc17e6ed71465d5c507d9e855f4cedafed64c5d6413dc41828",
+      "origin": "original"
+    }
+  ],
+  "integrationNote": "Use the nine-frame WebP or manifest. Nine frames do not fit the original eight-column atlas row. Original atlas and runtime untouched here."
+}

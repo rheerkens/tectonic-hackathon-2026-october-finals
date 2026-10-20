@@ -1,0 +1,100 @@
+{
+  "animation": "failed",
+  "label": "Teleurstelling",
+  "trial": "timing_01",
+  "status": "candidate_pending_user_review",
+  "cellSize": [
+    192,
+    208
+  ],
+  "original": {
+    "sourceFramesZeroBased": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "durationsMs": [
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      240
+    ],
+    "loopDurationMs": 1220
+  },
+  "proposal": {
+    "sourceFramesZeroBased": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      7
+    ],
+    "durationsMs": [
+      120,
+      120,
+      160,
+      150,
+      150,
+      160,
+      2540
+    ],
+    "loopDurationMs": 3400,
+    "gestureDurationMs": 860,
+    "restDurationMs": 2540
+  },
+  "change": "Omit source frame 05 (closed eyes), retime the short gesture, hold source frame 07 for 2540 ms.",
+  "limitations": [
+    "No redrawing, interpolation, scaling or pixel edits.",
+    "Abrupt hand transitions remain.",
+    "End pose remains worried; it is not neutral idle.",
+    "No runtime integration or user approval."
+  ],
+  "sources": [
+    {
+      "path": "docs/design/finn_pet/frames/failed/00.png",
+      "sha256": "ce75ca3a3042cc19afb3bbf8b06e8c1bbf278268b5c5a36ab4b92cb45138bfc4"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/01.png",
+      "sha256": "4018d313778b48d36a7a50c87d648bdad526186141e5a7a3733452c014d9971b"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/02.png",
+      "sha256": "2ff8b3dcb91af0e0273bcfb329f16aafaeb33521a3e2c04e3879cd4d0465a2b9"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/03.png",
+      "sha256": "92a3fe4753d79338a70e19a7c4779b1545d4c4b8761948d94ecb08b72c88b4b9"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/04.png",
+      "sha256": "7b47670b3c60294ff5813c159e14641ba5b028850d949eebcede009e362b544a"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/05.png",
+      "sha256": "8ab30e807d44b71e0f1d0f437ace23c625ca0b11df009224156aa9ba0897b66b"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/06.png",
+      "sha256": "3aad62bd76d3ee735b03f79edf443a985356e177e5ba046583109e4a54a1415c"
+    },
+    {
+      "path": "docs/design/finn_pet/frames/failed/07.png",
+      "sha256": "4715f22ab20f958997d179c645583b4a27c40d8e2f0dcc4bed50642f37979569"
+    }
+  ],
+  "referenceLayout": "docs/design/finn_pet_refined/sessions/idle/current-comparison.html",
+  "htmlCharacters": 406801,
+  "embeddedUniqueImages": 8
+}

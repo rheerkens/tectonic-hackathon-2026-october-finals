@@ -1,0 +1,49 @@
+{
+  "rawSize": [
+    1703,
+    924
+  ],
+  "method": "Crop generated cells and uniformly downsample to the original 198 pixel subject height; align shoe center at x95.5 and floor at y202. No warp, blend, morph or crossfade.",
+  "frames": [
+    {
+      "file": "inbetween_1.png",
+      "cellBounds": [
+        320,
+        18,
+        770,
+        861
+      ],
+      "uniformScale": 0.23487544483985764,
+      "pasteXY": [
+        46,
+        5
+      ],
+      "alphaBounds": [
+        46,
+        5,
+        152,
+        203
+      ]
+    },
+    {
+      "file": "inbetween_2.png",
+      "cellBounds": [
+        130,
+        18,
+        590,
+        861
+      ],
+      "uniformScale": 0.23487544483985764,
+      "pasteXY": [
+        47,
+        5
+      ],
+      "alphaBounds": [
+        47,
+        5,
+        155,
+        203
+      ]
+    }
+  ]
+}

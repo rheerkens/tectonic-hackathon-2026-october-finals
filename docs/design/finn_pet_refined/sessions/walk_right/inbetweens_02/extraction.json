@@ -1,0 +1,86 @@
+[
+  {
+    "name": "A_landing",
+    "crop": [
+      168,
+      19,
+      645,
+      710
+    ],
+    "scale": 0.28,
+    "placement": [
+      21,
+      11
+    ],
+    "alpha16_bounds": [
+      24,
+      13,
+      153,
+      201
+    ],
+    "cell": [
+      192,
+      208
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "B_knee_rejected",
+    "crop": [
+      847,
+      14,
+      1287,
+      669
+    ],
+    "scale": 0.28,
+    "placement": [
+      25,
+      5
+    ],
+    "alpha16_bounds": [
+      28,
+      7,
+      146,
+      186
+    ],
+    "cell": [
+      192,
+      208
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "C_extension",
+    "crop": [
+      1531,
+      21,
+      2058,
+      696
+    ],
+    "scale": 0.28,
+    "placement": [
+      16,
+      5
+    ],
+    "alpha16_bounds": [
+      18,
+      7,
+      162,
+      191
+    ],
+    "cell": [
+      192,
+      208
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  }
+]

@@ -96,3 +96,7 @@ Er is in deze gelezen koppeling geen aparte producttoestand aangetroffen voor lu
 Behoud de bestaande negen rijen, hun betekenis, de twee looprichtingen en de zestien kijkposes. Wijzig een technische statenaam niet omdat running in gewone taal anders klinkt dan de getekende denkpose. Houd celmaat, transparantie, voetenanker en schaal gelijk bij een toekomstige idle of knikproef. Controleer overgangen apart, zeker die naar jumping, omdat de getekende grootte daar afwijkt.
 
 Een rustiger timingmanifest werkt alleen bij een speler die die tijden gebruikt, of bij een opnieuw gecodeerde bewegende export. De huidige app laadt WebP bestanden rechtstreeks. Een wijziging uitsluitend in docs of in een los JSON manifest verandert die actieve appbestanden niet. Deze inventaris wijzigt geen van beide.
+
+## Goedgekeurde verfijning van lopen naar links
+
+De gebruiker heeft drawing_02 goedgekeurd en de sessie afgerond. Deze afgeleide variant bevat twaalf frames, waarvan vier nieuwe beenposes, met behoud van het oorspronkelijke bovenlijf. De lus blijft 1060 ms en de celmaat blijft 192 bij 208. De oorspronkelijke inventaris hierboven blijft de negen bronanimaties en hun 57 frames beschrijven. De nieuwe keuze verhoogt het aantal oorspronkelijke bronframes niet. Selectie en bewijs staan centraal in session_status.json en onder sessions/walk_left/drawing_02. De eerdere timingproef is niet gekozen. Appintegratie is hier niet uitgevoerd.

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finn controleren vergelijking</title>
+<style>
+html,body{margin:0;background:transparent;color:var(--foreground,#242424);font-family:var(--font-sans,system-ui,sans-serif)}
+#finn-review-comparison{width:100%}
+#finn-review-comparison .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+#finn-review-comparison figure{margin:0;min-width:0;text-align:center}
+#finn-review-comparison figcaption{margin:0 0 12px}
+#finn-review-comparison strong{font-weight:500;display:block}
+#finn-review-comparison .detail{color:var(--muted-foreground,#666);margin-top:4px}
+#finn-review-comparison .stage{padding:16px;background:var(--muted,#f0f0ed);border-radius:var(--radius,8px)}
+#finn-review-comparison img{display:block;width:192px;height:208px;margin:auto;max-width:100%;object-fit:contain}
+#finn-review-comparison .position{font-variant-numeric:tabular-nums;margin:10px 0 0}
+#finn-review-comparison .controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+#finn-review-comparison button{font:inherit;min-height:44px;padding:8px 16px;background:var(--secondary,#e8e8e6);color:var(--secondary-foreground,#242424);border:1px solid var(--border,#bbb);border-radius:var(--radius,8px)}
+#finn-review-comparison .note{color:var(--muted-foreground,#666);margin:12px 0 0}
+@media(max-width:479px){#finn-review-comparison .pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<section id="finn-review-comparison" aria-label="Bewegende vergelijking van Finn controleren">
+  <div class="pair">
+    <figure>
+      <figcaption><strong>Origineel</strong><div class="detail">6 frames · lus van 1030 ms</div></figcaption>
+      <div class="stage"><img id="review-source" width="192" height="208" alt="Finn in de oorspronkelijke controlebeweging"></div>
+      <p class="position" id="source-position">Stap 1 van 6</p>
+    </figure>
+    <figure>
+      <figcaption><strong>Voorstel</strong><div class="detail">6 bronframes · 7 stappen · 3000 ms</div></figcaption>
+      <div class="stage"><img id="review-trial" width="192" height="208" alt="Finn bekijkt de map langer, wijst en keert rustig terug"></div>
+      <p class="position" id="trial-position">Stap 1 van 7</p>
+    </figure>
+  </div>
+  <div class="controls"><button class="btn" id="review-toggle" type="button" disabled>Pauzeren</button><span id="review-status" role="status">Beelden laden</span></div>
+  <p class="note">Timingproef 01. Dezelfde oorspronkelijke PNG beelden, zonder hertekening. Eén startklok voor beide.</p>
+</section>
+<script>
+(() => {
+  const root = document.getElementById('finn-review-comparison');
+  const frames = __FRAME_DATA__;
+  const players = __PLAYERS__;
+  const displays = [root.querySelector('#review-source'),root.querySelector('#review-trial')];
+  const labels = [root.querySelector('#source-position'),root.querySelector('#trial-position')];
+  const toggle = root.querySelector('#review-toggle');
+  const status = root.querySelector('#review-status');
+  let elapsed = 0, previous = 0, playing = true, ready = false;
+  const last = [-1,-1];
+  const position = (time,list) => {
+    let end = 0;
+    for(let index=0;index<list.length;index++){
+      end += list[index];
+      if(time < end) return index;
+    }
+    return list.length-1;
+  };
+  function draw(){
+    players.forEach((player,index) => {
+      const time = elapsed % player.loopDurationMs;
+      const step = position(time,player.durationsMs);
+      const frame = player.sequence[step];
+      if(last[index] !== frame){displays[index].src = frames[frame];last[index] = frame;}
+      displays[index].dataset.frame = String(frame);
+      displays[index].dataset.step = String(step);
+      labels[index].textContent = `Stap ${step+1} van ${player.sequence.length} · ${Math.floor(time)} / ${player.loopDurationMs} ms`;
+    });
+    root.dataset.elapsed = String(Math.floor(elapsed));
+    root.dataset.playing = String(playing);
+  }
+  function tick(now){
+    if(ready && playing) elapsed += now-previous;
+    previous = now;
+    if(ready) draw();
+    requestAnimationFrame(tick);
+  }
+  toggle.addEventListener('click',() => {
+    playing = !playing;
+    previous = performance.now();
+    toggle.textContent = playing ? 'Pauzeren' : 'Hervatten';
+    status.textContent = playing ? 'Beide animaties spelen' : 'Beide animaties gepauzeerd';
+    draw();
+  });
+  Promise.all(frames.map(src => new Promise((resolve,reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  }))).then(() => {
+    ready = true;
+    toggle.disabled = false;
+    previous = performance.now();
+    status.textContent = 'Beide animaties spelen';
+    root.dataset.ready = 'true';
+    draw();
+    console.log('Finn review: zes PNG beelden geladen; origineel 1030 ms, voorstel 3000 ms.');
+  }).catch(() => {status.textContent = 'Beelden konden niet laden';console.error('Finn PNG laadfout');});
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

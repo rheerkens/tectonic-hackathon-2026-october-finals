@@ -1,0 +1,50 @@
+[
+  {
+    "file": "arm_0.png",
+    "dimensions": [
+      192,
+      208
+    ],
+    "changedBounds": [
+      119,
+      78,
+      163,
+      134
+    ],
+    "changesOutsideArmRectangle": 0,
+    "feetIdentical": true,
+    "faceIdentical": true
+  },
+  {
+    "file": "arm_1.png",
+    "dimensions": [
+      192,
+      208
+    ],
+    "changedBounds": [
+      119,
+      79,
+      169,
+      134
+    ],
+    "changesOutsideArmRectangle": 0,
+    "feetIdentical": true,
+    "faceIdentical": true
+  },
+  {
+    "file": "arm_2.png",
+    "dimensions": [
+      192,
+      208
+    ],
+    "changedBounds": [
+      119,
+      78,
+      176,
+      134
+    ],
+    "changesOutsideArmRectangle": 0,
+    "feetIdentical": true,
+    "faceIdentical": true
+  }
+]

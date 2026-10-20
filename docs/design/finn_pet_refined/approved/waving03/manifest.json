@@ -1,0 +1,91 @@
+{
+  "state": "waving",
+  "variant": "body_lock_03",
+  "status": "approved_composition_exported",
+  "approvalSource": "sessions/waving/body-lock-03/metadata.json",
+  "approvedHtmlSha256": "75cc11e3334d3d66f6f8618d5df1639a7ae4a2d091a1ad9e8b104c5f9855b067",
+  "metadataSha256": "80178c90fea71fc990fa995ba7764dbff856b72a79d3017c4fd40f84e75204ef",
+  "method": "Chromium native SVG rasterization of the exact approved mask, clip path and embedded source pixels, then lossless WebP",
+  "clipPath": "M137 35H192V153H136L126 131L128 111L122 81L135 70Z",
+  "sourceOrder": [
+    0,
+    4,
+    1,
+    2,
+    5,
+    3,
+    6,
+    7
+  ],
+  "durationsMs": [
+    100,
+    100,
+    140,
+    160,
+    120,
+    110,
+    110,
+    1560
+  ],
+  "loopDurationMs": 2400,
+  "frameCount": 8,
+  "size": [
+    192,
+    208
+  ],
+  "loop": 0,
+  "webp": "waving.webp",
+  "sha256": "866885506d43358475b38aa197d340e9bd487f3d9c32696216fb344044bc58e4",
+  "frames": [
+    {
+      "file": "frames/00.png",
+      "sha256": "c2afc0bcd336b0fa0d4b293087552b2d13c419d87767933c1b5794a9a105d1fd"
+    },
+    {
+      "file": "frames/01.png",
+      "sha256": "089e9b32aa8da763405ec44cf6af7b3f1a4a32eabc4ba38910991812ca1f7966"
+    },
+    {
+      "file": "frames/02.png",
+      "sha256": "043cb2e660b444fa9483705a2c23568172179878f220c63e5afff71ed2cce232"
+    },
+    {
+      "file": "frames/03.png",
+      "sha256": "27c6d306e2d49679f832ebff2811fa0f7293584eb37756b5920ca3866fffa4f4"
+    },
+    {
+      "file": "frames/04.png",
+      "sha256": "4fcc16f1880af10d8d9084904ffe88792b89947a5172cbb5b212589253433f3e"
+    },
+    {
+      "file": "frames/05.png",
+      "sha256": "13554e598f05328f877c23e20824df256db723272cbafff8a3475bda5101b454"
+    },
+    {
+      "file": "frames/06.png",
+      "sha256": "d88908ab4c48bd8379c3ab93509add5375177a55322c33a2f8aa6058e6541864"
+    },
+    {
+      "file": "frames/07.png",
+      "sha256": "c2afc0bcd336b0fa0d4b293087552b2d13c419d87767933c1b5794a9a105d1fd"
+    }
+  ],
+  "visiblePixelsAndAlphaMatchPng": true,
+  "firstAndLastEqual": true,
+  "excluded": "sessions/waving/inbetween-02/waving.webp, rejected full-body variant",
+  "runtimeIntegrationPerformed": false,
+  "comparisonAgainstOriginalBrowser": {
+    "observedFrames": 8,
+    "changedVisiblePixelsPerFrame": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "alphaExact": true
+  }
+}

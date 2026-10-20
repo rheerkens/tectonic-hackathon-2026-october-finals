@@ -1,0 +1,30 @@
+[
+  {
+    "name": "pair_0",
+    "registrationTranslationPx": [
+      -6,
+      1
+    ],
+    "newArtworkRegion": [
+      108,
+      89,
+      148,
+      145
+    ],
+    "staticHeadAndFeetPreserved": true
+  },
+  {
+    "name": "pair_1",
+    "registrationTranslationPx": [
+      0,
+      1
+    ],
+    "newArtworkRegion": [
+      108,
+      89,
+      148,
+      145
+    ],
+    "staticHeadAndFeetPreserved": true
+  }
+]

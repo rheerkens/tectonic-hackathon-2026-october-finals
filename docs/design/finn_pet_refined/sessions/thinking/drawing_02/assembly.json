@@ -1,0 +1,50 @@
+{
+  "base": "docs/design/finn_pet/frames/running/00.png",
+  "templeArm": "docs/design/finn_pet/frames/running/02.png",
+  "maskPolygon": [
+    [
+      101,
+      78
+    ],
+    [
+      119,
+      74
+    ],
+    [
+      125,
+      50
+    ],
+    [
+      147,
+      50
+    ],
+    [
+      159,
+      80
+    ],
+    [
+      159,
+      134
+    ],
+    [
+      111,
+      134
+    ],
+    [
+      111,
+      108
+    ],
+    [
+      101,
+      98
+    ]
+  ],
+  "method": "Hard region replacement with actual source/generated artwork, no morph, no crossfade. Pixels outside the region are copied from original frame 00.",
+  "selectedPoses": [
+    "rest.png",
+    "low.png",
+    "middle.png",
+    "temple.png"
+  ],
+  "excluded": "high_experiment.png is near the temple endpoint and adds little useful movement."
+}

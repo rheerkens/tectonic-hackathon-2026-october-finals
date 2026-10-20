@@ -1,0 +1,12 @@
+{
+  "candidate": "inbetweens_02",
+  "status": "approved",
+  "approvedAtUtc": "2026-10-20T09:50:18.672855+00:00",
+  "userStatement": "In orde mag overgenomen worden",
+  "scope": "Existing twelve-frame inbetweens_02 candidate, unchanged",
+  "sha256": "9aa7f4637b809d4387622e44c93793fd21ffa2328bfe4526a87104633e346cf9",
+  "centralThreadId": "mcp:ae25e13e-5056-49d4-a4dc-07be5d68363b",
+  "sessionWork": "complete",
+  "integrationOwner": "central Finn coordination session",
+  "furtherRefinementRequested": false
+}
