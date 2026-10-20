@@ -1,0 +1,97 @@
+{
+  "purpose": "Two separate standalone Finn dialogue files for the presentation",
+  "files": [
+    {
+      "file": "Finn_01_vraag_aan_Roy.mp3",
+      "speaker": "Finn",
+      "exactInputText": "Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.",
+      "duration": 11.075875,
+      "bytes": 194151,
+      "sha256": "8e56c91a880fad3050f443dc2df6ab69688b74f4d20c0d2212eb6ecf551254db",
+      "streams": [
+        {
+          "codec_type": "audio",
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1,
+          "bit_rate": "128000"
+        }
+      ],
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "asrText": "Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.",
+      "source": "One ElevenLabs generation request for this exact text, original downloaded MP3 retained without editing or reencoding",
+      "publicationSHA256": "8e56c91a880fad3050f443dc2df6ab69688b74f4d20c0d2212eb6ecf551254db",
+      "publicationDecodeExit": 0,
+      "publicationMedia": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "11.075875"
+        }
+      }
+    },
+    {
+      "file": "Finn_02_bevestiging_CRM_Lotte.mp3",
+      "speaker": "Finn",
+      "exactInputText": "Got it. I'll update the CRM myself, and let Lotte know.",
+      "duration": 4.205688,
+      "bytes": 84228,
+      "sha256": "1a32fa5f230fbab3ccdd55669e362fd74f014e6df3cb99b28cc711903802abff",
+      "streams": [
+        {
+          "codec_type": "audio",
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1,
+          "bit_rate": "128000"
+        }
+      ],
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "asrText": "Got it, I'll update the CRN myself, and let Lotta know.",
+      "source": "One ElevenLabs generation request for this exact text, original downloaded MP3 retained without editing or reencoding",
+      "publicationSHA256": "1a32fa5f230fbab3ccdd55669e362fd74f014e6df3cb99b28cc711903802abff",
+      "publicationDecodeExit": 0,
+      "publicationMedia": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "4.205688"
+        }
+      }
+    }
+  ],
+  "voice": {
+    "name": "Edward, British, Dark, Seductive, Low",
+    "provider": "ElevenLabs existing authenticated Edge session",
+    "model": "Eleven v4",
+    "languageOverride": "English",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "speed": 1
+  },
+  "separation": "Two independent files, not combined. No Roy audio. Speaker label not included as a prefix in speech. No extra requested words.",
+  "generationRequests": 2,
+  "additionalRegenerations": 0,
+  "downloadRecovery": "Second text recovered from existing History entry. No new generation in recovery. Completed MP3 observed at stable84228byte size twice before tab closed.",
+  "verificationLimit": "Exact input text verified in UI. Local Whisper recognised all first file words; second file recognised CRM as CRN and Lotte as Lotta. ASR is not a subjective pronunciation review. No claim of listening review."
+}

@@ -1,0 +1,9 @@
+{
+  "oldFinal": "SHA256=9b39f9221c60a38a433b1101c28d4ea526af1cf46c989d8f50556ac5347d6506",
+  "approvedExtract": "SHA256=9b39f9221c60a38a433b1101c28d4ea526af1cf46c989d8f50556ac5347d6506",
+  "newFinal": "SHA256=9b39f9221c60a38a433b1101c28d4ea526af1cf46c989d8f50556ac5347d6506",
+  "oldSoundsOnly": "SHA256=e428991768042a2b523ecc1349888f0aefa82bbfc5e123d606eedc651d646e7d",
+  "newSoundsOnly": "SHA256=e428991768042a2b523ecc1349888f0aefa82bbfc5e123d606eedc651d646e7d",
+  "voiceAndSoundsBitIdentical": true,
+  "soundsOnlyBitIdentical": true
+}

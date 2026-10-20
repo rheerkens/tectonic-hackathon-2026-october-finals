@@ -1,0 +1,51 @@
+{
+  "oldFinalSHA256": {
+    "Finn_clip03_Edward.mp4": "554ed0ed9359715f8bf5e91ae69ffdcce83c25e0d72dd457a76609f7a6d033aa",
+    "Finn_clip03_zonder_stem.mp4": "cc11afe30894bfc22906aa7ec9ab04044283d4628c60fa127cb4d28d63315122",
+    "Finn_clip03_met_beltoon.mp4": "335145729a2cbbf39e71e803827201f1f6cc91d35a1dda3f9bb78bacfc37e364",
+    "Finn_clip03_stil.mp4": "1329ac0804a058d9a10c03bae2455b87ce3fbf70ca12025cac0ee1b2191b43e5"
+  },
+  "oldFilesUnchanged": true,
+  "audioPackets": [
+    {
+      "source": ".local\\finn-recording\\20261020-clip03\\Finn_clip03_Edward.mp4",
+      "final": "Finn_clip03_Edward.mp4",
+      "sourceAAC": "SHA256=d56b0705bf9c6423a1799d550524e08a6b2ab86aaeac61ccb7fb49775608ed04",
+      "finalAAC": "SHA256=d56b0705bf9c6423a1799d550524e08a6b2ab86aaeac61ccb7fb49775608ed04",
+      "extractedAAC": "SHA256=d56b0705bf9c6423a1799d550524e08a6b2ab86aaeac61ccb7fb49775608ed04",
+      "identical": true
+    },
+    {
+      "source": ".local\\finn-recording\\20261020-clip03\\Finn_clip03_zonder_stem.mp4",
+      "final": "Finn_clip03_zonder_stem.mp4",
+      "sourceAAC": "SHA256=303969ed6d3ddbb2c1f923e1b3ed0065b2c352295bca44c5b43288b743ad6763",
+      "finalAAC": "SHA256=303969ed6d3ddbb2c1f923e1b3ed0065b2c352295bca44c5b43288b743ad6763",
+      "extractedAAC": "SHA256=303969ed6d3ddbb2c1f923e1b3ed0065b2c352295bca44c5b43288b743ad6763",
+      "identical": true
+    },
+    {
+      "source": ".local\\finn-recording\\20261020-clip03\\Finn_clip03_met_beltoon.mp4",
+      "final": "Finn_clip03_met_beltoon.mp4",
+      "sourceAAC": "SHA256=dbdeadfe64c0259e3b9b522d3cb2e31e91eaf9417f472e635e3c45efa6aaca44",
+      "finalAAC": "SHA256=dbdeadfe64c0259e3b9b522d3cb2e31e91eaf9417f472e635e3c45efa6aaca44",
+      "extractedAAC": "SHA256=dbdeadfe64c0259e3b9b522d3cb2e31e91eaf9417f472e635e3c45efa6aaca44",
+      "identical": true
+    }
+  ],
+  "newSpeechGenerated": false,
+  "audioReencoded": false,
+  "freshNativeVideo": true,
+  "oldUIFramesReused": false,
+  "noGit": true,
+  "noBuild": true,
+  "noSourceChange": true,
+  "noReload": true,
+  "noRestart": true,
+  "restoration": {
+    "windows": "{\"restored\": 4}",
+    "cursorRestored": true,
+    "captureExit": 0,
+    "nativeFinished": true,
+    "timestamp": "2026-10-20T15:30:58.3001274+02:00"
+  }
+}

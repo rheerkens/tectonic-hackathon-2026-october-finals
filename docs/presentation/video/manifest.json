@@ -1,5 +1,5 @@
 {
-  "purpose": "Existing complete exports for presentation preparation. Not every clip has refreshed pictures yet.",
+  "purpose": "Completed presentation exports. Refreshed pictures are available for clips 1, 2 and 3. Clip 4 remains the earlier complete silent version while its new exports are being finished.",
   "captureBuildForRefresh": "da35424103e47c9228efb28cf3ebf3cb604fc2f9",
   "evidenceBoundary": "Authored synthetic demonstration data and simulated contact. Sound effects are added in editing. No real call, connector or independently measured confidence claim.",
   "videos": [
@@ -427,6 +427,242 @@
         ],
         "format": {
           "duration": "13.166667"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 2,
+      "source": "20261020-refresh-da35424/clip02/Finn_clip02_Edward.mp4",
+      "file": "clip02/refreshed/Finn_clip02_Edward.mp4",
+      "label": "Edward and effects",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. October 22 answer, 92% trust, S4 and actual full result opening.",
+      "bytes": 2499895,
+      "sha256": "97d20c8c64b4e11cb703c45f90b9ddf64b12928953e68a256c045bdffafe7a91",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "540"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "777"
+          }
+        ],
+        "format": {
+          "duration": "18.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 2,
+      "source": "20261020-refresh-da35424/clip02/Finn_clip02_zonder_stem.mp4",
+      "file": "clip02/refreshed/Finn_clip02_zonder_stem.mp4",
+      "label": "Effects only",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. October 22 answer, 92% trust, S4 and actual full result opening.",
+      "bytes": 2252166,
+      "sha256": "78e2bc0e970441dae6987e0f5b2943896d71852c03a626857986fcb844c84eed",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "540"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "777"
+          }
+        ],
+        "format": {
+          "duration": "18.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 2,
+      "source": "20261020-refresh-da35424/clip02/Finn_clip02_silent.mp4",
+      "file": "clip02/refreshed/Finn_clip02_silent.mp4",
+      "label": "Silent",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. October 22 answer, 92% trust, S4 and actual full result opening.",
+      "bytes": 2218546,
+      "sha256": "c683f84e11ac817dea16aa182efad7841c8f23aa066fc3fbfd226128d32b8e3f",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "540"
+          }
+        ],
+        "format": {
+          "duration": "18.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-refresh-da35424/clip03/Finn_clip03_Edward.mp4",
+      "file": "clip03/refreshed/Finn_clip03_Edward.mp4",
+      "label": "Edward and effects",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. 15% trust, Waiting for Roy and the actual Call Roy button. The button is not clicked in this clip.",
+      "bytes": 2182745,
+      "sha256": "084787cade267fa4c5d6a8971961a91f8c7e36f4843c4531a66163990af8535e",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-refresh-da35424/clip03/Finn_clip03_zonder_stem.mp4",
+      "file": "clip03/refreshed/Finn_clip03_zonder_stem.mp4",
+      "label": "Effects only",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. 15% trust, Waiting for Roy and the actual Call Roy button. The button is not clicked in this clip.",
+      "bytes": 2011461,
+      "sha256": "dffc7a805225337215599fac643a09931a87621aaecec322caecb202a59a0ddc",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-refresh-da35424/clip03/Finn_clip03_met_beltoon.mp4",
+      "file": "clip03/refreshed/Finn_clip03_met_beltoon.mp4",
+      "label": "Phone ring only",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. 15% trust, Waiting for Roy and the actual Call Roy button. The button is not clicked in this clip.",
+      "bytes": 2003970,
+      "sha256": "1ea27905d0fccdd944fba0bbc54366015e930df264a6c43d438836fa2bbdc745",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-refresh-da35424/clip03/Finn_clip03_silent.mp4",
+      "file": "clip03/refreshed/Finn_clip03_silent.mp4",
+      "label": "Silent",
+      "picture": "Refreshed native recording",
+      "note": "New native recording, original audio retained byte for byte. 15% trust, Waiting for Roy and the actual Call Roy button. The button is not clicked in this clip.",
+      "bytes": 1975220,
+      "sha256": "0081066fcd0d523acecddce7f1c10cc3d37c36ace320b237f893080a1b070d6f",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
         }
       },
       "decodeExit": 0
