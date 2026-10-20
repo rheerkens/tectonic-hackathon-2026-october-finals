@@ -14,6 +14,7 @@
 	"build": {
 		"appId": "dev.dayone.desktop",
 		"productName": "Day One",
+		"icon": "icon.png",
 		"directories": {
 			"output": "release"
 		},

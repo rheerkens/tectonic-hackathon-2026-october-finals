@@ -643,6 +643,9 @@ app.whenReady().then(async () => {
 		// First launch or unreadable settings: keep the defaults.
 	}
 	if (!validScale(settings.petScale)) settings.petScale = 100;
+	// Packaged builds carry the icon in the bundle; `electron .` needs it set on the dock.
+	if (!app.isPackaged && process.platform === "darwin")
+		app.dock.setIcon(join(__dirname, "icon.png"));
 	// Microphone only, for Finn's voice input on the app's own pages; other permissions as before.
 	session.defaultSession.setPermissionRequestHandler((contents, permission, grant, details) => {
 		if (permission !== "media") return grant(true);
