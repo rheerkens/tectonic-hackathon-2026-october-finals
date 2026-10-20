@@ -1,9 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { type PetAnimation, usePetMood } from "../state/pet";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { useFinn } from "../state/finn";
+import type { FinnSource } from "../state/finn-scenarios";
+import { type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
+
+const sourceIcons: Record<FinnSource["kind"], string> = {
+	teams: "💬",
+	mail: "✉️",
+	crm: "📇",
+	doc: "📄",
+};
 
 /** Finn on the desktop. Dragging moves the window; a click opens or closes the mini chat. */
 export function PetPage() {
 	const mood = usePetMood();
+	const finn = useFinn();
+	useAnnounceFinnMood(finn);
+	// While searching, the sources FINN reads circle Finn's head.
+	const kinds =
+		finn.status === "searching"
+			? [...new Set(finn.result?.sources.map((source) => source.kind))]
+			: [];
 	const [running, setRunning] = useState<PetAnimation | null>(null);
 	const drag = useRef({ x: 0, y: 0, distance: 0, active: false });
 	useEffect(() => {
@@ -44,6 +60,15 @@ export function PetPage() {
 				<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
 				<img src={`/pet/${running ?? mood}.webp`} alt="" draggable={false} />
 			</picture>
+			{kinds.length > 0 && (
+				<span className="pet-sources" aria-hidden="true">
+					{kinds.map((kind, index) => (
+						<span key={kind} style={{ "--i": index, "--n": kinds.length } as CSSProperties}>
+							{sourceIcons[kind]}
+						</span>
+					))}
+				</span>
+			)}
 		</button>
 	);
 }

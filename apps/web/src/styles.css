@@ -1038,8 +1038,29 @@ a {
 	height: 100vh;
 	padding: 0;
 	border: 0;
+	position: relative;
 	background: transparent;
 	cursor: grab;
+}
+.pet-sources {
+	position: absolute;
+	top: 40px;
+	left: 50%;
+}
+.pet-sources span {
+	position: absolute;
+	font-size: 14px;
+	line-height: 1;
+	animation: pet-orbit 3s linear infinite;
+	animation-delay: calc(var(--i) / var(--n) * -3s);
+}
+@keyframes pet-orbit {
+	from {
+		transform: rotate(0turn) translateY(-32px) rotate(0turn) translate(-50%, -50%);
+	}
+	to {
+		transform: rotate(1turn) translateY(-32px) rotate(-1turn) translate(-50%, -50%);
+	}
 }
 .pet img {
 	display: block;

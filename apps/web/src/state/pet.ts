@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { FinnStatus } from "./finn";
 
 /** Animations in public/pet, exported from docs/design/finn_pet. */
 export type PetAnimation =
@@ -31,6 +32,25 @@ export function useAnnouncePetMood(chat: { busy: boolean; error: string; draft: 
 	}, [mood]);
 	useEffect(() => () => announce("idle"), []);
 }
+const finnMoods: Record<FinnStatus, PetAnimation> = {
+	idle: "idle",
+	thinking: "review",
+	searching: "running",
+	done: "jumping",
+	waiting: "waiting",
+};
+
+/** Finn follows the FINN flow. A question FINN cannot answer makes Finn fail until the next one. */
+export function useAnnounceFinnMood(finn: { status: FinnStatus; message: string }) {
+	const mood = finn.message ? "failed" : finnMoods[finn.status];
+	const greeted = useRef(false);
+	useEffect(() => {
+		// Let the opening wave play instead of announcing the initial idle.
+		if (greeted.current) announce(mood);
+		greeted.current = true;
+	}, [mood]);
+}
+
 function announce(mood: PetAnimation) {
 	const sender = new BroadcastChannel(channel);
 	sender.postMessage(mood);
