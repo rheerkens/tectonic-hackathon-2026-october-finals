@@ -1,74 +1,63 @@
 # SDtrust desktopinterface
 
-Status: de gebruiker koos het lichte overzicht met donkerblauwe zijbalk en vroeg dit in de Electron app te integreren, inclusief light en dark mode.
+Status: gekozen dashboardvormgeving geïmplementeerd in de bestaande app, met light, dark en systeemthema. Resultaat en miniwindow gebruiken de gedeelde FINN demoflow.
 
 ## Eigenaarschap
 
-Deze sessie werkt op `feature/desktop_ui`, in de door T3 toegewezen werkmap.
-Basis: `main`, commit `4f18da8ce1953f4074130b81e8a2b14628e68038`.
-Primaire paden: `apps/web`, `packages/ui` en dit document.
-Geen wijzigingen aan rootmanifesten, lockfile, contracten, database, CI of infrastructuur.
-Geen publicatie, PR of merge naar main. Alleen afgerond en gecontroleerd werk committen op deze branch.
+Branch: `feature/desktop_ui`. Eigen UI wijzigingen staan in `apps/web`, `packages/ui/src/field.tsx` en dit document. Er wordt niet naar main gemerged of gepusht.
+De andere sessie beheert de native vensterlifecycle onder `apps/desktop`. De petrenderer en petstate blijven buiten deze UI opdracht.
+De oorspronkelijke werkbasis was main `4f18da8`. De eigen dashboardstap is vastgelegd in `352b9ca`. Integratiecommit `3cdd61c` bevat main tot `cd4925c`; daarna is `08b4395` met de gedeelde hook geïntegreerd. De oude companionimplementatie uit `feature/finn_pet` is niet overgenomen.
 
-De andere sessie beheert `apps/desktop` en `docs/finn_pet_brief.md`.
-Finn is een afzonderlijk desktopvenster en wordt niet in de webinterface nagebouwd.
+## Gekozen ontwerp
 
-## Opdracht en bestaande basis
+De gebruiker koos de screenshot van het lichte overzicht: donkerblauwe zijbalk, zoekveld, aandachtspunten, recente inhoud en een rustige rechterkolom. Het ontwerp bestaat als echte React componenten, niet als een afbeelding over de app.
+De huidige main afspraken schrijven Engelse interfacecopy en geen unit of e2e tests voor. De bestaande echte aanmelding, rechten, chat, notities en conceptopslag blijven behouden.
 
-Organisatiekennis toegankelijk en betrouwbaar houden met zo weinig mogelijk onderbrekingen.
-De huidige interface heeft een bovenbalk, werkruimtekeuze en navigatie tussen notities en chat.
-De bestaande aanmelding, rechten, conceptteksten, chatstromen, notities en live updates blijven behouden.
-Kennisbronnen, expertmatching en bevestiging van gewijzigde kennis hebben nog geen eigen werkende feature in deze basis.
-Een ontworpen weergave mag die functies niet als geverifieerde integraties voorstellen.
+ThemeProvider bewaart alleen de themavoorkeur op het apparaat. Vragen en chatdrafts blijven in de bestaande appgeheugenopslag. De FINN vraag heeft een eigen draftsleutel en overschrijft geen bestaande chatdraft.
+Recent notes en Sources gebruiken de bestaande notitiegegevens. Profielgegevens komen uit de bestaande sessie. Voorbeeldmeldingen en expertprofielen zijn herkenbaar als fictief.
 
-## Referenties en open keuze
+## Gedeelde demoflow
 
-Alle drie de beelden onder `docs/design/desktop_concepts` zijn visueel bekeken.
-De inhoud van die beelden is fictieve conceptinhoud.
+De UI consumeert `useFinn` en `getFinnResult` uit `apps/web/src/state/finn.ts`.
+De types en voorbeelden komen uit `apps/web/src/state/finn-scenarios.ts`: `FinnResult`, `FinnSource` en de bestaande scenario IDs.
+Er is geen tweede contract of eigen agentstate gemaakt.
 
-1. `01.png`: lichte controleweergave met eerdere kennis, nieuw signaal, bron en bevestiging.
-2. `02.png`: donkere zoekweergave met antwoord, expert en bronverwijzingen.
-3. `03.png`: licht overzicht met donkerblauwe navigatie, zoeken en relevante aandachtspunten.
+Dashboardvragen gebruiken de bestaande mockflow. Het resultaat toont antwoord of onzekerheid, trustpercentage, redenen, herkomst, ondersteunde en verworpen bronnen, relevante personen en de volgende stap.
+Broncodes in het antwoord linken naar de concrete onderbouwing op dezelfde pagina.
+De vervolgvragen gebruiken dezelfde hook. De novembervraag toont wachten op Roy en vermeldt expliciet dat het contact gesimuleerd is.
 
-Voorgesteld, nog niet gekozen: beeld 03 als basis; de controleflow uit 01 en de antwoordopbouw uit 02 in dezelfde lichte stijl.
-Alternatieven: volledig donker volgens 02, of controle als centrale ingang volgens 01.
-Eerst de visuele keuze en de eerste uitvoerbare schermscope met de gebruiker vastleggen.
+Alleen `/pet`, `/mini` en de fixturepagina `/results/$resultId` passeren de sessiepoort. De miniwindow en fixturepagina gebruiken geen privéchat, notities of geauthenticeerde API.
+De echte werkruimte blijft beschermd. Een onbekend resultaat toont een herstelbare lege toestand.
 
-## Aanvullende ontwerpexploratie
+De optionele, afgesproken native methode is `window.desktop.openResult(resultId): Promise<void>`. De native eigenaar levert de gevalideerde IPC handler.
+De miniwindow toont die actie in Electron alleen als de methode aanwezig is. De browser gebruikt een echte routerlink.
+De oudere `window.finnDesktop` bridge is niet gebruikt.
 
-De gebruiker vroeg vervolgens om meerdere UI/UX voorbeelden in light en dark mode, uitsluitend de app. Er is nog geen toestemming om een van deze ontwerpen als definitieve productrichting te kiezen.
+## Verificatie
 
-In `apps/web/design-previews/sdtrust/` staan zes met de ingebouwde Imagegen gemaakte conceptbeelden, drie bijpassende paren. `index.html` biedt themakeuze, vergelijken en vergroten. `prompts.json` bewaart de volledige prompts en de gebruikte referentie.
+Bun 1.4.2 wordt lokaal uitgevoerd via `npm exec --yes --package=bun@1.4.2`; de globale installatie en lockfile zijn niet gewijzigd.
+Typecontrole en Vite build slagen met `AUTH_MODE=dev`.
+De gerichte formatteringscontrole van de eigen bestanden slaagt.
+De volledige check op de geïntegreerde basis geeft typecheck en build PASS en lint FAIL. De vastgelegde baseline telt 202 formatteringsmeldingen, waaronder bestaande CRLF buiten de UI slice. Er is geen brede formatteringsronde gedaan.
+Er zijn volgens de actuele projectafspraak geen unit of e2e tests geschreven of uitgevoerd.
 
-Op uitdrukkelijk verzoek zijn daarnaast twee parallelle T3 ontwerptaken gestart op `claudeAgent / claude-opus-5-5`, met `effort: high` en `fastMode: true`. Hun exclusieve uitvoermappen zijn `apps/web/design-previews/opus-a/` en `apps/web/design-previews/opus-b/`. Het zijn zelfstandige HTML previews met voorbeeldinteracties, geen koppelingen met de app.
+Handmatige browsercontrole: D1 oktober toont 92 procent en 22 oktober, de novembervervolgvraag toont 15 procent en wachten op Roy, D2 toont de ziekmeldingbronverwijzingen S6 en S7, een onbekende vraag toont een nette melding.
+De miniwindow en fixture-resultaten openen zonder login. Bronankers bestaan. De donkere resultaatpagina heeft op 728px geen horizontale overloop.
+De bestaande chatdraft blijft behouden bij heen en weer navigeren via het dashboard.
 
-Alle voorbeeldgegevens zijn fictief. Bestaande conceptbeelden en productiecode blijven intact.
+De eerste native inspectie is apart bewaard in `.local/desktop-native/dashboard-inspection.json`. De echte Electron 44.5.1 startte via de normale appingang, met uitsluitend de gebruikersdatamap vooraf geïsoleerd. Light en dark, behoud na herladen, echte SQLite notitieopslag, chatdraftnavigatie en de aparte pet en mini routes zijn waargenomen. De petachtergrond was transparant en de sprite geladen.
+Die inspectie vond plaats vóór de nieuwe resultaat en mini slice. De oude native instantie is daarna via app.quit afgesloten. De gecombineerde eindcontrole volgt na de native lifecycle commit.
 
-De beide Opus taken zijn afgerond. A is een vraagstart met bronverwijzingen naast het antwoord en een controle in de tekst. B is een dossier met herkomst en geldigheid per paragraaf. Beide schakelen tussen licht en donker en simuleren bevestiging zonder iets op te slaan of te versturen.
+## Grenzen
 
-Controle van de voorbeelden: de hoofdthread heeft de zes PNG bestanden geladen, hun echte afmetingen en hashes vastgelegd in `manifest.json`, de vergelijker op 728 en 390px gerenderd en navigatie, themawissel, vergelijken en vergroten in de browser gecontroleerd. De JavaScript syntaxis van alle drie HTML bestanden slaagt via `node --check`. De gedelegeerde Opus taken hebben hun hoofdinteracties en beide thema's in de browser gecontroleerd op 1440 en 728px. Dit zijn controles van zelfstandige voorbeelden, geen applicatie of Electron tests.
+De FINN flow is een mock met gedeelde fixtures. Er zijn nog geen echte zoektools, live connectoren of verzonden berichten in deze flow.
+Trustscores en redenen komen rechtstreeks uit die fixtures. De UI claimt geen automatische verificatie.
+Er zijn geen werkende privacytoggles zonder onderliggende opslag/API toegevoegd.
+Verpakking, installatie op een ander apparaat en macOS zijn niet door deze sessie geverifieerd.
 
-De previews zijn bereikbaar op `http://100.89.117.122:53840/opus-a/` en `http://100.89.117.122:53840/opus-b/`. Beide nemen het lokale Manrope font met licentie mee. A beantwoordt elke eigen vraag met hetzelfde Atlas voorbeeld; B werkt alleen het Atlas dossier uit. Kleinere mobiele schermen zijn geen uitgewerkte productdoelstelling van deze desktopverkenning.
+## Bestanden en previews
 
-## Afstemming met Finn
-
-Voorgestelde optionele Electron interface: `window.finnDesktop` met `showPet()`, `hidePet()`, `getPetState()` en `openDashboard()`.
-De Electron sessie beheert de veilige preload en de petimplementatie. Die sessie meldt dat de preload is gebouwd; `getPetState()` levert `{ visible: boolean }`. De gemelde Electron rooktest is niet opnieuw uitgevoerd door deze UI sessie.
-Deze websessie heeft nu geen koppeling nodig. Typehandtekeningen, terugkeerwaarden en verdere navigatie worden pas afgestemd zodra een concrete aanroep nodig is.
-Navigatie in de webinterface blijft zelfstandig bruikbaar zonder Electron.
-
-## Validatie
-
-## Implementatie vanaf de gekozen screenshot
-
-Het overzicht, de zijbalk en de themakeuze staan in de bestaande React app. Navigatie bewaart de bestaande werkruimtes, autorisatie, chat en notities. Recente notities komen uit de bestaande API. Het zoekveld gebruikt dezelfde in het geheugen bewaarde chatdraft en opent de bestaande chat ter verzending. Meldingen en expertinformatie blijven herkenbare voorbeelden totdat het centrale resultaatcontract beschikbaar is. Er is geen tweede Finn bridge toegevoegd.
-
-Op aanwijzing van de coördinerende sessie is `origin/main` op commit `661b76c` gelezen. Die afspraken vragen Engelse UI en geen unit of e2e tests. Er zijn geen tests uitgevoerd voor deze implementatie. De eerst aangemaakte, nog niet uitgevoerde thematest is verwijderd. `npm exec --yes --package=bun@1.4.2 -- bun setup` slaagt zonder globale runtimewijziging. Browser en runtime typecontrole slagen. De Vite build slaagt met expliciete `AUTH_MODE=dev`. De eigen slice wordt eerst gecommit, daarna wordt actuele main gecontroleerd op deze featurebranch geïntegreerd.
-
-De ontwikkelapp draait op `http://draegus-zenbook.tail102e44.ts.net:55020`. De oude voorbeeldvergelijker op poort 53840 staat los van deze echte app.
-
-Uitgevoerd: branch en basis gecontroleerd, werkmap aanvankelijk schoon, repositoryinstructies en relevante UI bestanden gelezen, drie conceptbeelden bekeken.
-`bun setup` is geblokkeerd: repository vereist Bun 1.4.2; de gevonden lokale Bun is 1.2.22.
-Er zijn geen productcodewijzigingen of Electron integratietests uitgevoerd door deze sessie. De ontwerppreviews staan los van de bestaande app en zijn met browsercontroles te beoordelen.
-Bij implementatie: gerichte tests, `bun run check` en aparte browsercontrole. Browserresultaten bewijzen geen Electron integratie.
-De ontwerpvergelijker draait apart van de app op `http://100.89.117.122:53840/sdtrust/`. Dit is een statische previewserver, alleen gebonden aan het Tailscale adres. Applicatietests en een implementatie volgen pas na een gekozen richting.
+De echte ontwikkelapp: `http://draegus-zenbook.tail102e44.ts.net:55020`.
+Eerdere losse ontwerpbeelden en Opus previews staan onder `apps/web/design-previews`; zij zijn geen onderdeel van de productroutes.
+De zes gegenereerde beelden hebben prompts en hashes in hun previewmap. De drie oorspronkelijke beelden onder `docs/design/desktop_concepts` zijn intact.
+Lucide pictogrammen komen uit de officiële bron met meegeleverde licentie. Het SDtrust merkbeeld is hergebruikt uit de bestaande lokale merkassets.

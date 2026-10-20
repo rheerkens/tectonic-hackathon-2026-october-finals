@@ -1,13 +1,25 @@
 import { Button } from "@day-one/ui/button";
-import { TextField } from "@day-one/ui/field";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { FinnQuestionForm } from "../components/FinnQuestionForm";
 import { Icon } from "../components/Icon";
 import { useDashboard } from "../state/dashboard";
+import { useFinn } from "../state/finn";
 import { useStudioState } from "../state/StudioContext";
 export function DashboardPage() {
 	const data = useDashboard();
 	const { scope } = useStudioState();
 	const navigate = useNavigate();
+	const finn = useFinn();
+	const [submitted, setSubmitted] = useState(false);
+	const busy = finn.status === "thinking" || finn.status === "searching";
+	useEffect(() => {
+		if (submitted && !busy && (finn.status === "done" || finn.status === "waiting")) {
+			setSubmitted(false);
+			if (finn.result)
+				void navigate({ to: "/results/$resultId", params: { resultId: finn.result.id } });
+		}
+	}, [submitted, busy, finn.status, finn.result, navigate]);
 	const hour = new Date().getHours();
 	const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 	return (
@@ -29,32 +41,26 @@ export function DashboardPage() {
 				</div>
 				<span className="example-badge">Example updates</span>
 			</header>
-			<form
-				className="dashboard-search"
-				onSubmit={(e) => {
-					e.preventDefault();
-					if (data.prepareQuestion())
-						void navigate({
-							to: "/w/$workspaceId/chat",
-							params: { workspaceId: scope.workspaceId },
-						});
+			<FinnQuestionForm
+				value={data.question}
+				onChange={data.setQuestion}
+				error={data.fieldError}
+				busy={busy}
+				onSubmit={() => {
+					if (data.prepareQuestion()) {
+						setSubmitted(true);
+						void finn.ask(data.question);
+					}
 				}}
-			>
-				<Icon name="search" size={28} />
-				<TextField
-					id="knowledge-question"
-					label="Ask a question about your organisation"
-					hideLabel
-					placeholder="Ask a question about your organisation"
-					value={data.question}
-					onChange={(e) => data.setQuestion(e.target.value)}
-					error={data.fieldError}
-				/>
-				<Button type="submit" variant="primary">
-					Find an answer <Icon name="arrow-right" size={18} />
-				</Button>
-			</form>
-			<p className="search-hint">Your question opens in a new conversation, ready to send.</p>
+			/>
+			<p className="search-hint">
+				Demo: ask about payroll changes for Atlas, next month, or sick leave.
+			</p>
+			{(busy || finn.message) && (
+				<p role="status" className="integration-note">
+					{busy ? "Finn is looking into your question…" : finn.message}
+				</p>
+			)}
 			<div className="dashboard-grid">
 				<div className="dashboard-stack">
 					<section className="dashboard-card">
@@ -66,33 +72,33 @@ export function DashboardPage() {
 						</h2>
 						<Link
 							className="dashboard-row"
-							to="/w/$workspaceId/review"
-							params={{ workspaceId: scope.workspaceId }}
+							to="/results/$resultId"
+							params={{ resultId: "d1-payroll-changes-november" }}
 						>
 							<span className="row-symbol coral">
 								<Icon name="file-text" />
 							</span>
 							<span className="row-copy">
-								<strong>Atlas onboarding</strong>
-								<span>Responsibility has changed</span>
+								<strong>Atlas payroll for November</strong>
+								<span>No confirmed agreement yet</span>
 							</span>
 							<span className="row-meta">
-								<span className="status-badge">To confirm</span>
+								<span className="status-badge">Low trust</span>
 								<small>Example</small>
 							</span>
 							<Icon name="chevron-right" size={18} />
 						</Link>
 						<Link
 							className="dashboard-row"
-							to="/w/$workspaceId/sources"
-							params={{ workspaceId: scope.workspaceId }}
+							to="/results/$resultId"
+							params={{ resultId: "d2-sick-leave" }}
 						>
 							<span className="row-symbol amber">
 								<Icon name="users" />
 							</span>
 							<span className="row-copy">
-								<strong>Payroll changes guide</strong>
-								<span>New version available</span>
+								<strong>Sick leave guidance</strong>
+								<span>Review the supporting sources</span>
 							</span>
 							<Icon name="chevron-right" size={18} />
 						</Link>
@@ -107,7 +113,7 @@ export function DashboardPage() {
 								{data.error} <Button onClick={data.retry}>Retry</Button>
 							</p>
 						) : data.loading ? (
-							<p className="card-empty">Notities laden…</p>
+							<p className="card-empty">Loading notes…</p>
 						) : data.notes.length ? (
 							data.notes.slice(0, 2).map((note) => (
 								<Link
@@ -146,7 +152,7 @@ export function DashboardPage() {
 						<Icon name="folder" size={26} />
 					</span>
 					<h2>Pick up where you left off</h2>
-					<p>Je gesprekken en notities op één plek.</p>
+					<p>Your conversations and notes, in one place.</p>
 					<Link to="/w/$workspaceId/chat" params={{ workspaceId: scope.workspaceId }}>
 						<Icon name="search" />
 						<span>Open conversations</span>

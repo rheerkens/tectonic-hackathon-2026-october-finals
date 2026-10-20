@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiniRouteImport } from './routes/mini'
 import { Route as PetRouteImport } from './routes/pet'
+import { Route as ResultsResultIdRouteImport } from './routes/results.$resultId'
 import { Route as WWorkspaceIdRouteImport } from './routes/w.$workspaceId'
 import { Route as WWorkspaceIdIndexRouteImport } from './routes/w.$workspaceId.index'
 import { Route as WWorkspaceIdChatRouteImport } from './routes/w.$workspaceId.chat'
@@ -36,6 +37,11 @@ const MiniRoute = MiniRouteImport.update({
 const PetRoute = PetRouteImport.update({
   id: '/pet',
   path: '/pet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultsResultIdRoute = ResultsResultIdRouteImport.update({
+  id: '/results/$resultId',
+  path: '/results/$resultId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WWorkspaceIdRoute = WWorkspaceIdRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
+  '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
   '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
+  '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
   '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
+  '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
   '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/mini'
     | '/pet'
+    | '/results/$resultId'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat'
     | '/w/$workspaceId/experts'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/'
     | '/mini'
     | '/pet'
+    | '/results/$resultId'
     | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
     | '/w/$workspaceId/review'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/'
     | '/mini'
     | '/pet'
+    | '/results/$resultId'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat'
     | '/w/$workspaceId/experts'
@@ -184,6 +196,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MiniRoute: typeof MiniRoute
   PetRoute: typeof PetRoute
+  ResultsResultIdRoute: typeof ResultsResultIdRoute
   WWorkspaceIdRoute: typeof WWorkspaceIdRouteWithChildren
 }
 
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/pet'
       fullPath: '/pet'
       preLoaderRoute: typeof PetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/results/$resultId': {
+      id: '/results/$resultId'
+      path: '/results/$resultId'
+      fullPath: '/results/$resultId'
+      preLoaderRoute: typeof ResultsResultIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/w/$workspaceId': {
@@ -324,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MiniRoute: MiniRoute,
   PetRoute: PetRoute,
+  ResultsResultIdRoute: ResultsResultIdRoute,
   WWorkspaceIdRoute: WWorkspaceIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport

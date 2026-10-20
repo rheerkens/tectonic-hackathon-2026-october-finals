@@ -7,7 +7,7 @@ export function useDashboard() {
 	const { scope, user } = useStudioState();
 	const listing = useListNotes(scope);
 	const question = useSyncExternalStore(scope.drafts.subscribe, () =>
-		scope.drafts.get(scope.userId, scope.workspaceId, "chat"),
+		scope.drafts.get(scope.userId, scope.workspaceId, "finn-question"),
 	);
 	const [fieldError, setFieldError] = useState("");
 	return {
@@ -19,7 +19,7 @@ export function useDashboard() {
 		question,
 		fieldError,
 		setQuestion(value: string) {
-			scope.drafts.set(scope.userId, scope.workspaceId, "chat", value);
+			scope.drafts.set(scope.userId, scope.workspaceId, "finn-question", value);
 			setFieldError("");
 		},
 		prepareQuestion() {

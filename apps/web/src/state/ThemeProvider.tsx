@@ -15,6 +15,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 		}
 	});
 	useEffect(() => {
+		const sync = (event: StorageEvent) => {
+			if (event.key === storageKey) setPreference(parseTheme(event.newValue));
+		};
+		window.addEventListener("storage", sync);
+		return () => window.removeEventListener("storage", sync);
+	}, []);
+	useEffect(() => {
 		const media = window.matchMedia("(prefers-color-scheme: dark)");
 		const apply = () => {
 			document.documentElement.dataset.theme = resolveTheme(preference, media.matches);
