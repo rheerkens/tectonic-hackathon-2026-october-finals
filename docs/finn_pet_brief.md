@@ -87,3 +87,31 @@ De bytehash van de behouden lokale routefile bleef
 
 Niet in scope: positionering verbeteren, extra startup hardening, moodcontract,
 animatieverfijning, UI en contractwijzigingen, tray of publicatie naar main.
+
+## Gerichte correctie voor groei tijdens slepen
+
+De UI eigenaar heeft op Windows 125 procent in zijn bestaande native instantie
+vastgesteld dat het venster tijdens pointermoves groeit, van 267 bij 283 naar
+277 bij 295. Content groeit mee, terwijl zoom 1 en bronafmetingen 192 bij 208
+blijven. Dit staat los van het formaat van de afbeeldingen.
+
+De sleephandler gebruikt nu volledige `setBounds` met de vaste maat 96 bij 104,
+gedeeld met de vensterconstructor. Alleen de positie wordt teruggelezen; een
+reeds vergrote of afgeronde venstermaat wordt niet opnieuw als invoer gebruikt.
+Electron 44.5.1 implementeert `SetPosition` via `SetBounds` met `GetSize()`;
+de expliciete maat vermijdt die terugkoppeling. Zie de
+[native Electron implementatie](https://github.com/electron/electron/blob/v44.5.1/shell/browser/native_window.cc)
+en de [setBounds documentatie](https://www.electronjs.org/docs/latest/api/base-window#winsetboundsbounds-animate).
+
+De UI eigenaar heeft de kandidaat via een tijdelijke override in PID 10012
+gemeten: tien echte pointermoves met richtingsomkering, vasthouden en loslaten,
+plus twintig directe verplaatsingen heen en terug. Content bleef exact 96 bij
+104. De buitenbounds waren 96 of 97 bij 105 door afronding op 125 procent,
+zonder cumulatieve groei. Bewijs staat in zijn werkmap onder
+`.local/desktop-combined/drag-candidate.json` en
+`.local/desktop-combined/direct-bounds-candidate.json`.
+
+Deze sessie heeft alleen broncode, syntax en formattering gecontroleerd en geen
+Electron gestart of proces gestopt. De UI eigenaar controleert na integratie de
+normale herstart zonder tijdelijke override; dat is nog geen bewezen resultaat.
+Lifecycle, openResult, IPC validatie, CSS en animatieassets blijven ongewijzigd.
