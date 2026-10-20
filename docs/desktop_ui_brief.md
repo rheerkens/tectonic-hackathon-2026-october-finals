@@ -74,8 +74,6 @@ Na de eindcontrole is Quit via het echte applicatiemenu uitgevoerd. Eigen Electr
 
 De laatste typecheck en build slagen op de gecombineerde bron. Gerichte Biome slaagt voor PetPage en, met behoud van de Windows regeleinden, beide native bestanden. Beide native bestanden slagen voor Node syntaxcontrole. Er zijn geen unit of e2e tests toegevoegd of uitgevoerd. Vanaf de definitieve overdracht blijft deze featurewerkmap alleen beschikbaar voor lezen; integratie en verdere ontwikkeling gebeuren centraal op main.
 
-## Grenzen
-
 ## Centrale integratie op main
 
 Op 20 oktober is de UI samen met native commits 210ad6b, 438dc485 en 168f291 geïntegreerd met origin/main 88fbc64. De bestaande main:open route, FINN toestanden en bronicoontjes zijn behouden. De volledige `bun run check` is nu groen voor lint, typecheck en build. `.gitattributes` legt LF vast; gegenereerde animatieverslagen vallen net als de originele assetexport buiten Biome.
@@ -95,3 +93,11 @@ De echte ontwikkelapp: `http://draegus-zenbook.tail102e44.ts.net:55020`.
 Eerdere losse ontwerpbeelden en Opus previews staan onder `apps/web/design-previews`; zij zijn geen onderdeel van de productroutes.
 De zes gegenereerde beelden hebben prompts en hashes in hun previewmap. De drie oorspronkelijke beelden onder `docs/design/desktop_concepts` zijn intact.
 Lucide pictogrammen komen uit de officiële bron met meegeleverde licentie. Het SDtrust merkbeeld is hergebruikt uit de bestaande lokale merkassets.
+
+## Compacte mini op main
+
+De compacte mini uit commit `899435a` gebruikt één invoerbalk en een antwoordballon met vertrouwen en ondersteunende broncodes. View details toont twee redenen en bronpassages. De onderste knop opent het bestaande volledige resultaat via `window.desktop.openResult`. De transparante mini past zijn hoogte aan de inhoud aan; het formaat van Finn, de bridge, hook en contracten blijven behouden.
+
+De drie bronbestanden zijn centraal nagelezen. De externe vereenvoudiging van de desktopnavigatie uit `0eb2dc1` is zonder conflict geïntegreerd. De volledige `bun run check` slaagt voor lint, beide typecontroles en productiebuild. Er zijn geen unit of e2e tests uitgevoerd.
+
+Native bewijs staat lokaal onder `.local/finn-compact/native-visible`, met overdracht in `.local/finn-compact/handoff.md`. Eerste resultaat en hergebruik, november, onbekende vraag, Escape en stabiele Finn afmetingen zijn gecontroleerd. De definitieve resultaatknoppen zijn via DOM click geactiveerd. Een fysieke muisklik in de gebruikerssessie, macOS en packaging zijn hiermee niet bewezen. De eigen inspectieprocessen zijn afgesloten. De animatiewijzigingen vallen buiten deze levering.
