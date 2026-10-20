@@ -1084,6 +1084,12 @@ a {
 	height: 100%;
 	object-fit: contain;
 }
+/* Finn gathers himself before the shell jumps him into or out of SDtrust. */
+.pet.crouch img {
+	transform: scale(1.1, 0.86);
+	transform-origin: 50% 100%;
+	transition: transform 0.12s ease;
+}
 .mini {
 	padding: 16px;
 }

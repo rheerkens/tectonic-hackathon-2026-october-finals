@@ -289,3 +289,22 @@ export const finnScript = [
 	{ question: d1November.question, resultId: d1November.id, followUpOf: d1October.id },
 	{ question: d2.question, resultId: d2.id },
 ];
+
+/** Who owns which knowledge in the demo, shown on the Experts page. */
+export const experts = [
+	{
+		name: "Roy",
+		role: "Account owner, Atlas",
+		owns: ["Atlas client agreements", "Sick leave procedures BE & NL"],
+	},
+	{
+		name: "Sebastian",
+		role: "Procedure owner",
+		owns: ["Payroll procedures Belgium", "Payroll procedures Netherlands"],
+	},
+	{
+		name: "Wanne",
+		role: "Payroll consultant, Atlas",
+		owns: ["Atlas payroll changes", "Client follow-up"],
+	},
+];

@@ -9,7 +9,13 @@ function WorkspaceRoute() {
 		<StudioPage
 			key={workspaceId}
 			workspaceId={workspaceId}
-			view={match({ to: "/w/$workspaceId/settings" }) ? "settings" : "overview"}
+			view={
+				match({ to: "/w/$workspaceId/settings" })
+					? "settings"
+					: match({ to: "/w/$workspaceId/experts" })
+						? "experts"
+						: "overview"
+			}
 		/>
 	);
 }

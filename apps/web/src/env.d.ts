@@ -20,5 +20,7 @@ interface Window {
 		getPetScale?(): Promise<number>;
 		setPetScale?(scale: number): Promise<void>;
 		onPetScale?(listener: (scale: number) => void): () => void;
+		onFinnLanded?(listener: () => void): () => void;
+		onPose?(listener: (pose: string | null) => void): () => void;
 	};
 }

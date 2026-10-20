@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useFinn } from "../state/finn";
-import { announce, type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
+import { type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
 import { FinnChat } from "./FinnChat";
 
 /** What Finn says about the page you are on; shown once per key. */
 export type FinnHint = { key: string; mood: PetAnimation; text: string; target?: string };
 
-// Finn walks in once per window and comments once per page, not on every render.
+// Finn arrives once per window and comments once per page, not on every render.
 let entered = false;
 const seenHints = new Set<string>();
 const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -18,9 +18,11 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const [hintMood, setHintMood] = useState<PetAnimation | null>(null);
 	const latestHint = useRef(hint);
 	latestHint.current = hint;
-	const [phase, setPhase] = useState<"entering" | "waving" | "leaving" | "exiting" | null>(
-		entered || still() ? null : "entering",
-	);
+	// In the desktop app the real desktop Finn jumps in and hands over on landing ("waiting" until then);
+	// in a browser there is no desktop Finn, so he walks in from the right.
+	const [phase, setPhase] = useState<
+		"waiting" | "entering" | "landing" | "waving" | "leaving" | "gone" | null
+	>(entered || still() ? null : window.desktop?.onFinnLanded ? "waiting" : "entering");
 	const mood = usePetMood();
 	// Like the desktop pet, Finn reflects activity across all compact conversations.
 	useAnnounceFinnMood(useFinn(true).activity);
@@ -46,7 +48,11 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 			window.clearTimeout(hideTimer);
 		};
 	}, [bubble]);
-	// Closing SDtrust: Finn waves, runs out to the right, then the shell closes the window.
+	useEffect(
+		() => window.desktop?.onFinnLanded?.(() => setPhase((p) => (p === "waiting" ? "landing" : p))),
+		[],
+	);
+	// Closing SDtrust: Finn waves, then the desktop Finn takes over here and jumps back home.
 	useEffect(
 		() =>
 			window.desktop?.onMainClosing?.(() => {
@@ -57,21 +63,20 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 		[],
 	);
 	useEffect(() => {
-		if (phase !== "waving" && phase !== "leaving") return;
-		const timer = window.setTimeout(
-			() => setPhase(phase === "leaving" ? "exiting" : null),
-			phase === "leaving" ? 1000 : 1400,
-		);
+		const next = { waiting: "waving", landing: "waving", waving: null, leaving: "gone" } as const;
+		if (!phase || !(phase in next)) return;
+		// Waiting has a fallback in case the shell never reports a landing.
+		const ms = { waiting: 3000, landing: 320, waving: 1400, leaving: 600 }[
+			phase as keyof typeof next
+		];
+		const timer = window.setTimeout(() => {
+			if (phase === "leaving") window.desktop?.closeMain?.();
+			setPhase(next[phase as keyof typeof next]);
+		}, ms);
 		return () => window.clearTimeout(timer);
 	}, [phase]);
 	const shown: PetAnimation =
-		phase === "entering"
-			? "running-left"
-			: phase === "exiting"
-				? "running-right"
-				: phase
-					? "waving"
-					: (hintMood ?? mood);
+		phase === "entering" ? "running-left" : phase ? "waving" : (hintMood ?? mood);
 	return (
 		<div className="finn-dock">
 			<div aria-live="polite">
@@ -100,24 +105,16 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 					<>
 						<button
 							type="button"
-							className={
-								phase === "entering" || phase === "exiting"
-									? `finn-dock-pet ${phase}`
-									: "finn-dock-pet"
-							}
+							className={phase ? `finn-dock-pet ${phase}` : "finn-dock-pet"}
 							aria-label={open ? "Close chat with Finn" : "Ask Finn"}
 							aria-expanded={open}
 							onClick={() => setOpen(!open)}
 							onAnimationEnd={(event) => {
 								if (event.target !== event.currentTarget) return;
 								if (phase === "entering") setPhase("waving");
-								if (phase === "exiting") {
-									// The desktop Finn reappears waving once the window is gone.
-									announce("waving");
-									window.desktop?.closeMain?.();
-								}
 							}}
 						>
+							{phase === "landing" && <span className="finn-dock-ripple" aria-hidden="true" />}
 							<picture>
 								<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
 								<img src={`/pet/${shown}.webp`} alt="" width="96" height="104" draggable={false} />

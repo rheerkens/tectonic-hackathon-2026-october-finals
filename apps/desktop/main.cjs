@@ -7,6 +7,7 @@ const {
 	ipcMain,
 	Menu,
 	MenuItem,
+	nativeTheme,
 	screen,
 	session,
 } = require("electron");
@@ -79,7 +80,8 @@ const petSize = () => ({
 const settingsPath = () => join(app.getPath("userData"), "desktop.json");
 let settings = { showPet: true, petPosition: null, petScale: 100 };
 function saveSettings() {
-	if (petOpen()) settings.petPosition = pet.getPosition();
+	// While Finn is mid-jump or inside SDtrust, his desktop spot is the one remembered before.
+	if (petOpen() && !flying && !mainOpen()) settings.petPosition = pet.getPosition();
 	writeFileSync(settingsPath(), JSON.stringify(settings));
 }
 // Keeps the whole pet on the screen it is on.
@@ -105,6 +107,117 @@ let finnMenu;
 let showPetItem;
 const petOpen = () => pet && !pet.isDestroyed();
 const mainOpen = () => mainWindow && !mainWindow.isDestroyed();
+let flying = false;
+let jumpVersion = 0;
+function cancelJump() {
+	jumpVersion++;
+	flying = false;
+	if (!quitting && petOpen()) pet.webContents.send("pet:pose", null);
+}
+function homeBounds() {
+	const [x, y] = settings.petPosition ?? pet.getPosition();
+	return clampPet({ x, y, ...petSize() });
+}
+
+// Use the compact dock's actual slot: its position also depends on the open conversation.
+async function dockBounds(window) {
+	const content = window.getContentBounds();
+	const slot = await window.webContents.executeJavaScript(`(async () => {
+		// The new renderer reads the saved scale through IPC after mounting.
+		// Wait briefly for that render before choosing the native landing point.
+		for (let attempt = 0; attempt < 30; attempt++) {
+			const slot = document.querySelector('.finn-dock .finn-mini-pet-slot');
+			if (!slot) return null;
+			const rect = slot.getBoundingClientRect();
+			if (Math.abs(rect.width - ${petSize().width}) < 1 || attempt === 29)
+				return { x: rect.x, y: rect.y };
+			await new Promise(resolve => setTimeout(resolve, 32));
+		}
+	})()`);
+	return {
+		x: Math.round(content.x + (slot?.x ?? content.width - 24 - petSize().width)),
+		y: Math.round(content.y + (slot?.y ?? content.height - 21 - petSize().height)),
+	};
+}
+
+// Jumps the desktop pet window along an arc, the same curve as the walk-in prototype.
+function jumpPet(to, onLanded) {
+	const version = ++jumpVersion;
+	const window = pet;
+	const [fx, fy] = pet.getPosition();
+	const dist = Math.hypot(to.x - fx, to.y - fy);
+	const duration = Math.min(1000, Math.max(550, dist / 0.9));
+	const arc = Math.min(200, Math.max(60, dist * 0.35));
+	flying = true;
+	pet.webContents.send("pet:pose", "crouch");
+	setTimeout(() => {
+		if (version !== jumpVersion || quitting || window.isDestroyed()) return;
+		pet.webContents.send("pet:pose", "jumping");
+		const start = Date.now();
+		const timer = setInterval(() => {
+			if (version !== jumpVersion || quitting || window.isDestroyed()) {
+				clearInterval(timer);
+				if (version === jumpVersion) flying = false;
+				return;
+			}
+			const t = Math.min(1, (Date.now() - start) / duration);
+			const x = fx + (to.x - fx) * t;
+			const y = fy + (to.y - fy) * t - arc * 4 * t * (1 - t);
+			window.setBounds({ x: Math.round(x), y: Math.round(y), ...petSize() });
+			if (t < 1) return;
+			clearInterval(timer);
+			flying = false;
+			pet.webContents.send("pet:pose", null);
+			onLanded();
+		}, 16);
+	}, 140);
+}
+
+// Once SDtrust shows and its dock is mounted, the desktop Finn jumps into his spot there.
+async function jumpIn(window) {
+	if (!window.pendingJump || !window.finnDock || !window.isVisible()) return;
+	window.pendingJump = false;
+	const landed = () => {
+		if (!window.isDestroyed()) window.webContents.send("finn:landed");
+	};
+	if (!petOpen() || !pet.isVisible() || flying) {
+		if (petOpen()) pet.hide();
+		return landed();
+	}
+	settings.petPosition = pet.getPosition();
+	saveSettings();
+	const target = await dockBounds(window);
+	if (window.isDestroyed() || quitting || !petOpen()) return;
+	jumpPet(target, () => {
+		pet.hide();
+		landed();
+	});
+}
+
+// Closing SDtrust: the desktop Finn takes over at the dock and jumps back to his own spot.
+async function jumpHome(window) {
+	if (!petOpen()) return window.close();
+	// A close can interrupt the incoming jump; its stale callback must not hide Finn later.
+	const interrupted = flying;
+	cancelJump();
+	const [x, y] = pet.getPosition();
+	const from = interrupted ? { x, y } : await dockBounds(window);
+	if (window.isDestroyed() || quitting) return;
+	if (!petOpen()) return window.close();
+	window.returningHome = true;
+	const home = homeBounds();
+	settings.petPosition = [home.x, home.y];
+	pet.setBounds({ ...from, ...petSize() });
+	pet.showInactive();
+	jumpPet(home, () => {
+		pet.webContents.send("pet:pose", "waving");
+		setTimeout(() => petOpen() && pet.webContents.send("pet:pose", null), 1400);
+		saveSettings();
+	});
+	setTimeout(() => {
+		if (!window.isDestroyed()) window.close();
+	}, 200);
+}
 
 function reportOpenError(error) {
 	dialog.showErrorBox("Could not open FINN", String(error));
@@ -113,12 +226,34 @@ function reportOpenError(error) {
 async function openMain(path) {
 	const create = !mainWindow || mainWindow.isDestroyed();
 	if (create) {
-		mainWindow = new BrowserWindow({ width: 1280, height: 860, show: false, webPreferences });
+		mainWindow = new BrowserWindow({
+			width: 1280,
+			height: 860,
+			show: false,
+			webPreferences,
+			// SDtrust draws its own top bar: macOS traffic lights sit inside the sidebar card,
+			// Windows/Linux window buttons float transparent over the top right.
+			titleBarStyle: "hidden",
+			...(process.platform === "darwin"
+				? { trafficLightPosition: { x: 30, y: 30 } }
+				: {
+						titleBarOverlay: {
+							color: "#00000000",
+							symbolColor: nativeTheme.shouldUseDarkColors ? "#ffffff" : "#1f1f1f",
+							height: 36,
+						},
+					}),
+		});
 		const window = mainWindow;
 		mainReady = Promise.resolve();
-		// While SDtrust is open Finn lives inside it; closing it sends Finn back to the desktop.
-		if (petOpen()) pet.hide();
+		// While SDtrust is open Finn lives inside it; he jumps in once it shows and back out on close.
+		window.pendingJump = true;
 		mini?.hide();
+		window.webContents.on("dom-ready", () => {
+			void window.webContents.executeJavaScript(
+				`document.documentElement.classList.add("desktop-frameless", "desktop-${process.platform === "darwin" ? "mac" : "win"}")`,
+			);
+		});
 		window.on("close", (event) => {
 			if (quitting || !window.finnDock || window.finnLeaving) return;
 			event.preventDefault();
@@ -132,6 +267,10 @@ async function openMain(path) {
 		window.on("closed", () => {
 			if (mainWindow === window) mainWindow = null;
 			if (!quitting) {
+				if (!window.returningHome) {
+					cancelJump();
+					if (petOpen()) pet.setBounds(homeBounds());
+				}
 				settings.showPet = true;
 				showPetItem.checked = true;
 				openPet(appUrl);
@@ -150,6 +289,7 @@ async function openMain(path) {
 	if (window.isMinimized()) window.restore();
 	window.show();
 	window.focus();
+	await jumpIn(window);
 }
 
 function openPet(url) {
@@ -379,10 +519,13 @@ ipcMain.on("speech:cancel", (event) => speech.cancel(event.sender.id));
 ipcMain.on("mini:toggle", () => toggleMini());
 ipcMain.on("mini:hide", () => mini?.hide());
 ipcMain.on("main:finn-dock", (event, active) => {
-	if (trustedWindow(event, mainWindow)) mainWindow.finnDock = active === true;
+	if (!trustedWindow(event, mainWindow)) return;
+	mainWindow.finnDock = active === true;
+	void jumpIn(mainWindow).catch(reportOpenError);
 });
 ipcMain.on("main:close", (event) => {
-	if (trustedWindow(event, mainWindow) && mainWindow.finnLeaving) mainWindow.close();
+	if (trustedWindow(event, mainWindow) && mainWindow.finnLeaving)
+		void jumpHome(mainWindow).catch(reportOpenError);
 });
 ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
@@ -463,6 +606,7 @@ app.whenReady().then(async () => {
 app.on("before-quit", () => {
 	quitting = true;
 	saveSettings();
+	cancelJump();
 });
 app.on("activate", () => {
 	if (appUrl && !quitting) void openMain().catch(reportOpenError);
