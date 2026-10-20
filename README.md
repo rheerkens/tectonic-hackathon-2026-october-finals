@@ -15,15 +15,16 @@ Design concepts and the FINN mascot: [docs/design](docs/design).
 
 | Topic | Decision |
 |---|---|
-| Platform | **Electron desktop app.** If Electron blocks us, fall back to the web app (same routes, mascot fixed bottom-right in the page). |
+| Platform | **Electron desktop app** for the demo. The jury device runs Windows or macOS; which one is unknown. During development we run the web variant (same routes, mascot fixed bottom-right in the page). If Electron blocks us, the web variant is the fallback. |
+| Language | **English** UI copy. The design concepts use Dutch; translate their labels. |
 | Data | **Fake.** Synthetic Teams messages, mails and CRM records live in SQLite and are seeded in dev. The first version may mock search results completely. Real connectors only if time is left. |
-| AI | **Codex subscription through pi.** The starter already runs pi with the host's Codex login (`packages/ai`, `features/chat`). We build on that. |
+| AI | **The demo uses a scripted agent, not a live model.** For each demo question, a scripted model replays the right tool calls in the right order. The tools themselves are real and query the seeded SQLite. The demo therefore works offline and on the jury device, with no login. Live Codex through pi (already in the starter) stays available for development and is a stretch goal for the demo. |
 | Users | **One user in the demo.** "Contacting a colleague" is simulated: FINN shows that it sent a Teams message and the conversation waits for a reply. |
 | Score | **Trust in the result.** Not "how well does a person match". Low trust means FINN tells the user and proposes, or takes, a next step. |
 | Process vs result | FINN shows the answer or next step. The result page shows provenance so the user can check *why*. |
 | Agent and UI | The agent can drive the whole UI: navigate, open pages, change FINN's state, ask follow-up questions. |
 | Privacy | The user chooses in Settings which sources FINN may use. For the demo, everything is on by default. |
-| Model | Codex only. No model switching. |
+| Model | Scripted agent for the demo, Codex for live runs. Switched by one setting, for example `FINN_AGENT=scripted\|codex`. |
 
 ## Product surfaces
 
@@ -49,7 +50,9 @@ Electron (apps/desktop)
   └─ app window     ─┴─ load Vite web app routes (apps/web)
                             │  HTTP + chat stream
                             ▼
-                     Hono API (apps/api) ── pi runner ── Codex
+                     Hono API (apps/api) ── pi runner ── StreamFn
+                                                         ├─ scripted (demo, offline)
+                                                         └─ Codex (live, optional)
                             │
                        tools │ search_sources, find_people, contact_person, ui.*
                             ▼
@@ -57,6 +60,11 @@ Electron (apps/desktop)
 ```
 
 - Electron is a thin shell. Both windows load routes from the existing Vite app, so the web fallback is the same code. The API and agent stay server-side, as in the starter.
+- **Scripted agent.** pi's runner already accepts an injected `StreamFn` (`createRunner({ streamFn })` in `packages/ai`; the tests use the same seam). The scripted `StreamFn` matches the demo question and emits a fixed sequence of tool calls and a final text. pi executes the real tools. The UI, tools and stream are identical to the live path; only the model is replaced.
+  - Add small delays between steps so the thinking state is visible.
+  - Script the follow-up question as well: the scripted agent asks the user, waits for the answer, then continues.
+  - An unknown question gets a polite fixed reply ("I can only answer the demo questions right now"), not a crash.
+- **Packaged app runs fully offline.** The API uses `Bun.serve` and `bun:sqlite`, so it can't run inside Electron's Node. Compile it with `bun build --compile` into a sidecar binary per OS (`bun-windows-x64`, `bun-darwin-arm64`). Electron main starts the sidecar on a local port, and the sidecar serves the built web app, the API and a seeded SQLite file. Keep `NODE_ENV` unset and `AUTH_MODE=synthetic`, because the API rejects synthetic users in production mode.
 - **How the agent drives the UI.** The agent calls UI tools, the commands arrive in the client through the chat stream, and the renderer executes them. Realtime messages stay change signals only, as AGENTS.md requires.
   - **v1:** a few fixed commands (`navigate`, `open_result`, `set_finn_state`, `ask_user`) executed by plain client JavaScript.
   - **Target:** one `execute_codesdk` tool. The agent writes a short script against a small typed FINN SDK, and the renderer runs it in a sandbox.
@@ -104,29 +112,32 @@ Write two demo flows. For each one, describe:
 - what the mini bubble shows
 - what the result page shows: answer, trust score and reasons, sources, people
 - whether a next step is needed
+- the exact tool calls the scripted agent makes, in order, with their arguments
 
 Then write the seed data that makes the flow true.
 
 - One scenario should end with a **high-trust answer**. The other should end with **low trust → FINN contacts a colleague** (this exercises the waiting/active-thread flow).
 - Suggested starting points, taken from the challenge guide so the jury recognises them:
   - **A:** a new developer asks how the build/release pipeline works here.
-  - **B:** a marketer asks who has run a campaign like this before and what worked.
+  - **B:** a marketer asks who has run a campaign like this before and what worked. The seed data must include campaign outcomes (CRM fields or a retro thread), or FINN can only say who was involved.
   - [Concept 01](docs/design/desktop_concepts/01.png) also suggests a stale-knowledge case: Atlas onboarding moved from Team HR to Team Operations.
 - **Paths:** `docs/demo/scenarios.md`, seed fixtures in `packages/db` or `features/knowledge`.
-- **Done when:** both flows are written step by step and the seed data contains every record they rely on.
+- **Done when:** both flows are written step by step, including the tool-call script, and the seed data contains every record they rely on.
 
 ### 2. Knowledge sources and search tools
 
 - `features/knowledge`: the schema for people and source items (kind, author, date, channel, content), the seed, and the chat tools `search_sources` and `find_people` in `shared/tools.server.ts`.
-- The first version may return canned results for the two demo questions.
+- The tools query SQLite for real. The scripted agent decides *which* tool to call, but the results come from the seed, so the result page shows real provenance.
 - **Done when:** the agent can call both tools and gets results for the demo scenarios.
 
 ### 3. FINN agent flow
 
 - `features/finn`: ask a question, stream progress, return and store a `FinnResult`, and ask a follow-up question when the request is unclear.
 - Includes the system prompt, the trust factors → score logic, and `contact_person`. `contact_person` creates a simulated Teams message and an active thread in the "waiting" state.
-- Builds on the existing pi/Codex chat wiring.
-- **Done when:** both demo questions produce a valid `FinnResult` through Codex with real tool calls.
+- Builds on the existing pi chat wiring.
+- Includes the scripted `StreamFn` for both demo flows, selected with `FINN_AGENT=scripted`. This is the default for the demo.
+- Stretch: the same flows through live Codex with a real system prompt.
+- **Done when:** both demo questions produce a valid `FinnResult` through the scripted agent with real tool calls, without network access.
 
 ### 4. Electron shell
 
@@ -183,13 +194,24 @@ Then write the seed data that makes the flow true.
 - Answer the five "Show us how" questions below in one slide each, or fewer.
 - Rehearse both demo flows end to end on the demo machine.
 - Record a backup run in case the live run fails (`docs/demo/story.json`, video tooling).
+- Be upfront that the demo agent is scripted, and explain that the tools, data flow and UI are the real path. If live Codex works, show one flow live as a bonus.
+
+### 11. Jury-device build and test
+
+- The demo runs on a jury device, Windows or macOS. Build the Electron app for both.
+- Test the mascot window on the Windows laptop: transparency, always on top, click-through, position with the taskbar and display scaling.
+- Test on a Mac too if anyone has one; otherwise list macOS as untested.
+- Package the API sidecar, the built web app and the seeded SQLite with the Electron app (see *Architecture*).
+- Test with networking disabled.
+- macOS: an unsigned app is blocked by Gatekeeper. Know the right-click → Open workaround, or bring a signed build.
+- **Done when:** a packaged build runs both demo flows on the Windows laptop with networking off, and the macOS status is known.
 
 ### Suggested split (3 people)
 
 | Person | Owns |
 |---|---|
 | A: data and agent | 1 (lead, together with the team), 2, 3 |
-| B: desktop and FINN | 4, 5, 8 |
+| B: desktop and FINN | 4, 5, 8, 11 |
 | C: app window | 6, 7, 9 |
 | Everyone | 10 |
 
@@ -199,15 +221,15 @@ Fix the contract early: agree on `FinnResult` and the UI command list before spl
 
 When we're behind, cut from the bottom of this list:
 
-1. Both demo flows working end to end, live through Codex. *(must have)*
+1. Both demo flows working end to end through the scripted agent. *(must have)*
 2. Electron mascot window. *(fallback: web route)*
 3. Result page with trust reasons and source provenance.
 4. Low-trust → contact person → active thread flow.
 5. Thinking animation with source icons.
 6. Agent-driven UI beyond opening the result.
-7. `execute_codesdk`, history page polish, real connectors. *(stretch)*
+7. `execute_codesdk`, history page polish, live Codex, real connectors. *(stretch)*
 
-Keep a recorded backup of the demo in case live Codex fails on stage.
+Keep a recorded backup of the demo in case the jury device misbehaves.
 
 ---
 
@@ -235,7 +257,5 @@ The challenge: turn fragmented organisational knowledge into a trusted shared re
 
 ## Open questions
 
-- **Demo machine OS.** Transparent Electron windows are reliable on Windows and macOS but flaky on some Linux compositors.
-- **UI language.** The concepts use Dutch copy. Is the demo in Dutch or English?
 - **Naming.** Is the app window "SDtrust", as in the concepts? Is the mascot "FINN" or "Finn"?
 - **Demo time and pitch length.** These decide where the cut line falls.
