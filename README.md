@@ -101,128 +101,35 @@ Proposal for the score: the agent returns the trust *factors* (agreement between
 
 ## Work breakdown
 
-Each item can become one GitHub issue. Paths follow the feature layout in [AGENTS.md](AGENTS.md).
+We build **UI first, against mocks**. The real backend follows once the demo scripts are clear. Detailed scope and acceptance criteria live in the GitHub issues; pick one up and assign yourself.
 
-### 1. Demo scenarios and seed data (do this first)
+**Phase 1: UI against a mock flow** (label `phase:1-ui-mock`)
 
-Write two demo flows. For each one, describe:
-- the question the user asks
-- any follow-up question FINN asks
-- which seeded records FINN finds
-- what the mini bubble shows
-- what the result page shows: answer, trust score and reasons, sources, people
-- whether a next step is needed
-- the exact tool calls the scripted agent makes, in order, with their arguments
+| Issue | Area | Cut line |
+|---|---|---|
+| [#1 Script the two demo scenarios and plan the phase 2 tasks](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/1) | planning | must |
+| [#2 Mock FINN flow: types, fixtures and a shared `useFinn()` hook](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/2) | ui | must, do it first |
+| [#3 Desktop: start with only FINN visible, open the main window on demand](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/3) | desktop | must |
+| [#4 FINN pet states and thinking animation](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/4) | desktop | must |
+| [#5 Mini window: ask, follow-ups, short result](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/5) | ui | must |
+| [#6 Result and trust page](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/6) | ui | must |
+| [#7 Result delivery: mocks and proposal](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/7) | ui | should |
+| [#8 History, active threads and settings](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/8) | ui | should |
+| [#9 Agent-driven UI v1: UI command executor](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/9) | ui | should |
+| [#10 Test the packaged app on Windows / macOS, offline](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/10) | desktop | must |
+| [#11 Pitch, rehearsal and backup recording](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/11) | pitch | must |
 
-Then write the seed data that makes the flow true.
+**Phase 2: the real app.** #1 produces these issues once the scenario scripts settle which tools and methods we need. Expected: shared contracts, knowledge schema and seed, search tools, the scripted agent `StreamFn`, the FINN ask flow and trust score, `contact_person`, swapping the UI from mock to real. Stretch: live Codex, `execute_codesdk`.
 
-- One scenario should end with a **high-trust answer**. The other should end with **low trust → FINN contacts a colleague** (this exercises the waiting/active-thread flow).
-- Suggested starting points, taken from the challenge guide so the jury recognises them:
-  - **A:** a new developer asks how the build/release pipeline works here.
-  - **B:** a marketer asks who has run a campaign like this before and what worked. The seed data must include campaign outcomes (CRM fields or a retro thread), or FINN can only say who was involved.
-  - [Concept 01](docs/design/desktop_concepts/01.png) also suggests a stale-knowledge case: Atlas onboarding moved from Team HR to Team Operations.
-- **Paths:** `docs/demo/scenarios.md`, seed fixtures in `packages/db` or `features/knowledge`.
-- **Done when:** both flows are written step by step, including the tool-call script, and the seed data contains every record they rely on.
+The mock in #2 sits behind the same `useFinn()` hook the real flow will use, so the phase 1 UI survives phase 2 unchanged.
 
-### 2. Knowledge sources and search tools
-
-- `features/knowledge`: the schema for people and source items (kind, author, date, channel, content), the seed, and the chat tools `search_sources` and `find_people` in `shared/tools.server.ts`.
-- The tools query SQLite for real. The scripted agent decides *which* tool to call, but the results come from the seed, so the result page shows real provenance.
-- **Done when:** the agent can call both tools and gets results for the demo scenarios.
-
-### 3. FINN agent flow
-
-- `features/finn`: ask a question, stream progress, return and store a `FinnResult`, and ask a follow-up question when the request is unclear.
-- Includes the system prompt, the trust factors → score logic, and `contact_person`. `contact_person` creates a simulated Teams message and an active thread in the "waiting" state.
-- Builds on the existing pi chat wiring.
-- Includes the scripted `StreamFn` for both demo flows, selected with `FINN_AGENT=scripted`. This is the default for the demo.
-- Stretch: the same flows through live Codex with a real system prompt.
-- **Done when:** both demo questions produce a valid `FinnResult` through the scripted agent with real tool calls, without network access.
-
-### 4. Electron shell: remaining work
-
-Already on `main`: the pet window, the mini window, the main window, the compiled API binary, and CI builds.
-
-- Start with only FINN visible. The main (SDtrust) window opens on demand: from the mini window, from the menu, or by the agent. Today it opens at launch, and closing it quits the app.
-- IPC to open the main window on a given route, for example `/results/<id>`.
-- Web fallback: FINN and the mini window also work in a normal browser for development.
-- **Done when:** the app starts with only FINN on screen, and the result opens in the main window without a manual window switch.
-
-### 5. Mascot states and animation
-
-- Map FINN states to the existing sprite animations ([docs/design/finn_pet](docs/design/finn_pet)), and drive them from the FINN ask flow instead of the starter chat.
-- Thinking state: icons for the sources being searched (Teams, mail, CRM) circle FINN's head. The pet window is only 96 × 104, so this needs a bigger window or icons inside that space.
-- Turn the mini window into the FINN question and short-result view.
-- **Done when:** every FINN state is visible and is driven by the ask flow, not by local clicks only.
-
-### 6. Result and trust page
-
-- The full page in the app window shows:
-  - the answer, or "I'm not sure yet"
-  - the trust score with its reasons
-  - sources with their origin, kind icon and date
-  - relevant people
-  - the next step
-- Calm, minimal look. Follow the concepts' palette: navy `#192D46`, ivory `#F8F6F1`, coral `#EE6558`, amber `#F3BA55`.
-- **Done when:** both demo results render, and every claim on the page links back to a source.
-
-### 7. Result delivery (to be designed: proposal only)
-
-- Proposal: when FINN finishes, it shows the mini bubble. A setting "open result automatically" lets the agent open the full page itself.
-- Make mocks first, then decide.
-- **Done when:** the team has agreed on mocks and the chosen behaviour works.
-
-### 8. Agent-driven UI
-
-- v1: the UI tools from *Architecture* are executed by the client from the chat stream.
-- Target: `execute_codesdk` with a small FINN SDK.
-- **Done when:** the agent can change FINN's state and open the result page without a user click.
-
-### 9. History, active threads, settings
-
-- **History:** past questions and their results.
-- **Active threads:** questions waiting on a colleague. In the demo, the reply can be triggered by a seeded or dev action.
-- **Settings:**
-  - which sources FINN may use (default: all)
-  - open results automatically
-  - FINN on the desktop
-- These support the waiting flow. They are not the main experience, so keep them simple.
-- **Done when:** a low-trust scenario shows up as an active thread and later resolves.
-
-### 10. Pitch
-
-- Answer the five "Show us how" questions below in one slide each, or fewer.
-- Rehearse both demo flows end to end on the demo machine.
-- Record a backup run in case the live run fails (`docs/demo/story.json`, video tooling).
-- Be upfront that the demo agent is scripted, and explain that the tools, data flow and UI are the real path. If live Codex works, show one flow live as a bonus.
-
-### 11. Jury-device build and test
-
-- The demo runs on a jury device, Windows or macOS. CI already builds both (GitHub → Actions → Desktop → Artifacts).
-- Test the CI `.exe` on the Windows laptop: transparency, always on top, dragging FINN, position with the taskbar and display scaling.
-- Test on a Mac too if anyone has one; otherwise list macOS as untested.
-- Test with networking disabled: both flows must run from the seed and the scripted agent.
-- Builds are unsigned. Windows: "More info → Run anyway". Mac: `xattr -cr "/Applications/Day One.app"`. Rehearse this on a fresh machine, because the jury device will hit it.
-- **Done when:** a packaged build runs both demo flows on the Windows laptop with networking off, and the macOS status is known.
-
-### Suggested split (Sebastian, Roy, Wanne)
-
-| Role | Owns |
-|---|---|
-| A: data and agent | 1 (lead, together with the team), 2, 3 |
-| B: desktop and FINN | 4, 5, 8, 11 |
-| C: app window | 6, 7, 9 |
-
-We push directly to `main` and write no tests (see [AGENTS.md](AGENTS.md)). Run `bun run check` before every push.
-| Everyone | 10 |
-
-Fix the contract early: agree on `FinnResult` and the UI command list before splitting up, because B and C build against mocks of them.
+Team: Sebastian, Roy, Wanne. We push directly to `main` and write no tests (see [AGENTS.md](AGENTS.md)). Run `bun run check` before every push.
 
 ## Cut line
 
 When we're behind, cut from the bottom of this list:
 
-1. Both demo flows working end to end through the scripted agent. *(must have)*
+1. Both demo flows working end to end: mock flow first (#2), scripted agent in phase 2. *(must have)*
 2. FINN starts alone on screen in the packaged app. *(fallback: web route)*
 3. Result page with trust reasons and source provenance.
 4. Low-trust → contact person → active thread flow.
@@ -240,13 +147,13 @@ The challenge: turn fragmented organisational knowledge into a trusted shared re
 
 | Challenge ask | How FINN answers it | Status |
 |---|---|---|
-| Invisible UI, calm technology | Mascot only; the answer, not the process; the user acts only when needed | Planned (4, 5) |
-| Fit existing ways of working | Reads Teams, mail and CRM; contacts people via Teams | Planned, data simulated (2) |
-| Beyond documents: who knows this? | Results list relevant people; low trust routes to a person | Planned (3, 6) |
-| Understandable when people decide or act | Trust score with reasons, and every claim linked to a source | Planned (6) |
+| Invisible UI, calm technology | Mascot only; the answer, not the process; the user acts only when needed | Planned (#4, #5) |
+| Fit existing ways of working | Reads Teams, mail and CRM; contacts people via Teams | Planned, data simulated (#1, phase 2) |
+| Beyond documents: who knows this? | Results list relevant people; low trust routes to a person | Planned (#5, #6) |
+| Understandable when people decide or act | Trust score with reasons, and every claim linked to a source | Planned (#6) |
 | Learn from everyday work signals | Knowledge comes from messages, mails and CRM, not from written docs | Partly: we search at question time, we don't build a profile in the background |
-| Stay up to date as people and roles change | Recency and conflicting sources lower trust ([concept 01](docs/design/desktop_concepts/01.png)) | Planned in trust factors (3) |
-| Verify when human judgement adds value | Low trust → FINN asks the colleague who knows | Planned (3, 9) |
+| Stay up to date as people and roles change | Recency and conflicting sources lower trust ([concept 01](docs/design/desktop_concepts/01.png)) | Planned in trust factors (#1, phase 2) |
+| Verify when human judgement adds value | Low trust → FINN asks the colleague who knows | Planned (#5, #8) |
 
 ### "Show us how" (draft answers for the pitch)
 
