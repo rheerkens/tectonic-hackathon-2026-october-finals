@@ -1,4 +1,11 @@
-import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
+import {
+	type CSSProperties,
+	type ReactNode,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 import { type FinnConversation, type FinnTurn, useFinn } from "../state/finn";
 import { useVoice } from "../state/finn-voice";
 import { usePetScale } from "../state/pet-scale";
@@ -78,6 +85,11 @@ export function FinnChat({
 	const visibleKey = !open ? null : shownView === "new" ? NEW : (chat?.id ?? null);
 	const showRows = shownView === "launcher" && rowsOpen && finn.conversations.length > 0;
 	const turns = chat?.turns ?? [];
+	// A toolbar and an empty composer can have the same height but different native hit regions.
+	// Measure after React commits the new surface, even when preferred-size-changed stays silent.
+	useLayoutEffect(() => {
+		if (!inApp) window.desktop?.layoutMini?.();
+	}, [inApp, shownView, showRows, chat?.id]);
 	const engaged =
 		Boolean(chat || (visibleKey && finn.drafts[visibleKey]?.trim())) ||
 		(voice.status !== "idle" && voice.status !== "error");

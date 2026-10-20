@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld("desktop", {
 	showMini: () => ipcRenderer.send("mini:show"),
 	setMiniHover: (inside) => ipcRenderer.send("mini:hover", inside === true),
 	setMiniEngaged: (engaged) => ipcRenderer.send("mini:engaged", engaged === true),
+	layoutMini: () => ipcRenderer.send("mini:layout"),
 	onMiniReset: (listener) => {
 		const handler = () => listener();
 		ipcRenderer.on("mini:reset", handler);

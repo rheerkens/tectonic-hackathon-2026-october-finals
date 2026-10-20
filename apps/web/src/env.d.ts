@@ -9,6 +9,7 @@ interface Window {
 		showMini?(): void;
 		setMiniHover?(inside: boolean): void;
 		setMiniEngaged?(engaged: boolean): void;
+		layoutMini?(): void;
 		onMiniReset?(listener: () => void): () => void;
 		onMiniCompose?(listener: () => void): () => void;
 		toggleMini(): void;

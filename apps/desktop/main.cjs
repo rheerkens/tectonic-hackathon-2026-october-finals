@@ -656,6 +656,9 @@ ipcMain.on("mini:hover", (event, inside) => {
 ipcMain.on("mini:engaged", (event, engaged) => {
 	if (trustedWindow(event, mini, "/mini")) miniEngaged = engaged === true;
 });
+ipcMain.on("mini:layout", (event) => {
+	if (trustedWindow(event, mini, "/mini")) void positionMini();
+});
 ipcMain.on("mini:hide", (event) => {
 	if (anyTrusted(event)) hideMini();
 });
