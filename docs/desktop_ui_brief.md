@@ -1,6 +1,6 @@
 # SDtrust desktopinterface
 
-Status: visuele verkenning met voorbeelden in licht en donker. De gebruiker heeft nog geen definitieve richting gekozen.
+Status: de gebruiker koos het lichte overzicht met donkerblauwe zijbalk en vroeg dit in de Electron app te integreren, inclusief light en dark mode.
 
 ## Eigenaarschap
 
@@ -58,6 +58,14 @@ Deze websessie heeft nu geen koppeling nodig. Typehandtekeningen, terugkeerwaard
 Navigatie in de webinterface blijft zelfstandig bruikbaar zonder Electron.
 
 ## Validatie
+
+## Implementatie vanaf de gekozen screenshot
+
+Het overzicht, de zijbalk en de themakeuze staan in de bestaande React app. Navigatie bewaart de bestaande werkruimtes, autorisatie, chat en notities. Recente notities komen uit de bestaande API. Het zoekveld gebruikt dezelfde in het geheugen bewaarde chatdraft en opent de bestaande chat ter verzending. Meldingen en expertinformatie blijven herkenbare voorbeelden totdat het centrale resultaatcontract beschikbaar is. Er is geen tweede Finn bridge toegevoegd.
+
+Op aanwijzing van de coördinerende sessie is `origin/main` op commit `661b76c` gelezen. Die afspraken vragen Engelse UI en geen unit of e2e tests. Er zijn geen tests uitgevoerd voor deze implementatie. De eerst aangemaakte, nog niet uitgevoerde thematest is verwijderd. `npm exec --yes --package=bun@1.4.2 -- bun setup` slaagt zonder globale runtimewijziging. Browser en runtime typecontrole slagen. De Vite build slaagt met expliciete `AUTH_MODE=dev`. De eigen slice wordt eerst gecommit, daarna wordt actuele main gecontroleerd op deze featurebranch geïntegreerd.
+
+De ontwikkelapp draait op `http://draegus-zenbook.tail102e44.ts.net:55020`. De oude voorbeeldvergelijker op poort 53840 staat los van deze echte app.
 
 Uitgevoerd: branch en basis gecontroleerd, werkmap aanvankelijk schoon, repositoryinstructies en relevante UI bestanden gelezen, drie conceptbeelden bekeken.
 `bun setup` is geblokkeerd: repository vereist Bun 1.4.2; de gevonden lokale Bun is 1.2.22.

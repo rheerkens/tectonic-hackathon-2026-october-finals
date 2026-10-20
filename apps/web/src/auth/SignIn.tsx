@@ -3,6 +3,7 @@ import { Avatar } from "@day-one/ui/avatar";
 import { Button } from "@day-one/ui/button";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { Brand } from "../components/Brand";
 import { useSession } from "./context";
 export function SignIn() {
 	const session = useSession();
@@ -11,18 +12,15 @@ export function SignIn() {
 	return (
 		<main className="sign-in">
 			<div className="sign-in-copy">
-				<span className="wordmark">
-					day one
-					<span className="brand-dot" />
-				</span>
-				<span className="eyebrow">A place to make progress</span>
+				<Brand />
+				<span className="eyebrow">Your organisation, connected</span>
 				<h1>
-					Start with a thought.
+					Knowledge you can
 					<br />
-					Build something real.
+					build on.
 				</h1>
-				<p>Your team's notes and conversations, in one quiet workspace.</p>
-				<div className="sign-in-footer">A small working example. Ready for your idea.</div>
+				<p>Your team’s knowledge, conversations and notes, in one quiet workspace.</p>
+				<div className="sign-in-footer">SDtrust · Ask, understand, move forward.</div>
 			</div>
 			<section className="sign-in-panel">
 				<span className="eyebrow">Local development</span>
@@ -68,7 +66,7 @@ export function SignIn() {
 						session.signIn(selected);
 					}}
 				>
-					Continue to studio <span>→</span>
+					Open SDtrust <span>→</span>
 				</Button>
 				<small className="muted">Synthetic users during development. Clerk-ready for later.</small>
 			</section>

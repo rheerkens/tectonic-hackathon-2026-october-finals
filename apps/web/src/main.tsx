@@ -5,19 +5,23 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { router } from "./router";
 import { DraftProvider } from "./state/DraftProvider";
+import { ThemeProvider } from "./state/ThemeProvider";
 import "./styles.css";
 import "@day-one/ui/styles.css";
+import "./desktop.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Missing app root.");
 createRoot(root).render(
 	<StrictMode>
 		<ErrorBoundary>
-			<DraftProvider>
-				<AuthProvider>
-					<RouterProvider router={router} />
-				</AuthProvider>
-			</DraftProvider>
+			<ThemeProvider>
+				<DraftProvider>
+					<AuthProvider>
+						<RouterProvider router={router} />
+					</AuthProvider>
+				</DraftProvider>
+			</ThemeProvider>
 		</ErrorBoundary>
 	</StrictMode>,
 );
