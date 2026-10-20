@@ -99,6 +99,9 @@ let pet;
 let mini;
 let miniHeight = 96;
 let miniLayoutVersion = 0;
+let miniHideTimer;
+let miniVisibilityVersion = 0;
+let miniEngaged = false;
 let mainWindow;
 let mainReady = Promise.resolve();
 let appUrl;
@@ -248,7 +251,7 @@ async function openMain(path) {
 		mainReady = Promise.resolve();
 		// While SDtrust is open Finn lives inside it; he jumps in once it shows and back out on close.
 		window.pendingJump = true;
-		mini?.hide();
+		hideMini();
 		window.webContents.on("dom-ready", () => {
 			void window.webContents.executeJavaScript(
 				`document.documentElement.classList.add("desktop-frameless", "desktop-${process.platform === "darwin" ? "mac" : "win"}")`,
@@ -313,7 +316,8 @@ function openPet(url) {
 		alwaysOnTop: true,
 		skipTaskbar: true,
 		show: false,
-		webPreferences,
+		// The transparent chat overlaps Finn's native bounds; keep his animation painting.
+		webPreferences: { ...webPreferences, backgroundThrottling: false },
 	});
 	const window = pet;
 	// Normalize constructor DPI rounding while hidden, before the first visible frame.
@@ -346,10 +350,27 @@ function openMini(url) {
 		void positionMini();
 	});
 	mini.loadURL(`${url}/mini`);
-	mini.on("blur", () => {
-		mini.hiddenAt = Date.now();
-		mini.hide();
-	});
+	mini.on("blur", hideMini);
+}
+
+function hideMini() {
+	clearTimeout(miniHideTimer);
+	miniVisibilityVersion++;
+	miniEngaged = false;
+	if (!mini || mini.isDestroyed()) return;
+	mini.hiddenAt = Date.now();
+	mini.hide();
+	mini.webContents.send("mini:reset");
+}
+
+function setMiniHover(inside) {
+	clearTimeout(miniHideTimer);
+	if (!inside) {
+		// Leave enough time to cross the transparent gap from Finn to the controls.
+		miniHideTimer = setTimeout(() => {
+			if (!miniEngaged) hideMini();
+		}, 400);
+	}
 }
 
 async function positionMini() {
@@ -376,6 +397,16 @@ async function positionMini() {
 			if (!root) return null;
 			root.dataset.placement = ${JSON.stringify(placement)};
 			root.style.setProperty('--mini-content-height', '${contentHeight}px');
+			root.style.setProperty('--mini-anchor-offset', '0px');
+			const head = root.querySelector('.finn-mini-head').getBoundingClientRect();
+			const anchor = ${JSON.stringify(anchor)};
+			const area = ${JSON.stringify(workArea)};
+			const width = ${width};
+			const left = anchor ? Math.min(Math.max(anchor.x + anchor.width / 2 - width / 2, area.x), area.x + area.width - width) : area.x + (area.width - width) / 2;
+			if (anchor && ${Boolean(shaped)}) {
+				const centre = Math.min(Math.max(anchor.x + anchor.width / 2 - left, head.width / 2 + 3), width - head.width / 2 - 3);
+				root.style.setProperty('--mini-anchor-offset', (centre - head.x - head.width / 2) + 'px');
+			}
 			const content = root.querySelector('.finn-mini-content')?.getBoundingClientRect();
 			const slot = root.querySelector('.finn-mini-pet-slot').getBoundingClientRect();
 			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y,
@@ -410,9 +441,28 @@ async function positionMini() {
 	}
 }
 
+async function showMiniOnHover() {
+	setMiniHover(true);
+	if (!petOpen() || !pet.isVisible() || flying || mainOpen() || mini?.isVisible()) return;
+	const version = ++miniVisibilityVersion;
+	await positionMini();
+	if (
+		version === miniVisibilityVersion &&
+		!quitting &&
+		petOpen() &&
+		pet.isVisible() &&
+		!mainOpen() &&
+		mini &&
+		!mini.isDestroyed()
+	)
+		mini.showInactive();
+}
+
 function toggleMini() {
+	// A hover preview becomes an active chat on click without closing first.
+	if (mini.isVisible() && !mini.isFocused()) return mini.show();
 	// ponytail: a click on Finn first blurs (and hides) Mini; a hide this recent means "close".
-	if (mini.isVisible() || Date.now() - (mini.hiddenAt ?? 0) < 300) return mini.hide();
+	if (mini.isVisible() || Date.now() - (mini.hiddenAt ?? 0) < 300) return hideMini();
 	void positionMini().then(() => {
 		if (!quitting && mini && !mini.isDestroyed()) mini.show();
 	});
@@ -517,7 +567,17 @@ ipcMain.handle("speech:transcribe", async (event, wav) => {
 ipcMain.on("speech:cancel", (event) => speech.cancel(event.sender.id));
 
 ipcMain.on("mini:toggle", () => toggleMini());
-ipcMain.on("mini:hide", () => mini?.hide());
+ipcMain.on("mini:show", (event) => {
+	if (trustedWindow(event, pet, "/pet")) void showMiniOnHover().catch(reportOpenError);
+});
+ipcMain.on("mini:hover", (event, inside) => {
+	if (trustedWindow(event, pet, "/pet") || trustedWindow(event, mini, "/mini"))
+		setMiniHover(inside === true);
+});
+ipcMain.on("mini:engaged", (event, engaged) => {
+	if (trustedWindow(event, mini, "/mini")) miniEngaged = engaged === true;
+});
+ipcMain.on("mini:hide", hideMini);
 ipcMain.on("main:finn-dock", (event, active) => {
 	if (!trustedWindow(event, mainWindow)) return;
 	mainWindow.finnDock = active === true;
@@ -605,6 +665,7 @@ app.whenReady().then(async () => {
 });
 app.on("before-quit", () => {
 	quitting = true;
+	clearTimeout(miniHideTimer);
 	saveSettings();
 	cancelJump();
 });

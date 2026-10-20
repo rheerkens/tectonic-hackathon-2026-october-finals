@@ -1222,6 +1222,9 @@ body {
 	gap: 10px;
 	align-self: center;
 }
+.finn-mini-window .finn-mini-head {
+	transform: translateX(var(--mini-anchor-offset, 0px));
+}
 /* Matches the desktop pet window: 96 × 104 at 100%, scaled by Finn's size setting. */
 .finn-mini-pet-slot {
 	width: calc(96px * var(--finn-scale, 1));
@@ -1322,7 +1325,7 @@ body {
 	position: relative;
 	display: block;
 	width: 100%;
-	padding: 12px 24px;
+	padding: 12px 52px 12px 24px;
 	border: 0;
 	border-radius: 26px;
 	background: var(--finn-row);
@@ -1333,6 +1336,28 @@ body {
 .finn-rows > li,
 .finn-row strong span {
 	min-width: 0;
+}
+.finn-rows > li {
+	position: relative;
+}
+.finn-row-dismiss {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	display: grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--finn-muted);
+}
+.finn-row-dismiss:hover {
+	background: #e4e7ec;
+	color: var(--finn-ink);
 }
 .finn-row:hover {
 	background: #fff;
@@ -1359,7 +1384,7 @@ body {
 .finn-mini-unread {
 	position: absolute;
 	top: 14px;
-	right: 14px;
+	right: 48px;
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;

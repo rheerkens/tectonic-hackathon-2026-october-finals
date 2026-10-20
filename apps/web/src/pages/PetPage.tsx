@@ -46,6 +46,10 @@ export function PetPage() {
 			className={pose === "crouch" ? "pet crouch" : "pet"}
 			style={{ "--finn-scale": scale / 100 } as CSSProperties}
 			aria-label="Open mini chat"
+			onPointerEnter={(event) => {
+				if (event.pointerType === "mouse" && !event.buttons) window.desktop?.showMini?.();
+			}}
+			onPointerLeave={() => window.desktop?.setMiniHover?.(false)}
 			onPointerDown={(event) => {
 				if (!event.isPrimary || event.button !== 0) return;
 				event.currentTarget.setPointerCapture(event.pointerId);

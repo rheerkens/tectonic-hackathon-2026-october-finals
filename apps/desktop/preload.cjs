@@ -2,6 +2,14 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("desktop", {
+	showMini: () => ipcRenderer.send("mini:show"),
+	setMiniHover: (inside) => ipcRenderer.send("mini:hover", inside === true),
+	setMiniEngaged: (engaged) => ipcRenderer.send("mini:engaged", engaged === true),
+	onMiniReset: (listener) => {
+		const handler = () => listener();
+		ipcRenderer.on("mini:reset", handler);
+		return () => ipcRenderer.removeListener("mini:reset", handler);
+	},
 	toggleMini: () => ipcRenderer.send("mini:toggle"),
 	hideMini: () => ipcRenderer.send("mini:hide"),
 	openMain: (route) => ipcRenderer.send("main:open", String(route)),

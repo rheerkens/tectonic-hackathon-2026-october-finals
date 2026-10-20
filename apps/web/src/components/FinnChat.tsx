@@ -332,6 +332,21 @@ export function FinnChat({
 	const visibleKey = !open ? null : shownView === "new" ? NEW : (chat?.id ?? null);
 	const showRows = shownView === "launcher" && rowsOpen && finn.conversations.length > 0;
 	const turns = chat?.turns ?? [];
+	const engaged =
+		Boolean(chat || (visibleKey && finn.drafts[visibleKey]?.trim())) ||
+		(voice.status !== "idle" && voice.status !== "error");
+	useEffect(() => {
+		if (!inApp) window.desktop?.setMiniEngaged?.(engaged);
+	}, [engaged, inApp]);
+	useEffect(() => {
+		const reset = () => {
+			setView("launcher");
+			setRowsOpen(false);
+			setChatId(null);
+		};
+		if (!open) reset();
+		return window.desktop?.onMiniReset?.(reset);
+	}, [open]);
 
 	useEffect(() => {
 		const focus = () => setFocused(true);
@@ -420,6 +435,8 @@ export function FinnChat({
 			className={`finn-mini ${className}`}
 			style={{ "--finn-scale": scale / 100 } as CSSProperties}
 			aria-label="Chat with Finn"
+			onPointerEnter={() => !inApp && window.desktop?.setMiniHover?.(true)}
+			onPointerLeave={() => !inApp && window.desktop?.setMiniHover?.(false)}
 		>
 			<div className="finn-mini-head">
 				<div className="finn-mini-pet-slot">{pet}</div>
@@ -462,6 +479,15 @@ export function FinnChat({
 										{conversation.unread && (
 											<span className="finn-mini-unread" aria-label="Unread answer" />
 										)}
+									</button>
+									<button
+										type="button"
+										className="finn-row-dismiss"
+										aria-label={`Hide conversation: ${conversation.title}`}
+										title="Hide from notifications"
+										onClick={() => finn.hideConversation(conversation.id)}
+									>
+										<Icon name="x" size={15} />
 									</button>
 								</li>
 							))}

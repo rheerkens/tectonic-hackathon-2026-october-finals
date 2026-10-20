@@ -14,6 +14,14 @@ const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matche
 /** Finn inside SDtrust: fixed bottom right, opening the same compact chat as the desktop mini. */
 export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const [open, setOpen] = useState(false);
+	const openedOnHover = useRef(false);
+	const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	useEffect(
+		() => () => {
+			if (hideTimer.current) clearTimeout(hideTimer.current);
+		},
+		[],
+	);
 	const [bubble, setBubble] = useState<FinnHint | null>(null);
 	const [hintMood, setHintMood] = useState<PetAnimation | null>(null);
 	const latestHint = useRef(hint);
@@ -78,7 +86,24 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const shown: PetAnimation =
 		phase === "entering" ? "running-left" : phase ? "waving" : (hintMood ?? mood);
 	return (
-		<div className="finn-dock">
+		<div
+			className="finn-dock"
+			onPointerEnter={() => {
+				if (hideTimer.current) clearTimeout(hideTimer.current);
+			}}
+			onPointerLeave={() => {
+				hideTimer.current = setTimeout(() => {
+					if (openedOnHover.current) {
+						setOpen(false);
+						openedOnHover.current = false;
+					}
+				}, 400);
+			}}
+			onPointerDownCapture={(event) => {
+				if (event.target instanceof Element && !event.target.closest(".finn-dock-pet"))
+					openedOnHover.current = false;
+			}}
+		>
 			<div aria-live="polite">
 				{bubble && !open && (
 					<button
@@ -108,7 +133,15 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 							className={phase ? `finn-dock-pet ${phase}` : "finn-dock-pet"}
 							aria-label={open ? "Close chat with Finn" : "Ask Finn"}
 							aria-expanded={open}
-							onClick={() => setOpen(!open)}
+							onPointerEnter={(event) => {
+								if (event.pointerType !== "mouse" || event.buttons || phase || open) return;
+								openedOnHover.current = true;
+								setOpen(true);
+							}}
+							onClick={() => {
+								if (!open || !openedOnHover.current) setOpen(!open);
+								openedOnHover.current = false;
+							}}
 							onAnimationEnd={(event) => {
 								if (event.target !== event.currentTarget) return;
 								if (phase === "entering") setPhase("waving");

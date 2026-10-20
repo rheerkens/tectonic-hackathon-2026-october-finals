@@ -57,8 +57,8 @@ function announce(mood: PetAnimation) {
 	sender.close();
 }
 
-// Greetings and celebrations play for a moment, then Finn rests.
-const brief: Partial<Record<PetAnimation, number>> = { waving: 1400, jumping: 1680 };
+// Greetings, celebrations and disappointment play briefly, then Finn rests.
+const brief: Partial<Record<PetAnimation, number>> = { waving: 1400, jumping: 1680, failed: 2200 };
 
 export function usePetMood() {
 	const [mood, setMood] = useState<PetAnimation>("waving");

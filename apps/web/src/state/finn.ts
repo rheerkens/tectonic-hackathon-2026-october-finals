@@ -25,16 +25,24 @@ type Session = {
 	conversations: FinnConversation[];
 	activeId: string | null;
 	readIds: string[];
+	hiddenIds: string[];
 	drafts: Record<string, Draft>;
 };
 type Message =
 	| { kind: "turn"; conversation: Omit<FinnConversation, "turns">; turn: FinnTurn }
 	| { kind: "select"; id: string | null }
 	| { kind: "read"; ids: string[] }
+	| { kind: "hide"; id: string }
 	| { kind: "draft"; key: string; draft: Draft }
 	| { kind: "snapshot"; session: Session };
 const idle: FinnState = { status: "idle", question: "", stepsShown: 0, result: null, message: "" };
-let session: Session = { conversations: [], activeId: null, readIds: [], drafts: {} };
+let session: Session = {
+	conversations: [],
+	activeId: null,
+	readIds: [],
+	hiddenIds: [],
+	drafts: {},
+};
 let channel: BroadcastChannel | null = null;
 const listeners = new Set<() => void>();
 const writer = crypto.randomUUID();
@@ -50,6 +58,9 @@ function notify() {
 }
 function apply(message: Message) {
 	if (message.kind === "select") session = { ...session, activeId: message.id };
+	if (message.kind === "hide") {
+		session = { ...session, hiddenIds: [...new Set([...session.hiddenIds, message.id])] };
+	}
 	if (message.kind === "read") {
 		session = { ...session, readIds: [...new Set([...session.readIds, ...message.ids])] };
 	}
@@ -87,6 +98,7 @@ function apply(message: Message) {
 			...session,
 			activeId: session.activeId ?? message.session.activeId,
 			readIds: [...new Set([...session.readIds, ...message.session.readIds])],
+			hiddenIds: [...new Set([...session.hiddenIds, ...(message.session.hiddenIds ?? [])])],
 			drafts: Object.fromEntries(
 				Object.entries({ ...message.session.drafts, ...session.drafts }).map(([key, draft]) => {
 					const theirs = message.session.drafts?.[key];
@@ -226,12 +238,18 @@ export function useFinn(followSelection = false) {
 	const followed =
 		!followSelection && request ? findTurn(request.conversationId, request.turnId) : undefined;
 	const selected = followed ?? latest(active) ?? idle;
-	const pending = current.conversations.flatMap((conversation) => conversation.turns).filter(busy);
-	const activity = pending.at(-1) ?? selected;
-	const conversations = current.conversations.map((conversation) => ({
-		...conversation,
-		unread: conversation.turns.some((turn) => !busy(turn) && !current.readIds.includes(turn.id)),
-	}));
+	const pending = current.conversations
+		.filter((conversation) => !current.hiddenIds.includes(conversation.id))
+		.flatMap((conversation) => conversation.turns)
+		.filter(busy);
+	const activity =
+		pending.at(-1) ?? (active && !current.hiddenIds.includes(active.id) ? selected : idle);
+	const conversations = current.conversations
+		.filter((conversation) => !current.hiddenIds.includes(conversation.id))
+		.map((conversation) => ({
+			...conversation,
+			unread: conversation.turns.some((turn) => !busy(turn) && !current.readIds.includes(turn.id)),
+		}));
 	return {
 		...selected,
 		conversations,
@@ -247,6 +265,7 @@ export function useFinn(followSelection = false) {
 		selectConversation,
 		submitQuestion: startQuestion,
 		markRead,
+		hideConversation: (id: string) => publish({ kind: "hide", id }),
 		newChat: () => selectConversation(null),
 		reset: () => selectConversation(null),
 		ask: async (question: string) => {
