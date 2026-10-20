@@ -1,9 +1,9 @@
 import { ToastProvider } from "@day-one/ui/toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, useLocation } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { useSession } from "./auth/context";
-import { resetFinn } from "./state/finn";
+import { claimFinn } from "./state/finn";
 import { RealtimeProvider } from "./state/realtime";
 export function App() {
 	const session = useSession();
@@ -20,10 +20,8 @@ export function App() {
 	);
 	// Finn's chats are shared across windows; a different account must not inherit them.
 	const userId = session.user?.id;
-	const previousUser = useRef(userId);
 	useEffect(() => {
-		if (previousUser.current && previousUser.current !== userId) resetFinn();
-		previousUser.current = userId;
+		if (userId) claimFinn(userId);
 	}, [userId]);
 	const path = useLocation({ select: (location) => location.pathname });
 	useEffect(() => () => queries.clear(), [queries]);

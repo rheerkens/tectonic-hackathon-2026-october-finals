@@ -733,7 +733,9 @@ app.whenReady().then(async () => {
 	// Microphone only, for Finn's voice input on the app's own pages; other permissions as before.
 	session.defaultSession.setPermissionRequestHandler((contents, permission, grant, details) => {
 		const own = Boolean(appUrl && details.requestingUrl?.startsWith(`${appUrl}/`));
-		if (permission !== "media") return grant(own);
+		// Copying text and fullscreen are all the pages use besides the microphone.
+		if (permission !== "media")
+			return grant(own && ["clipboard-sanitized-write", "fullscreen"].includes(permission));
 		const audioOnly =
 			details.mediaTypes?.length && details.mediaTypes.every((type) => type === "audio");
 		grant(Boolean(own && audioOnly));
