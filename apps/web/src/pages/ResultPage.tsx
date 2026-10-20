@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { FinnDock, type FinnHint } from "../components/FinnDock";
-import { FinnResultContent } from "../components/FinnResultContent";
+import { FinnResultContent, month } from "../components/FinnResultContent";
 import { useFinnResult } from "../state/finn";
 import type { FinnResult } from "../state/finn-scenarios";
 import { useStudioState } from "../state/StudioContext";
@@ -50,10 +50,7 @@ export function ResultPage({ resultId }: { resultId: string }) {
 							<h1>{result.question}</h1>
 							<p>
 								{result.context.country === "BE" ? "Belgium" : "Netherlands"} ·{" "}
-								{result.context.client ?? "All clients"} ·{" "}
-								{new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(
-									new Date(`${result.context.period}-01T12:00:00`),
-								)}
+								{result.context.client ?? "All clients"} · {month(result.context.period)}
 							</p>
 						</header>
 						<FinnResultContent result={result} />

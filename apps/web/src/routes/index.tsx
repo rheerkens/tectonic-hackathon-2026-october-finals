@@ -8,7 +8,7 @@ function WorkspaceHome() {
 	if (workspace)
 		return <Navigate to="/w/$workspaceId" params={{ workspaceId: workspace.id }} replace />;
 	return (
-		<main className="loading">
+		<main className="screen-message">
 			<h1>{listing.isPending ? "Loading workspaces…" : "No workspace available"}</h1>
 			{listing.error && <p role="alert">Could not load your workspaces.</p>}
 			<Button onClick={() => void listing.refetch()}>Retry loading</Button>

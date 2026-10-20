@@ -20,7 +20,8 @@ function Tick({ tone }: { tone: Tone }) {
 	);
 }
 
-const month = (period: string) =>
+/** A result period such as `2026-10` as "October 2026". */
+export const month = (period: string) =>
 	new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(
 		new Date(`${period}-01T12:00:00`),
 	);

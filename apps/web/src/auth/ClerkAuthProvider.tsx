@@ -17,7 +17,7 @@ function Session({ children }: { children: ReactNode }) {
 			setExpired(false);
 		}
 	}, [drafts, user?.id]);
-	if (!isLoaded) return <p className="loading">Loading your session…</p>;
+	if (!isLoaded) return <p className="screen-message">Loading your session…</p>;
 	if (!user)
 		return (
 			<main className="sign-in">

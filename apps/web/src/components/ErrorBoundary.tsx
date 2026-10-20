@@ -8,7 +8,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, { failed: 
 	render() {
 		if (this.state.failed)
 			return (
-				<main className="loading" role="alert">
+				<main className="screen-message" role="alert">
 					<h1>This page could not continue.</h1>
 					<p className="muted">Reload to recover. Unsent text will be lost.</p>
 					<Button type="button" variant="primary" onClick={() => window.location.reload()}>

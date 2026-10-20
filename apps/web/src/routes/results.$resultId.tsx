@@ -14,7 +14,7 @@ function ResultRedirect() {
 			/>
 		);
 	return (
-		<main className="loading">
+		<main className="screen-message">
 			<h1>{listing.isPending ? "Loading workspace…" : "No workspace available"}</h1>
 		</main>
 	);

@@ -5,13 +5,13 @@ import { App } from "../App";
 export const Route = createRootRoute({
 	component: App,
 	notFoundComponent: () => (
-		<main className="loading">
+		<main className="screen-message">
 			<h1>Page not found</h1>
 			<Link to="/">Choose a workspace</Link>
 		</main>
 	),
 	errorComponent: () => (
-		<main className="loading" role="alert">
+		<main className="screen-message" role="alert">
 			<h1>This page could not continue.</h1>
 			<Button type="button" onClick={() => window.location.reload()}>
 				Reload

@@ -100,7 +100,7 @@ a {
 }
 
 /* Standalone states: loading, not found and crash recovery. */
-.loading {
+.screen-message {
 	min-height: 100dvh;
 	display: grid;
 	place-content: center;
@@ -110,7 +110,7 @@ a {
 	max-width: 520px;
 	margin: auto;
 }
-.loading .ui-button {
+.screen-message .ui-button {
 	min-width: 160px;
 }
 
@@ -204,8 +204,6 @@ a {
 }
 .unavailable {
 	padding: 32px 0;
-}
-.unavailable {
 	display: grid;
 	gap: 8px;
 	justify-items: start;

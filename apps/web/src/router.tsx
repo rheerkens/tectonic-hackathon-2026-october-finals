@@ -6,7 +6,7 @@ export const router = createRouter({
 	defaultPreload: "intent",
 	scrollRestoration: true,
 	defaultPendingComponent: () => (
-		<p className="loading" role="status">
+		<p className="screen-message" role="status">
 			Loading page…
 		</p>
 	),
