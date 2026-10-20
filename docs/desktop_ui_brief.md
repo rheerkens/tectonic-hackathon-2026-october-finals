@@ -38,7 +38,7 @@ De oudere `window.finnDesktop` bridge is niet gebruikt.
 Bun 1.4.2 wordt lokaal uitgevoerd via `npm exec --yes --package=bun@1.4.2`; de globale installatie en lockfile zijn niet gewijzigd.
 Typecontrole en Vite build slagen met `AUTH_MODE=dev`.
 De gerichte formatteringscontrole van de eigen bestanden slaagt.
-De volledige check op de geïntegreerde basis geeft typecheck en build PASS en lint FAIL. De vastgelegde baseline telt 202 formatteringsmeldingen, waaronder bestaande CRLF buiten de UI slice. Er is geen brede formatteringsronde gedaan.
+De volledige check op de geïntegreerde basis geeft typecheck en build PASS en lint FAIL. De oorspronkelijke baseline telde 202 formatteringsmeldingen. De laatste volledige controle op `08a6477` telt 199 meldingen, waaronder bestaande CRLF buiten de UI slice. Er is geen brede formatteringsronde gedaan.
 Er zijn volgens de actuele projectafspraak geen unit of e2e tests geschreven of uitgevoerd.
 
 Handmatige browsercontrole: D1 oktober toont 92 procent en 22 oktober, de novembervervolgvraag toont 15 procent en wachten op Roy, D2 toont de ziekmeldingbronverwijzingen S6 en S7, een onbekende vraag toont een nette melding.
@@ -46,7 +46,23 @@ De miniwindow en fixture-resultaten openen zonder login. Bronankers bestaan. De 
 De bestaande chatdraft blijft behouden bij heen en weer navigeren via het dashboard.
 
 De eerste native inspectie is apart bewaard in `.local/desktop-native/dashboard-inspection.json`. De echte Electron 44.5.1 startte via de normale appingang, met uitsluitend de gebruikersdatamap vooraf geïsoleerd. Light en dark, behoud na herladen, echte SQLite notitieopslag, chatdraftnavigatie en de aparte pet en mini routes zijn waargenomen. De petachtergrond was transparant en de sprite geladen.
-Die inspectie vond plaats vóór de nieuwe resultaat en mini slice. De oude native instantie is daarna via app.quit afgesloten. De gecombineerde eindcontrole volgt na de native lifecycle commit.
+Die inspectie vond plaats vóór de nieuwe resultaat en mini slice. De oude native instantie is daarna via app.quit afgesloten.
+
+## Gecombineerde native controle
+
+De eigen resultaatimplementatie staat in `08a6477`. Uitsluitend native commit `210ad6b` is daarna overgenomen als `dd04673`, zonder oude companiongeschiedenis. Die commit raakt `apps/desktop/main.cjs`, `apps/desktop/preload.cjs` en de brief van de native eigenaar.
+
+Electron 44.5.1 is gestart via de normale `apps/desktop` ingang met een echte lokale Bun API en een vers, geïsoleerd profiel. De ontwikkelinspectie configureert alleen het profiel en debuggerpoorten. De normale lifecycle en preload voeren de acties uit.
+
+Bewijs staat afzonderlijk in `.local/desktop-combined/inspection.json` en de bijbehorende screenshots. PID 10012 is de oorspronkelijke Electron instantie, PID 50464 de bijbehorende API. De start toont alleen Finn. De mini opent zonder aanmelding. D1 toont 22 oktober, 92 procent trust en bron S4. De novembervraag toont 15 procent en gesimuleerd wachten op Roy. D2 toont de 24 uur regel met werkende bronankers S6 en S7.
+
+De knop in de mini opent via `window.desktop.openResult` het echte hoofdvenster. Een volgende vraag hergebruikt dat venster. Na sluiten opent de mini opnieuw de resultaatpagina zonder aanmelding. Licht en donker synchroniseren tussen de vensters en blijven bij herladen en heropenen behouden. Het menu kan Finn verbergen; sluiten van het hoofdvenster herstelt Finn. De volledige appherstart wordt nog afzonderlijk gecontroleerd. De huidige opslag gebruikt de lokale origin; een nieuwe API poort kan die voorkeur verliezen.
+
+## Sleepregressie
+
+De gemelde groei is in deze Electron instantie gereproduceerd op Windows met schaalfactor 1,25. Tien pointermoves met omkering vergroten de native bounds van 267 bij 283 naar 277 bij 295. De vensterinhoud groeit mee. Zoom blijft 1, het bronbeeld 192 bij 208. Er is geen dragstart of tekstselectie waargenomen. De animatie wisselt normaal tussen links en rechts. Dit bewijs staat in `.local/desktop-combined/drag-before-fix.json`.
+
+De native eigenaar verzorgt een gerichte kandidaat: bij elke verplaatsing expliciet de vaste maat 96 bij 104 meegeven aan `setBounds`. Een tijdelijke runtimeprobe van die kandidaat houdt de contentmaat exact 96 bij 104 tijdens tien pointermoves, vasthouden, loslaten en twintig directe verplaatsingen. De buitenmaat is door Windows afronding 96 of 97 bij 105, zonder cumulatieve groei. Bewijs staat in `drag-candidate.json` en `direct-bounds-candidate.json`. Er is geen CSS of assetcompensatie aangebracht. De definitieve broncommit en herstartcontrole volgen nog.
 
 ## Grenzen
 
