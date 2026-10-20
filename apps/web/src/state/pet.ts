@@ -16,22 +16,6 @@ export type PetAnimation =
 // Every window of the desktop app shares one origin, so chats tell the pet their mood without IPC.
 const channel = "day-one:pet";
 
-export function petMood(chat: { busy: boolean; error: string; draft: string }): PetAnimation {
-	if (chat.busy) return "running";
-	if (chat.error) return "failed";
-	return chat.draft.trim() ? "waiting" : "idle";
-}
-
-/** Announces chat mood changes. A send that settles without an error makes Finn jump. */
-export function useAnnouncePetMood(chat: { busy: boolean; error: string; draft: string }) {
-	const mood = petMood(chat);
-	const previous = useRef<PetAnimation>("idle");
-	useEffect(() => {
-		announce(previous.current === "running" && mood === "idle" ? "jumping" : mood);
-		previous.current = mood;
-	}, [mood]);
-	useEffect(() => () => announce("idle"), []);
-}
 const finnMoods: Record<FinnStatus, PetAnimation> = {
 	idle: "idle",
 	thinking: "review",

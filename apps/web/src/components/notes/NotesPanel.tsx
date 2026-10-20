@@ -5,6 +5,7 @@ import { Button } from "@day-one/ui/button";
 import { TextareaField } from "@day-one/ui/field";
 import { EmptyState } from "@day-one/ui/states";
 import { useState } from "react";
+import { Icon } from "../Icon";
 export function NotesPanel({
 	notes,
 	canWrite,
@@ -49,7 +50,7 @@ export function NotesPanel({
 				<p role="alert" className="error">
 					<span>{error}</span>
 					<Button type="button" variant="ghost" aria-label="Dismiss note error" onClick={onDismiss}>
-						×
+						<Icon name="x" size={16} />
 					</Button>
 				</p>
 			)}
@@ -98,7 +99,7 @@ export function NotesPanel({
 								<span>{name.split(" ")[0]}</span>
 								<span aria-hidden="true">·</span>
 								<time dateTime={note.createdAt}>
-									{new Date(note.createdAt).toLocaleDateString(undefined, {
+									{new Date(note.createdAt).toLocaleDateString("en-GB", {
 										month: "short",
 										day: "numeric",
 									})}

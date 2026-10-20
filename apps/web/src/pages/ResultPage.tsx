@@ -3,6 +3,7 @@ import { FinnDock, type FinnHint } from "../components/FinnDock";
 import { FinnResultContent } from "../components/FinnResultContent";
 import { useFinnResult } from "../state/finn";
 import type { FinnResult } from "../state/finn-scenarios";
+import { useStudioState } from "../state/StudioContext";
 
 // Same 80% line the answer card uses to call an answer confirmed.
 function resultHint(result: FinnResult): FinnHint {
@@ -33,13 +34,19 @@ function resultHint(result: FinnResult): FinnHint {
 }
 export function ResultPage({ resultId }: { resultId: string }) {
 	const result = useFinnResult(resultId);
+	const { scope } = useStudioState();
+	const overview = (
+		<Link to="/w/$workspaceId" params={{ workspaceId: scope.workspaceId }}>
+			Back to overview
+		</Link>
+	);
 	return (
 		<>
 			<div className="result-page">
 				{result ? (
 					<>
 						<header className="desktop-page-heading">
-							<Link to="/">Back to overview</Link>
+							{overview}
 							<h1>{result.question}</h1>
 							<p>
 								{result.context.country === "BE" ? "Belgium" : "Netherlands"} ·{" "}
@@ -55,7 +62,7 @@ export function ResultPage({ resultId }: { resultId: string }) {
 					<section className="unavailable">
 						<h1>Result not found</h1>
 						<p>This demo result is not available.</p>
-						<Link to="/">Back to overview</Link>
+						{overview}
 					</section>
 				)}
 			</div>

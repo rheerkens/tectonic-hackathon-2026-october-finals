@@ -15,13 +15,9 @@ import { Route as PetRouteImport } from './routes/pet'
 import { Route as ResultsResultIdRouteImport } from './routes/results.$resultId'
 import { Route as WWorkspaceIdRouteImport } from './routes/w.$workspaceId'
 import { Route as WWorkspaceIdIndexRouteImport } from './routes/w.$workspaceId.index'
-import { Route as WWorkspaceIdChatRouteImport } from './routes/w.$workspaceId.chat'
 import { Route as WWorkspaceIdExpertsRouteImport } from './routes/w.$workspaceId.experts'
 import { Route as WWorkspaceIdNotesRouteImport } from './routes/w.$workspaceId.notes'
-import { Route as WWorkspaceIdReviewRouteImport } from './routes/w.$workspaceId.review'
 import { Route as WWorkspaceIdSettingsRouteImport } from './routes/w.$workspaceId.settings'
-import { Route as WWorkspaceIdChatIndexRouteImport } from './routes/w.$workspaceId.chat.index'
-import { Route as WWorkspaceIdChatConversationIdRouteImport } from './routes/w.$workspaceId.chat.$conversationId'
 import { Route as WWorkspaceIdResultsResultIdRouteImport } from './routes/w.$workspaceId.results.$resultId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -54,11 +50,6 @@ const WWorkspaceIdIndexRoute = WWorkspaceIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => WWorkspaceIdRoute,
 } as any)
-const WWorkspaceIdChatRoute = WWorkspaceIdChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
-  getParentRoute: () => WWorkspaceIdRoute,
-} as any)
 const WWorkspaceIdExpertsRoute = WWorkspaceIdExpertsRouteImport.update({
   id: '/experts',
   path: '/experts',
@@ -69,27 +60,11 @@ const WWorkspaceIdNotesRoute = WWorkspaceIdNotesRouteImport.update({
   path: '/notes',
   getParentRoute: () => WWorkspaceIdRoute,
 } as any)
-const WWorkspaceIdReviewRoute = WWorkspaceIdReviewRouteImport.update({
-  id: '/review',
-  path: '/review',
-  getParentRoute: () => WWorkspaceIdRoute,
-} as any)
 const WWorkspaceIdSettingsRoute = WWorkspaceIdSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => WWorkspaceIdRoute,
 } as any)
-const WWorkspaceIdChatIndexRoute = WWorkspaceIdChatIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => WWorkspaceIdChatRoute,
-} as any)
-const WWorkspaceIdChatConversationIdRoute =
-  WWorkspaceIdChatConversationIdRouteImport.update({
-    id: '/$conversationId',
-    path: '/$conversationId',
-    getParentRoute: () => WWorkspaceIdChatRoute,
-  } as any)
 const WWorkspaceIdResultsResultIdRoute =
   WWorkspaceIdResultsResultIdRouteImport.update({
     id: '/results/$resultId',
@@ -103,15 +78,11 @@ export interface FileRoutesByFullPath {
   '/pet': typeof PetRoute
   '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
-  '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
   '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
-  '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
   '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
   '/w/$workspaceId/': typeof WWorkspaceIdIndexRoute
-  '/w/$workspaceId/chat/$conversationId': typeof WWorkspaceIdChatConversationIdRoute
   '/w/$workspaceId/results/$resultId': typeof WWorkspaceIdResultsResultIdRoute
-  '/w/$workspaceId/chat/': typeof WWorkspaceIdChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -120,12 +91,9 @@ export interface FileRoutesByTo {
   '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
-  '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
   '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
   '/w/$workspaceId': typeof WWorkspaceIdIndexRoute
-  '/w/$workspaceId/chat/$conversationId': typeof WWorkspaceIdChatConversationIdRoute
   '/w/$workspaceId/results/$resultId': typeof WWorkspaceIdResultsResultIdRoute
-  '/w/$workspaceId/chat': typeof WWorkspaceIdChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,15 +102,11 @@ export interface FileRoutesById {
   '/pet': typeof PetRoute
   '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
-  '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
   '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
-  '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
   '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
   '/w/$workspaceId/': typeof WWorkspaceIdIndexRoute
-  '/w/$workspaceId/chat/$conversationId': typeof WWorkspaceIdChatConversationIdRoute
   '/w/$workspaceId/results/$resultId': typeof WWorkspaceIdResultsResultIdRoute
-  '/w/$workspaceId/chat/': typeof WWorkspaceIdChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -152,15 +116,11 @@ export interface FileRouteTypes {
     | '/pet'
     | '/results/$resultId'
     | '/w/$workspaceId'
-    | '/w/$workspaceId/chat'
     | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
-    | '/w/$workspaceId/review'
     | '/w/$workspaceId/settings'
     | '/w/$workspaceId/'
-    | '/w/$workspaceId/chat/$conversationId'
     | '/w/$workspaceId/results/$resultId'
-    | '/w/$workspaceId/chat/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -169,12 +129,9 @@ export interface FileRouteTypes {
     | '/results/$resultId'
     | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
-    | '/w/$workspaceId/review'
     | '/w/$workspaceId/settings'
     | '/w/$workspaceId'
-    | '/w/$workspaceId/chat/$conversationId'
     | '/w/$workspaceId/results/$resultId'
-    | '/w/$workspaceId/chat'
   id:
     | '__root__'
     | '/'
@@ -182,15 +139,11 @@ export interface FileRouteTypes {
     | '/pet'
     | '/results/$resultId'
     | '/w/$workspaceId'
-    | '/w/$workspaceId/chat'
     | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
-    | '/w/$workspaceId/review'
     | '/w/$workspaceId/settings'
     | '/w/$workspaceId/'
-    | '/w/$workspaceId/chat/$conversationId'
     | '/w/$workspaceId/results/$resultId'
-    | '/w/$workspaceId/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -245,13 +198,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WWorkspaceIdIndexRouteImport
       parentRoute: typeof WWorkspaceIdRoute
     }
-    '/w/$workspaceId/chat': {
-      id: '/w/$workspaceId/chat'
-      path: '/chat'
-      fullPath: '/w/$workspaceId/chat'
-      preLoaderRoute: typeof WWorkspaceIdChatRouteImport
-      parentRoute: typeof WWorkspaceIdRoute
-    }
     '/w/$workspaceId/experts': {
       id: '/w/$workspaceId/experts'
       path: '/experts'
@@ -266,33 +212,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WWorkspaceIdNotesRouteImport
       parentRoute: typeof WWorkspaceIdRoute
     }
-    '/w/$workspaceId/review': {
-      id: '/w/$workspaceId/review'
-      path: '/review'
-      fullPath: '/w/$workspaceId/review'
-      preLoaderRoute: typeof WWorkspaceIdReviewRouteImport
-      parentRoute: typeof WWorkspaceIdRoute
-    }
     '/w/$workspaceId/settings': {
       id: '/w/$workspaceId/settings'
       path: '/settings'
       fullPath: '/w/$workspaceId/settings'
       preLoaderRoute: typeof WWorkspaceIdSettingsRouteImport
       parentRoute: typeof WWorkspaceIdRoute
-    }
-    '/w/$workspaceId/chat/': {
-      id: '/w/$workspaceId/chat/'
-      path: '/'
-      fullPath: '/w/$workspaceId/chat/'
-      preLoaderRoute: typeof WWorkspaceIdChatIndexRouteImport
-      parentRoute: typeof WWorkspaceIdChatRoute
-    }
-    '/w/$workspaceId/chat/$conversationId': {
-      id: '/w/$workspaceId/chat/$conversationId'
-      path: '/$conversationId'
-      fullPath: '/w/$workspaceId/chat/$conversationId'
-      preLoaderRoute: typeof WWorkspaceIdChatConversationIdRouteImport
-      parentRoute: typeof WWorkspaceIdChatRoute
     }
     '/w/$workspaceId/results/$resultId': {
       id: '/w/$workspaceId/results/$resultId'
@@ -304,34 +229,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface WWorkspaceIdChatRouteChildren {
-  WWorkspaceIdChatConversationIdRoute: typeof WWorkspaceIdChatConversationIdRoute
-  WWorkspaceIdChatIndexRoute: typeof WWorkspaceIdChatIndexRoute
-}
-
-const WWorkspaceIdChatRouteChildren: WWorkspaceIdChatRouteChildren = {
-  WWorkspaceIdChatConversationIdRoute: WWorkspaceIdChatConversationIdRoute,
-  WWorkspaceIdChatIndexRoute: WWorkspaceIdChatIndexRoute,
-}
-
-const WWorkspaceIdChatRouteWithChildren =
-  WWorkspaceIdChatRoute._addFileChildren(WWorkspaceIdChatRouteChildren)
-
 interface WWorkspaceIdRouteChildren {
-  WWorkspaceIdChatRoute: typeof WWorkspaceIdChatRouteWithChildren
   WWorkspaceIdExpertsRoute: typeof WWorkspaceIdExpertsRoute
   WWorkspaceIdNotesRoute: typeof WWorkspaceIdNotesRoute
-  WWorkspaceIdReviewRoute: typeof WWorkspaceIdReviewRoute
   WWorkspaceIdSettingsRoute: typeof WWorkspaceIdSettingsRoute
   WWorkspaceIdIndexRoute: typeof WWorkspaceIdIndexRoute
   WWorkspaceIdResultsResultIdRoute: typeof WWorkspaceIdResultsResultIdRoute
 }
 
 const WWorkspaceIdRouteChildren: WWorkspaceIdRouteChildren = {
-  WWorkspaceIdChatRoute: WWorkspaceIdChatRouteWithChildren,
   WWorkspaceIdExpertsRoute: WWorkspaceIdExpertsRoute,
   WWorkspaceIdNotesRoute: WWorkspaceIdNotesRoute,
-  WWorkspaceIdReviewRoute: WWorkspaceIdReviewRoute,
   WWorkspaceIdSettingsRoute: WWorkspaceIdSettingsRoute,
   WWorkspaceIdIndexRoute: WWorkspaceIdIndexRoute,
   WWorkspaceIdResultsResultIdRoute: WWorkspaceIdResultsResultIdRoute,

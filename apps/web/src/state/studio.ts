@@ -13,6 +13,16 @@ export function useWorkspaceDirectory() {
 	const context = { client, userId: user.id };
 	return { session, user, context, listing: useListWorkspaces(context) };
 }
+/** The last-used workspace, or the first one the user belongs to. */
+export function usePreferredWorkspace() {
+	const directory = useWorkspaceDirectory();
+	const workspaces = directory.listing.data ?? [];
+	const lastUsed = directory.session.drafts.workspace(directory.user.id);
+	return {
+		listing: directory.listing,
+		workspace: workspaces.find((item) => item.id === lastUsed) ?? workspaces[0],
+	};
+}
 // The workspace shell resolves membership only. Feature pages compose their own state from `scope`.
 export function useStudio(workspaceId: string) {
 	const { session, user, context, listing } = useWorkspaceDirectory();

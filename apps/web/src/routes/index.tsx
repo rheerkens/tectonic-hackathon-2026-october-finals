@@ -1,14 +1,10 @@
 import { Button } from "@day-one/ui/button";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { useWorkspaceDirectory } from "../state/studio";
+import { usePreferredWorkspace } from "../state/studio";
 
 export const Route = createFileRoute("/")({ component: WorkspaceHome });
 function WorkspaceHome() {
-	const { listing, session } = useWorkspaceDirectory();
-	const workspaces = listing.data ?? [];
-	const workspace =
-		workspaces.find((item) => item.id === session.drafts.workspace(session.user?.id ?? "")) ??
-		workspaces[0];
+	const { listing, workspace } = usePreferredWorkspace();
 	if (workspace)
 		return <Navigate to="/w/$workspaceId" params={{ workspaceId: workspace.id }} replace />;
 	return (

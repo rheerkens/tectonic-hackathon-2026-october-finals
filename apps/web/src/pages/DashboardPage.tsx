@@ -36,8 +36,8 @@ export function DashboardPage() {
 					</h2>
 					<Link
 						className="dashboard-row"
-						to="/results/$resultId"
-						params={{ resultId: "atlas-meal-vouchers-2027" }}
+						to="/w/$workspaceId/results/$resultId"
+						params={{ workspaceId: scope.workspaceId, resultId: "atlas-meal-vouchers-2027" }}
 					>
 						<span className="row-symbol coral">
 							<Icon name="file-text" />
@@ -54,8 +54,8 @@ export function DashboardPage() {
 					</Link>
 					<Link
 						className="dashboard-row"
-						to="/results/$resultId"
-						params={{ resultId: "nl-holiday-pay" }}
+						to="/w/$workspaceId/results/$resultId"
+						params={{ workspaceId: scope.workspaceId, resultId: "nl-holiday-pay" }}
 					>
 						<span className="row-symbol amber">
 							<Icon name="users" />
