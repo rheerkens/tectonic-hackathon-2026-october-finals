@@ -730,7 +730,7 @@ app.whenReady().then(async () => {
 	// Packaged builds carry the icon in the bundle; `electron .` needs it set on the dock.
 	if (!app.isPackaged && process.platform === "darwin")
 		app.dock.setIcon(join(__dirname, "icon.png"));
-	// Microphone only, for Finn's voice input on the app's own pages; other permissions as before.
+	// Only the app's own pages get permissions: the microphone for Finn's voice input, plus a short allowlist.
 	session.defaultSession.setPermissionRequestHandler((contents, permission, grant, details) => {
 		const own = Boolean(appUrl && details.requestingUrl?.startsWith(`${appUrl}/`));
 		// Copying text and fullscreen are all the pages use besides the microphone.
