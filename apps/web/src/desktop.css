@@ -944,6 +944,164 @@ body {
 	padding: 12px;
 	margin: auto;
 }
+.finn-mini-content {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-height: var(--mini-content-height, 440px);
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+.finn-mini-content:empty {
+	display: none;
+}
+.finn-mini-pet-slot {
+	align-self: center;
+	width: 96px;
+	height: 104px;
+	flex: 0 0 104px;
+	pointer-events: none;
+}
+.finn-mini-pet-slot img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+.finn-mini[data-placement="above"] .finn-mini-pet-slot {
+	order: 4;
+}
+.finn-mini[data-placement="below"] .finn-mini-content {
+	order: 4;
+}
+.finn-mini[data-placement="side"] .finn-mini-pet-slot {
+	display: none;
+}
+.finn-mini-toolbar {
+	align-self: center;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	padding: 5px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 28px;
+	box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+}
+.finn-mini-toolbar button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 7px;
+	position: relative;
+	min-width: 40px;
+	min-height: 38px;
+	padding: 7px 11px;
+	border: 0;
+	border-radius: 22px;
+	background: transparent;
+	color: var(--text);
+	font-size: 12px;
+}
+.finn-mini-toolbar button:hover {
+	background: var(--surface-2);
+}
+.finn-mini-toolbar button:last-child svg {
+	transform: rotate(90deg);
+}
+.finn-mini-count {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 17px;
+	height: 17px;
+	padding: 0 4px;
+	border-radius: 10px;
+	background: var(--accent);
+	color: var(--primary-text);
+	font-size: 10px;
+	line-height: 17px;
+	text-align: center;
+}
+.finn-mini-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+.finn-mini-heading h1 {
+	font-size: 13px;
+	letter-spacing: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.finn-mini-heading small {
+	flex-shrink: 0;
+	font-size: 10px;
+	color: var(--muted);
+}
+.finn-mini-conversation {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	padding: 12px 0;
+	border: 0;
+	background: transparent;
+	color: var(--text);
+	text-align: left;
+}
+.finn-mini-conversation + .finn-mini-conversation {
+	border-top: 1px solid var(--border);
+}
+.finn-mini-conversation:hover {
+	color: var(--accent);
+}
+.finn-mini-conversation strong,
+.finn-mini-conversation small {
+	display: block;
+}
+.finn-mini-conversation strong {
+	font-size: 13px;
+	line-height: 1.4;
+}
+.finn-mini-conversation small {
+	margin-top: 4px;
+	color: var(--muted);
+	font-size: 11px;
+}
+.finn-mini-unread {
+	flex: 0 0 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--accent);
+}
+.finn-mini-new-label {
+	align-self: flex-start;
+	padding: 5px 10px;
+	border-radius: 12px;
+	background: var(--surface);
+	color: var(--muted);
+	font-size: 11px;
+}
+.finn-mini-transcript {
+	max-height: 310px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+.finn-mini-question {
+	margin-bottom: 12px;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--muted);
+}
+.finn-mini-turn + .finn-mini-turn {
+	margin-top: 18px;
+	padding-top: 18px;
+	border-top: 1px solid var(--border);
+}
 .finn-mini-composer,
 .mini-result {
 	border: 1px solid var(--border);

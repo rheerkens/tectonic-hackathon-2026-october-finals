@@ -65,6 +65,7 @@ function saveSettings() {
 let pet;
 let mini;
 let miniHeight = 96;
+let miniLayoutVersion = 0;
 let mainWindow;
 let mainReady = Promise.resolve();
 let appUrl;
@@ -156,10 +157,9 @@ function openMini(url) {
 		skipTaskbar: true,
 		webPreferences: { ...webPreferences, enablePreferredSizeMode: true },
 	});
-	mini.webContents.on("preferred-size-changed", (_event, size) => {
+	mini.webContents.on("preferred-size-changed", () => {
 		if (quitting || mini.isDestroyed()) return;
-		miniHeight = Math.max(96, Math.ceil(size.height));
-		positionMini();
+		void positionMini();
 	});
 	mini.loadURL(`${url}/mini`);
 	mini.on("blur", () => {
@@ -168,30 +168,74 @@ function openMini(url) {
 	});
 }
 
-function positionMini() {
+async function positionMini() {
+	const window = mini;
+	if (!window || window.isDestroyed() || quitting) return;
+	const version = ++miniLayoutVersion;
 	const anchor = petOpen() ? pet.getBounds() : null;
 	const { workArea } = screen.getDisplayMatching(anchor ?? screen.getCursorScreenPoint());
 	const width = Math.min(420, workArea.width);
-	const height = Math.min(miniHeight, workArea.height);
-	const left = anchor ? anchor.x - width - 8 : workArea.x + (workArea.width - width) / 2;
-	const x = anchor && left < workArea.x ? anchor.x + anchor.width + 8 : left;
-	const top = anchor
-		? anchor.y + anchor.height - height
-		: workArea.y + (workArea.height - height) / 3;
-	const y = Math.min(Math.max(top, workArea.y), workArea.y + workArea.height - height);
-	mini.setBounds({
-		x: Math.round(Math.min(Math.max(x, workArea.x), workArea.x + workArea.width - width)),
-		y: Math.round(y),
-		width,
-		height,
-	});
+	// Keep the existing side layout on platforms where this presentation has not been validated.
+	const shaped = anchor && process.platform === "win32";
+	const above = anchor ? anchor.y - workArea.y : 440;
+	const below = anchor ? workArea.y + workArea.height - anchor.y - anchor.height : 440;
+	const placement = !shaped
+		? "side"
+		: above < 190 && below > above
+			? "below"
+			: below < 100
+				? "above"
+				: "around";
+	const contentHeight = Math.max(
+		80,
+		Math.min(440, placement === "below" ? below - 130 : above - (placement === "above" ? 130 : 30)),
+	);
+	try {
+		const layout = await window.webContents.executeJavaScript(`(() => {
+			const root = document.querySelector('.finn-mini');
+			if (!root) return null;
+			root.dataset.placement = ${JSON.stringify(placement)};
+			root.style.setProperty('--mini-content-height', '${contentHeight}px');
+			const content = root.querySelector('.finn-mini-content').getBoundingClientRect();
+			const slot = root.querySelector('.finn-mini-pet-slot').getBoundingClientRect();
+			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y,
+				surfaces: [...root.querySelectorAll('[data-mini-surface]')].map(el => {
+					const r = el.getBoundingClientRect();
+					const inContent = el.closest('.finn-mini-content');
+					const top = inContent ? Math.max(r.top, content.top) : r.top;
+					const bottom = inContent ? Math.min(r.bottom, content.bottom) : r.bottom;
+					return { x: Math.floor(r.x - 3), y: Math.floor(top - 3), width: Math.ceil(r.width + 6), height: Math.ceil(bottom - top + 6) };
+				}).filter(r => r.width > 6 && r.height > 6) };
+		})()`);
+		if (!layout || version !== miniLayoutVersion || window.isDestroyed() || quitting) return;
+		miniHeight = Math.min(layout.height, workArea.height);
+		const x = anchor
+			? anchor.x + anchor.width / 2 - width / 2
+			: workArea.x + (workArea.width - width) / 2;
+		const y = shaped
+			? anchor.y - layout.slotY
+			: anchor
+				? anchor.y + anchor.height - miniHeight
+				: workArea.y + (workArea.height - miniHeight) / 3;
+		window.setBounds({
+			x: Math.round(Math.min(Math.max(x, workArea.x), workArea.x + workArea.width - width)),
+			y: Math.round(Math.min(Math.max(y, workArea.y), workArea.y + workArea.height - miniHeight)),
+			width,
+			height: miniHeight,
+		});
+		if (shaped) window.setShape(layout.surfaces);
+	} catch (error) {
+		if (!window.isDestroyed() && !quitting)
+			console.error("Could not position FINN controls", error);
+	}
 }
 
 function toggleMini() {
 	// ponytail: a click on Finn first blurs (and hides) Mini; a hide this recent means "close".
 	if (mini.isVisible() || Date.now() - (mini.hiddenAt ?? 0) < 300) return mini.hide();
-	positionMini();
-	mini.show();
+	void positionMini().then(() => {
+		if (!quitting && mini && !mini.isDestroyed()) mini.show();
+	});
 }
 
 function addFinnMenu(url) {
@@ -282,6 +326,7 @@ ipcMain.on("pet:move", (event, dx, dy) => {
 	const [x, y] = pet.getPosition();
 	// setPosition reads back a rounded size, which can accumulate at fractional Windows DPI.
 	pet.setBounds({ x: Math.round(x + dx), y: Math.round(y + dy), ...PET_SIZE });
+	if (mini?.isVisible()) void positionMini();
 });
 
 app.whenReady().then(async () => {

@@ -13,7 +13,7 @@ const sourceIcons: Record<FinnSource["kind"], string> = {
 /** Finn on the desktop. Dragging moves the window; a click opens or closes the mini chat. */
 export function PetPage() {
 	const mood = usePetMood();
-	const finn = useFinn();
+	const finn = useFinn(true).activity;
 	useAnnounceFinnMood(finn);
 	// While searching, the sources FINN reads circle Finn's head.
 	const kinds =
