@@ -83,7 +83,7 @@ const settingsPath = () => join(app.getPath("userData"), "desktop.json");
 let settings = { showPet: true, petPosition: null, petScale: 100 };
 function saveSettings() {
 	// While Finn is mid-jump or inside SDtrust, his desktop spot is the one remembered before.
-	if (petOpen() && !flying && !mainOpen()) settings.petPosition = pet.getPosition();
+	if (petOpen() && !flying && pet.isVisible()) settings.petPosition = pet.getPosition();
 	writeFileSync(settingsPath(), JSON.stringify(settings));
 }
 // Keeps the whole pet on the screen it is on.
@@ -204,6 +204,11 @@ async function jumpIn(window) {
 // Closing SDtrust: the desktop Finn takes over at the dock and jumps back to his own spot.
 async function jumpHome(window) {
 	if (!petOpen()) return window.close();
+	// Already back on the desktop because SDtrust was in the background: nothing to jump.
+	if (pet.isVisible() && !flying) {
+		window.returningHome = true;
+		return window.close();
+	}
 	// A close can interrupt the incoming jump; its stale callback must not hide Finn later.
 	const interrupted = flying;
 	cancelJump();
@@ -270,6 +275,27 @@ async function openMain(path) {
 			setTimeout(() => {
 				if (!window.isDestroyed()) window.close();
 			}, 2500);
+		});
+		// While SDtrust is in the background Finn waits on the desktop; he goes back in when it returns.
+		window.on("blur", () => {
+			setTimeout(() => {
+				if (quitting || window.isDestroyed() || window.finnLeaving || !window.finnDock) return;
+				if (BrowserWindow.getFocusedWindow() || flying || !petOpen() || pet.isVisible()) return;
+				window.pendingJump = false;
+				window.finnOut = true;
+				pet.setBounds(homeBounds());
+				pet.showInactive();
+				pet.webContents.send("pet:pose", "waving");
+				setTimeout(() => petOpen() && !flying && pet.webContents.send("pet:pose", null), 1400);
+			}, 100);
+		});
+		window.on("focus", () => {
+			if (!window.finnOut) return;
+			window.finnOut = false;
+			if (!petOpen() || !pet.isVisible() || flying) return;
+			hideMini();
+			saveSettings();
+			pet.hide();
 		});
 		window.on("closed", () => {
 			if (mainWindow === window) mainWindow = null;
@@ -458,7 +484,7 @@ async function positionMini() {
 
 async function showMiniOnHover() {
 	setMiniHover(true);
-	if (!petOpen() || !pet.isVisible() || flying || mainOpen() || mini?.isVisible()) return;
+	if (!petOpen() || !pet.isVisible() || flying || mini?.isVisible()) return;
 	const version = ++miniVisibilityVersion;
 	await positionMini();
 	if (
@@ -466,7 +492,6 @@ async function showMiniOnHover() {
 		!quitting &&
 		petOpen() &&
 		pet.isVisible() &&
-		!mainOpen() &&
 		mini &&
 		!mini.isDestroyed()
 	)
@@ -493,7 +518,9 @@ function teamsHeadsUp() {
 		}).show();
 	setTimeout(() => {
 		if (quitting) return;
-		if (mainOpen()) return mainWindow.webContents.send("finn:heads-up");
+		// Finn answers where he is: inside SDtrust, or on the desktop while SDtrust is in the background.
+		if (mainOpen() && !(petOpen() && pet.isVisible()))
+			return mainWindow.webContents.send("finn:heads-up");
 		if (!mini || mini.isDestroyed() || !petOpen()) return;
 		mini.webContents.send("finn:heads-up");
 		if (!flying) {
@@ -501,7 +528,8 @@ function teamsHeadsUp() {
 			setTimeout(() => petOpen() && !flying && pet.webContents.send("pet:pose", null), 1400);
 		}
 		void positionMini().then(() => {
-			if (!quitting && mini && !mini.isDestroyed() && !mainOpen()) mini.showInactive();
+			if (!quitting && mini && !mini.isDestroyed() && petOpen() && pet.isVisible())
+				mini.showInactive();
 		});
 	}, 1500);
 }
