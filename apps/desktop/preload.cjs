@@ -18,4 +18,15 @@ contextBridge.exposeInMainWorld("desktop", {
 		};
 	},
 	closeMain: () => ipcRenderer.send("main:close"),
+	// Finn's voice input: one 16 kHz mono WAV clip in, its local transcript out.
+	transcribeSpeech: (wav) => ipcRenderer.invoke("speech:transcribe", wav),
+	cancelSpeech: () => ipcRenderer.send("speech:cancel"),
+	// Finn's size in percent; only SDtrust's Settings may change it.
+	getPetScale: () => ipcRenderer.invoke("finn:get-scale"),
+	setPetScale: (scale) => ipcRenderer.invoke("finn:set-scale", Number(scale)),
+	onPetScale: (listener) => {
+		const handler = (_event, scale) => listener(scale);
+		ipcRenderer.on("finn:scale", handler);
+		return () => ipcRenderer.removeListener("finn:scale", handler);
+	},
 });

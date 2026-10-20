@@ -2,6 +2,7 @@ import { type CSSProperties, useCallback, useEffect, useRef, useState } from "re
 import { useFinn } from "../state/finn";
 import type { FinnSource } from "../state/finn-scenarios";
 import { type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
+import { usePetScale } from "../state/pet-scale";
 
 const sourceIcons: Record<FinnSource["kind"], string> = {
 	teams: "💬",
@@ -13,6 +14,7 @@ const sourceIcons: Record<FinnSource["kind"], string> = {
 /** Finn on the desktop. Dragging moves the window; a click opens or closes the mini chat. */
 export function PetPage() {
 	const mood = usePetMood();
+	const scale = usePetScale();
 	const finn = useFinn(true).activity;
 	useAnnounceFinnMood(finn);
 	// While searching, the sources FINN reads circle Finn's head.
@@ -39,6 +41,7 @@ export function PetPage() {
 		<button
 			type="button"
 			className="pet"
+			style={{ "--finn-scale": scale / 100 } as CSSProperties}
 			aria-label="Open mini chat"
 			onPointerDown={(event) => {
 				if (!event.isPrimary || event.button !== 0) return;
@@ -81,6 +84,8 @@ export function PetPage() {
 				<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
 				<img src={`/pet/${running ?? mood}.webp`} alt="" draggable={false} />
 			</picture>
+			{/* Rest affordance: fits in the transparent strip below Finn's feet, inside 96 × 104. */}
+			<span className="pet-rest-pill" aria-hidden="true" />
 			{kinds.length > 0 && (
 				<span className="pet-sources" aria-hidden="true">
 					{kinds.map((kind, index) => (

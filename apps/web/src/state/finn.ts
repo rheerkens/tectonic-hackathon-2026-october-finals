@@ -13,16 +13,33 @@ export type FinnState = {
 export type FinnTurn = FinnState & { id: string; createdAt: number; revision: number };
 export type FinnConversation = { id: string; title: string; createdAt: number; turns: FinnTurn[] };
 
-type Session = { conversations: FinnConversation[]; activeId: string | null; readIds: string[] };
+/**
+ * Compact chat drafts, keyed by conversation ID or "new" for a chat not yet sent. Last writer
+ * wins per key: a write takes the highest revision this window has seen for the key plus one,
+ * and equal revisions from two windows resolve by writer ID. Every window keeps the greater
+ * (rev, by), so crossed updates converge and a stale snapshot never revives older text.
+ * Cleared drafts stay as empty entries with their revision.
+ */
+type Draft = { text: string; rev: number; by: string };
+type Session = {
+	conversations: FinnConversation[];
+	activeId: string | null;
+	readIds: string[];
+	drafts: Record<string, Draft>;
+};
 type Message =
 	| { kind: "turn"; conversation: Omit<FinnConversation, "turns">; turn: FinnTurn }
 	| { kind: "select"; id: string | null }
 	| { kind: "read"; ids: string[] }
+	| { kind: "draft"; key: string; draft: Draft }
 	| { kind: "snapshot"; session: Session };
 const idle: FinnState = { status: "idle", question: "", stepsShown: 0, result: null, message: "" };
-let session: Session = { conversations: [], activeId: null, readIds: [] };
+let session: Session = { conversations: [], activeId: null, readIds: [], drafts: {} };
 let channel: BroadcastChannel | null = null;
 const listeners = new Set<() => void>();
+const writer = crypto.randomUUID();
+const newer = (a: Draft, b: Draft | undefined) =>
+	!b || a.rev > b.rev || (a.rev === b.rev && a.by > b.by);
 const running = new Set<string>();
 const busy = (turn: FinnState | undefined) =>
 	turn?.status === "thinking" || turn?.status === "searching";
@@ -35,6 +52,10 @@ function apply(message: Message) {
 	if (message.kind === "select") session = { ...session, activeId: message.id };
 	if (message.kind === "read") {
 		session = { ...session, readIds: [...new Set([...session.readIds, ...message.ids])] };
+	}
+	if (message.kind === "draft") {
+		if (!newer(message.draft, session.drafts[message.key])) return;
+		session = { ...session, drafts: { ...session.drafts, [message.key]: message.draft } };
 	}
 	if (message.kind === "turn") {
 		const old = session.conversations.find(
@@ -66,6 +87,12 @@ function apply(message: Message) {
 			...session,
 			activeId: session.activeId ?? message.session.activeId,
 			readIds: [...new Set([...session.readIds, ...message.session.readIds])],
+			drafts: Object.fromEntries(
+				Object.entries({ ...message.session.drafts, ...session.drafts }).map(([key, draft]) => {
+					const theirs = message.session.drafts?.[key];
+					return [key, theirs && newer(theirs, draft) ? theirs : draft];
+				}),
+			),
 		};
 	}
 	notify();
@@ -169,6 +196,16 @@ function selectConversation(id: string | null) {
 		publish({ kind: "select", id });
 	}
 }
+function setDraft(key: string, text: string) {
+	const current = session.drafts[key];
+	if ((current?.text ?? "") === text) return;
+	publish({ kind: "draft", key, draft: { text, rev: (current?.rev ?? 0) + 1, by: writer } });
+}
+/** Adds a voice transcript to the draft as it is now, after one space. */
+function appendDraft(key: string, text: string) {
+	const current = (session.drafts[key]?.text ?? "").trimEnd();
+	setDraft(key, current ? `${current} ${text}` : text);
+}
 function markRead(id: string) {
 	const conversation = session.conversations.find((item) => item.id === id);
 	const ids =
@@ -201,6 +238,11 @@ export function useFinn(followSelection = false) {
 		activeConversation: active,
 		activeId: current.activeId,
 		activity,
+		drafts: Object.fromEntries(
+			Object.entries(current.drafts).map(([key, draft]) => [key, draft.text]),
+		) as Record<string, string>,
+		setDraft,
+		appendDraft,
 		unreadCount: conversations.filter((conversation) => conversation.unread).length,
 		selectConversation,
 		submitQuestion: startQuestion,

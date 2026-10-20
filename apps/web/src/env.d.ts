@@ -13,5 +13,12 @@ interface Window {
 		/** Subscribes to the main window closing so Finn can say goodbye; returns an unsubscribe. */
 		onMainClosing?(listener: () => void): () => void;
 		closeMain?(): void;
+		/** Transcribes a 16 kHz mono WAV clip with the local Whisper engine. */
+		transcribeSpeech?(wav: Uint8Array): Promise<string>;
+		cancelSpeech?(): void;
+		/** Finn's size in whole percent, 75 to 150 in steps of 5. */
+		getPetScale?(): Promise<number>;
+		setPetScale?(scale: number): Promise<void>;
+		onPetScale?(listener: (scale: number) => void): () => void;
 	};
 }

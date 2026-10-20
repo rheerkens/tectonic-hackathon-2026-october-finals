@@ -646,6 +646,30 @@ body {
 .theme-choice span {
 	font-size: 13px;
 }
+.finn-size {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px 20px;
+	margin-top: 20px;
+}
+.finn-size label {
+	display: flex;
+	flex: 1 1 280px;
+	align-items: center;
+	gap: 14px;
+	font-size: 14px;
+}
+.finn-size input {
+	flex: 1;
+	accent-color: var(--aurora-coral);
+}
+.finn-size output {
+	min-width: 4ch;
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	text-align: right;
+}
 .theme-choice.chosen {
 	border-color: transparent;
 	background:
@@ -1241,7 +1265,18 @@ body {
 .finn-mini-window body {
 	background: transparent;
 }
+/* Finn's compact chat: white pills that read on any wallpaper or app theme. */
 .finn-mini {
+	--finn-ink: #1d1f23;
+	--finn-muted: #6b717c;
+	--finn-line: #e4e7ec;
+	--finn-row: #f5f7fa;
+	--finn-send: #5b8def;
+	--finn-green: #2fa35a;
+	--finn-red: #d93a32;
+	/* An inset hairline, not a cast shadow: the native window shape and the scroll area clip
+	   anything painted outside a pill into a hard rectangle. */
+	--finn-shadow: inset 0 0 0 1px rgb(20 30 50 / 0.08);
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
@@ -1249,23 +1284,20 @@ body {
 	max-width: 440px;
 	padding: 12px;
 	margin: auto;
+	color: var(--finn-ink);
 }
-.finn-mini-content {
+.finn-mini-head {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 10px;
-	max-height: var(--mini-content-height, 440px);
-	overflow-y: auto;
-	scrollbar-width: thin;
-}
-.finn-mini-content:empty {
-	display: none;
-}
-.finn-mini-pet-slot {
 	align-self: center;
-	width: 96px;
-	height: 104px;
-	flex: 0 0 104px;
+}
+/* Matches the desktop pet window: 96 × 104 at 100%, scaled by Finn's size setting. */
+.finn-mini-pet-slot {
+	width: calc(96px * var(--finn-scale, 1));
+	height: calc(104px * var(--finn-scale, 1));
+	flex: 0 0 auto;
 	pointer-events: none;
 }
 .finn-mini-pet-slot img {
@@ -1273,238 +1305,381 @@ body {
 	height: 100%;
 	object-fit: contain;
 }
-.finn-mini[data-placement="above"] .finn-mini-pet-slot {
-	order: 4;
-}
-.finn-mini[data-placement="below"] .finn-mini-content {
-	order: 4;
+/* Near the bottom of the screen the shell flips everything above Finn. */
+.finn-mini[data-placement="above"] .finn-mini-head {
+	order: 2;
+	flex-direction: column-reverse;
 }
 .finn-mini[data-placement="side"] .finn-mini-pet-slot {
 	display: none;
 }
-.finn-mini-toolbar {
-	align-self: center;
+.finn-mini-content {
 	display: flex;
-	align-items: center;
-	gap: 2px;
-	padding: 5px;
-	background: var(--surface);
-	border: 1px solid var(--border);
-	border-radius: 28px;
-	box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
-}
-.finn-mini-toolbar button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 7px;
-	position: relative;
-	min-width: 40px;
-	min-height: 38px;
-	padding: 7px 11px;
-	border: 0;
-	border-radius: 22px;
-	background: transparent;
-	color: var(--text);
-	font-size: 12px;
-}
-.finn-mini-toolbar button:hover {
-	background: var(--surface-2);
-}
-.finn-mini-toolbar button:last-child svg {
-	transform: rotate(90deg);
-}
-.finn-mini-count {
-	position: absolute;
-	top: 0;
-	right: 0;
-	min-width: 17px;
-	height: 17px;
-	padding: 0 4px;
-	border-radius: 10px;
-	background: var(--accent);
-	color: var(--primary-text);
-	font-size: 10px;
-	line-height: 17px;
-	text-align: center;
-}
-.finn-mini-heading {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	margin-bottom: 14px;
-}
-.finn-mini-heading h1 {
-	font-size: 13px;
-	letter-spacing: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.finn-mini-heading small {
-	flex-shrink: 0;
-	font-size: 10px;
-	color: var(--muted);
-}
-.finn-mini-conversation {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	width: 100%;
-	padding: 12px 0;
-	border: 0;
-	background: transparent;
-	color: var(--text);
-	text-align: left;
-}
-.finn-mini-conversation + .finn-mini-conversation {
-	border-top: 1px solid var(--border);
-}
-.finn-mini-conversation:hover {
-	color: var(--accent);
-}
-.finn-mini-conversation strong,
-.finn-mini-conversation small {
-	display: block;
-}
-.finn-mini-conversation strong {
-	font-size: 13px;
-	line-height: 1.4;
-}
-.finn-mini-conversation small {
-	margin-top: 4px;
-	color: var(--muted);
-	font-size: 11px;
-}
-.finn-mini-unread {
-	flex: 0 0 7px;
-	height: 7px;
-	border-radius: 50%;
-	background: var(--accent);
-}
-.finn-mini-new-label {
-	align-self: flex-start;
-	padding: 5px 10px;
-	border-radius: 12px;
-	background: var(--surface);
-	color: var(--muted);
-	font-size: 11px;
-}
-.finn-mini-transcript {
-	max-height: 310px;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+	max-height: var(--mini-content-height, 440px);
+	/* Room for shadows and the card's corner close button inside the scroll clip. */
+	margin: -8px;
+	padding: 8px;
 	overflow-y: auto;
 	scrollbar-width: thin;
 }
-.finn-mini-question {
-	margin-bottom: 12px;
-	font-size: 12px;
-	font-weight: 600;
-	color: var(--muted);
+.finn-mini-toolbar {
+	display: flex;
+	align-items: center;
+	padding: 6px 8px;
+	border-radius: 999px;
+	background: #fff;
+	box-shadow: var(--finn-shadow);
 }
-.finn-mini-turn + .finn-mini-turn {
-	margin-top: 18px;
-	padding-top: 18px;
-	border-top: 1px solid var(--border);
+.finn-mini-toolbar button {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 46px;
+	height: 36px;
+	padding: 0;
+	border: 0;
+	border-radius: 18px;
+	background: transparent;
+	color: var(--finn-ink);
 }
-.finn-mini-composer,
-.mini-result {
-	border: 1px solid var(--border);
-	background: var(--surface);
-	box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+.finn-mini-toolbar button + button::before {
+	content: "";
+	position: absolute;
+	top: 9px;
+	bottom: 9px;
+	left: -1px;
+	width: 1px;
+	background: var(--finn-line);
+}
+.finn-mini-toolbar button:hover:not(:disabled) {
+	background: #f0f2f5;
+}
+.finn-mini-toolbar .finn-collapse svg {
+	transform: rotate(90deg);
+}
+.finn-mini-toolbar .is-recording,
+.finn-composer-voice.is-recording {
+	color: var(--finn-red);
+}
+.finn-mini-count {
+	position: absolute;
+	top: 1px;
+	right: 7px;
+	min-width: 15px;
+	height: 15px;
+	padding: 0 4px;
+	border-radius: 8px;
+	background: var(--finn-green);
+	box-shadow: 0 0 0 2px #fff;
+	color: #fff;
+	font-size: 10px;
+	font-weight: 700;
+	line-height: 15px;
+	text-align: center;
+}
+.finn-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.finn-row {
+	position: relative;
+	display: block;
+	width: 100%;
+	padding: 12px 24px;
+	border: 0;
+	border-radius: 26px;
+	background: var(--finn-row);
+	box-shadow: var(--finn-shadow);
+	color: var(--finn-ink);
+	text-align: left;
+}
+.finn-rows > li,
+.finn-row strong span {
+	min-width: 0;
+}
+.finn-row:hover {
+	background: #fff;
+}
+.finn-row strong {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	font-size: 14px;
+	line-height: 1.4;
+}
+.finn-row strong span,
+.finn-row small {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.finn-row small {
+	display: block;
+	color: var(--finn-muted);
+	font-size: 13px;
+	line-height: 1.45;
+}
+.finn-mini-unread {
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--finn-green);
+}
+.finn-mark {
+	display: grid;
+	place-items: center;
+	flex: 0 0 16px;
+	height: 16px;
+	border-radius: 50%;
+	color: #fff;
+}
+.finn-mark-done {
+	background: var(--finn-green);
+}
+.finn-mark-waiting {
+	background: #e0a03a;
+}
+.finn-mark-failed {
+	background: #c4c8cf;
+}
+.finn-mark-busy {
+	border: 2px solid var(--finn-line);
+	border-top-color: var(--finn-send);
+	animation: finn-spin 0.9s linear infinite;
+}
+@keyframes finn-spin {
+	to {
+		transform: rotate(1turn);
+	}
 }
 .finn-mini-composer {
 	display: flex;
 	align-items: center;
-	gap: 8px;
-	padding: 8px;
-	border-radius: 28px;
+	gap: 6px;
+	padding: 7px;
+	border-radius: 999px;
+	background: #fff;
+	box-shadow: var(--finn-shadow);
 }
 .finn-mini-composer:focus-within {
-	border-color: var(--border-strong);
+	box-shadow:
+		var(--finn-shadow),
+		0 0 0 2px #5b8def55;
 }
 .finn-mini-composer input {
+	flex: 1;
 	min-width: 0;
-	width: 100%;
-	padding: 6px;
+	padding: 6px 4px;
 	border: 0;
 	outline: none;
 	background: transparent;
-	font-size: 14px;
+	color: var(--finn-ink);
+	font-size: 15px;
+	font-weight: 500;
 }
-.finn-mini-composer input:focus-visible {
-	outline: 2px solid var(--focus);
-	outline-offset: 2px;
-	border-radius: 6px;
+.finn-mini-composer input::placeholder {
+	color: #9aa0aa;
+	font-weight: 400;
 }
-.finn-mini-close,
+.finn-composer-more,
+.finn-composer-voice,
 .finn-mini-send {
 	display: grid;
 	place-items: center;
 	flex: 0 0 34px;
 	height: 34px;
+	padding: 0;
 	border: 0;
 	border-radius: 50%;
 }
-.finn-mini-close {
-	background: transparent;
-	color: var(--muted);
+.finn-composer-more {
+	background: #f0f2f5;
+	color: var(--finn-ink);
 }
-.finn-mini-close:hover {
-	background: var(--surface-2);
+.finn-composer-more svg {
+	transform: rotate(45deg);
+}
+.finn-composer-voice {
+	background: transparent;
+	color: var(--finn-muted);
+}
+.finn-composer-more:hover,
+.finn-composer-voice:hover:not(:disabled) {
+	background: #e6e9ee;
+}
+.finn-composer-voice.is-recording {
+	background: #fde8e7;
+}
+.finn-stop {
+	width: 11px;
+	height: 11px;
+	border-radius: 2px;
+	background: currentColor;
 }
 .finn-mini-send {
-	background: var(--accent);
-	color: var(--primary-text);
+	background: var(--finn-send);
+	color: #fff;
 }
 .finn-mini-send svg {
 	transform: rotate(-90deg);
 }
-.mini-result {
-	padding: 18px;
-	border-radius: 22px;
-	max-height: 440px;
-	overflow-y: auto;
+.finn-voice-status {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 8px 6px 14px;
+	border-radius: 16px;
+	background: #fff;
+	box-shadow: var(--finn-shadow);
+	color: var(--finn-muted);
+	font-size: 12px;
+	line-height: 1.4;
+}
+.finn-voice-status > span:last-of-type {
+	flex: 1;
+}
+.finn-voice-status.is-error {
+	color: var(--finn-red);
+}
+.finn-voice-status button {
+	padding: 4px 6px;
+	border: 0;
+	background: transparent;
+	color: var(--finn-ink);
+	font-size: 12px;
+	font-weight: 600;
+	text-decoration: underline;
+}
+.finn-voice-dot {
+	flex: 0 0 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--finn-red);
+	animation: finn-pulse 1.2s ease-in-out infinite;
+}
+@keyframes finn-pulse {
+	50% {
+		opacity: 0.3;
+	}
+}
+.finn-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	min-height: 0;
+	max-height: calc(var(--mini-content-height, 440px) - 16px);
+	padding: 16px 14px 12px;
+	border-radius: 26px;
+	background: var(--finn-row);
+	box-shadow: var(--finn-shadow);
 	overflow-wrap: anywhere;
 }
+.finn-card-close {
+	position: absolute;
+	top: -6px;
+	left: -6px;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 0 0 1px rgb(20 30 50 / 0.14);
+	color: var(--finn-ink);
+}
+.finn-card-title {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	padding: 0 8px;
+}
+.finn-card-title h2 {
+	overflow: hidden;
+	font-size: 14px;
+	letter-spacing: 0;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.finn-mini-transcript {
+	flex: 1 1 auto;
+	min-height: 0;
+	padding: 0 8px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+.finn-mini-question {
+	margin-bottom: 6px;
+	color: var(--finn-muted);
+	font-size: 13px;
+	font-weight: 600;
+}
+.finn-mini-turn + .finn-mini-turn {
+	margin-top: 14px;
+	padding-top: 14px;
+	border-top: 1px solid var(--finn-line);
+}
+.finn-card .finn-mini-composer {
+	flex-shrink: 0;
+	background: #e9ecf0;
+	box-shadow: none;
+}
+.finn-card .finn-voice-status {
+	padding: 0 8px;
+	background: transparent;
+	box-shadow: none;
+}
 .mini-result-answer {
-	font-size: 15px;
-	line-height: 1.6;
+	font-size: 14px;
+	line-height: 1.55;
 }
 .mini-result-waiting,
 .mini-result-status {
+	color: var(--finn-muted);
 	font-size: 13px;
-	color: var(--muted);
 }
 .mini-result-waiting,
 .mini-result-status p + p {
-	margin-top: 10px;
+	margin-top: 8px;
 }
 .mini-result-meta {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 8px;
-	margin-top: 12px;
+	margin-top: 10px;
+	color: var(--finn-muted);
 	font-size: 12px;
-	color: var(--muted);
 }
 .mini-result-source {
 	padding: 2px 6px;
 	border-radius: 5px;
-	background: var(--accent-soft);
-	color: var(--text);
+	background: #e6edfc;
+	color: var(--finn-ink);
 }
 .mini-result-details summary {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	list-style: none;
-	margin-top: 10px;
+	margin-top: 8px;
 	padding: 4px 0;
+	color: var(--finn-muted);
 	font-size: 12px;
-	color: var(--muted);
+	list-style: none;
 	cursor: pointer;
 }
 .mini-result-details summary::-webkit-details-marker {
@@ -1514,11 +1689,11 @@ body {
 	transform: rotate(90deg);
 }
 .mini-result-evidence {
-	border-top: 1px solid var(--border);
-	margin-top: 10px;
-	padding-top: 12px;
+	margin-top: 8px;
+	padding-top: 10px;
+	border-top: 1px solid var(--finn-line);
+	color: var(--finn-muted);
 	font-size: 12px;
-	color: var(--muted);
 }
 .mini-result-evidence ul {
 	margin: 0;
@@ -1528,7 +1703,7 @@ body {
 	margin-top: 5px;
 }
 .mini-result-evidence p {
-	margin-top: 12px;
+	margin-top: 10px;
 }
 .mini-result-open {
 	display: flex;
@@ -1536,17 +1711,17 @@ body {
 	justify-content: space-between;
 	gap: 12px;
 	width: 100%;
-	margin-top: 14px;
-	padding: 12px;
-	border: 1px solid var(--border);
-	border-radius: 12px;
-	background: var(--surface-2);
-	color: var(--text);
+	margin-top: 12px;
+	padding: 10px 12px;
+	border: 1px solid var(--finn-line);
+	border-radius: 14px;
+	background: #fff;
+	color: var(--finn-ink);
 	text-align: left;
 	text-decoration: none;
 }
 .mini-result-open:hover {
-	border-color: var(--border-strong);
+	border-color: #c9ced6;
 }
 .mini-result-open strong,
 .mini-result-open small {
@@ -1556,12 +1731,12 @@ body {
 	font-size: 13px;
 }
 .mini-result-open small {
+	color: var(--finn-muted);
 	font-size: 11px;
-	color: var(--muted);
 }
-.mini-result [role="alert"] {
-	margin-top: 10px;
-	color: var(--danger);
+.finn-mini [role="alert"] {
+	margin-top: 8px;
+	color: var(--finn-red);
 	font-size: 12px;
 }
 @media (max-width: 900px) {
@@ -1603,7 +1778,7 @@ body {
 .finn-dock {
 	position: fixed;
 	right: 24px;
-	bottom: 16px;
+	bottom: 12px;
 	z-index: 50;
 	display: flex;
 	flex-direction: column;
@@ -1615,38 +1790,49 @@ body {
 	pointer-events: auto;
 }
 .finn-dock-panel {
-	width: min(420px, calc(100vw - 32px));
+	align-items: flex-end;
+	width: auto;
 	max-width: none;
 	margin: 0;
-	padding: 12px;
-	border: 1px solid var(--glass-border);
-	border-radius: 26px;
-	background: var(--glass);
-	box-shadow: var(--glass-shadow);
-	backdrop-filter: blur(22px) saturate(140%);
+	padding: 0;
+}
+/* Bound to the viewport: Finn, toolbar and gaps take about 136 px plus Finn's height. */
+.finn-dock-panel.is-open {
+	--mini-content-height: min(
+		440px,
+		max(120px, calc(100dvh - 136px - 104px * var(--finn-scale, 1)))
+	);
+	width: min(420px, calc(100vw - 32px));
+}
+.finn-dock-panel .finn-mini-head {
+	align-self: flex-end;
+}
+/* Rows fill the bounded panel and ellipsize instead of growing past it. */
+.finn-dock-panel .finn-mini-content {
+	align-self: stretch;
+}
+.finn-dock-panel .finn-mini-pet-slot {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	height: auto;
+	pointer-events: auto;
+}
+.finn-dock-panel .finn-mini-toolbar,
+.finn-dock-panel .finn-mini-content {
 	animation: finn-dock-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-	transform-origin: bottom right;
 }
-.finn-dock .finn-mini-composer,
-.finn-dock .mini-result {
-	border-color: var(--glass-border);
-	background: var(--surface);
-	box-shadow: var(--glass-shadow);
-}
-.finn-dock .finn-mini-composer:focus-within {
-	border-color: #ee655866;
-	box-shadow: var(--glass-shadow), var(--glass-glow);
-}
-.finn-dock .finn-mini-send {
-	background: linear-gradient(135deg, var(--aurora-coral), var(--aurora-amber));
-	color: #fff;
-}
-.finn-dock .finn-mini-send:disabled {
-	opacity: 0.45;
+.finn-rest-pill {
+	width: 24px;
+	height: 5px;
+	border-radius: 3px;
+	background: #fff;
+	box-shadow: 0 1px 3px rgb(20 30 50 / 0.25);
 }
 .finn-dock-pet {
-	width: 96px;
-	height: 104px;
+	width: calc(96px * var(--finn-scale, 1));
+	height: calc(104px * var(--finn-scale, 1));
 	padding: 0;
 	border: 0;
 	background: radial-gradient(circle at 50% 70%, #ee655833, transparent 65%);
@@ -1667,11 +1853,6 @@ body {
 	from {
 		opacity: 0;
 		transform: translateY(8px) scale(0.96);
-	}
-}
-@media (prefers-reduced-motion: reduce) {
-	.finn-dock-panel {
-		animation: none;
 	}
 }
 .finn-dock-pet.entering {
@@ -1715,7 +1896,9 @@ body {
 	border-color: #ee655866;
 }
 @media (prefers-reduced-motion: reduce) {
-	.finn-dock-bubble {
+	.finn-dock-bubble,
+	.finn-dock-panel .finn-mini-toolbar,
+	.finn-dock-panel .finn-mini-content {
 		animation: none;
 	}
 }

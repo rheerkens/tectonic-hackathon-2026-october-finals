@@ -1,10 +1,20 @@
 // Electron shell: starts the API on a free local port and shows the web app it serves,
 // plus Finn, a desktop pet that opens a floating mini chat.
-const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, screen } = require("electron");
+const {
+	app,
+	BrowserWindow,
+	dialog,
+	ipcMain,
+	Menu,
+	MenuItem,
+	screen,
+	session,
+} = require("electron");
 const { spawn } = require("node:child_process");
 const { readFileSync, writeFileSync } = require("node:fs");
 const { createServer } = require("node:net");
 const { join, resolve } = require("node:path");
+const speech = require("./speech.cjs");
 
 function freePort() {
 	return new Promise((done, fail) => {
@@ -16,12 +26,13 @@ function freePort() {
 	});
 }
 
+const appRoot = () =>
+	app.isPackaged ? join(process.resourcesPath, "app-root") : resolve(__dirname, "../..");
+
 let api;
 async function startApi() {
 	const port = await freePort();
-	const root = app.isPackaged
-		? join(process.resourcesPath, "app-root")
-		: resolve(__dirname, "../..");
+	const root = appRoot();
 	// Unpacked runs use Bun from PATH with the source; packaged runs use the compiled API.
 	const [command, ...args] = app.isPackaged
 		? [join(process.resourcesPath, "bin", process.platform === "win32" ? "api.exe" : "api")]
@@ -54,12 +65,32 @@ const webPreferences = {
 	nodeIntegration: false,
 	sandbox: true,
 };
-const PET_SIZE = { width: 96, height: 104 };
+// Half the 192 × 208 sprite cell keeps Finn small but sharp on retina screens; that is 100%.
+const PET_BASE = { width: 96, height: 104 };
+// Finn's size in whole percent, chosen in Settings: 75 to 150 in steps of 5.
+const validScale = (value) =>
+	Number.isInteger(value) && value >= 75 && value <= 150 && value % 5 === 0;
+// Always derived from the stored percentage, never read back from a window, so DPI rounding
+// cannot accumulate.
+const petSize = () => ({
+	width: Math.round((PET_BASE.width * settings.petScale) / 100),
+	height: Math.round((PET_BASE.height * settings.petScale) / 100),
+});
 const settingsPath = () => join(app.getPath("userData"), "desktop.json");
-let settings = { showPet: true, petPosition: null };
+let settings = { showPet: true, petPosition: null, petScale: 100 };
 function saveSettings() {
 	if (petOpen()) settings.petPosition = pet.getPosition();
 	writeFileSync(settingsPath(), JSON.stringify(settings));
+}
+// Keeps the whole pet on the screen it is on.
+function clampPet({ x, y, width, height }) {
+	const { workArea } = screen.getDisplayMatching({ x, y, width, height });
+	return {
+		x: Math.round(Math.min(Math.max(x, workArea.x), workArea.x + workArea.width - width)),
+		y: Math.round(Math.min(Math.max(y, workArea.y), workArea.y + workArea.height - height)),
+		width,
+		height,
+	};
 }
 
 let pet;
@@ -127,15 +158,14 @@ function openPet(url) {
 		return;
 	}
 	const { workArea } = screen.getPrimaryDisplay();
+	const size = petSize();
 	const [x, y] = settings.petPosition ?? [
-		workArea.x + workArea.width - 136,
-		workArea.y + workArea.height - 144,
+		workArea.x + workArea.width - size.width - 40,
+		workArea.y + workArea.height - size.height - 40,
 	];
+	const bounds = clampPet({ x, y, ...size });
 	pet = new BrowserWindow({
-		x,
-		y,
-		// Half the 192 × 208 sprite cell keeps Finn small but sharp on retina screens.
-		...PET_SIZE,
+		...bounds,
 		transparent: true,
 		frame: false,
 		resizable: false,
@@ -147,7 +177,7 @@ function openPet(url) {
 	});
 	const window = pet;
 	// Normalize constructor DPI rounding while hidden, before the first visible frame.
-	window.setBounds({ x, y, ...PET_SIZE });
+	window.setBounds(bounds);
 	window.once("ready-to-show", () => {
 		if (!window.isDestroyed() && !quitting && !mainOpen()) window.showInactive();
 	});
@@ -193,16 +223,12 @@ async function positionMini() {
 	const shaped = anchor && process.platform === "win32";
 	const above = anchor ? anchor.y - workArea.y : 440;
 	const below = anchor ? workArea.y + workArea.height - anchor.y - anchor.height : 440;
-	const placement = !shaped
-		? "side"
-		: above < 190 && below > above
-			? "below"
-			: below < 100
-				? "above"
-				: "around";
+	// Controls and activity sit below Finn, flipping above him near the bottom of the screen.
+	const placement = !shaped ? "side" : below < 240 && above > below ? "above" : "below";
+	// About 90 px of the room goes to the toolbar, gaps and padding around the activity.
 	const contentHeight = Math.max(
 		80,
-		Math.min(440, placement === "below" ? below - 130 : above - (placement === "above" ? 130 : 30)),
+		Math.min(440, (placement === "above" ? above : shaped ? below : workArea.height / 2) - 90),
 	);
 	try {
 		const layout = await window.webContents.executeJavaScript(`(() => {
@@ -210,12 +236,12 @@ async function positionMini() {
 			if (!root) return null;
 			root.dataset.placement = ${JSON.stringify(placement)};
 			root.style.setProperty('--mini-content-height', '${contentHeight}px');
-			const content = root.querySelector('.finn-mini-content').getBoundingClientRect();
+			const content = root.querySelector('.finn-mini-content')?.getBoundingClientRect();
 			const slot = root.querySelector('.finn-mini-pet-slot').getBoundingClientRect();
 			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y,
 				surfaces: [...root.querySelectorAll('[data-mini-surface]')].map(el => {
 					const r = el.getBoundingClientRect();
-					const inContent = el.closest('.finn-mini-content');
+					const inContent = content && el.closest('.finn-mini-content');
 					const top = inContent ? Math.max(r.top, content.top) : r.top;
 					const bottom = inContent ? Math.min(r.bottom, content.bottom) : r.bottom;
 					return { x: Math.floor(r.x - 3), y: Math.floor(top - 3), width: Math.ceil(r.width + 6), height: Math.ceil(bottom - top + 6) };
@@ -333,6 +359,23 @@ ipcMain.on("main:open", (event, route) => {
 	}
 });
 
+ipcMain.handle("speech:transcribe", async (event, wav) => {
+	if (!trustedWindow(event, mini, "/mini") && !trustedWindow(event, mainWindow))
+		throw new Error("Untrusted speech request");
+	// A closed, reloaded or crashed page cannot clean up itself; free the engine for it.
+	const owner = event.sender;
+	const id = owner.id;
+	const stop = () => speech.cancel(id);
+	const gone = ["destroyed", "did-navigate", "render-process-gone"];
+	for (const name of gone) owner.on(name, stop);
+	try {
+		return await speech.transcribe(appRoot(), wav, id);
+	} finally {
+		if (!owner.isDestroyed()) for (const name of gone) owner.removeListener(name, stop);
+	}
+});
+ipcMain.on("speech:cancel", (event) => speech.cancel(event.sender.id));
+
 ipcMain.on("mini:toggle", () => toggleMini());
 ipcMain.on("mini:hide", () => mini?.hide());
 ipcMain.on("main:finn-dock", (event, active) => {
@@ -345,8 +388,49 @@ ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();
 	// setPosition reads back a rounded size, which can accumulate at fractional Windows DPI.
-	pet.setBounds({ x: Math.round(x + dx), y: Math.round(y + dy), ...PET_SIZE });
+	pet.setBounds({ x: Math.round(x + dx), y: Math.round(y + dy), ...petSize() });
 	if (mini?.isVisible()) void positionMini();
+});
+
+const anyTrusted = (event) =>
+	trustedWindow(event, pet, "/pet") ||
+	trustedWindow(event, mini, "/mini") ||
+	trustedWindow(event, mainWindow);
+ipcMain.handle("finn:get-scale", (event) => {
+	if (!anyTrusted(event)) throw new Error("Untrusted size request");
+	return settings.petScale;
+});
+let saveTimer;
+let scaleAnchor = null;
+// Settings in SDtrust resize Finn live; the file is written once the slider rests.
+ipcMain.handle("finn:set-scale", (event, scale) => {
+	if (!trustedWindow(event, mainWindow)) throw new Error("Untrusted size request");
+	if (!validScale(scale)) throw new Error("Invalid size");
+	if (scale === settings.petScale) return;
+	// Uses the canonical old size, not the window's DPI-rounded read-back, so slider moves cannot drift.
+	const before = petSize();
+	settings.petScale = scale;
+	if (petOpen()) {
+		// Grow and shrink around Finn's feet, then keep him on screen. While the slider moves and
+		// Finn stays put, the same unrounded anchor is reused so steps back and forth cannot drift.
+		const [x, y] = pet.getPosition();
+		const anchor =
+			scaleAnchor?.x === x && scaleAnchor.y === y
+				? scaleAnchor
+				: { centre: x + before.width / 2, feet: y + before.height };
+		const size = petSize();
+		pet.setBounds(
+			clampPet({ x: anchor.centre - size.width / 2, y: anchor.feet - size.height, ...size }),
+		);
+		const [nx, ny] = pet.getPosition();
+		scaleAnchor = { ...anchor, x: nx, y: ny };
+	}
+	for (const window of [pet, mini, mainWindow]) {
+		if (window && !window.isDestroyed()) window.webContents.send("finn:scale", scale);
+	}
+	if (mini?.isVisible()) void positionMini();
+	clearTimeout(saveTimer);
+	saveTimer = setTimeout(saveSettings, 400);
 });
 
 app.whenReady().then(async () => {
@@ -355,6 +439,14 @@ app.whenReady().then(async () => {
 	} catch {
 		// First launch or unreadable settings: keep the defaults.
 	}
+	if (!validScale(settings.petScale)) settings.petScale = 100;
+	// Microphone only, for Finn's voice input on the app's own pages; other permissions as before.
+	session.defaultSession.setPermissionRequestHandler((contents, permission, grant, details) => {
+		if (permission !== "media") return grant(true);
+		const audioOnly =
+			details.mediaTypes?.length && details.mediaTypes.every((type) => type === "audio");
+		grant(Boolean(appUrl && audioOnly && details.requestingUrl?.startsWith(`${appUrl}/`)));
+	});
 	try {
 		const url = await startApi();
 		appUrl = url;

@@ -19,7 +19,8 @@
 		},
 		"files": [
 			"main.cjs",
-			"preload.cjs"
+			"preload.cjs",
+			"speech.cjs"
 		],
 		"extraResources": [
 			{

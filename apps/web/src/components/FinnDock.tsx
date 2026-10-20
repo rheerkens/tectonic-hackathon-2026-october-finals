@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFinn } from "../state/finn";
 import { announce, type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
 import { FinnChat } from "./FinnChat";
@@ -11,7 +11,7 @@ let entered = false;
 const seenHints = new Set<string>();
 const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** Finn inside SDtrust: fixed bottom right, opening the compact chat above him. */
+/** Finn inside SDtrust: fixed bottom right, opening the same compact chat as the desktop mini. */
 export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const [open, setOpen] = useState(false);
 	const [bubble, setBubble] = useState<FinnHint | null>(null);
@@ -21,16 +21,12 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const [phase, setPhase] = useState<"entering" | "waving" | "leaving" | "exiting" | null>(
 		entered || still() ? null : "entering",
 	);
-	const input = useRef<HTMLInputElement>(null);
-	const id = useId();
 	const mood = usePetMood();
-	useAnnounceFinnMood(useFinn());
+	// Like the desktop pet, Finn reflects activity across all compact conversations.
+	useAnnounceFinnMood(useFinn(true).activity);
 	useEffect(() => {
 		entered = true;
 	}, []);
-	useEffect(() => {
-		if (open) input.current?.focus();
-	}, [open]);
 	// Wait until Finn has walked in, then comment on the page once.
 	const hintKey = hint?.key;
 	useEffect(() => {
@@ -95,42 +91,42 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 					</button>
 				)}
 			</div>
-			{open && (
-				<section
-					id={id}
-					className="finn-mini finn-dock-panel"
-					aria-label="Chat with Finn"
-					onKeyDown={(event) => {
-						if (event.key === "Escape") setOpen(false);
-					}}
-				>
-					<FinnChat inApp inputRef={input} onClose={() => setOpen(false)} />
-				</section>
-			)}
-			<button
-				type="button"
-				className={
-					phase === "entering" || phase === "exiting" ? `finn-dock-pet ${phase}` : "finn-dock-pet"
+			<FinnChat
+				inApp
+				open={open}
+				className={open ? "finn-dock-panel is-open" : "finn-dock-panel"}
+				onHide={() => setOpen(false)}
+				pet={
+					<>
+						<button
+							type="button"
+							className={
+								phase === "entering" || phase === "exiting"
+									? `finn-dock-pet ${phase}`
+									: "finn-dock-pet"
+							}
+							aria-label={open ? "Close chat with Finn" : "Ask Finn"}
+							aria-expanded={open}
+							onClick={() => setOpen(!open)}
+							onAnimationEnd={(event) => {
+								if (event.target !== event.currentTarget) return;
+								if (phase === "entering") setPhase("waving");
+								if (phase === "exiting") {
+									// The desktop Finn reappears waving once the window is gone.
+									announce("waving");
+									window.desktop?.closeMain?.();
+								}
+							}}
+						>
+							<picture>
+								<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
+								<img src={`/pet/${shown}.webp`} alt="" width="96" height="104" draggable={false} />
+							</picture>
+						</button>
+						{!open && !phase && <span className="finn-rest-pill" aria-hidden="true" />}
+					</>
 				}
-				aria-label={open ? "Close chat with Finn" : "Ask Finn"}
-				aria-expanded={open}
-				aria-controls={id}
-				onClick={() => setOpen(!open)}
-				onAnimationEnd={(event) => {
-					if (event.target !== event.currentTarget) return;
-					if (phase === "entering") setPhase("waving");
-					if (phase === "exiting") {
-						// The desktop Finn reappears waving once the window is gone.
-						announce("waving");
-						window.desktop?.closeMain?.();
-					}
-				}}
-			>
-				<picture>
-					<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
-					<img src={`/pet/${shown}.webp`} alt="" width="96" height="104" draggable={false} />
-				</picture>
-			</button>
+			/>
 		</div>
 	);
 }

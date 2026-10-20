@@ -1044,10 +1044,13 @@ a {
 }
 .pet-sources {
 	position: absolute;
-	top: 40px;
+	top: calc(40px * var(--finn-scale, 1));
 	left: 50%;
 }
 .pet-sources span {
+	/* 32 px scaled from 100 % up; tighter below 100 % so the 14 px icons stay inside the smaller
+	   pet window, at least 1 px from its top and 5 px from its sides at every size. */
+	--orbit: min(calc(32px * var(--finn-scale, 1)), calc(40px * var(--finn-scale, 1) - 8px));
 	position: absolute;
 	font-size: 14px;
 	line-height: 1;
@@ -1056,11 +1059,24 @@ a {
 }
 @keyframes pet-orbit {
 	from {
-		transform: rotate(0turn) translateY(-32px) rotate(0turn) translate(-50%, -50%);
+		transform: rotate(0turn) translateY(calc(-1 * var(--orbit))) rotate(0turn) translate(-50%, -50%);
 	}
 	to {
-		transform: rotate(1turn) translateY(-32px) rotate(-1turn) translate(-50%, -50%);
+		transform: rotate(1turn) translateY(calc(-1 * var(--orbit))) rotate(-1turn)
+			translate(-50%, -50%);
 	}
+}
+/* Rest affordance in the transparent strip under Finn's feet; the sprites end above it. */
+.pet-rest-pill {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 14px;
+	height: 2px;
+	margin-left: -7px;
+	border-radius: 1px;
+	background: #fff;
+	pointer-events: none;
 }
 .pet img {
 	display: block;
