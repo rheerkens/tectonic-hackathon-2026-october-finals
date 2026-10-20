@@ -1,0 +1,117 @@
+{
+  "slides": 8,
+  "aspect_ratio": "16:9",
+  "native_reopen": true,
+  "measured_text_overflows": 0,
+  "notes_with_evidence_boundaries": 8,
+  "embedded_font_parts": [
+    "ppt/fonts/ManropeRegular.fntdata",
+    "ppt/fonts/ManropeBold.fntdata"
+  ],
+  "pdf_fonts": [
+    "BCDEEE+2,Bold",
+    "BCDFEE+1",
+    "BCDGEE+1",
+    "BCDHEE+2,Bold"
+  ],
+  "pdf_font_evidence": [
+    {
+      "pdf_resource": "BCDEEE+2,Bold",
+      "postscript_name": "Manrope-Bold",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "pdf_resource": "BCDFEE+1",
+      "postscript_name": "Manrope-Regular",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "pdf_resource": "BCDGEE+1",
+      "postscript_name": "Manrope-Regular",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "pdf_resource": "BCDHEE+2,Bold",
+      "postscript_name": "Manrope-Bold",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "0",
+        "1",
+        "2"
+      ]
+    }
+  ],
+  "embedded_media": [
+    "ppt/media/image3.png",
+    "ppt/media/image2.svg",
+    "ppt/media/image1.png"
+  ],
+  "external_media": [],
+  "visible_dashes": 0,
+  "preview_dimensions": [
+    1600,
+    900
+  ],
+  "script_words": 282,
+  "planned_seconds": 170,
+  "limits": [
+    "No app operation or app build performed.",
+    "No app tests run.",
+    "Demo is an editable placeholder.",
+    "Jury device and live demo playback not verified.",
+    "Pitch timing is a rehearsal budget, not a measured spoken performance."
+  ],
+  "artifacts": {
+    "SDtrust_Finals_Draft_v1.pptx": {
+      "bytes": 281336,
+      "sha256": "c5d93b046ae9599d744f9b7839e9129762dd7add9843b0a9788a77d32ee0c4e9"
+    },
+    "SDtrust_Finals_Draft_v1.pdf": {
+      "bytes": 120067,
+      "sha256": "d5b9d2104a4532af6535e73df9ca153a06eb7c40d9c51c76f5a2293ae8fa6ed0"
+    },
+    "SDtrust_Finals_Draft_v1_Notes.md": {
+      "bytes": 9509,
+      "sha256": "0c269665da17cd1d8201d783c350394056760a06efc271f986c197b39da3ec3e"
+    },
+    "contact_sheet.png": {
+      "bytes": 643003,
+      "sha256": "82e8fb82236e3fb0d64b925459e4c0f49ddb78c8dcd13d5f0d89fb218ed6da38"
+    }
+  }
+}

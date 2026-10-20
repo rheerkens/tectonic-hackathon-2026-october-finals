@@ -1,1 +1,3 @@
 * text=auto eol=lf
+# Reviewed presentation bundles include manifests of the exact artifact bytes.
+docs/presentation/** -text

@@ -1,0 +1,163 @@
+{
+  "deck": "SDtrust_Finals_Refined_v2.pptx",
+  "slides": 8,
+  "aspect_ratio": "16:9",
+  "planned_seconds": 170,
+  "native_reopen_without_external_fonts": true,
+  "measured_text_overflows": 0,
+  "shapes_outside_slide": 0,
+  "native_text_shapes": 133,
+  "native_picture_shapes": 12,
+  "notes_with_speak_cues_boundary_sources": 8,
+  "notes_match_reviewed_v1_script_and_sources": true,
+  "visible_boundary_labels": [
+    "No message is sent.",
+    "DEMO PLACEHOLDER",
+    "Scripted fixture demo · synthetic records",
+    "Synthetic demo policy",
+    "Editable storyboard. This is not an app screenshot.",
+    "Future pilot"
+  ],
+  "visible_dashes": 0,
+  "embedded_font_parts": [
+    "ppt/fonts/ManropeRegular.fntdata",
+    "ppt/fonts/ManropeBold.fntdata"
+  ],
+  "embedded_media": [
+    "ppt/media/image4.png",
+    "ppt/media/image3.png",
+    "ppt/media/image5.png",
+    "ppt/media/image2.svg",
+    "ppt/media/image1.png"
+  ],
+  "external_relationships": [],
+  "pdf_pages": 8,
+  "pdf_font_evidence": [
+    {
+      "pdf_resource": "BCDEEE+2,Bold",
+      "postscript_name": "Manrope-Bold",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "e",
+        "0",
+        "1",
+        "2",
+        "4"
+      ]
+    },
+    {
+      "pdf_resource": "BCDFEE+1",
+      "postscript_name": "Manrope-Regular",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "e",
+        "0",
+        "2",
+        "4"
+      ]
+    },
+    {
+      "pdf_resource": "BCDGEE+2,Bold",
+      "postscript_name": "Manrope-Bold",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "e",
+        "0",
+        "1",
+        "2",
+        "4"
+      ]
+    },
+    {
+      "pdf_resource": "BCDHEE+1",
+      "postscript_name": "Manrope-Regular",
+      "glyph_outlines_and_widths_match": [
+        "A",
+        "S",
+        "D",
+        "t",
+        "r",
+        "u",
+        "e",
+        "0",
+        "2",
+        "4"
+      ]
+    }
+  ],
+  "preview_dimensions": [
+    1600,
+    900
+  ],
+  "not_verified": [
+    "Jury device and projector",
+    "Spoken timing (170 s is a budget, not a measured rehearsal)",
+    "Actual app demo: slide 4 is an editable placeholder",
+    "No app operated, built or tested"
+  ],
+  "artifacts": {
+    "SDtrust_Finals_Refined_v2.pptx": {
+      "bytes": 371938,
+      "sha256": "901af3977a69353adbd1f15550c1040ed3e9dafbb458dfdb656073fb14fd82af"
+    },
+    "SDtrust_Finals_Refined_v2.pdf": {
+      "bytes": 130186,
+      "sha256": "cd45417f1841eeb5fc672879829c260641d7cb8f0b7c3a132ed05f5d437c81f5"
+    },
+    "SDtrust_Finals_Refined_v2_Notes.md": {
+      "bytes": 8436,
+      "sha256": "6c3582253679c4b01869ffea9e3e80af83f6a66aa397194711bfd087a55677e0"
+    },
+    "preview/contact_sheet.png": {
+      "bytes": 790511,
+      "sha256": "4d05b88ae51c5343ec1fe9b7d72d555fcdc086f224d4248f7ab2a4d7aceea1ee"
+    },
+    "preview/slide_01.png": {
+      "bytes": 212138,
+      "sha256": "a35f4f46726711bb7ded32a497512b6d561259be632cb1d5a23e5d6950615053"
+    },
+    "preview/slide_02.png": {
+      "bytes": 63419,
+      "sha256": "ecafe2fe34cc22ad36b8919502e4550034518758659706a190058783c59072ae"
+    },
+    "preview/slide_03.png": {
+      "bytes": 209601,
+      "sha256": "5f14d366dc6fa388841ab52bd69414287610cdab2a4d504722cc9d18440a4025"
+    },
+    "preview/slide_04.png": {
+      "bytes": 48011,
+      "sha256": "61fdfe7ec1ea62ba22ef0c6a5dc51ebb095226a524b6fca8abde2dd9b79460bd"
+    },
+    "preview/slide_05.png": {
+      "bytes": 118579,
+      "sha256": "5d3f01694766fd57c72a1ed9bbae447a398d322495e86f9e2cdcd152ed632ded"
+    },
+    "preview/slide_06.png": {
+      "bytes": 136084,
+      "sha256": "ce85b8080f47c7f8f0dcbe6e36df85c555dae687cf3b80a8128686dca6ce4ac3"
+    },
+    "preview/slide_07.png": {
+      "bytes": 55395,
+      "sha256": "de6176baf399dd6e1c738aff5f0e5441ca8ed27e8bd18be4efb496c7f8d386da"
+    },
+    "preview/slide_08.png": {
+      "bytes": 57911,
+      "sha256": "d6d5a2da441d8a1f884e029968bfb85dc6e86d6e42e89b8aeef3a41239bddeda"
+    }
+  }
+}

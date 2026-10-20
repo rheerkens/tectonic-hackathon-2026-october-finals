@@ -1,0 +1,89 @@
+[
+  {
+    "source": "apps/web/public/sdtrust.svg",
+    "sha256": "3ff0a0633f58eaf55a97b85de551e56acdd45c9d661e07933a5bcca34b66fea7",
+    "bytes": 3079
+  },
+  {
+    "source": "docs/design/finn.png",
+    "sha256": "3517b458f12cb311a5ea3031d121608c72bd315c35fa8cf19c530b182344fe11",
+    "bytes": 84020
+  },
+  {
+    "source": "docs/design/finn_pet_refined/approved/waving03/frames/03.png",
+    "sha256": "27c6d306e2d49679f832ebff2811fa0f7293584eb37756b5920ca3866fffa4f4",
+    "bytes": 44376
+  },
+  {
+    "source": "apps/web/public/fonts/Manrope.ttf",
+    "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+    "bytes": 164700
+  },
+  {
+    "source": "apps/web/public/fonts/OFL.txt",
+    "sha256": "d6a309fcfb963d329a93baf9df66fa5f3c23a4be2b5f67edf24d6cafecde12ac",
+    "bytes": 4386
+  },
+  {
+    "source": "README.md",
+    "sha256": "388378ba7f73e1ff3e2c79528ec3b49cfcf505565dd0637f6f0a8f103dc05a96",
+    "bytes": 13751
+  },
+  {
+    "source": "AGENTS.md",
+    "sha256": "5ade5f92a368989b54ca94f21e28a7be328897a1727c114493150bea138571fa",
+    "bytes": 2911
+  },
+  {
+    "source": "docs/task-brief.md",
+    "sha256": "8cc13c4aa334cdfc784a4cd27d8f8d49a5054b1a47dc9a96d647c93b4ea3f597",
+    "bytes": 516
+  },
+  {
+    "source": "apps/web/src/desktop.css",
+    "sha256": "57f777a20ac0e1876546a6191d885ed0a82a8c3c35f8777f7601708781e98f94",
+    "bytes": 33132
+  },
+  {
+    "source": "apps/web/src/styles.css",
+    "sha256": "bc7d35db08e51e65c81ec4ec1e61221be8e1b8ec2869cf7755c436bc577a8133",
+    "bytes": 19592
+  },
+  {
+    "source": "apps/web/src/state/finn-scenarios.ts",
+    "sha256": "d6e7edc7593a33b4217ee18edc65d351b8275025381e35b4eeaca96e87118bef",
+    "bytes": 9200
+  },
+  {
+    "source": "apps/web/src/state/finn.ts",
+    "sha256": "2c96dcc35102bc6b409adbdbadbbdeb0093a55ef8ac9781e3437b4db8c05cab6",
+    "bytes": 9741
+  },
+  {
+    "source": "apps/web/src/components/FinnResultContent.tsx",
+    "sha256": "cdca556bcea2b52c3c1f66b62e52e5b68f0422557eef1b8ef3c8ef0770772008",
+    "bytes": 5176
+  },
+  {
+    "source": "docs/design/finn_pet_refined/session_status.json",
+    "sha256": "ea79db351d202e5b4c99a12f57e6c6895c9eb34cab0a3cc13fd6801a419a0fd3",
+    "bytes": 10573
+  },
+  {
+    "source": "docs/design/desktop_concepts/prompts.json",
+    "sha256": "1e70b4196a6d314a6d33c0ae635d55de3b27183d220b5fc0a7d6aeefc61f2d11",
+    "bytes": 9332
+  },
+  {
+    "source": "C:\\Users\\Sebas\\Downloads\\Tectonic Hackathon - Finals Guide-1.pdf",
+    "sha256": "76e3d90d8ac2bde18d5abf9872e63a5b7de96e98ae0c67767f7b6f2c643d1e10",
+    "pages_used": [
+      4,
+      6,
+      10,
+      11,
+      12,
+      16
+    ]
+  }
+]

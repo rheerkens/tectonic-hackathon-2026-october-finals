@@ -1,0 +1,38 @@
+{
+  "reviewer": "Parent agent independent review",
+  "slides": 8,
+  "notes_match_reviewed_v1": true,
+  "artifact_hashes_match": true,
+  "v1_files_unchanged": 32,
+  "v1_changed_files": [],
+  "reviewed_original_hashes": {
+    "SDtrust_Finals_Draft_v1.pptx": {
+      "expected": "c5d93b046ae9599d744f9b7839e9129762dd7add9843b0a9788a77d32ee0c4e9",
+      "actual": "c5d93b046ae9599d744f9b7839e9129762dd7add9843b0a9788a77d32ee0c4e9"
+    },
+    "SDtrust_Finals_Draft_v1.pdf": {
+      "expected": "d5b9d2104a4532af6535e73df9ca153a06eb7c40d9c51c76f5a2293ae8fa6ed0",
+      "actual": "d5b9d2104a4532af6535e73df9ca153a06eb7c40d9c51c76f5a2293ae8fa6ed0"
+    },
+    "SDtrust_Finals_Draft_v1_Notes.md": {
+      "expected": "0c269665da17cd1d8201d783c350394056760a06efc271f986c197b39da3ec3e",
+      "actual": "0c269665da17cd1d8201d783c350394056760a06efc271f986c197b39da3ec3e"
+    },
+    "preview/contact_sheet.png": {
+      "expected": "82e8fb82236e3fb0d64b925459e4c0f49ddb78c8dcd13d5f0d89fb218ed6da38",
+      "actual": "82e8fb82236e3fb0d64b925459e4c0f49ddb78c8dcd13d5f0d89fb218ed6da38"
+    }
+  },
+  "all_slide_xml_parsed": true,
+  "visual_review": "All eight slides inspected on contact sheet; individual slides inspected at export resolution.",
+  "app_activity": "No app operation, builds or tests. No Git mutations.",
+  "native_powerpoint_check": {
+    "opened": true,
+    "slides": 8,
+    "overflowCount": 0,
+    "overflow": [],
+    "saved": false,
+    "loadedFontsExternally": false
+  },
+  "final_v1_hash_check": "All 32 baseline files and four reviewed artifact hashes match."
+}

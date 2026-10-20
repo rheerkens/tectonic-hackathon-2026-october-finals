@@ -12,10 +12,12 @@
 			"!apps/desktop/build",
 			"!apps/desktop/release",
 			"!.local",
+			"!**/.impeccable",
 			"!bun.lock",
 			"!docs/research-snapshots",
 			"!docs/design/finn_pet",
 			"!docs/design/finn_pet_refined",
+			"!docs/presentation",
 			"!apps/web/src/routeTree.gen.ts"
 		]
 	},

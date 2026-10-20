@@ -1,0 +1,72 @@
+﻿{
+    "opened":  true,
+    "application":  "Microsoft PowerPoint",
+    "loadedFontsExternally":  false,
+    "slides":  8,
+    "widthPoints":  960,
+    "heightPoints":  540,
+    "textShapes":  135,
+    "pictureShapes":  12,
+    "fontsUsed":  [
+                      "Manrope"
+                  ],
+    "overflowCount":  0,
+    "overflows":  [
+
+                  ],
+    "outsideSlide":  [
+
+                     ],
+    "notes":  [
+                  {
+                      "slide":  1,
+                      "chars":  610,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  2,
+                      "chars":  650,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  3,
+                      "chars":  773,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  4,
+                      "chars":  1345,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  5,
+                      "chars":  851,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  6,
+                      "chars":  760,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  7,
+                      "chars":  640,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  },
+                  {
+                      "slide":  8,
+                      "chars":  1091,
+                      "hasBoundary":  true,
+                      "hasSources":  true
+                  }
+              ],
+    "previewSize":  "1600 x 900",
+    "finalFile":  "SDtrust_Finals_Dashboard_v3.pptx"
+}

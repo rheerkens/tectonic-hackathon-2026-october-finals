@@ -1,0 +1,86 @@
+{
+  "previous_versions_files_checked": 63,
+  "previous_versions_changed": [],
+  "source_basis": "Current repository components and CSS, read only. No current dashboard runtime observation. Two preview_open calls aborted; no further live app actions.",
+  "sources": [
+    {
+      "path": "apps/web/src/pages/DashboardPage.tsx",
+      "sha256": "e23a73720866bcedfee76fff9ddbe67832d28d5672b8cff374d5440602c8abce"
+    },
+    {
+      "path": "apps/web/src/pages/StudioPage.tsx",
+      "sha256": "4663f179d125196896ec28b196077c24fd3344f69c029085a2a3e6eb51e0ddab"
+    },
+    {
+      "path": "apps/web/src/desktop.css",
+      "sha256": "c94fd2989ac7f671c6fab366682bd3e8151051049f5c05598ca08add931d313f"
+    },
+    {
+      "path": "apps/web/src/styles.css",
+      "sha256": "2cf132dbb77ae6053388c4893edfe4a68f545ba587c7364e7999f6e2cb8cbd76"
+    }
+  ],
+  "dashboard_mappings": {
+    "body radial backgrounds": "Editable radial gradient shapes with native soft edge effects",
+    "sidebar-glass and dashboard-card": "Native rounded panels, translucent gradient fills, fine light border and soft shadow",
+    "aurora-text": "Editable gradient text in cover headline",
+    "row-symbol": "Editable gradient tiles with native line symbols",
+    "dashboard grid": "Grouped source and action panels, while preserving slide narrative"
+  },
+  "native_open": true,
+  "slides": 8,
+  "planned_seconds": 170,
+  "text_overflows": 0,
+  "notes_unchanged_from_v2": true,
+  "visual_inspection": "All eight slides inspected in final contact sheet, with key slides also at full export resolution.",
+  "artifacts": {
+    "SDtrust_Finals_Dashboard_v3.pptx": {
+      "bytes": 376815,
+      "sha256": "9b94126eb8947f550d86a3f9f460e7f1994f151395f42daf71423a6b9de083c8"
+    },
+    "SDtrust_Finals_Dashboard_v3.pdf": {
+      "bytes": 975846,
+      "sha256": "747fb46dae26832be72ca8645607f11a460f0d1aa81059e8ab775bbfe3856773"
+    },
+    "SDtrust_Finals_Dashboard_v3_Notes.md": {
+      "bytes": 8438,
+      "sha256": "86a364d11dc0084740cf0b009d40edd17a8f76b524ff477554db23e3e29bf043"
+    },
+    "preview/contact_sheet.png": {
+      "bytes": 1169658,
+      "sha256": "25498d70f4ca74f377c399f11a252938c2a100214388d07108b0ef678c7d94bf"
+    },
+    "preview/slide_01.png": {
+      "bytes": 318005,
+      "sha256": "75fca949118679bd4656d7a04c412890680a369f6b2109bc93031b96b1c71bfc"
+    },
+    "preview/slide_02.png": {
+      "bytes": 238853,
+      "sha256": "7bdc1278fdde0b8735a4fcc9ecad0292f86273b620ae0c66a1e08d5aae5809a3"
+    },
+    "preview/slide_03.png": {
+      "bytes": 380332,
+      "sha256": "3c921ea3c1abec06416037da826b9aa3fa03f583d03e229bc272d0f530cc1078"
+    },
+    "preview/slide_04.png": {
+      "bytes": 174175,
+      "sha256": "096fcd4aa327f079e0dc90c226fd3b0f231f95bf2851170c9d0659dc9bdca42a"
+    },
+    "preview/slide_05.png": {
+      "bytes": 281933,
+      "sha256": "60ade36edfaa1430da2eb5d0a08b521c365ad2bf09d880d9dd42fba48b43824b"
+    },
+    "preview/slide_06.png": {
+      "bytes": 257323,
+      "sha256": "f25189be4d26d86b381508a7ccf21a1481cdff6a2f1ad84d9639a827509d0d9e"
+    },
+    "preview/slide_07.png": {
+      "bytes": 220176,
+      "sha256": "c112e9390ef5fbcd08fff3156bc3b7ca88cb9ae4d7f26cf966c267ccbb739366"
+    },
+    "preview/slide_08.png": {
+      "bytes": 175494,
+      "sha256": "fabebbc7f48bf75ea55d37aebfca376fa27c1cb5043aae77da38e3e88abe7f8c"
+    }
+  }
+}

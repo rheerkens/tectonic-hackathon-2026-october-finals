@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SDtrust Finals Draft v1</title><style>
+*{box-sizing:border-box}body{margin:0;color:var(--foreground,#192d46);font:14px Arial,sans-serif;background:transparent}
+.viewer{width:100%;overflow:hidden;border-radius:12px;background:#192d46}.viewer img{display:none;width:100%;height:auto}.viewer img.active{display:block}
+nav{display:flex;align-items:center;gap:12px;margin-top:12px}button{border:1px solid #c9ced6;background:#f8f6f1;color:#192d46;padding:9px 15px;border-radius:8px;cursor:pointer;font:inherit}button:focus-visible{outline:3px solid #ee6558}#position{flex:1;text-align:center}p{font-size:13px;line-height:1.5;color:var(--muted-foreground,#5f6f85)}
+</style></head><body>
+<div class="viewer" aria-live="polite">
+<img class="active" src="preview/slide_01.png" alt="Slide 1. The answer and the right next step. Introducing SDtrust and Finn.">
+<img src="preview/slide_02.png" alt="Slide 2. One client, four different payroll deadlines.">
+<img src="preview/slide_03.png" alt="Slide 3. Ask once, see the answer and why.">
+<img src="preview/slide_04.png" alt="Slide 4. Clearly labelled placeholder for the final product demonstration.">
+<img src="preview/slide_05.png" alt="Slide 5. Why the approved Atlas agreement supports 22 October 2026.">
+<img src="preview/slide_06.png" alt="Slide 6. No substantiated November answer. Contact with Roy is simulated.">
+<img src="preview/slide_07.png" alt="Slide 7. Synthetic sick leave example compares approved, unconfirmed and expired sources.">
+<img src="preview/slide_08.png" alt="Slide 8. Value for SD Worx and the next pilot step.">
+</div>
+<nav aria-label="Slide navigation"><button id="previous" aria-label="Previous slide">Previous</button><span id="position">1 / 8</span><button id="next" aria-label="Next slide">Next</button></nav>
+<p>Draft v1 · 8 editable slides · 170 second pitch plan. Slide 4 awaits the final app capture.</p>
+<script>
+const slides=[...document.querySelectorAll('.viewer img')];let current=0;
+function show(delta){slides[current].classList.remove('active');current=(current+delta+slides.length)%slides.length;slides[current].classList.add('active');document.querySelector('#position').textContent=`${current+1} / ${slides.length}`;}
+document.querySelector('#previous').addEventListener('click',()=>show(-1));document.querySelector('#next').addEventListener('click',()=>show(1));
+document.addEventListener('keydown',event=>{if(event.key==='ArrowRight')show(1);if(event.key==='ArrowLeft')show(-1);});
+</script></body></html>
