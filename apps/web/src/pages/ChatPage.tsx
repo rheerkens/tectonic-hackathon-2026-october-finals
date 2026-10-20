@@ -3,6 +3,7 @@ import { Button } from "@day-one/ui/button";
 import { SelectField } from "@day-one/ui/field";
 import { useNavigate } from "@tanstack/react-router";
 import { ChatPanel } from "../components/chat/ChatPanel";
+import { useAnnouncePetMood } from "../state/pet";
 import { useStudioState } from "../state/StudioContext";
 export function ChatPage({
 	conversationId,
@@ -13,6 +14,7 @@ export function ChatPage({
 }) {
 	const { scope } = useStudioState();
 	const chat = useChat({ ...scope, conversationId, onConversationCreated });
+	useAnnouncePetMood(chat);
 	const workspaceId = scope.workspaceId;
 	const navigate = useNavigate();
 	return (

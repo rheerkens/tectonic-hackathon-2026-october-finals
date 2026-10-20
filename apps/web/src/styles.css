@@ -1026,3 +1026,27 @@ a {
 		transition: none !important;
 	}
 }
+
+.pet-window,
+.pet-window body {
+	background: transparent;
+	overflow: hidden;
+}
+.pet {
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: grab;
+}
+.pet img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+.mini {
+	padding: 16px;
+}

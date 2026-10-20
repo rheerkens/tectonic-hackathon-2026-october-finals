@@ -1,6 +1,6 @@
 import { ToastProvider } from "@day-one/ui/toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useLocation } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import { useSession } from "./auth/context";
 import { SignIn } from "./auth/SignIn";
@@ -18,7 +18,10 @@ export function App() {
 			}),
 		[session.user?.id],
 	);
+	const path = useLocation({ select: (location) => location.pathname });
 	useEffect(() => () => queries.clear(), [queries]);
+	// The desktop pet shows no account data, so it renders without sign-in.
+	if (path === "/pet") return <Outlet />;
 	return (
 		<QueryClientProvider client={queries}>
 			{session.user ? (
