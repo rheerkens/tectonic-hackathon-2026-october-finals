@@ -754,14 +754,14 @@ const MEDIA = {};
 	};
 
 	group("auto", [
-		{ name: "Dot calling", fx: "fadeOut", delay: 2000, dur: 300 },
-		{ name: "Status calling", fx: "fadeOut", delay: 2000, dur: 300 },
-		{ name: "Phone calling", fx: "fadeOut", delay: 2000, dur: 300 },
-		{ name: "Dot live", fx: "fade", delay: 2000, dur: 300 },
-		{ name: "Status live", fx: "fade", delay: 2000, dur: 300 },
-		{ name: "Phone live", fx: "fade", delay: 2000, dur: 300 },
-		{ name: "Bubble Finn 1", fx: "fade", delay: 2100, dur: 500 },
-		{ name: "Finn audio 1", fx: "play", delay: 2100 },
+		{ name: "Dot calling", fx: "fadeOut", delay: 900, dur: 300 },
+		{ name: "Status calling", fx: "fadeOut", delay: 900, dur: 300 },
+		{ name: "Phone calling", fx: "fadeOut", delay: 900, dur: 300 },
+		{ name: "Dot live", fx: "fade", delay: 900, dur: 300 },
+		{ name: "Status live", fx: "fade", delay: 900, dur: 300 },
+		{ name: "Phone live", fx: "fade", delay: 900, dur: 300 },
+		{ name: "Bubble Finn 1", fx: "fade", delay: 1000, dur: 500 },
+		{ name: "Finn audio 1", fx: "play", delay: 1000 },
 	]);
 	group("click", [{ name: "Bubble Roy", fx: "flyBottom", delay: 0, dur: 500 }]);
 	group("click", [
@@ -789,7 +789,7 @@ const MEDIA = {};
 	s.addNotes(
 		[
 			"THE CALL. Roy stands up holding his phone as if he picks up.",
-			"On entering: the call rings for 2 seconds, then Finn speaks (audio plays by itself):",
+			"On entering: the call rings for 1 second, then Finn speaks (audio plays by itself):",
 			"  FINN: Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.",
 			"CLICK 1, Roy answers live, loud and clear:",
 			"  ROY: Hi Finn! Until the 22nd. I agreed it with Atlas, but I never put it in the CRM.",

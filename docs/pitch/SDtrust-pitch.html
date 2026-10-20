@@ -223,7 +223,7 @@ body.notes #notes { display: block; }
 			</div>
 			<p class="clip-label" style="left:108px;top:846px">Video 4 · After Roy's answer</p><div class="pageno">7</div></section>
 <section class="slide dark" data-steps="4" data-notes="THE CALL. Roy stands up holding his phone as if he picks up.
-On entering: the call rings for 2 seconds, then Finn speaks (audio plays by itself):
+On entering: the call rings for 1 second, then Finn speaks (audio plays by itself):
   FINN: Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.
 CLICK 1, Roy answers live, loud and clear:
   ROY: Hi Finn! Until the 22nd. I agreed it with Atlas, but I never put it in the CRM.
@@ -343,7 +343,7 @@ function callStep(active, n, entering) {
 			const tick = () => { const s = Math.floor((Date.now() - start) / 1000); status.textContent = "Connected · " + Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
 			tick(); callTimers.push(setInterval(tick, 1000));
 			say(active, a1, ".finn-p");
-		}, 2200));
+		}, 1000));
 		return;
 	}
 	active.querySelectorAll(".speaking").forEach((el) => el.classList.remove("speaking"));
