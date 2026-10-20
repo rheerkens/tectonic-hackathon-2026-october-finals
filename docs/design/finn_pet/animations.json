@@ -1,0 +1,285 @@
+{
+  "name": "Finn",
+  "petId": "pet_6ad720dab3248191ac02cf9d03d91bf5",
+  "source": "Existing active ChatGPT Work pet, downloaded through Pets connector",
+  "downloadedOn": "2026-10-20",
+  "spriteVersionNumber": 2,
+  "spritesheet": "spritesheet.png",
+  "sha256": "4c441420de210d57ef4e84ee908081b0073b40af2710f5ed1914771471b25a88",
+  "width": 1536,
+  "height": 2288,
+  "cellWidth": 192,
+  "cellHeight": 208,
+  "columns": 8,
+  "rows": 11,
+  "frameCount": 73,
+  "animationTimingSource": "Installed Work Pets v2 animation row specification",
+  "animations": [
+    {
+      "name": "idle",
+      "row": 0,
+      "frames": 6,
+      "durationsMs": [
+        280,
+        110,
+        110,
+        140,
+        140,
+        320
+      ],
+      "loopDurationMs": 1100,
+      "webp": "animations/idle.webp",
+      "gif": "animations/idle.gif",
+      "framesDirectory": "frames/idle"
+    },
+    {
+      "name": "running-right",
+      "row": 1,
+      "frames": 8,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        220
+      ],
+      "loopDurationMs": 1060,
+      "webp": "animations/running-right.webp",
+      "gif": "animations/running-right.gif",
+      "framesDirectory": "frames/running-right"
+    },
+    {
+      "name": "running-left",
+      "row": 2,
+      "frames": 8,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        220
+      ],
+      "loopDurationMs": 1060,
+      "webp": "animations/running-left.webp",
+      "gif": "animations/running-left.gif",
+      "framesDirectory": "frames/running-left"
+    },
+    {
+      "name": "waving",
+      "row": 3,
+      "frames": 4,
+      "durationsMs": [
+        140,
+        140,
+        140,
+        280
+      ],
+      "loopDurationMs": 700,
+      "webp": "animations/waving.webp",
+      "gif": "animations/waving.gif",
+      "framesDirectory": "frames/waving"
+    },
+    {
+      "name": "jumping",
+      "row": 4,
+      "frames": 5,
+      "durationsMs": [
+        140,
+        140,
+        140,
+        140,
+        280
+      ],
+      "loopDurationMs": 840,
+      "webp": "animations/jumping.webp",
+      "gif": "animations/jumping.gif",
+      "framesDirectory": "frames/jumping"
+    },
+    {
+      "name": "failed",
+      "row": 5,
+      "frames": 8,
+      "durationsMs": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        240
+      ],
+      "loopDurationMs": 1220,
+      "webp": "animations/failed.webp",
+      "gif": "animations/failed.gif",
+      "framesDirectory": "frames/failed"
+    },
+    {
+      "name": "waiting",
+      "row": 6,
+      "frames": 6,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        260
+      ],
+      "loopDurationMs": 1010,
+      "webp": "animations/waiting.webp",
+      "gif": "animations/waiting.gif",
+      "framesDirectory": "frames/waiting"
+    },
+    {
+      "name": "running",
+      "row": 7,
+      "frames": 6,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        220
+      ],
+      "loopDurationMs": 820,
+      "webp": "animations/running.webp",
+      "gif": "animations/running.gif",
+      "framesDirectory": "frames/running"
+    },
+    {
+      "name": "review",
+      "row": 8,
+      "frames": 6,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        280
+      ],
+      "loopDurationMs": 1030,
+      "webp": "animations/review.webp",
+      "gif": "animations/review.gif",
+      "framesDirectory": "frames/review"
+    }
+  ],
+  "lookDirections": [
+    {
+      "angleDegreesClockwiseFromUp": 0.0,
+      "row": 9,
+      "column": 0,
+      "file": "look_directions/look_000.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 22.5,
+      "row": 9,
+      "column": 1,
+      "file": "look_directions/look_022.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 45.0,
+      "row": 9,
+      "column": 2,
+      "file": "look_directions/look_045.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 67.5,
+      "row": 9,
+      "column": 3,
+      "file": "look_directions/look_067.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 90.0,
+      "row": 9,
+      "column": 4,
+      "file": "look_directions/look_090.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 112.5,
+      "row": 9,
+      "column": 5,
+      "file": "look_directions/look_112.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 135.0,
+      "row": 9,
+      "column": 6,
+      "file": "look_directions/look_135.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 157.5,
+      "row": 9,
+      "column": 7,
+      "file": "look_directions/look_157.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 180.0,
+      "row": 10,
+      "column": 0,
+      "file": "look_directions/look_180.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 202.5,
+      "row": 10,
+      "column": 1,
+      "file": "look_directions/look_202.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 225.0,
+      "row": 10,
+      "column": 2,
+      "file": "look_directions/look_225.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 247.5,
+      "row": 10,
+      "column": 3,
+      "file": "look_directions/look_247.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 270.0,
+      "row": 10,
+      "column": 4,
+      "file": "look_directions/look_270.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 292.5,
+      "row": 10,
+      "column": 5,
+      "file": "look_directions/look_292.5.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 315.0,
+      "row": 10,
+      "column": 6,
+      "file": "look_directions/look_315.0.png"
+    },
+    {
+      "angleDegreesClockwiseFromUp": 337.5,
+      "row": 10,
+      "column": 7,
+      "file": "look_directions/look_337.5.png"
+    }
+  ],
+  "neutralLookFrame": {
+    "row": 0,
+    "column": 0
+  },
+  "notes": [
+    "Original downloaded PNG is unchanged.",
+    "Exports are exact cell extractions without resizing or redrawing.",
+    "WebP animations are lossless and preserve alpha.",
+    "GIF exports use a limited palette and transparency; prefer the atlas, PNG frames or WebP in the app.",
+    "Look directions are static poses selected by pointer direction; they have no built-in playback timing.",
+    "These assets are not yet wired into the desktop app."
+  ]
+}
