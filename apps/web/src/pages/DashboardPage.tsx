@@ -37,13 +37,13 @@ export function DashboardPage() {
 					<Link
 						className="dashboard-row"
 						to="/results/$resultId"
-						params={{ resultId: "d1-payroll-changes-november" }}
+						params={{ resultId: "atlas-meal-vouchers-2027" }}
 					>
 						<span className="row-symbol coral">
 							<Icon name="file-text" />
 						</span>
 						<span className="row-copy">
-							<strong>Atlas payroll for November</strong>
+							<strong>Atlas meal vouchers 2027</strong>
 							<span>No confirmed agreement yet</span>
 						</span>
 						<span className="row-meta">
@@ -55,13 +55,13 @@ export function DashboardPage() {
 					<Link
 						className="dashboard-row"
 						to="/results/$resultId"
-						params={{ resultId: "d2-sick-leave" }}
+						params={{ resultId: "nl-holiday-pay" }}
 					>
 						<span className="row-symbol amber">
 							<Icon name="users" />
 						</span>
 						<span className="row-copy">
-							<strong>Sick leave guidance</strong>
+							<strong>Holiday pay Netherlands</strong>
 							<span>Review the supporting sources</span>
 						</span>
 						<Icon name="chevron-right" size={18} />

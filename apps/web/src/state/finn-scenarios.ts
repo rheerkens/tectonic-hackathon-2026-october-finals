@@ -279,8 +279,118 @@ const d2: FinnResult = {
 	nextStep: { kind: "none" },
 };
 
+// Dashboard-only examples, kept apart from the pitch questions so the demo starts clean.
+const mealVouchers2027: FinnResult = {
+	id: "atlas-meal-vouchers-2027",
+	question: "What meal voucher value applies to Atlas from January 2027?",
+	context: { country: "BE", client: "Atlas", period: "2027-01" },
+	headline: null,
+	answer: null,
+	trust: {
+		score: 0.2,
+		reasons: [
+			"The current agreement (S40) only runs until 31 December 2026",
+			"The €10 in Teams is a proposal, Atlas did not sign it",
+			"Sebastian has not published the 2027 indexation yet",
+		],
+	},
+	steps: [
+		{ tool: "search_sources", summary: "3 sources on Atlas meal vouchers" },
+		{ tool: "assess_trust", summary: "Belgium · Atlas · January 2027: nothing applies" },
+		{ tool: "find_people", summary: "Sebastian owns the indexation procedure" },
+		{ tool: "contact_person", summary: "Teams message to Sebastian" },
+	],
+	sources: [
+		{
+			code: "S40",
+			kind: "crm",
+			title: "Client agreement Atlas: meal vouchers",
+			author: "Roy",
+			date: "2026-01-05",
+			excerpt: "Atlas grants meal vouchers of €8 per working day in 2026.",
+			supports: false,
+			note: "Only valid in 2026",
+		},
+		{
+			code: "S41",
+			kind: "teams",
+			title: "Teams Atlas: budget 2027",
+			author: "Wanne",
+			date: "2026-10-12",
+			excerpt: "Atlas is thinking about €10 per day next year, to be confirmed.",
+			supports: false,
+			note: "Not confirmed: a proposal, no signed agreement",
+		},
+		{
+			code: "S42",
+			kind: "doc",
+			title: "Indexation procedure Belgium",
+			author: "Sebastian",
+			date: "2026-03-01",
+			excerpt: "New meal voucher amounts are published in December for the next year.",
+			supports: false,
+			note: "Explains the gap: 2027 amounts are not out yet",
+		},
+	],
+	people: [{ name: "Sebastian", role: "Procedure owner", why: "Publishes the yearly indexation" }],
+	nextStep: {
+		kind: "contact_person",
+		person: "Sebastian",
+		message:
+			"Hi Sebastian, which meal voucher value applies to Atlas from January 2027? I only found the 2026 agreement (€8, S40) and an unconfirmed €10 in Teams.",
+		threadId: "thread-atlas-meal-vouchers",
+	},
+};
+
+const nlHolidayPay: FinnResult = {
+	id: "nl-holiday-pay",
+	question: "When is holiday pay paid out in the Netherlands?",
+	context: { country: "NL", client: null, period: "2026-10" },
+	headline: "In May",
+	answer:
+		"Dutch holiday pay (8% of gross salary) is paid out **with the May payroll** [S43]. The June date in the old procedure [S44] no longer applies.",
+	trust: {
+		score: 0.88,
+		reasons: [
+			"Current approved Dutch procedure by Sebastian",
+			"The June date is from a superseded version",
+		],
+	},
+	steps: [
+		{ tool: "search_sources", summary: "2 sources on holiday pay" },
+		{ tool: "assess_trust", summary: "Netherlands · October 2026" },
+		{ tool: "get_source", summary: "S43 Holiday pay Netherlands" },
+	],
+	sources: [
+		{
+			code: "S43",
+			kind: "doc",
+			title: "Holiday pay Netherlands (v2)",
+			author: "Sebastian",
+			date: "2026-02-01",
+			excerpt: "Holiday pay of 8% is paid out with the May payroll.",
+			supports: true,
+			note: "Approved general rule",
+		},
+		{
+			code: "S44",
+			kind: "doc",
+			title: "Holiday pay Netherlands (v1, old)",
+			author: "Sebastian",
+			date: "2024-01-01",
+			excerpt: "Holiday pay is paid out in June.",
+			supports: false,
+			note: "Superseded by S43",
+		},
+	],
+	people: [
+		{ name: "Sebastian", role: "Procedure owner", why: "Approved the Dutch holiday pay procedure" },
+	],
+	nextStep: { kind: "none" },
+};
+
 export const finnScenarios: Record<string, FinnResult> = Object.fromEntries(
-	[d1October, d1November, d2].map((result) => [result.id, result]),
+	[d1October, d1November, d2, mealVouchers2027, nlHolidayPay].map((result) => [result.id, result]),
 );
 
 /** Demo questions in the order of the pitch. A follow-up answers within the previous conversation. */
