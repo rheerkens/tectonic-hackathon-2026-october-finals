@@ -866,7 +866,7 @@ const MEDIA = {};
 		color: C.background1,
 		valign: "middle",
 	});
-	gif("Finn waving", "finn-waving-big");
+	gif("Finn proud", "finn-proud");
 	group("auto", [{ name: "Questions", fx: "fade", delay: 400, dur: 500 }]);
 	s.addNotes(
 		[

@@ -25,7 +25,7 @@ SPECS = [
 	("lotte-relieved", PITCH / "sprites/lotte-relieved.webp", NIGHT, [], 96, 156, 576, False),
 	("finn-idle", PET / "idle.webp", IVORY, [], 190, 270, 500, True),
 	("finn-waving", PET / "waving.webp", NIGHT, [], 380, 390, 340, True),
-	("finn-waving-big", PET / "waving.webp", NIGHT, [], 1040, 200, 520, True),
+	("finn-proud", PITCH / "sprites/finn-proud.webp", NIGHT, [], 1080, 140, 640, True),
 ]
 
 

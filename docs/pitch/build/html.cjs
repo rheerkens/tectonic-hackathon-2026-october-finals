@@ -37,6 +37,7 @@ const icon = (Comp, color) =>
 		logo: file(path.join(REPO, "apps/web/public/sdtrust.svg"), "image/svg+xml"),
 		finn: file(path.join(REPO, "docs/design/finn.png"), "image/png"),
 		finnWave: file(path.join(REPO, "apps/web/public/pet/waving.webp"), "image/webp"),
+		finnProud: file(path.join(OUT, "sprites/finn-proud.webp"), "image/webp"),
 		lottePuzzled: await webp(path.join(OUT, "lotte-puzzled-cutout.png"), 900),
 		lotteRelieved: await webp(path.join(OUT, "lotte-relieved-cutout.png"), 900),
 		lottePuzzledSprite: spriteOr(path.join(OUT, "sprites/lotte-puzzled.webp"), null),
@@ -241,7 +242,7 @@ function page(A, I, animated) {
 			<p class="team" style="left:96px;top:560px">Sebastien · Roy · Wanne</p>
 			<p class="meta" style="left:96px;top:606px">Tectonic hackathon finals · SD Worx challenge · 20 October 2026</p>
 			<div class="brand small" style="left:96px;top:680px"><img src="${A.logo}" alt=""><span>SDtrust</span></div>
-			<img class="finn-wave" src="${A.finnWave}" alt="Finn waving" style="left:1040px;top:200px;height:520px">`,
+			<img class="finn-proud" src="${A.finnProud}" alt="Finn, arms crossed, proud" style="left:1080px;top:140px;height:640px">`,
 		},
 	];
 
