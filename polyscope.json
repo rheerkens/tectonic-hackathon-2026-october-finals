@@ -5,7 +5,8 @@
 		"run": [
 			{ "label": "Check (merge gate)", "command": "bun run check" },
 			{ "label": "Tests (watch)", "command": "bun run test:watch" },
-			{ "label": "E2E smoke", "command": "bun run test:e2e" }
+			{ "label": "E2E smoke", "command": "bun run test:e2e" },
+			{ "label": "Desktop app", "command": "bun run --cwd apps/desktop start" }
 		]
 	},
 	"preview": { "command": "bun dev" },

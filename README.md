@@ -1,103 +1,169 @@
-# Day One
+# FINN: SDtrust knowledge companion
 
-A one-day hackathon starter for parallel agents on Linux and macOS development hosts. React/Vite web, Bun/Hono API, Drizzle/SQLite, and an isolated pi workspace. T3 manages tasks, hosts, and worktrees.
+Built for the SD Worx challenge at the Tectonic hackathon finals, 20 October 2026.
 
-The working example includes synthetic sign-in, workspace membership, viewer/editor/owner roles, private persistent chat, and authorized SQLite notes tools. UI foundations and lifecycle code come from the previous hackathon; [the reuse record](docs/reuse.md) names the sources and adaptations.
+FINN is a small mascot that lives in the bottom-right corner of your desktop, like the ChatGPT desktop companion. You ask FINN a question. FINN searches the signals your company already produces (Teams, mail, CRM) and comes back with **the answer or the next step**, plus **how much you can trust it** and **where it came from**. If FINN can't be sure, it says so and contacts the right colleague for you.
 
-## Start
+**Design principle:** zero unnecessary effort. FINN shows the answer and the next step, not the process. The user only gets involved when they actually need to act.
 
-Install the Bun version in `.bun-version`, then run:
+Developer setup, commands and repo conventions: [docs/development.md](docs/development.md) and [AGENTS.md](AGENTS.md).
+Design concepts and the FINN mascot: [docs/design](docs/design).
 
-```sh
-bun setup
-bun dev
-```
+---
 
-Setup installs the frozen lockfile and creates `.env.local` without overwriting it. It does not start an app. `bun dev` migrates/seeds the local database, starts Vite and the API, and prints a Tailscale URL.
+## Decisions
 
-For a ZIP download, run `git init -b main` before starting the app. Commit the baseline before creating T3 worktrees. A Git clone already has this metadata.
+| Topic | Decision |
+|---|---|
+| Platform | **Electron desktop app** (`apps/desktop`, already on `main`) for the demo. Every push to `main` builds a Mac `.dmg` and a Windows `.exe` in CI. The jury device runs Windows or macOS; which one is unknown. During development we use the web variant (`bun dev`) or `bun run desktop`. If Electron blocks us, the web variant is the fallback. |
+| Language | **English** UI copy. The design concepts use Dutch; translate their labels. |
+| Data | **Fake.** Synthetic Teams messages, mails and CRM records live in SQLite and are seeded in dev mode (`seedDatabase`). The packaged app runs the same seed on start. The first version may mock search results completely. Real connectors only if time is left. |
+| AI | **The demo uses a scripted agent, not a live model.** For each demo question, a scripted model replays the right tool calls in the right order. The tools themselves are real and query the seeded SQLite. The demo therefore works offline and on the jury device, with no login. Live Codex through pi (already in the starter) stays available for development and is a stretch goal for the demo. |
+| Users | **One user in the demo.** "Contacting a colleague" is simulated: FINN shows that it sent a Teams message and the conversation waits for a reply. |
+| Score | **Trust in the result.** Not "how well does a person match". Low trust means FINN tells the user and proposes, or takes, a next step. |
+| Process vs result | FINN shows the answer or next step. The result page shows provenance so the user can check *why*. |
+| Agent and UI | The agent can drive the whole UI: navigate, open pages, change FINN's state, ask follow-up questions. |
+| Privacy | The user chooses in Settings which sources FINN may use. For the demo, everything is on by default. |
+| Model | Scripted agent for the demo, Codex for live runs. Switched by one setting, for example `FINN_AGENT=scripted\|codex`. |
 
-Choose Alex to edit notes, Sam to read, Jordan as workspace owner, or Casey for a separate workspace. Sign out to switch. These are synthetic development identities.
-
-Chat uses the existing Codex login on the API host. No login is copied into worktrees. The UI shows an actionable message when login is missing or expired. `CHAT_MODEL` defaults to the previous project's `gpt-6-luna`; the pinned pi catalog resolves it. Chat calls use your signed-in account. No live model call runs in the required check.
-
-## Desktop app (Mac + Windows)
-
-`bun run desktop` builds the web app and opens it in Electron with a local API and SQLite under the OS user-data folder. Use `bun dev` in a browser for hot reload while building features.
-
-Every push to `main` builds a Mac `.dmg` and Windows portable `.exe`: GitHub → Actions → Desktop → latest run → Artifacts. Builds are unsigned. On Mac, after dragging the app to Applications, run `xattr -cr "/Applications/Day One.app"` once. On Windows, choose "More info → Run anyway". Local build: `bun run --cwd apps/desktop dist` (output in `apps/desktop/release`).
-
-## Commands
-
-| Command | Purpose |
-| --- | --- |
-| `bun setup` | Prepare dependencies and checkout-local env |
-| `bun dev --profile demo` | Start another isolated app stack |
-| `bun run dev:status --profile demo` | Show environment metadata |
-| `bun run dev:stop --profile demo` | Ask that environment's owner to stop its children |
-| `bun run dev:env --profile demo` | Print non-secret URLs and database path as JSON |
-| `bun doctor` | Inspect claims, ownership, and Tailscale |
-| `bun run check` | Parallel lint, typecheck, boundaries, real tests, Vite build |
-| `bun run db:generate` | Generate a committed SQLite migration |
-| `bun run db:migrate` / `db:seed` | Prepare the selected `DATABASE_PATH` |
-| `bun run test:e2e` | Separate browser smoke against the ready dev profile |
-| `LIVE_CHAT_SMOKE=1 bun run test:e2e` | Explicit smoke with the host's live model login |
-| `bun run test:isolation` | Separate two-clone/process/data isolation check |
-| `bun run video:doctor` | Check optional presentation prerequisites |
-
-Root database commands default to `.local/dev/app.sqlite`. To use a different database, set `DATABASE_PATH` explicitly. `dev:env` prints JSON, not shell commands; inspect it rather than using shell `eval`.
-
-## Workspaces
+## Product surfaces
 
 ```text
-apps/web           React pages/components, session adapters, app state composition
-apps/api           Hono middleware, authentication, action route composition
-features/notes     create/list actions: contract, client, state, server, tests
-features/chat      create/list/history/send/status actions and shared pi adapters
-features/workspaces list action with membership-scoped results
-packages/contracts Shared identity, roles, and persisted tool-result contracts
-packages/http      Browser-safe authenticated transport and response parsing
-packages/server    Server-only permissions, errors, HTTP setup, test fixtures
-packages/db        SQLite client, schema, migrations, synthetic fixtures
-packages/ai        Generic pi runner, provider transport, offline tests
-tools/dev          Worktree/profile discovery and owned app lifecycle
-tools/e2e          Separate browser smoke and real presentation capture
-tools/video        Local/ElevenLabs narration and FFmpeg editing
-.agents/skills/presentation-video  Portable presentation instructions
+┌──────────────────────────────┐
+│ SDtrust app window           │   ┌─────────────┐
+│  Result / trust page         │   │ mini window │  ← ask + short result,
+│  History                     │   │             │    next to FINN
+│  Active threads (waiting)    │   └─────────────┘ 🧑 FINN  ← transparent, always on top,
+│  Settings                    │                            draggable, bottom-right
+└──────────────────────────────┘
 ```
 
-Add `apps/mobile` when a mobile requirement arrives. Reuse the feature contracts, typed clients, and compatible state hooks. Mobile calls the API; it does not import the server database or pi runtime.
+1. **FINN (pet window, exists).** A small, transparent, always-on-top window (`/pet`) that can be dragged. It has sprite animations: `idle`, `waving`, `waiting`, `running`, `jumping`, `failed`, `review` (`apps/web/src/state/pet.ts`). FINN states map onto them: asking, thinking, needs input, done, waiting (FINN contacted someone).
+2. **Mini window (exists as a chat).** A floating window next to FINN (`/mini`), opened by clicking FINN. It becomes the place to ask a question and to see the short answer, trust level and next step. Clicking the result opens the full result page.
+3. **SDtrust app window (exists as the main window).** Today it opens at launch. For the demo it should open on demand. It has the result/trust page, history, active threads and settings. See concepts [01](docs/design/desktop_concepts/01.png), [02](docs/design/desktop_concepts/02.png) and [03](docs/design/desktop_concepts/03.png).
 
-Each feature is one Bun workspace. Actions are folders inside that workspace, with explicit package exports for `contract.ts`, `client.ts`, `state.ts`, and `server.ts`. Run focused action tests with `bun test features/notes/create` or `bun test features/chat/send`.
+## Architecture
 
-Pages consume feature hooks and pass data/actions into visual components. Action state owns queries, mutations, loading/errors, and cache refresh. Query keys include user/workspace scope; changing identity creates a new cache. Browser/server and UI/state import checks run in the merge gate. See [the architecture](docs/architecture.md) for the complete request flow and notes-create example. Shared behavior includes Zod field errors, typed API errors with request IDs, a 15-second request deadline, one transient GET retry, safe request logs and in-memory draft recovery after sign-in expires.
-
-## Parallel agents
-
-T3 runs the `t3.json` setup hook after creating a worktree. Each worktree/profile has `.local/<profile>/app.sqlite`, two ports, logs, and runtime metadata. Port leases cover separate clones run by the same OS user on one host. Strict binds also detect unrelated listeners. Separate users still get bind-failure protection rather than a shared lease registry.
-
-Feature agents can merge their PRs after required checks pass. Coordinate shared contracts, migrations, manifests, and lockfile changes in the task brief. Read [AGENTS.md](AGENTS.md) and [the task brief](docs/task-brief.md). No second task scheduler or worktree creator lives in this repo.
-
-Stopping uses a nonce-verified Unix control socket, then the launcher's own subprocess handles. Stale claims are retained for inspection; `bun doctor` never kills a saved PID. Confirm the owner is gone and its ports are free before removing only those stale claim files.
-
-## Presentation video
-
-Read [the presentation skill](.agents/skills/presentation-video/SKILL.md). Capture uses Node 22+ and optional Playwright Chromium. Editing needs Python 3.10+, FFmpeg, and ffprobe. Local Piper is installed in an isolated optional environment; macOS can also use `say`.
-
-```sh
-bun run video:install
-bun run video:install-local   # optional Piper engine and pinned voice
-bun run video:sample --narration local
-bun dev --profile demo       # separate terminal, synthetic presentation data
-bun run video:make --profile demo --narration auto
+```text
+Electron (apps/desktop)
+  ├─ mascot window  ─┐
+  └─ app window     ─┴─ load Vite web app routes (apps/web)
+                            │  HTTP + chat stream
+                            ▼
+                     Hono API (apps/api) ── pi runner ── StreamFn
+                                                         ├─ scripted (demo, offline)
+                                                         └─ Codex (live, optional)
+                            │
+                       tools │ search_sources, find_people, contact_person, ui.*
+                            ▼
+                     SQLite (seeded synthetic Teams / mail / CRM)
 ```
 
-Auto uses ElevenLabs when `ELEVENLABS_API_KEY` is configured, otherwise local speech. `--narration local` or `elevenlabs` overrides selection. ElevenLabs sends narration text to the service and uses account credits. The key stays out of logs and media artifacts. Only changed scene audio is synthesized.
+- Electron is a thin shell. All three windows load routes from the web app served by the local API, so the web fallback is the same code. The API and agent stay server-side, as in the starter. Windows share one origin, so FINN's mood travels over a `BroadcastChannel` instead of IPC.
+- **Scripted agent.** pi's runner already accepts an injected `StreamFn` (`createRunner({ streamFn })` in `packages/ai`; the tests use the same seam). The scripted `StreamFn` matches the demo question and emits a fixed sequence of tool calls and a final text. pi executes the real tools. The UI, tools and stream are identical to the live path; only the model is replaced.
+  - Add small delays between steps so the thinking state is visible.
+  - Script the follow-up question as well: the scripted agent asks the user, waits for the answer, then continues.
+  - An unknown question gets a polite fixed reply ("I can only answer the demo questions right now"), not a crash.
+- **Packaged app runs fully offline (already wired).** Electron main starts a compiled API binary on a free local port with `NODE_ENV=development` and `AUTH_MODE=dev`. That binary serves the built web app, migrates and seeds SQLite in the user-data folder. The demo seed and the scripted agent must therefore live in the API and `seedDatabase`, not in a dev-only script. Never set `NODE_ENV=production` there: the API rejects synthetic users in production mode.
+- **How the agent drives the UI.** The agent calls UI tools, the commands arrive in the client through the chat stream, and the renderer executes them. Realtime messages stay change signals only, as AGENTS.md requires.
+  - **v1:** a few fixed commands (`navigate`, `open_result`, `set_finn_state`, `ask_user`) executed by plain client JavaScript.
+  - **Target:** one `execute_codesdk` tool. The agent writes a short script against a small typed FINN SDK, and the renderer runs it in a sandbox.
+  - Never `eval` agent code in a renderer with Node access. Keep `contextIsolation` on.
 
-Edit `docs/demo/story.json` to change narration, captions, chapters, actions, and expected results. Output includes a narrated MP4, caption file, transcript, screenshots, capture/timing manifest, and an offline player. The example requires an available host login for its pi scene. Give each presentation its own profile; reruns create a fresh conversation without deleting existing data.
+### Result contract (proposal: fix this first, everyone builds against it)
 
-## Later deployment
+```ts
+type FinnResult = {
+  question: string;
+  answer: string | null;            // null when FINN cannot answer yet
+  trust: {
+    score: number;                  // 0..1, shown as high / medium / low
+    reasons: string[];              // e.g. "2 recent sources agree", "newest source is 8 months old"
+  };
+  sources: Array<{
+    kind: "teams" | "mail" | "crm";
+    title: string;
+    author: string;
+    date: string;                   // ISO
+    excerpt: string;
+  }>;
+  people: Array<{ name: string; role: string; why: string }>;
+  nextStep:
+    | { kind: "none" }
+    | { kind: "clarify"; question: string }                   // FINN asks the user
+    | { kind: "contact_person"; person: string; message: string; threadId: string };
+};
+```
 
-Build the web app with the intended Clerk frontend key and `AUTH_MODE=clerk`. The Bun API can serve the built web app. Production refuses synthetic authentication and local model login. Railway preparation needs `NODE_ENV=production`, `API_HOST=0.0.0.0`, a persistent local volume, `DATABASE_PATH`, Clerk settings, and an API-key provider adapter. Run one API instance against that SQLite volume initially. Deployment is deliberately deferred.
+Proposal for the score: the agent returns the trust *factors* (agreement between sources, recency, whether the source is authoritative, conflicts). The code turns those factors into a score, so every number on screen has visible reasons.
 
-GitHub Actions has a required-check candidate named `check` and a manually run browser workflow. Configure branch protection to require `check` when a GitHub repository is attached; the workflow alone does not enforce merge policy.
+---
+
+## Work breakdown
+
+We build **UI first, against mocks**. The real backend follows once the demo scripts are clear. Detailed scope and acceptance criteria live in the GitHub issues; pick one up and assign yourself.
+
+**Phase 1: UI against a mock flow** (label `phase:1-ui-mock`)
+
+| Issue | Area | Cut line |
+|---|---|---|
+| [#1 Script the two demo scenarios and plan the phase 2 tasks](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/1) | planning | must |
+| [#2 Mock FINN flow: types, fixtures and a shared `useFinn()` hook](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/2) | ui | must, do it first |
+| [#3 Desktop: start with only FINN visible, open the main window on demand](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/3) | desktop | must |
+| [#4 FINN pet states and thinking animation](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/4) | desktop | must |
+| [#5 Mini window: ask, follow-ups, short result](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/5) | ui | must |
+| [#6 Result and trust page](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/6) | ui | must |
+| [#7 Result delivery: mocks and proposal](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/7) | ui | should |
+| [#8 History, active threads and settings](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/8) | ui | should |
+| [#9 Agent-driven UI v1: UI command executor](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/9) | ui | should |
+| [#10 Test the packaged app on Windows / macOS, offline](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/10) | desktop | must |
+| [#11 Pitch, rehearsal and backup recording](https://github.com/rheerkens/tectonic-hackathon-2026-october-finals/issues/11) | pitch | must |
+
+**Phase 2: the real app.** #1 produces these issues once the scenario scripts settle which tools and methods we need. Expected: shared contracts, knowledge schema and seed, search tools, the scripted agent `StreamFn`, the FINN ask flow and trust score, `contact_person`, swapping the UI from mock to real. Stretch: live Codex, `execute_codesdk`.
+
+The mock in #2 sits behind the same `useFinn()` hook the real flow will use, so the phase 1 UI survives phase 2 unchanged.
+
+Team: Sebastian, Roy, Wanne. We push directly to `main` and write no tests (see [AGENTS.md](AGENTS.md)). Run `bun run check` before every push.
+
+## Cut line
+
+When we're behind, cut from the bottom of this list:
+
+1. Both demo flows working end to end: mock flow first (#2), scripted agent in phase 2. *(must have)*
+2. FINN starts alone on screen in the packaged app. *(fallback: web route)*
+3. Result page with trust reasons and source provenance.
+4. Low-trust → contact person → active thread flow.
+5. Thinking animation with source icons.
+6. Agent-driven UI beyond opening the result.
+7. `execute_codesdk`, history page polish, live Codex, real connectors. *(stretch)*
+
+Keep a recorded backup of the demo in case the jury device misbehaves.
+
+---
+
+## Challenge coverage (SD Worx, finals guide p.10)
+
+The challenge: turn fragmented organisational knowledge into a trusted shared resource that stays useful, reliable and up to date, without people having to document or maintain it. "The goal is not zero human involvement. The goal is zero unnecessary effort."
+
+| Challenge ask | How FINN answers it | Status |
+|---|---|---|
+| Invisible UI, calm technology | Mascot only; the answer, not the process; the user acts only when needed | Planned (#4, #5) |
+| Fit existing ways of working | Reads Teams, mail and CRM; contacts people via Teams | Planned, data simulated (#1, phase 2) |
+| Beyond documents: who knows this? | Results list relevant people; low trust routes to a person | Planned (#5, #6) |
+| Understandable when people decide or act | Trust score with reasons, and every claim linked to a source | Planned (#6) |
+| Learn from everyday work signals | Knowledge comes from messages, mails and CRM, not from written docs | Partly: we search at question time, we don't build a profile in the background |
+| Stay up to date as people and roles change | Recency and conflicting sources lower trust ([concept 01](docs/design/desktop_concepts/01.png)) | Planned in trust factors (#1, phase 2) |
+| Verify when human judgement adds value | Low trust → FINN asks the colleague who knows | Planned (#5, #8) |
+
+### "Show us how" (draft answers for the pitch)
+
+1. **What happens automatically?** Searching every source, weighing how recent and consistent the sources are, picking the right person, and drafting the message to them.
+2. **When is human verification valuable?** Only when sources conflict or are stale, so trust is low. Then FINN asks the one person who can confirm.
+3. **How is maintenance avoided?** Nobody writes documentation. FINN reads what people already write in Teams, mail and CRM. A colleague's reply becomes a new source.
+4. **How does it fit the workflow?** It lives on the desktop and reaches people through Teams. The user never has to open another tool unless they want the details.
+5. **How does it stay understandable?** Every answer shows its trust score, the reasons for it, and the sources it came from.
+
+## Open questions
+
+- **Naming.** Is the app window "SDtrust", as in the concepts? Is the mascot "FINN" or "Finn"?
+- **Demo time and pitch length.** These decide where the cut line falls.
