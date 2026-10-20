@@ -90,7 +90,6 @@ Verpakking, installatie op een ander apparaat en macOS zijn niet door deze sessi
 ## Bestanden en previews
 
 De echte ontwikkelapp: `http://draegus-zenbook.tail102e44.ts.net:55020`.
-Eerdere losse ontwerpbeelden en Opus previews staan onder `apps/web/design-previews`; zij zijn geen onderdeel van de productroutes.
 De zes gegenereerde beelden hebben prompts en hashes in hun previewmap. De drie oorspronkelijke beelden onder `docs/design/desktop_concepts` zijn intact.
 Lucide pictogrammen komen uit de officiële bron met meegeleverde licentie. Het SDtrust merkbeeld is hergebruikt uit de bestaande lokale merkassets.
 

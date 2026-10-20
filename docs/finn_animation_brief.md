@@ -40,7 +40,7 @@ frame_inspection.json komt uit het bestaande Pet inspect_frames.py en controleer
 
 De vergelijking is ook in de browser bekeken op lichte en donkere achtergrond. Beide echte exportformaten laden, de tijdlijn toont andere frames en pauzeren werkt. trial_playback.mp4 bewaart deze controle. Browseropnames hebben een variabele opnamecadans; FFmpeg meldt bij uitlezen naar de null muxer dubbele DTS waarden. Deze opnames zijn visueel bewijs en geen timingreferentie. De exacte tijden zijn rechtstreeks uit GIF en WebP gelezen in validation.json.
 
-De tijdelijke assetserver luistert alleen op het eigen Tailscale adres en serveert docs/design. De vergelijking is bereikbaar op http://100.89.117.122:8767/finn_pet_refined/preview.html zolang die server actief blijft. Beide previews werken ook lokaal vanuit de checkout.
+De vergelijking staat in `docs/design/finn_pet_refined/preview.html`; de tijdelijke assetserver is niet meer actief, de previews werken lokaal vanuit de checkout.
 
 ## Volgende keuze
 
@@ -54,7 +54,7 @@ docs/design/finn_pet_refined/breathing_02 bevat zes nieuw getekende ademposes ui
 
 De ademlus duurt 4400 ms, verdeeld als 900, 700, 600, 600, 700 en 900 ms. Deze losse proef houdt de ogen open. Ze combineert nog geen ademcyclus met de knippering van proef 01. Er zijn kleine tekenvariaties rond hoofd en schoenen. De globale alpha grenzen blijven exact gelijk en de voetenlijn blijft op y 202, maar dat bewijst geen pixelvaste lokale details.
 
-De GIF en lossless WebP exports, zes PNG frames, rijstrip, volledige kandidaat sheet, bronbeeld, gebruikte prompt en validatierapporten zijn opgeslagen. De validators rapporteren geen structurele fouten. De ingebouwde browserinspectie liep tweemaal vast op een timeout; een aparte Edge preview bevestigde daarna het afspelen, de veranderende frameposities en de weergave op lichte en donkere achtergrond. De vergelijking blijft beschikbaar op http://100.89.117.122:8767/finn_pet_refined/breathing_02/preview.html.
+De GIF en lossless WebP exports, zes PNG frames, rijstrip, volledige kandidaat sheet, bronbeeld, gebruikte prompt en validatierapporten zijn opgeslagen. De validators rapporteren geen structurele fouten. De ingebouwde browserinspectie liep tweemaal vast op een timeout; een aparte Edge preview bevestigde daarna het afspelen, de veranderende frameposities en de weergave op lichte en donkere achtergrond. De vergelijking blijft beschikbaar op `docs/design/finn_pet_refined/breathing_02/preview.html` (de lokale assetserver is niet meer actief).
 
 docs/design/finn_pet_refined/overview.html bundelt de bewegende vergelijking en de volledige poseinventaris in een visueel overzicht. Dit is nog steeds uitsluitend een assetlevering. Appgedrag, accountinstellingen en bestaande state namen zijn niet gewijzigd. Er zijn geen unit tests of e2e tests geschreven of uitgevoerd.
 
@@ -70,7 +70,7 @@ Elke bewegende kaart gebruikt de bestaande PNG frames en vastgelegde frametijden
 
 `build_review.py` maakt de volledige zelfstandige HTML met ongewijzigde PNG beelden en daarnaast `review.embed.html` voor weergave in de chat. Alleen die compacte kijkversie gebruikt naar 96 bij 104 pixels verkleinde WebP beelden. Voor detailbeoordeling is de volledige versie bedoeld. De browseropslag van de chatweergave en de afzonderlijk geopende pagina kan verschillen; vul feedback op één plek in en geef die expliciet door.
 
-De volledige review is bereikbaar op http://100.89.117.122:8768/finn_pet_refined/review.html zolang de eigen statische server actief is. De bestaande server op poort 8767 en de oude werkmap blijven onaangeroerd. Browsercontrole bevestigde geladen beelden, afspelen, pauzeren, framekeuze, notities bewaren na herladen, feedbacktekst en een mobiele indeling zonder horizontale overflow. Er zijn geen unit of e2e tests uitgevoerd. Geen bronasset of applicatiebestand is gewijzigd.
+De volledige review stond lokaal op een tailnet adres (alleen lokaal, niet meer bereikbaar); open `docs/design/finn_pet_refined/review.html` vanuit de checkout. De bestaande server op poort 8767 en de oude werkmap blijven onaangeroerd. Browsercontrole bevestigde geladen beelden, afspelen, pauzeren, framekeuze, notities bewaren na herladen, feedbacktekst en een mobiele indeling zonder horizontale overflow. Er zijn geen unit of e2e tests uitgevoerd. Geen bronasset of applicatiebestand is gewijzigd.
 
 ## Definitief besluit: idle afgerond
 
@@ -86,7 +86,7 @@ De gebruiker heeft drawing_02 expliciet goedgekeurd: "Deze mag overgenomen worde
 
 De centrale keuze staat in session_status.json. Bronbesluit en bewijs staan in sessions/walk_left/status.md en sessions/walk_left/drawing_02/approval.json en manifest.json. De geselecteerde export is sessions/walk_left/drawing_02/running-left.webp, SHA256 4ac79dd419e8153b406b9faf41aa9017fefc12cbcfbfcc2bc78cabde75840d7d. Bij centrale overname opnieuw uitgelezen: twaalf frames, 192 bij 208 pixels, exact de opgegeven tijden, onbeperkte lus en alle alpha en zichtbare pixels gelijk aan de goedgekeurde framevolgorde.
 
-De centrale review toont de gekozen versie naast de andere beslissingen; de oorspronkelijke acht bronframes blijven als vergelijking beschikbaar. De vergelijking van de sessie staat op http://100.89.117.122:8768/finn_pet_refined/sessions/walk_left/drawing_02/comparison.html. Eerdere proeven blijven bewaard. Deze overname wijzigt geen bronassets of appbestanden en voert geen Git mutaties uit.
+De centrale review toont de gekozen versie naast de andere beslissingen; de oorspronkelijke acht bronframes blijven als vergelijking beschikbaar. De vergelijking van de sessie staat op `docs/design/finn_pet_refined/sessions/walk_left/drawing_02/comparison.html` (de lokale assetserver is niet meer actief). Eerdere proeven blijven bewaard. Deze overname wijzigt geen bronassets of appbestanden en voert geen Git mutaties uit.
 
 ## Definitieve besluiten: Nadenken, Lopen naar rechts en Controleren
 

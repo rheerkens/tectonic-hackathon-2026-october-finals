@@ -1,6 +1,6 @@
 import { ErrorBodySchema } from "@day-one/contracts";
 import { type ApiClient, ApiError, inputError } from "@day-one/http";
-import { SendChatInputSchema } from "./contract";
+import { type ChatEvent, ChatEventSchema, SendChatInputSchema } from "./contract";
 export async function sendChat({
 	client,
 	conversationId,
@@ -39,7 +39,6 @@ export async function sendChat({
 }
 
 // Split-chunk NDJSON parsing adapted from the previous web chat transport.
-import { type ChatEvent, ChatEventSchema } from "./contract";
 export async function consumeChat(
 	response: Response,
 	onEvent: (event: ChatEvent) => void,

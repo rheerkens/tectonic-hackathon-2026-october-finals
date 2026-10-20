@@ -637,7 +637,10 @@ ipcMain.handle("speech:transcribe", async (event, wav) => {
 		if (!owner.isDestroyed()) for (const name of gone) owner.removeListener(name, stop);
 	}
 });
-ipcMain.on("speech:cancel", (event) => speech.cancel(event.sender.id));
+ipcMain.on("speech:cancel", (event) => {
+	if (trustedWindow(event, mini, "/mini") || trustedWindow(event, mainWindow))
+		speech.cancel(event.sender.id);
+});
 
 ipcMain.on("mini:toggle", (event) => {
 	if (anyTrusted(event)) toggleMini();
@@ -672,7 +675,7 @@ ipcMain.on("main:close", (event) => {
 		void jumpHome(mainWindow).catch(reportOpenError);
 });
 ipcMain.on("pet:move", (event, dx, dy) => {
-	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
+	if (!trustedWindow(event, pet, "/pet") || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();
 	// setPosition reads back a rounded size, which can accumulate at fractional Windows DPI.
 	pet.setBounds(clampPet({ x: Math.round(x + dx), y: Math.round(y + dy), ...petSize() }));
@@ -743,12 +746,20 @@ app.whenReady().then(async () => {
 	try {
 		const url = await startApi();
 		appUrl = url;
+		// Every window talks to this API; without it the app can only fail, so say so and quit.
+		api.on("exit", (code) => {
+			if (quitting) return;
+			dialog.showErrorBox("SDtrust stopped", `The local API exited with code ${code}.`);
+			app.quit();
+		});
 		// A new launch is always reachable, even if Finn was hidden in the previous session.
 		settings.showPet = true;
 		openMini(url);
 		addFinnMenu(url);
 		openPet(url);
-		globalShortcut.register(HEADS_UP_KEY, teamsHeadsUp);
+		// The demo's Teams heads-up; another app may already own the shortcut.
+		if (!globalShortcut.register(HEADS_UP_KEY, teamsHeadsUp))
+			console.warn(`Could not register ${HEADS_UP_KEY}; use the Finn menu instead.`);
 	} catch (error) {
 		dialog.showErrorBox("SDtrust could not start", String(error));
 		app.quit();

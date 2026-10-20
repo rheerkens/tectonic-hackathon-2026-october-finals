@@ -1,4 +1,4 @@
-const commands = [["lint"], ["typecheck"], ["build"]];
+const commands = [["lint"], ["typecheck"], ["boundaries"], ["build"]];
 const started = performance.now();
 const results = await Promise.all(
 	commands.map(async ([name]) => {

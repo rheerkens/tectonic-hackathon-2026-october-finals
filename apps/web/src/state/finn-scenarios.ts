@@ -36,6 +36,9 @@ export type FinnNextStep =
 			};
 	  };
 
+/** From this trust score an answer counts as confirmed. */
+export const CONFIRMED_TRUST = 0.8;
+
 export type FinnResult = {
 	id: string;
 	question: string;

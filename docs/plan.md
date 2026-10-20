@@ -2,6 +2,8 @@
 
 Built for the SD Worx challenge at the Tectonic hackathon finals, 20 October 2026.
 
+> **Status at finals.** Answers are scripted in the web client (`apps/web/src/state/finn-scenarios.ts`, replayed by `finn.ts`); see [the architecture](architecture.md#finn-flow). The planned backend agent, its tools, the seeded Teams/mail/CRM tables and the `FINN_AGENT` switch were not built. The desktop app starts with Finn and the mini window only; the main window opens on demand. The rest of this page is the original plan.
+
 FINN is a small mascot that lives in the bottom-right corner of your desktop, like the ChatGPT desktop companion. You ask FINN a question. FINN searches the signals your company already produces (Teams, mail, CRM) and comes back with **the answer or the next step**, plus **how much you can trust it** and **where it came from**. If FINN can't be sure, it says so and contacts the right colleague for you.
 
 **Design principle:** zero unnecessary effort. FINN shows the answer and the next step, not the process. The user only gets involved when they actually need to act.
@@ -147,13 +149,13 @@ The challenge: turn fragmented organisational knowledge into a trusted shared re
 
 | Challenge ask | How FINN answers it | Status |
 |---|---|---|
-| Invisible UI, calm technology | Mascot only; the answer, not the process; the user acts only when needed | Planned (#4, #5) |
-| Fit existing ways of working | Reads Teams, mail and CRM; contacts people via Teams | Planned, data simulated (#1, phase 2) |
-| Beyond documents: who knows this? | Results list relevant people; low trust routes to a person | Planned (#5, #6) |
-| Understandable when people decide or act | Trust score with reasons, and every claim linked to a source | Planned (#6) |
+| Invisible UI, calm technology | Mascot only; the answer, not the process; the user acts only when needed | Built: pet, mini window, answer not process |
+| Fit existing ways of working | Reads Teams, mail and CRM; contacts people via Teams | Simulated: scripted sources, faked Teams heads-up |
+| Beyond documents: who knows this? | Results list relevant people; low trust routes to a person | Built: results and Experts page name people |
+| Understandable when people decide or act | Trust score with reasons, and every claim linked to a source | Built: result page with trust reasons and sources |
 | Learn from everyday work signals | Knowledge comes from messages, mails and CRM, not from written docs | Partly: we search at question time, we don't build a profile in the background |
-| Stay up to date as people and roles change | Recency and conflicting sources lower trust ([concept 01](design/desktop_concepts/01.png)) | Planned in trust factors (#1, phase 2) |
-| Verify when human judgement adds value | Low trust → FINN asks the colleague who knows | Planned (#5, #8) |
+| Stay up to date as people and roles change | Recency and conflicting sources lower trust ([concept 01](design/desktop_concepts/01.png)) | Scripted: stale/conflicting sources lower trust in the fixtures |
+| Verify when human judgement adds value | Low trust → FINN asks the colleague who knows | Built: scripted expert call confirms the answer |
 
 ### "Show us how" (draft answers for the pitch)
 

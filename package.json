@@ -24,7 +24,6 @@
 		"boundaries": "bun scripts/boundaries.ts",
 		"test": "bun test apps/api/test apps/web/src features packages/ai/test packages/http/src packages/server/src tools/dev/test scripts --bail",
 		"test:watch": "bun test --watch apps/api/test apps/web/src features packages/ai/test packages/http/src packages/server/src tools/dev/test scripts",
-		"test:e2e": "bun run --cwd tools/e2e test",
 		"test:isolation": "bun tools/dev/isolation.ts",
 		"db:generate": "bun run --cwd packages/db generate",
 		"db:migrate": "bun run --cwd packages/db migrate",

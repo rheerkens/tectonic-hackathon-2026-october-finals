@@ -203,6 +203,8 @@ export function checkBoundaries({
 		uiEntries ?? [
 			...sourceFiles(root, "apps/web/src/pages"),
 			...sourceFiles(root, "apps/web/src/components"),
+			// The root route mounts App, the composition root that owns the query client.
+			...sourceFiles(root, "apps/web/src/routes").filter((file) => !file.endsWith("__root.tsx")),
 			...sourceFiles(root, "packages/ui/src"),
 		],
 		"ui",

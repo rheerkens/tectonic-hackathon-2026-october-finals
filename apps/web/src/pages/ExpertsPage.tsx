@@ -6,7 +6,7 @@ export function ExpertsPage() {
 		<div className="narrow-page">
 			<header className="page-header">
 				<h1>Experts</h1>
-				<p>Who knows what in this workspace.</p>
+				<p>Who Finn calls for which knowledge. Demo experts, the same in every workspace.</p>
 			</header>
 			<section className="card">
 				{experts.map((expert, index) => (
