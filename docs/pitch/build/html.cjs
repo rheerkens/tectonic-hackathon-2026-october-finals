@@ -9,15 +9,12 @@ const Lu = require("react-icons/lu");
 const REPO = "/home/royh/.t3/worktrees/tectonic-hackathon-2026-october-finals/t3-fc2c5f3d";
 const OUT = path.join(REPO, "docs/pitch");
 const VIDEO_DIR = path.join(REPO, "docs/presentation/video");
-const CLIP_TITLES = ["Meet Finn", "Clip 2", "Clip 3", "Clip 4"];
-const CLIPS = CLIP_TITLES.map((title, i) => {
-	const name = fs.existsSync(VIDEO_DIR)
-		? fs
-				.readdirSync(VIDEO_DIR)
-				.find((f) => f.startsWith(`Finn_clip0${i + 1}`) && f.endsWith(".mp4"))
-		: undefined;
-	return { n: i + 1, title, file: name ? path.join(VIDEO_DIR, name) : null };
-});
+const CLIPS = JSON.parse(fs.readFileSync(path.join(__dirname, "clips.json"), "utf8")).map(
+	(clip, i) => {
+		const file = path.join(VIDEO_DIR, clip.file);
+		return { ...clip, n: i + 1, file: fs.existsSync(file) ? file : null };
+	},
+);
 
 const spriteOr = (p, fallback) =>
 	fs.existsSync(p) ? b64(fs.readFileSync(p), "image/webp") : fallback;
@@ -160,7 +157,7 @@ function page(A, I, animated) {
 		...CLIPS.map((clip, i) => ({
 			cls: "dark",
 			notes: A.clips[i]
-				? `Video ${clip.n}: ${clip.title}. It plays by itself with its own narration; stay quiet and click when it ends.`
+				? clip.notes
 				: `Video ${clip.n}: Sebastien's clip ${clip.n} is not in docs/presentation/video yet. Rebuild the deck once it is pushed.`,
 			html: `
 			<div class="video" style="left:108px;top:50px;width:1384px;height:779px">

@@ -11,7 +11,7 @@ The finals pitch for the SD Worx challenge: Lotte's problem, SDtrust as the solu
 
 Browser decks: click, arrow keys or space to advance, `F` for fullscreen, `N` for speaker notes.
 
-Slides 4 to 7 play Sebastien's clips from `docs/presentation/video/Finn_clip01*.mp4` to `Finn_clip04*.mp4`. Clips that are not there yet show a placeholder; rebuild with `html.cjs` and `pptx.cjs` to embed them. In a browser deck you can also drop a video file on a placeholder to preview it.
+Slides 4 to 7 play Sebastien's four clips from `docs/presentation/video/`. `build/clips.json` picks the version of each clip, its title and its speaker notes; change it and rebuild with `html.cjs` and `pptx.cjs` when a clip is refreshed. In a browser deck you can also drop a video file on a placeholder to preview it.
 
 Speaker notes in every format hold the full script, including Roy's live lines on the call slide.
 

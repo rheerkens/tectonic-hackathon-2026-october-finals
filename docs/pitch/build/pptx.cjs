@@ -71,50 +71,54 @@ const png = async (file, width, extract) => {
 // Sebastien's recorded clips: docs/presentation/video/Finn_clip0N*.mp4
 const { execFileSync } = require("node:child_process");
 const VIDEO_DIR = path.join(REPO, "docs/presentation/video");
-const CLIPS = ["Meet Finn", "Clip 2", "Clip 3", "Clip 4"].map((title, i) => {
-	const name = fs.existsSync(VIDEO_DIR)
-		? fs
-				.readdirSync(VIDEO_DIR)
-				.find((f) => f.startsWith(`Finn_clip0${i + 1}`) && f.endsWith(".mp4"))
-		: undefined;
-	if (!name) return { n: i + 1, title, file: null };
-	const file = path.join(VIDEO_DIR, name);
-	const seconds = Number(
-		execFileSync("ffprobe", [
-			"-v",
-			"error",
-			"-show_entries",
-			"format=duration",
-			"-of",
-			"csv=p=0",
+const CLIPS = JSON.parse(fs.readFileSync(path.join(__dirname, "clips.json"), "utf8")).map(
+	(clip, i) => {
+		const title = clip.title;
+		if (!fs.existsSync(path.join(VIDEO_DIR, clip.file))) return { n: i + 1, title, file: null };
+		const file = path.join(VIDEO_DIR, clip.file);
+		const seconds = Number(
+			execFileSync("ffprobe", [
+				"-v",
+				"error",
+				"-show_entries",
+				"format=duration",
+				"-of",
+				"csv=p=0",
+				file,
+			])
+				.toString()
+				.trim(),
+		);
+		const poster = execFileSync(
+			"ffmpeg",
+			[
+				"-v",
+				"error",
+				"-ss",
+				"0.3",
+				"-i",
+				file,
+				"-frames:v",
+				"1",
+				"-vf",
+				"scale=1280:-2",
+				"-f",
+				"image2pipe",
+				"-vcodec",
+				"png",
+				"-",
+			],
+			{ maxBuffer: 32 * 1024 * 1024 },
+		);
+		return {
+			n: i + 1,
+			title,
 			file,
-		])
-			.toString()
-			.trim(),
-	);
-	const poster = execFileSync("ffmpeg", [
-		"-v",
-		"error",
-		"-ss",
-		"0.3",
-		"-i",
-		file,
-		"-frames:v",
-		"1",
-		"-f",
-		"image2pipe",
-		"-vcodec",
-		"png",
-		"-",
-	]);
-	return {
-		n: i + 1,
-		title,
-		file,
-		dur: Math.round(seconds * 1000),
-		cover: "data:image/png;base64," + poster.toString("base64"),
-	};
-});
+			dur: Math.round(seconds * 1000),
+			cover: "data:image/png;base64," + poster.toString("base64"),
+		};
+	},
+);
 
 // Animation plan, filled while building: slideNo -> [{ trigger: "auto" | "click", effects: [...] }]
 const ANIM = {};
@@ -479,9 +483,7 @@ const MEDIA = {};
 			});
 			MEDIA[slideNo] = { [`Video ${clip.n}`]: { dur: clip.dur, kind: "video" } };
 			group("auto", [{ name: `Video ${clip.n}`, fx: "play", delay: 0 }]);
-			s.addNotes(
-				`Video ${clip.n}: ${clip.title}. It plays by itself with its own narration; stay quiet and click when it ends.`,
-			);
+			s.addNotes(clip.notes);
 			continue;
 		}
 		shape("Video placeholder", R.ROUNDED_RECTANGLE, [108, 50, 1384, 779], {
