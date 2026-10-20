@@ -54,6 +54,7 @@ const webPreferences = {
 	nodeIntegration: false,
 	sandbox: true,
 };
+const PET_SIZE = { width: 96, height: 104 };
 const settingsPath = () => join(app.getPath("userData"), "desktop.json");
 let settings = { showPet: true, petPosition: null };
 function saveSettings() {
@@ -118,8 +119,7 @@ function openPet(url) {
 		x,
 		y,
 		// Half the 192 × 208 sprite cell keeps Finn small but sharp on retina screens.
-		width: 96,
-		height: 104,
+		...PET_SIZE,
 		transparent: true,
 		frame: false,
 		resizable: false,
@@ -236,7 +236,8 @@ ipcMain.on("mini:hide", () => mini?.hide());
 ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();
-	pet.setPosition(Math.round(x + dx), Math.round(y + dy));
+	// setPosition reads back a rounded size, which can accumulate at fractional Windows DPI.
+	pet.setBounds({ x: Math.round(x + dx), y: Math.round(y + dy), ...PET_SIZE });
 });
 
 app.whenReady().then(async () => {
