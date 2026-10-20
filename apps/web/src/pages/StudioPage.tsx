@@ -9,7 +9,7 @@ import { UserMenu } from "../components/UserMenu";
 import { StudioContext } from "../state/StudioContext";
 import { useStudio } from "../state/studio";
 
-export type DesktopView = "overview" | "experts" | "settings";
+export type DesktopView = "overview" | "experts" | "settings" | "result";
 export function StudioPage({ workspaceId, view }: { workspaceId: string; view: DesktopView }) {
 	const studio = useStudio(workspaceId);
 	const { session, user, workspace } = studio;
@@ -32,7 +32,7 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 							<Link
 								to="/w/$workspaceId"
 								params={{ workspaceId }}
-								className={view === "overview" ? "selected" : ""}
+								className={view === "overview" || view === "result" ? "selected" : ""}
 							>
 								<span className="nav-icon">
 									<Icon name="house" size={18} />
@@ -105,7 +105,8 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 						<Outlet />
 					)}
 				</main>
-				<FinnDock />
+				{/* The result page renders its own dock with a hint. */}
+				{view !== "result" && <FinnDock />}
 			</div>
 		</StudioContext.Provider>
 	);

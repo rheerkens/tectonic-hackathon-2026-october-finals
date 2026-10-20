@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { Brand } from "../components/Brand";
 import { FinnDock, type FinnHint } from "../components/FinnDock";
 import { FinnResultContent } from "../components/FinnResultContent";
 import { getFinnResult } from "../state/finn";
@@ -35,13 +34,8 @@ function resultHint(result: FinnResult): FinnHint {
 export function ResultPage({ resultId }: { resultId: string }) {
 	const result = getFinnResult(resultId);
 	return (
-		<div className="fixture-result">
-			<header className="result-topbar">
-				<Link to="/">
-					<Brand />
-				</Link>
-			</header>
-			<main className="result-page">
+		<>
+			<div className="result-page">
 				{result ? (
 					<>
 						<header className="desktop-page-heading">
@@ -64,8 +58,8 @@ export function ResultPage({ resultId }: { resultId: string }) {
 						<Link to="/">Back to overview</Link>
 					</section>
 				)}
-			</main>
+			</div>
 			<FinnDock hint={result && resultHint(result)} />
-		</div>
+		</>
 	);
 }

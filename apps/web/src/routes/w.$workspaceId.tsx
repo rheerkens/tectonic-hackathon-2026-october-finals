@@ -14,7 +14,9 @@ function WorkspaceRoute() {
 					? "settings"
 					: match({ to: "/w/$workspaceId/experts" })
 						? "experts"
-						: "overview"
+						: match({ to: "/w/$workspaceId/results/$resultId" })
+							? "result"
+							: "overview"
 			}
 		/>
 	);
