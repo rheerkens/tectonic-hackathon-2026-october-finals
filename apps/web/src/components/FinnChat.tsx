@@ -10,6 +10,7 @@ import {
 import { type FinnConversation, type FinnTurn, useFinn } from "../state/finn";
 import { useVoice } from "../state/finn-voice";
 import { usePetScale } from "../state/pet-scale";
+import { FinnCall } from "./FinnCall";
 import { Icon } from "./Icon";
 
 /** Draft key for a chat that has not been sent yet. */
@@ -26,7 +27,7 @@ function preview(conversation: FinnConversation) {
 	if (turn?.status === "searching") return "Checking sources…";
 	if (turn?.message) return turn.message;
 	if (turn?.status === "waiting" && turn.result?.nextStep.kind === "contact_person")
-		return `Waiting for ${turn.result.nextStep.person} · simulated`;
+		return `Waiting for ${turn.result.nextStep.person} · call to confirm`;
 	return turn?.result?.answer ? plain(turn.result.answer) : "I'm not sure yet.";
 }
 
@@ -110,9 +111,10 @@ function Answer({
 					: "I'm not sure yet. I don't have enough confirmed information to answer."}
 			</p>
 			{result.nextStep.kind === "contact_person" && (
-				<p className="mini-result-waiting">
-					Waiting for {result.nextStep.person}. Contact is simulated.
-				</p>
+				<>
+					<p className="mini-result-waiting">Waiting for {result.nextStep.person}.</p>
+					<FinnCall result={result} compact />
+				</>
 			)}
 			<div className="mini-result-meta">
 				<span>{Math.round(result.trust.score * 100)}% trust</span>

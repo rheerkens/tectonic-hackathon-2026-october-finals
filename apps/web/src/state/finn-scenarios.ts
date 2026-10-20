@@ -6,7 +6,7 @@
 
 export type FinnSource = {
 	code: string;
-	kind: "teams" | "mail" | "crm" | "doc";
+	kind: "teams" | "mail" | "crm" | "doc" | "call";
 	title: string;
 	author: string;
 	date: string;
@@ -19,7 +19,22 @@ export type FinnSource = {
 export type FinnNextStep =
 	| { kind: "none" }
 	| { kind: "clarify"; question: string }
-	| { kind: "contact_person"; person: string; message: string; threadId: string };
+	| {
+			kind: "contact_person";
+			person: string;
+			message: string;
+			threadId: string;
+			/** A scripted phone call: Finn's line is audio, the expert answers live on stage. */
+			call?: {
+				ring: string;
+				audio: string;
+				thanksAudio: string;
+				reply: string;
+				thanks: string;
+				/** The result Finn knows once the expert has confirmed it on the call. */
+				confirmedResultId: string;
+			};
+	  };
 
 export type FinnResult = {
 	id: string;
@@ -199,9 +214,55 @@ const d1November: FinnResult = {
 		kind: "contact_person",
 		person: "Roy",
 		message:
-			"Hi Roy, until when can Atlas submit payroll changes for November 2026? I only found the October exception (22 October, S4). Lotte asked the same in Teams on 29 September.",
+			"Hi Roy, this is Finn from SDtrust. I'm calling you because you own the Atlas client agreements, so you're the expert on this. Someone just asked until when Atlas can submit payroll changes for November. I only found the October exception, 22 October, and nothing approved for November. Can you confirm the November deadline?",
 		threadId: "thread-atlas-november",
+		call: {
+			ring: "/audio/call-ring.mp3",
+			audio: "/audio/finn-call-roy.mp3",
+			thanksAudio: "/audio/finn-call-thanks.mp3",
+			reply:
+				"Hi Finn. Yes, we agreed with Atlas that they can submit November payroll changes until Tuesday 24 November. I approved it last week, but I forgot to upload it to the knowledge base. Sorry about that.",
+			thanks:
+				"Thanks Roy. No need to upload anything. I've recorded your confirmation and added it to my knowledge, so next time I can answer this myself.",
+			confirmedResultId: "d1-payroll-changes-november-confirmed",
+		},
 	},
+};
+
+// D1 after the call: Roy's spoken confirmation is recorded as a new source and answers November.
+const d1NovemberConfirmed: FinnResult = {
+	...d1November,
+	id: "d1-payroll-changes-november-confirmed",
+	headline: "24 November 2026",
+	answer:
+		"Atlas can submit payroll changes for November until **24 November 2026** [S35]. Roy, the account owner, confirmed this on a call with Finn. Finn recorded it and added it to the knowledge base.",
+	trust: {
+		score: 0.9,
+		reasons: [
+			"Confirmed by the account owner (Roy) on a recorded call",
+			"Valid for Belgium, Atlas and November 2026",
+			"Added to the knowledge base automatically, so nobody has to call Roy again",
+			"The October exception (S4) does not apply to November",
+		],
+	},
+	steps: [
+		...d1November.steps,
+		{ tool: "record_confirmation", summary: "S35 Call with Roy added to the knowledge base" },
+	],
+	sources: [
+		{
+			code: "S35",
+			kind: "call",
+			title: "Call with Roy: Atlas November deadline",
+			author: "Roy",
+			date: "2026-10-20",
+			excerpt: "Atlas can submit November payroll changes until Tuesday 24 November 2026.",
+			supports: true,
+			note: "Confirmed by the account owner on a call, recorded by Finn",
+		},
+		...d1November.sources,
+	],
+	nextStep: { kind: "none" },
 };
 
 // D2: three different deadlines on screen; only the current Belgian procedure counts.
@@ -390,7 +451,10 @@ const nlHolidayPay: FinnResult = {
 };
 
 export const finnScenarios: Record<string, FinnResult> = Object.fromEntries(
-	[d1October, d1November, d2, mealVouchers2027, nlHolidayPay].map((result) => [result.id, result]),
+	[d1October, d1November, d1NovemberConfirmed, d2, mealVouchers2027, nlHolidayPay].map((result) => [
+		result.id,
+		result,
+	]),
 );
 
 /** Demo questions in the order of the pitch. A follow-up answers within the previous conversation. */

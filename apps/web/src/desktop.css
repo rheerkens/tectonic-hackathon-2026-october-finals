@@ -1112,6 +1112,88 @@ body {
 	background: var(--bg);
 	border-color: var(--muted);
 }
+.finn-call {
+	display: grid;
+	gap: 12px;
+	margin-top: 14px;
+	justify-items: start;
+}
+.finn-call-start,
+.finn-call-end {
+	gap: 8px;
+	border-color: var(--success);
+	background: var(--success);
+	color: #fff;
+}
+.finn-call-start:hover,
+.finn-call-end:hover {
+	border-color: var(--success);
+	background: color-mix(in srgb, var(--success) 85%, #000);
+}
+.finn-call-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--muted);
+	font-size: 13px;
+	font-weight: 600;
+}
+.finn-call-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--success);
+	animation: finn-call-pulse 1s ease-in-out infinite;
+}
+@keyframes finn-call-pulse {
+	50% {
+		opacity: 0.3;
+	}
+}
+.finn-call-transcript {
+	display: grid;
+	gap: 8px;
+	width: 100%;
+}
+.finn-call-line {
+	padding: 10px 14px;
+	border-left: 3px solid var(--border);
+	border-radius: 0 10px 10px 0;
+	background: var(--bg);
+	color: var(--muted);
+	font-size: 14px;
+	line-height: 1.5;
+}
+.finn-call-line strong {
+	display: block;
+	margin-bottom: 2px;
+	color: var(--text);
+	font-size: 12px;
+}
+.finn-call-line.is-expert {
+	border-left-color: var(--amber);
+}
+.finn-call-line.is-speaking {
+	border-left-color: var(--success);
+	color: var(--text);
+}
+.finn-call.is-compact {
+	gap: 8px;
+	margin-top: 8px;
+}
+.finn-call.is-compact .finn-call-line {
+	padding: 8px 10px;
+	font-size: 12.5px;
+}
+.finn-call.is-compact .answer-btn {
+	padding: 7px 12px;
+	font-size: 12.5px;
+}
+@media (prefers-reduced-motion: reduce) {
+	.finn-call-dot {
+		animation: none;
+	}
+}
 .answer-evidence {
 	border-bottom: 1px solid var(--border);
 }
