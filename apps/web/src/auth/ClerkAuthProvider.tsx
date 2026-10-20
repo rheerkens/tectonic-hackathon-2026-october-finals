@@ -51,8 +51,6 @@ function Session({ children }: { children: ReactNode }) {
 			value={{
 				mode: "clerk",
 				drafts,
-				expired,
-				reauthUserId: user.id,
 				expire: () => {
 					if (currentUser.current === user.id) setExpired(true);
 				},
@@ -64,11 +62,6 @@ function Session({ children }: { children: ReactNode }) {
 				headers: async () => {
 					const token = await getToken();
 					return token ? { authorization: `Bearer ${token}` } : {};
-				},
-				signIn: () => {},
-				signOut: () => {
-					drafts.clear();
-					void signOut();
 				},
 			}}
 		>

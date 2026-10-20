@@ -1,7 +1,6 @@
-import { demoUsers } from "@day-one/contracts";
 import { Button } from "@day-one/ui/button";
 import { LoadingState } from "@day-one/ui/states";
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { Link, Outlet } from "@tanstack/react-router";
 import { Brand } from "../components/Brand";
 import { FinnDock } from "../components/FinnDock";
 import { Icon } from "../components/Icon";
@@ -12,8 +11,7 @@ import { useStudio } from "../state/studio";
 export type DesktopView = "overview" | "experts" | "settings" | "result";
 export function StudioPage({ workspaceId, view }: { workspaceId: string; view: DesktopView }) {
 	const studio = useStudio(workspaceId);
-	const { session, user, workspace } = studio;
-	const navigate = useNavigate();
+	const { user, workspace } = studio;
 	return (
 		<StudioContext.Provider value={studio}>
 			<div className="studio desktop-studio">
@@ -64,23 +62,7 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 								<span>Settings</span>
 								<span className="nav-dot" aria-hidden="true" />
 							</Link>
-							<UserMenu
-								user={user}
-								role={workspace?.role ?? "Member"}
-								{...(session.mode === "dev"
-									? {
-											switchUsers: demoUsers,
-											onSwitch: (id: string) => {
-												void navigate({ to: "/" });
-												session.signIn(id);
-											},
-										}
-									: {})}
-								onSignOut={() => {
-									session.signOut();
-									void navigate({ to: "/" });
-								}}
-							/>
+							<UserMenu user={user} role={workspace?.role ?? "Member"} />
 						</div>
 					</div>
 				</aside>

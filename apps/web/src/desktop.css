@@ -768,14 +768,6 @@ body {
 .skip-link:focus {
 	transform: none;
 }
-.sign-in-copy {
-	background:
-		radial-gradient(500px 400px at 0% 0%, #ee655838, transparent 60%),
-		radial-gradient(500px 400px at 100% 100%, #6f9be038, transparent 60%), var(--accent-soft);
-}
-.sign-in-copy > .wordmark {
-	color: var(--text);
-}
 .model-status.ready {
 	color: var(--text);
 }
