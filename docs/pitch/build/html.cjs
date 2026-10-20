@@ -152,8 +152,8 @@ function page(A, I, animated) {
 			<div class="answer ${animated ? "rise" : ""}" style="left:1270px;top:276px;--d:1s">
 				<span>One answer</span>
 				<b>22 October 2026</b>
-				<em>Trust 92%</em>
-				<small>Source: CRM · Roy</small>
+				<em>Confirmed by Roy</em>
+				<small>Account owner, Atlas</small>
 			</div>`,
 		},
 		...CLIPS.map((clip, i) => ({
@@ -174,16 +174,18 @@ function page(A, I, animated) {
 		})),
 		{
 			cls: "dark",
-			steps: 3,
+			steps: 4,
 			notes: [
 				"THE CALL. Roy stands up holding his phone as if he picks up.",
 				"On entering: the call rings for 2 seconds, then Finn speaks (audio plays by itself):",
-				"  FINN: Hi Roy, it's Finn. You own the Atlas agreements, so you're the one who knows. Until when can Atlas submit payroll changes in November? I can't find anything approved.",
+				"  FINN: Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.",
 				"CLICK 1, Roy answers live, loud and clear:",
-				"  ROY: Hi Finn! Until the 24th, same deal as October. I just forgot to put it in the CRM.",
+				"  ROY: Hi Finn! Until the 22nd. I agreed it with Atlas, but I never put it in the CRM.",
 				"CLICK 2, Finn answers (audio):",
-				"  FINN: Thanks Roy! I've saved it, and I'll let Lotte know.",
-				"CLICK 3, the knowledge card appears. PRESENTER: Roy never opened the CRM. Finn saved his answer from the call, so the next person who asks gets it straight away.",
+				"  FINN: Got it. I'll update the CRM myself, and let Lotte know.",
+				"CLICK 3, Roy answers live:",
+				"  ROY: Thanks, Finn!",
+				"CLICK 4, the CRM card appears. PRESENTER: Roy never opened the CRM. Finn wrote the agreement there himself, so the next person who asks gets the 22nd straight away.",
 			].join("\n"),
 			html: `
 			<h2 class="title">Finn calls the one person who knows</h2>
@@ -194,20 +196,21 @@ function page(A, I, animated) {
 					<div class="link"><i>${I.phone}</i></div>
 					<div class="person roy-p"><div class="avatar roy">R</div><div class="bars"><i></i><i></i><i></i><i></i></div><b>Roy</b><span>Account owner, Atlas</span></div>
 				</div>
-				<div class="why"><b>Why Roy?</b> He owns the Atlas agreements and approved the October exception</div>
+				<div class="why"><b>Why Roy?</b> He is the Atlas account owner in the CRM</div>
 			</div>
-			<div class="knowledge" data-step="3" style="left:72px;top:545px;width:640px;height:290px">
-				<div class="k-head"><i>${I.saved}</i><b>Added to Finn's knowledge, automatically</b></div>
-				<span class="k-src">S35 · Teams call · Roy · 21 October 2026</span>
-				<p class="k-quote">“Atlas may submit payroll changes until 24&nbsp;November 2026.”</p>
-				<div class="chips"><span>Confirmed by the owner</span><span>Belgium · Atlas · November 2026</span></div>
+			<div class="knowledge" data-step="4" style="left:72px;top:545px;width:640px;height:290px">
+				<div class="k-head"><i>${I.saved}</i><b>Saved to the CRM by Finn</b></div>
+				<span class="k-src">S35 · Teams call with Roy · 21 October 2026</span>
+				<p class="k-quote">“Atlas may submit payroll changes until 22&nbsp;October 2026.”</p>
+				<div class="chips"><span>Confirmed by the owner</span><span>Belgium · Atlas · October 2026</span></div>
 				<div class="trust"><span>Trust</span><s>15%</s><b class="trust-n">94%</b><div class="meter"><div></div></div></div>
 			</div>
 			<div class="transcript" style="left:760px;top:170px;width:768px">
 				<span class="t-label">Live transcript</span>
-				<div class="bubble finn-b b1"><b>Finn</b>Hi Roy, it's Finn. You own the Atlas agreements, so you're the one who knows. Until when can Atlas submit payroll changes in November? I can't find anything approved.</div>
-				<div class="bubble roy-b" data-step="1"><b>Roy</b>Hi Finn! Until the 24th, same deal as October. I just forgot to put it in the CRM.</div>
-				<div class="bubble finn-b" data-step="2"><b>Finn</b>Thanks Roy! I've saved it, and I'll let Lotte know.</div>
+				<div class="bubble finn-b b1"><b>Finn</b>Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.</div>
+				<div class="bubble roy-b" data-step="1"><b>Roy</b>Hi Finn! Until the 22nd. I agreed it with Atlas, but I never put it in the CRM.</div>
+				<div class="bubble finn-b" data-step="2"><b>Finn</b>Got it. I'll update the CRM myself, and let Lotte know.</div>
+				<div class="bubble roy-b" data-step="3"><b>Roy</b>Thanks, Finn!</div>
 			</div>
 			<audio class="a1" preload="auto" src="${A.call1}"></audio>
 			<audio class="a2" preload="auto" src="${A.call2}"></audio>`,
@@ -474,9 +477,9 @@ function callStep(active, n, entering) {
 	}
 	active.querySelectorAll(".speaking").forEach((el) => el.classList.remove("speaking"));
 	a1.pause(); a2.pause();
-	if (n === 1) active.querySelector(".roy-p").classList.add("speaking");
+	if (n === 1 || n === 3) active.querySelector(".roy-p").classList.add("speaking");
 	if (n === 2) say(active, a2, ".finn-p");
-	if (n === 3) {
+	if (n === 4) {
 		const out = active.querySelector(".trust-n");
 		let v = 15; out.textContent = "15%";
 		const t = setInterval(() => { v = Math.min(94, v + 3); out.textContent = v + "%"; if (v === 94) clearInterval(t); }, 45);

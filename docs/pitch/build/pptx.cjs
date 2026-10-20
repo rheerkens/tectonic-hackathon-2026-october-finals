@@ -437,10 +437,10 @@ const MEDIA = {};
 				options: { fontSize: PT(30), bold: true, color: C.text1, breakLine: true },
 			},
 			{
-				text: "Trust 92%",
+				text: "Confirmed by Roy",
 				options: { fontSize: 11, bold: true, color: C.accent4, breakLine: true },
 			},
-			{ text: "Source: CRM · Roy", options: { fontSize: 9, color: C.accent6 } },
+			{ text: "Account owner, Atlas", options: { fontSize: 9, color: C.accent6 } },
 		],
 		{
 			...box([1270, 330, 270, 180]),
@@ -591,7 +591,7 @@ const MEDIA = {};
 		[
 			{ text: "Why Roy? ", options: { bold: true, color: C.accent2 } },
 			{
-				text: "He owns the Atlas agreements and approved the October exception",
+				text: "He is the Atlas account owner in the CRM",
 				options: { color: C.background2 },
 			},
 		],
@@ -633,7 +633,7 @@ const MEDIA = {};
 	bubble(
 		"Bubble Finn 1",
 		"Finn",
-		"Hi Roy, it's Finn. You own the Atlas agreements, so you're the one who knows. Until when can Atlas submit payroll changes in November? I can't find anything approved.",
+		"Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.",
 		[760, 210, 700, 150],
 		C.text1,
 		C.accent2,
@@ -641,7 +641,7 @@ const MEDIA = {};
 	bubble(
 		"Bubble Roy",
 		"Roy",
-		"Hi Finn! Until the 24th, same deal as October. I just forgot to put it in the CRM.",
+		"Hi Finn! Until the 22nd. I agreed it with Atlas, but I never put it in the CRM.",
 		[828, 380, 700, 110],
 		C.accent1,
 		C.background1,
@@ -649,11 +649,12 @@ const MEDIA = {};
 	bubble(
 		"Bubble Finn 2",
 		"Finn",
-		"Thanks Roy! I've saved it, and I'll let Lotte know.",
+		"Got it. I'll update the CRM myself, and let Lotte know.",
 		[760, 510, 700, 90],
 		C.text1,
 		C.accent2,
 	);
+	bubble("Bubble Roy 2", "Roy", "Thanks, Finn!", [1128, 620, 400, 70], C.accent1, C.background1);
 
 	shape("Knowledge card", R.ROUNDED_RECTANGLE, [72, 545, 640, 290], {
 		fill: { color: C.background1 },
@@ -661,19 +662,19 @@ const MEDIA = {};
 		rectRadius: 0.2,
 	});
 	image("Knowledge icon", img.saved, [104, 571, 30, 30]);
-	text("Knowledge head", "Added to Finn's knowledge, automatically", [146, 568, 540, 36], {
+	text("Knowledge head", "Saved to the CRM by Finn", [146, 568, 540, 36], {
 		fontSize: PT(21),
 		bold: true,
 		color: C.text1,
 		valign: "middle",
 	});
-	text("Knowledge source", "S35 · Teams call · Roy · 21 October 2026", [104, 610, 580, 24], {
+	text("Knowledge source", "S35 · Teams call with Roy · 21 October 2026", [104, 610, 580, 24], {
 		fontSize: 9,
 		color: C.accent6,
 	});
 	text(
 		"Knowledge quote",
-		"“Atlas may submit payroll changes until 24 November 2026.”",
+		"“Atlas may submit payroll changes until 22 October 2026.”",
 		[104, 638, 580, 64],
 		{ fontSize: PT(23), bold: true, color: C.text1 },
 	);
@@ -690,7 +691,7 @@ const MEDIA = {};
 		margin: 0,
 		objectName: "Chip owner",
 	});
-	s.addText("Belgium · Atlas · November 2026", {
+	s.addText("Belgium · Atlas · October 2026", {
 		...box([324, 710, 250, 30]),
 		shape: R.ROUNDED_RECTANGLE,
 		rectRadius: 0.12,
@@ -746,8 +747,8 @@ const MEDIA = {};
 		objectName: "Finn audio 2",
 	});
 	MEDIA[slideNo] = {
-		"Finn audio 1": { dur: 10368, kind: "audio" },
-		"Finn audio 2": { dur: 3216, kind: "audio" },
+		"Finn audio 1": { dur: 10176, kind: "audio" },
+		"Finn audio 2": { dur: 3888, kind: "audio" },
 	};
 
 	group("auto", [
@@ -765,6 +766,7 @@ const MEDIA = {};
 		{ name: "Bubble Finn 2", fx: "flyBottom", delay: 0, dur: 500 },
 		{ name: "Finn audio 2", fx: "play", delay: 0 },
 	]);
+	group("click", [{ name: "Bubble Roy 2", fx: "flyBottom", delay: 0, dur: 500 }]);
 	group(
 		"click",
 		[
@@ -786,12 +788,14 @@ const MEDIA = {};
 		[
 			"THE CALL. Roy stands up holding his phone as if he picks up.",
 			"On entering: the call rings for 2 seconds, then Finn speaks (audio plays by itself):",
-			"  FINN: Hi Roy, it's Finn. You own the Atlas agreements, so you're the one who knows. Until when can Atlas submit payroll changes in November? I can't find anything approved.",
+			"  FINN: Hi Roy, it's Finn. You own the Atlas account, so you're the one who knows. Until when can Atlas submit payroll changes this October? I can't find anything approved.",
 			"CLICK 1, Roy answers live, loud and clear:",
-			"  ROY: Hi Finn! Until the 24th, same deal as October. I just forgot to put it in the CRM.",
+			"  ROY: Hi Finn! Until the 22nd. I agreed it with Atlas, but I never put it in the CRM.",
 			"CLICK 2, Finn answers (audio):",
-			"  FINN: Thanks Roy! I've saved it, and I'll let Lotte know.",
-			"CLICK 3, the knowledge card appears. PRESENTER: Roy never opened the CRM. Finn saved his answer from the call, so the next person who asks gets it straight away.",
+			"  FINN: Got it. I'll update the CRM myself, and let Lotte know.",
+			"CLICK 3, Roy answers live:",
+			"  ROY: Thanks, Finn!",
+			"CLICK 4, the CRM card appears. PRESENTER: Roy never opened the CRM. Finn wrote the agreement there himself, so the next person who asks gets the 22nd straight away.",
 		].join("\n"),
 	);
 
