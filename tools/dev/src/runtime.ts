@@ -37,7 +37,7 @@ export function assertProfileDir(local: string) {
 	return local;
 }
 /** Runtime state is only read or written inside a validated profile directory. */
-export function runtimeFile(local: string, name = "runtime.json") {
+function runtimeFile(local: string, name = "runtime.json") {
 	return containedPath(assertProfileDir(local), name);
 }
 export function readRuntime(local: string) {

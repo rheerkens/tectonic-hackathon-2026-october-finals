@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-export interface WorktreeInfo {
+interface WorktreeInfo {
 	/** Absolute path of the worktree root. */
 	root: string;
 	/** Human-readable name: the directory basename. */
@@ -74,7 +74,7 @@ export function assertProfile(profile: string): string {
 }
 
 /** Resolves `p` and throws unless it is `root` itself or below it (blocks `..` and absolute-path escapes). */
-export function assertInside(root: string, p: string): string {
+function assertInside(root: string, p: string): string {
 	const resolved = path.resolve(p);
 	const rel = path.relative(path.resolve(root), resolved);
 	if (rel.startsWith("..") || path.isAbsolute(rel)) throw new Error(`Path escapes ${root}: ${p}`);

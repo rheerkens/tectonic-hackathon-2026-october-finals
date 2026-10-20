@@ -1,7 +1,7 @@
 import net from "node:net";
 
 export const PORT_RANGE = { min: 10_000, max: 59_999 } as const;
-export const PORTS_PER_STACK = 2; // web, api
+const PORTS_PER_STACK = 2; // web, api
 
 async function canListen(port: number, host: string): Promise<boolean> {
 	return new Promise((resolve) => {
@@ -23,12 +23,12 @@ export async function isPortFree(port: number): Promise<boolean> {
 	return true;
 }
 
-export interface PortSet {
+interface PortSet {
 	web: number;
 	api: number;
 }
 
-export interface AllocateOptions {
+interface AllocateOptions {
 	/** Ports recorded by a previous run of this worktree; reused when still free. */
 	preferred?: Partial<PortSet> | null;
 	/** Hash-derived starting point for fresh allocations. */

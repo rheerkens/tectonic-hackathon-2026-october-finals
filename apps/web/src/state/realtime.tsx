@@ -22,8 +22,6 @@ import {
 	refreshAfterSubscribe,
 } from "./realtime-cache";
 
-export type { PresenceUser, RealtimeStatus };
-
 type Realtime = {
 	status: RealtimeStatus;
 	/** Workspaces whose subscription the server acknowledged on the current connection. */

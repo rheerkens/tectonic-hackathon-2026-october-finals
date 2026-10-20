@@ -7,7 +7,7 @@ import { allocatePorts, isPortFree } from "./ports";
 const LEASE_NAME = /^[1-9]\d{0,4}\.json$/;
 const isPort = (port: number) => Number.isInteger(port) && port >= 1 && port <= 65535;
 /** A lease is `<port>.json` directly inside the registry; nothing else is ever opened. */
-export function leaseName(port: number) {
+function leaseName(port: number) {
 	if (!isPort(port)) throw new Error(`Invalid lease port: ${port}`);
 	return `${port}.json`;
 }

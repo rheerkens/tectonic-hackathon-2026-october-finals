@@ -2,7 +2,8 @@
 
 import type { DraftStore, User } from "@day-one/contracts";
 import { createContext, useContext } from "react";
-export type Session = {
+
+type Session = {
 	user: User | null;
 	drafts: DraftStore;
 	expire: () => void;

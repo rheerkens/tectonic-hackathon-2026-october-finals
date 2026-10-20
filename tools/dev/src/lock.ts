@@ -1,13 +1,5 @@
 // Adapted from Tectonic lock.ts: exclusive claim + nonce ownership, no PID-based stop.
-import {
-	closeSync,
-	constants,
-	existsSync,
-	mkdirSync,
-	openSync,
-	unlinkSync,
-	writeFileSync,
-} from "node:fs";
+import { closeSync, constants, mkdirSync, openSync, unlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
 import { containedPath, noFollow, readRegularFile } from "./paths";
@@ -85,7 +77,4 @@ export function newOwner(root: string, profile: string): Owner {
 		profile,
 		startedAt: new Date().toISOString(),
 	};
-}
-export function claimExists(file: string) {
-	return existsSync(file);
 }

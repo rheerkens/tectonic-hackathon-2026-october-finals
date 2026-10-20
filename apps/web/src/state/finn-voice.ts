@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /** Local voice input: the desktop shell transcribes with whisper.cpp; nothing leaves the machine. */
-export type VoiceStatus = "idle" | "starting" | "recording" | "processing" | "error";
+type VoiceStatus = "idle" | "starting" | "recording" | "processing" | "error";
 const MAX_SECONDS = 60;
 const RATE = 16000;
 

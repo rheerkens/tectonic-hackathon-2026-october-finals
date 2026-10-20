@@ -6,7 +6,7 @@ export interface ManagedProcess {
 	exited: Promise<number>;
 }
 
-export interface SpawnOptions {
+interface SpawnOptions {
 	name: string;
 	cmd: string[];
 	cwd: string;
