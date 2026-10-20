@@ -21,6 +21,9 @@ export function PetPage() {
 			? [...new Set(finn.result?.sources.map((source) => source.kind))]
 			: [];
 	const [running, setRunning] = useState<PetAnimation | null>(null);
+	// While the shell jumps Finn between the desktop and SDtrust it sets his pose.
+	const [pose, setPose] = useState<string | null>(null);
+	useEffect(() => window.desktop?.onPose?.(setPose), []);
 	const drag = useRef({ x: 0, y: 0, distance: 0, active: false, pointerId: -1 });
 	const cancelDrag = useCallback(() => {
 		drag.current.active = false;
@@ -38,7 +41,7 @@ export function PetPage() {
 	return (
 		<button
 			type="button"
-			className="pet"
+			className={pose === "crouch" ? "pet crouch" : "pet"}
 			aria-label="Open mini chat"
 			onPointerDown={(event) => {
 				if (!event.isPrimary || event.button !== 0) return;
@@ -79,7 +82,11 @@ export function PetPage() {
 		>
 			<picture>
 				<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
-				<img src={`/pet/${running ?? mood}.webp`} alt="" draggable={false} />
+				<img
+					src={`/pet/${pose && pose !== "crouch" ? pose : (running ?? mood)}.webp`}
+					alt=""
+					draggable={false}
+				/>
 			</picture>
 			{kinds.length > 0 && (
 				<span className="pet-sources" aria-hidden="true">

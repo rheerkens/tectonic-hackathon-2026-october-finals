@@ -51,7 +51,7 @@ export function useAnnounceFinnMood(finn: { status: FinnStatus; message: string 
 	}, [mood]);
 }
 
-export function announce(mood: PetAnimation) {
+function announce(mood: PetAnimation) {
 	const sender = new BroadcastChannel(channel);
 	sender.postMessage(mood);
 	sender.close();

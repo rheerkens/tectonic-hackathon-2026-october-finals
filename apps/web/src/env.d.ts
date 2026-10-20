@@ -13,5 +13,7 @@ interface Window {
 		/** Subscribes to the main window closing so Finn can say goodbye; returns an unsubscribe. */
 		onMainClosing?(listener: () => void): () => void;
 		closeMain?(): void;
+		onFinnLanded?(listener: () => void): () => void;
+		onPose?(listener: (pose: string | null) => void): () => void;
 	};
 }

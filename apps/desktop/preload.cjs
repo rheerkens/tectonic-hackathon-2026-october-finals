@@ -18,4 +18,15 @@ contextBridge.exposeInMainWorld("desktop", {
 		};
 	},
 	closeMain: () => ipcRenderer.send("main:close"),
+	onFinnLanded: (listener) => {
+		const handler = () => listener();
+		ipcRenderer.on("finn:landed", handler);
+		return () => ipcRenderer.removeListener("finn:landed", handler);
+	},
+	// The shell poses the desktop Finn while it jumps him between the desktop and SDtrust.
+	onPose: (listener) => {
+		const handler = (_event, pose) => listener(typeof pose === "string" ? pose : null);
+		ipcRenderer.on("pet:pose", handler);
+		return () => ipcRenderer.removeListener("pet:pose", handler);
+	},
 });

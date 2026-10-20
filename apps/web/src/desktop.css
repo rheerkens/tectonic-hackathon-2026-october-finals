@@ -1649,7 +1649,7 @@ body {
 	height: 104px;
 	padding: 0;
 	border: 0;
-	background: radial-gradient(circle at 50% 70%, #ee655833, transparent 65%);
+	background: transparent;
 	cursor: pointer;
 	transition: transform 0.25s ease;
 }
@@ -1677,19 +1677,55 @@ body {
 .finn-dock-pet.entering {
 	animation: finn-run-in 1.3s 0.3s linear backwards;
 }
-.finn-dock-pet.exiting {
-	animation: finn-run-out 0.8s linear forwards;
+.finn-dock-pet.waiting,
+.finn-dock-pet.gone {
+	visibility: hidden;
+}
+.finn-dock-pet {
+	position: relative;
+}
+.finn-dock-pet.landing img {
+	animation: finn-land 0.32s ease-out;
+}
+.finn-dock-ripple {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 120px;
+	height: 120px;
+	margin: 0 0 -40px -60px;
+	border-radius: 50%;
+	border: 2px solid #ffffffd9;
+	box-shadow:
+		0 0 24px var(--aurora-coral),
+		inset 0 0 18px #f2a55a99;
+	pointer-events: none;
+	animation: finn-ripple 0.7s ease-out forwards;
+}
+@keyframes finn-land {
+	0% {
+		transform: scale(1.12, 0.84);
+	}
+	60% {
+		transform: scale(0.96, 1.06);
+	}
+}
+@keyframes finn-ripple {
+	from {
+		transform: scale(0.2);
+		opacity: 1;
+	}
+	to {
+		transform: scale(1.4);
+		opacity: 0;
+	}
 }
 @keyframes finn-run-in {
 	from {
 		transform: translateX(180px);
 	}
 }
-@keyframes finn-run-out {
-	to {
-		transform: translateX(180px);
-	}
-}
+
 .finn-dock-bubble {
 	position: relative;
 	max-width: 260px;
