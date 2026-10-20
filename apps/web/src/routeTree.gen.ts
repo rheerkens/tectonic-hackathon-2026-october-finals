@@ -16,6 +16,7 @@ import { Route as ResultsResultIdRouteImport } from './routes/results.$resultId'
 import { Route as WWorkspaceIdRouteImport } from './routes/w.$workspaceId'
 import { Route as WWorkspaceIdIndexRouteImport } from './routes/w.$workspaceId.index'
 import { Route as WWorkspaceIdChatRouteImport } from './routes/w.$workspaceId.chat'
+import { Route as WWorkspaceIdExpertsRouteImport } from './routes/w.$workspaceId.experts'
 import { Route as WWorkspaceIdNotesRouteImport } from './routes/w.$workspaceId.notes'
 import { Route as WWorkspaceIdReviewRouteImport } from './routes/w.$workspaceId.review'
 import { Route as WWorkspaceIdSettingsRouteImport } from './routes/w.$workspaceId.settings'
@@ -57,6 +58,11 @@ const WWorkspaceIdChatRoute = WWorkspaceIdChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => WWorkspaceIdRoute,
 } as any)
+const WWorkspaceIdExpertsRoute = WWorkspaceIdExpertsRouteImport.update({
+  id: '/experts',
+  path: '/experts',
+  getParentRoute: () => WWorkspaceIdRoute,
+} as any)
 const WWorkspaceIdNotesRoute = WWorkspaceIdNotesRouteImport.update({
   id: '/notes',
   path: '/notes',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
+  '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
   '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
   '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
   '/results/$resultId': typeof ResultsResultIdRoute
+  '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
   '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
   '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
+  '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
   '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
   '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/results/$resultId'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat'
+    | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
     | '/w/$workspaceId/review'
     | '/w/$workspaceId/settings'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/mini'
     | '/pet'
     | '/results/$resultId'
+    | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
     | '/w/$workspaceId/review'
     | '/w/$workspaceId/settings'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/results/$resultId'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat'
+    | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
     | '/w/$workspaceId/review'
     | '/w/$workspaceId/settings'
@@ -227,6 +239,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WWorkspaceIdChatRouteImport
       parentRoute: typeof WWorkspaceIdRoute
     }
+    '/w/$workspaceId/experts': {
+      id: '/w/$workspaceId/experts'
+      path: '/experts'
+      fullPath: '/w/$workspaceId/experts'
+      preLoaderRoute: typeof WWorkspaceIdExpertsRouteImport
+      parentRoute: typeof WWorkspaceIdRoute
+    }
     '/w/$workspaceId/notes': {
       id: '/w/$workspaceId/notes'
       path: '/notes'
@@ -280,6 +299,7 @@ const WWorkspaceIdChatRouteWithChildren =
 
 interface WWorkspaceIdRouteChildren {
   WWorkspaceIdChatRoute: typeof WWorkspaceIdChatRouteWithChildren
+  WWorkspaceIdExpertsRoute: typeof WWorkspaceIdExpertsRoute
   WWorkspaceIdNotesRoute: typeof WWorkspaceIdNotesRoute
   WWorkspaceIdReviewRoute: typeof WWorkspaceIdReviewRoute
   WWorkspaceIdSettingsRoute: typeof WWorkspaceIdSettingsRoute
@@ -288,6 +308,7 @@ interface WWorkspaceIdRouteChildren {
 
 const WWorkspaceIdRouteChildren: WWorkspaceIdRouteChildren = {
   WWorkspaceIdChatRoute: WWorkspaceIdChatRouteWithChildren,
+  WWorkspaceIdExpertsRoute: WWorkspaceIdExpertsRoute,
   WWorkspaceIdNotesRoute: WWorkspaceIdNotesRoute,
   WWorkspaceIdReviewRoute: WWorkspaceIdReviewRoute,
   WWorkspaceIdSettingsRoute: WWorkspaceIdSettingsRoute,

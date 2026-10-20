@@ -9,7 +9,7 @@ import { UserMenu } from "../components/UserMenu";
 import { StudioContext } from "../state/StudioContext";
 import { useStudio } from "../state/studio";
 
-export type DesktopView = "overview" | "settings";
+export type DesktopView = "overview" | "experts" | "settings";
 export function StudioPage({ workspaceId, view }: { workspaceId: string; view: DesktopView }) {
 	const studio = useStudio(workspaceId);
 	const { session, user, workspace } = studio;
@@ -38,6 +38,17 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 									<Icon name="house" size={18} />
 								</span>
 								<span>Overview</span>
+								<span className="nav-dot" aria-hidden="true" />
+							</Link>
+							<Link
+								to="/w/$workspaceId/experts"
+								params={{ workspaceId }}
+								className={view === "experts" ? "selected" : ""}
+							>
+								<span className="nav-icon">
+									<Icon name="users" size={18} />
+								</span>
+								<span>Experts</span>
 								<span className="nav-dot" aria-hidden="true" />
 							</Link>
 						</nav>
@@ -94,13 +105,7 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 						<Outlet />
 					)}
 				</main>
-				<FinnDock
-					hint={
-						view === "overview"
-							? { key: "overview", mood: "waving", text: "A few things need your attention today." }
-							: undefined
-					}
-				/>
+				<FinnDock />
 			</div>
 		</StudioContext.Provider>
 	);
