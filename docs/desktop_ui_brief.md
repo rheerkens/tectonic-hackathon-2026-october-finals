@@ -1,6 +1,6 @@
 # SDtrust desktopinterface
 
-Status: verkenning. De gebruiker heeft nog geen visuele richting gekozen.
+Status: visuele verkenning met voorbeelden in licht en donker. De gebruiker heeft nog geen definitieve richting gekozen.
 
 ## Eigenaarschap
 
@@ -34,10 +34,26 @@ Voorgesteld, nog niet gekozen: beeld 03 als basis; de controleflow uit 01 en de 
 Alternatieven: volledig donker volgens 02, of controle als centrale ingang volgens 01.
 Eerst de visuele keuze en de eerste uitvoerbare schermscope met de gebruiker vastleggen.
 
+## Aanvullende ontwerpexploratie
+
+De gebruiker vroeg vervolgens om meerdere UI/UX voorbeelden in light en dark mode, uitsluitend de app. Er is nog geen toestemming om een van deze ontwerpen als definitieve productrichting te kiezen.
+
+In `apps/web/design-previews/sdtrust/` staan zes met de ingebouwde Imagegen gemaakte conceptbeelden, drie bijpassende paren. `index.html` biedt themakeuze, vergelijken en vergroten. `prompts.json` bewaart de volledige prompts en de gebruikte referentie.
+
+Op uitdrukkelijk verzoek zijn daarnaast twee parallelle T3 ontwerptaken gestart op `claudeAgent / claude-opus-5-5`, met `effort: high` en `fastMode: true`. Hun exclusieve uitvoermappen zijn `apps/web/design-previews/opus-a/` en `apps/web/design-previews/opus-b/`. Het zijn zelfstandige HTML previews met voorbeeldinteracties, geen koppelingen met de app.
+
+Alle voorbeeldgegevens zijn fictief. Bestaande conceptbeelden en productiecode blijven intact.
+
+De beide Opus taken zijn afgerond. A is een vraagstart met bronverwijzingen naast het antwoord en een controle in de tekst. B is een dossier met herkomst en geldigheid per paragraaf. Beide schakelen tussen licht en donker en simuleren bevestiging zonder iets op te slaan of te versturen.
+
+Controle van de voorbeelden: de hoofdthread heeft de zes PNG bestanden geladen, hun echte afmetingen en hashes vastgelegd in `manifest.json`, de vergelijker op 728 en 390px gerenderd en navigatie, themawissel, vergelijken en vergroten in de browser gecontroleerd. De JavaScript syntaxis van alle drie HTML bestanden slaagt via `node --check`. De gedelegeerde Opus taken hebben hun hoofdinteracties en beide thema's in de browser gecontroleerd op 1440 en 728px. Dit zijn controles van zelfstandige voorbeelden, geen applicatie of Electron tests.
+
+De previews zijn bereikbaar op `http://100.89.117.122:53840/opus-a/` en `http://100.89.117.122:53840/opus-b/`. Beide nemen het lokale Manrope font met licentie mee. A beantwoordt elke eigen vraag met hetzelfde Atlas voorbeeld; B werkt alleen het Atlas dossier uit. Kleinere mobiele schermen zijn geen uitgewerkte productdoelstelling van deze desktopverkenning.
+
 ## Afstemming met Finn
 
 Voorgestelde optionele Electron interface: `window.finnDesktop` met `showPet()`, `hidePet()`, `getPetState()` en `openDashboard()`.
-De Electron sessie beheert de veilige preload en de petimplementatie.
+De Electron sessie beheert de veilige preload en de petimplementatie. Die sessie meldt dat de preload is gebouwd; `getPetState()` levert `{ visible: boolean }`. De gemelde Electron rooktest is niet opnieuw uitgevoerd door deze UI sessie.
 Deze websessie heeft nu geen koppeling nodig. Typehandtekeningen, terugkeerwaarden en verdere navigatie worden pas afgestemd zodra een concrete aanroep nodig is.
 Navigatie in de webinterface blijft zelfstandig bruikbaar zonder Electron.
 
@@ -45,6 +61,6 @@ Navigatie in de webinterface blijft zelfstandig bruikbaar zonder Electron.
 
 Uitgevoerd: branch en basis gecontroleerd, werkmap aanvankelijk schoon, repositoryinstructies en relevante UI bestanden gelezen, drie conceptbeelden bekeken.
 `bun setup` is geblokkeerd: repository vereist Bun 1.4.2; de gevonden lokale Bun is 1.2.22.
-Er zijn nog geen productcodewijzigingen, appstart, tests of Electron integratietests uitgevoerd.
+Er zijn geen productcodewijzigingen of Electron integratietests uitgevoerd door deze sessie. De ontwerppreviews staan los van de bestaande app en zijn met browsercontroles te beoordelen.
 Bij implementatie: gerichte tests, `bun run check` en aparte browsercontrole. Browserresultaten bewijzen geen Electron integratie.
-Tailscale preview, definitieve tests en commit volgen bij een werkende lokale omgeving en gekozen richting.
+De ontwerpvergelijker draait apart van de app op `http://100.89.117.122:53840/sdtrust/`. Dit is een statische previewserver, alleen gebonden aan het Tailscale adres. Applicatietests en een implementatie volgen pas na een gekozen richting.
