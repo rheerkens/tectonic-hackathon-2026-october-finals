@@ -24,7 +24,7 @@ SPECS = [
 	("lotte-shrug", PITCH / "sprites/lotte-shrug.webp", IVORY, [], 1300, 574, 300, False),
 	("lotte-relieved", PITCH / "sprites/lotte-relieved.webp", NIGHT, [], 96, 156, 576, False),
 	("finn-idle", PET / "idle.webp", IVORY, [], 190, 270, 500, True),
-	("finn-waving", PET / "waving.webp", NIGHT, [], 380, 390, 340, True),
+	("finn-waving", PITCH / "sprites/finn-waving.webp", NIGHT, [], 380, 332, 400, True),
 	("finn-proud", PITCH / "sprites/finn-proud.webp", NIGHT, [], 1080, 140, 640, True),
 ]
 
@@ -66,7 +66,19 @@ for name, src, bg, halos, x, y, h, crop in SPECS:
 	for i, (f, _) in enumerate(rendered):
 		strip.paste(f, (0, i * ph))
 	palette = strip.quantize(colors=256, method=Image.Quantize.MEDIANCUT)
+	# pin the flat slide colours exactly, so the GIF rectangle disappears into the slide
+	entries = palette.getpalette()
+	for flat in [bg] + ([NAVY] if halos else []):
+		idx = Image.new("RGB", (1, 1), flat).quantize(palette=palette, dither=Image.Dither.NONE).getpixel((0, 0))
+		entries[idx * 3 : idx * 3 + 3] = list(flat)
+	palette.putpalette(entries)
 	gif = [f.quantize(palette=palette, dither=Image.Dither.NONE) for f, _ in rendered]
+	# the corner pixel is always slide background: make that palette entry exact in every frame
+	for frame in gif:
+		entries = frame.getpalette()
+		idx = frame.getpixel((0, 0))
+		entries[idx * 3 : idx * 3 + 3] = list(bg)
+		frame.putpalette(entries)
 	target = OUT / f"{name}.gif"
 	gif[0].save(target, save_all=True, append_images=gif[1:], duration=[d for _, d in rendered], loop=0, disposal=1, optimize=False)
 	manifest[name] = {"path": str(target), "x": x, "y": y, "w": w, "h": h}

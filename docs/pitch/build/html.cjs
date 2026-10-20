@@ -33,7 +33,7 @@ const icon = (Comp, color) =>
 		font: file(path.join(REPO, "apps/web/public/fonts/Manrope.ttf"), "font/ttf"),
 		logo: file(path.join(REPO, "apps/web/public/sdtrust.svg"), "image/svg+xml"),
 		finn: file(path.join(REPO, "docs/design/finn.png"), "image/png"),
-		finnWave: file(path.join(REPO, "apps/web/public/pet/waving.webp"), "image/webp"),
+		finnWave: file(path.join(OUT, "sprites/finn-waving.webp"), "image/webp"),
 		finnProud: file(path.join(OUT, "sprites/finn-proud.webp"), "image/webp"),
 		lottePuzzled: await webp(path.join(OUT, "lotte-puzzled-cutout.png"), 900),
 		lotteRelieved: await webp(path.join(OUT, "lotte-relieved-cutout.png"), 900),
@@ -220,7 +220,7 @@ function page(A, I, animated) {
 			html: `
 			<img class="lotte" src="${relieved}" alt="Lotte, relieved, thumbs up" style="left:96px;top:156px;height:576px">
 			${animated ? `<div class="sparkles" style="left:296px;top:252px"><i></i><i></i><i></i><i></i></div>` : ""}
-			<img class="finn-wave" src="${A.finnWave}" alt="Finn waving" style="left:318px;top:360px;height:372px">
+			<img class="finn-wave" src="${A.finnWave}" alt="Finn waving" style="left:370px;top:323px;height:418px">
 			<h2 class="close1" style="left:684px;top:180px">An answer you can trust.</h2>
 			<p class="close2" style="left:684px;top:288px">Or an honest “I don't know”,<br>plus the right colleague.</p>
 			<p class="close3" style="left:684px;top:516px">Zero unnecessary effort.</p>
