@@ -35,7 +35,7 @@ export function DashboardPage() {
 						}).format(new Date())}
 					</p>
 					<h1>
-						{greeting}, {data.user.name.split(" ")[0]}.
+						{greeting}, <span className="aurora-text">{data.user.name.split(" ")[0]}</span>.
 					</h1>
 					<p>What would you like to know?</p>
 				</div>
