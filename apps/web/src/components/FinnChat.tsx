@@ -95,11 +95,8 @@ function Answer({
 	const sources = result.sources.filter((source) => source.supports);
 	const openLabel = (
 		<>
-			<span>
-				<strong>{opening ? "Opening…" : "Open full result"}</strong>
-				<small>All sources, reasoning and next step</small>
-			</span>
-			<Icon name="arrow-right" size={18} />
+			<span>{opening ? "Opening…" : "Open full result"}</span>
+			<Icon name="arrow-right" size={14} />
 		</>
 	);
 	return (

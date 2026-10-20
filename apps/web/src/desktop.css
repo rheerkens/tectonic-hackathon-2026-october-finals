@@ -1660,33 +1660,22 @@ body {
 	margin-top: 10px;
 }
 .mini-result-open {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	width: 100%;
-	margin-top: 12px;
-	padding: 10px 12px;
-	border: 1px solid var(--finn-line);
-	border-radius: 14px;
-	background: #fff;
+	gap: 6px;
+	margin-top: 8px;
+	padding: 4px 0;
+	border: 0;
+	background: transparent;
 	color: var(--finn-ink);
+	font-size: 12px;
+	font-weight: 500;
 	text-align: left;
 	text-decoration: none;
 }
 .mini-result-open:hover {
-	border-color: #c9ced6;
-}
-.mini-result-open strong,
-.mini-result-open small {
-	display: block;
-}
-.mini-result-open strong {
-	font-size: 13px;
-}
-.mini-result-open small {
-	color: var(--finn-muted);
-	font-size: 11px;
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 .finn-mini [role="alert"] {
 	margin-top: 8px;
