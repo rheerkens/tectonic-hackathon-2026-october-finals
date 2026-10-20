@@ -94,7 +94,13 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 						<Outlet />
 					)}
 				</main>
-				<FinnDock />
+				<FinnDock
+					hint={
+						view === "overview"
+							? { key: "overview", mood: "waving", text: "A few things need your attention today." }
+							: undefined
+					}
+				/>
 			</div>
 		</StudioContext.Provider>
 	);

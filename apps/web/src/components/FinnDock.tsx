@@ -3,13 +3,21 @@ import { useFinn } from "../state/finn";
 import { announce, type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
 import { FinnChat } from "./FinnChat";
 
-// Finn walks in once per window, not on every route change.
+/** What Finn says about the page you are on; shown once per key. */
+export type FinnHint = { key: string; mood: PetAnimation; text: string; target?: string };
+
+// Finn walks in once per window and comments once per page, not on every render.
 let entered = false;
+const seenHints = new Set<string>();
 const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Finn inside SDtrust: fixed bottom right, opening the compact chat above him. */
-export function FinnDock() {
+export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const [open, setOpen] = useState(false);
+	const [bubble, setBubble] = useState<FinnHint | null>(null);
+	const [hintMood, setHintMood] = useState<PetAnimation | null>(null);
+	const latestHint = useRef(hint);
+	latestHint.current = hint;
 	const [phase, setPhase] = useState<"entering" | "waving" | "leaving" | "exiting" | null>(
 		entered || still() ? null : "entering",
 	);
@@ -23,6 +31,25 @@ export function FinnDock() {
 	useEffect(() => {
 		if (open) input.current?.focus();
 	}, [open]);
+	// Wait until Finn has walked in, then comment on the page once.
+	const hintKey = hint?.key;
+	useEffect(() => {
+		const next = latestHint.current;
+		if (!hintKey || !next) return setBubble(null);
+		if (phase !== null || seenHints.has(hintKey)) return;
+		seenHints.add(hintKey);
+		setBubble(next);
+	}, [hintKey, phase]);
+	useEffect(() => {
+		if (!bubble) return;
+		setHintMood(bubble.mood);
+		const moodTimer = window.setTimeout(() => setHintMood(null), 2000);
+		const hideTimer = window.setTimeout(() => setBubble(null), 8000);
+		return () => {
+			window.clearTimeout(moodTimer);
+			window.clearTimeout(hideTimer);
+		};
+	}, [bubble]);
 	// Closing SDtrust: Finn waves, runs out to the right, then the shell closes the window.
 	useEffect(
 		() =>
@@ -48,9 +75,26 @@ export function FinnDock() {
 				? "running-right"
 				: phase
 					? "waving"
-					: mood;
+					: (hintMood ?? mood);
 	return (
 		<div className="finn-dock">
+			<div aria-live="polite">
+				{bubble && !open && (
+					<button
+						type="button"
+						className="finn-dock-bubble"
+						onClick={() => {
+							setBubble(null);
+							if (bubble.target)
+								document
+									.getElementById(bubble.target)
+									?.scrollIntoView({ behavior: "smooth", block: "center" });
+						}}
+					>
+						{bubble.text}
+					</button>
+				)}
+			</div>
 			{open && (
 				<section
 					id={id}

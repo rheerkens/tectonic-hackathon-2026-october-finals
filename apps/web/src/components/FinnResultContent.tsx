@@ -98,7 +98,7 @@ export function FinnResultContent({ result }: { result: FinnResult }) {
 			</section>
 
 			{result.nextStep.kind !== "none" && (
-				<section className="answer-card answer-card--warn" aria-label="Next step">
+				<section id="next-step" className="answer-card answer-card--warn" aria-label="Next step">
 					<span className="answer-badge">
 						<Tick tone="warn" /> Next step
 					</span>

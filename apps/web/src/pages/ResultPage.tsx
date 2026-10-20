@@ -2,12 +2,41 @@ import { Button } from "@day-one/ui/button";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Brand } from "../components/Brand";
-import { FinnDock } from "../components/FinnDock";
+import { FinnDock, type FinnHint } from "../components/FinnDock";
 import { FinnQuestionForm } from "../components/FinnQuestionForm";
 import { FinnResultContent } from "../components/FinnResultContent";
 import { Icon } from "../components/Icon";
 import { getFinnResult, useFinn } from "../state/finn";
+import type { FinnResult } from "../state/finn-scenarios";
 import { useTheme } from "../state/ThemeProvider";
+
+// Same 80% line the answer card uses to call an answer confirmed.
+function resultHint(result: FinnResult): FinnHint {
+	const key = `result-${result.id}`;
+	if (result.answer && result.trust.score >= 0.8) {
+		const count = result.sources.filter((source) => source.supports).length;
+		return {
+			key,
+			mood: "jumping",
+			text: `Confirmed by ${count} ${count === 1 ? "source" : "sources"}. You can rely on this one.`,
+		};
+	}
+	if (result.nextStep.kind === "contact_person")
+		return {
+			key,
+			mood: "review",
+			text: `I'm not sure about this one. I've asked ${result.nextStep.person} to confirm.`,
+			target: "next-step",
+		};
+	if (result.nextStep.kind === "clarify")
+		return {
+			key,
+			mood: "review",
+			text: "I need one more detail before I can be sure.",
+			target: "next-step",
+		};
+	return { key, mood: "review", text: "Trust is low here. Check the sources before you act." };
+}
 export function ResultPage({ resultId }: { resultId: string }) {
 	const result = getFinnResult(resultId);
 	const finn = useFinn(),
@@ -83,7 +112,7 @@ export function ResultPage({ resultId }: { resultId: string }) {
 					</section>
 				)}
 			</main>
-			<FinnDock />
+			<FinnDock hint={result && resultHint(result)} />
 		</div>
 	);
 }
