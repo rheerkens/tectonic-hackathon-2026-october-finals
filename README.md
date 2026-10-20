@@ -2,7 +2,9 @@
 
 <img src="docs/presentation/v3/assets/Finn_wave.png" alt="Finn waving" width="160">
 
-Tectonic hackathon finals, SD Worx challenge. Finn is a desktop mascot that answers work questions with a next step, a trust score and its sources. When trust is low, Finn asks the colleague who knows.
+**SDtrust: answers you can trust, or the right colleague to ask**
+
+SD Worx consultants don't lack information. They have too much of it, spread across Teams, mail, the CRM and procedures, and nothing tells them which version is right. SDtrust puts **Finn**, a small companion, on your desktop. When you ask Finn a question, it gives you the answer or the next step, a **trust score** and the **sources behind it**. When trust is too low, Finn doesn't guess. It asks the colleague who knows and writes their answer back into the CRM, so the next person gets it straight away. Nobody has to write documentation.
 
 ## Run
 
