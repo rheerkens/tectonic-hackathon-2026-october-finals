@@ -2,6 +2,7 @@ import { Button } from "@day-one/ui/button";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Brand } from "../components/Brand";
+import { FinnDock } from "../components/FinnDock";
 import { FinnQuestionForm } from "../components/FinnQuestionForm";
 import { FinnResultContent } from "../components/FinnResultContent";
 import { Icon } from "../components/Icon";
@@ -83,6 +84,7 @@ export function ResultPage({ resultId }: { resultId: string }) {
 					</section>
 				)}
 			</main>
+			<FinnDock />
 		</div>
 	);
 }

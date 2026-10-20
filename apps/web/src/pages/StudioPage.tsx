@@ -3,6 +3,7 @@ import { Button } from "@day-one/ui/button";
 import { LoadingState } from "@day-one/ui/states";
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { Brand } from "../components/Brand";
+import { FinnDock } from "../components/FinnDock";
 import { Icon } from "../components/Icon";
 import { UserMenu } from "../components/UserMenu";
 import { StudioContext } from "../state/StudioContext";
@@ -93,6 +94,7 @@ export function StudioPage({ workspaceId, view }: { workspaceId: string; view: D
 						<Outlet />
 					)}
 				</main>
+				<FinnDock />
 			</div>
 		</StudioContext.Provider>
 	);
