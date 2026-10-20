@@ -115,3 +115,19 @@ Deze sessie heeft alleen broncode, syntax en formattering gecontroleerd en geen
 Electron gestart of proces gestopt. De UI eigenaar controleert na integratie de
 normale herstart zonder tijdelijke override; dat is nog geen bewezen resultaat.
 Lifecycle, openResult, IPC validatie, CSS en animatieassets blijven ongewijzigd.
+
+## Canonieke maat voor het eerste zichtbare frame
+
+Na de sleepfix heeft de UI eigenaar op de normale gecombineerde bronversie
+`539f111` vastgesteld dat de constructor bij 125 procent content 100 bij 108
+oplevert. De eerste drag herstelt dit naar 96 bij 104. De nieuwe initialisatie
+maakt Finn daarom verborgen aan, past meteen `setBounds` met dezelfde vaste
+96 bij 104 toe en toont hem pas met `showInactive` bij `ready-to-show`.
+Een afsluitende of al gesloten app wordt door die callback niet heropend.
+De [Electron documentatie](https://github.com/electron/electron/blob/v44.5.1/docs/api/browser-window.md#using-the-ready-to-show-event)
+beschrijft verborgen initialisatie en deze gebeurtenis voor tonen zonder flits.
+
+De UI eigenaar heeft in zijn bestaande instantie verborgen, vast ingesteld en
+weer getoond: content bleef 96 bij 104, buitenbounds 97 bij 105. De volledige
+nieuwe constructorvolgorde na herstart moet nog op de gecombineerde bronversie
+worden geverifieerd. Deze sessie heeft geen Electron gestart of runtime gewijzigd.

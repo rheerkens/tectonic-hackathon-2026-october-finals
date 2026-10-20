@@ -126,7 +126,14 @@ function openPet(url) {
 		hasShadow: false,
 		alwaysOnTop: true,
 		skipTaskbar: true,
+		show: false,
 		webPreferences,
+	});
+	const window = pet;
+	// Normalize constructor DPI rounding while hidden, before the first visible frame.
+	window.setBounds({ x, y, ...PET_SIZE });
+	window.once("ready-to-show", () => {
+		if (!window.isDestroyed() && !quitting) window.showInactive();
 	});
 	pet.loadURL(`${url}/pet`);
 	pet.on("closed", () => {
