@@ -216,7 +216,7 @@ export function FinnChat({
 		>
 			<div className="finn-mini-head">
 				<div className="finn-mini-pet-slot">{pet}</div>
-				{open && shownView !== "new" && (
+				{open && shownView !== "new" && !working(turns.at(-1)) && (
 					<div data-mini-surface className="finn-mini-toolbar" role="toolbar" aria-label="Finn">
 						<button type="button" aria-label="New chat" onClick={() => setView("new")}>
 							<Icon name="square-pen" size={19} />
