@@ -1,12 +1,9 @@
-import { Button } from "@day-one/ui/button";
 import { Link } from "@tanstack/react-router";
 import { Brand } from "../components/Brand";
 import { FinnDock, type FinnHint } from "../components/FinnDock";
 import { FinnResultContent } from "../components/FinnResultContent";
-import { Icon } from "../components/Icon";
 import { getFinnResult } from "../state/finn";
 import type { FinnResult } from "../state/finn-scenarios";
-import { useTheme } from "../state/ThemeProvider";
 
 // Same 80% line the answer card uses to call an answer confirmed.
 function resultHint(result: FinnResult): FinnHint {
@@ -37,24 +34,12 @@ function resultHint(result: FinnResult): FinnHint {
 }
 export function ResultPage({ resultId }: { resultId: string }) {
 	const result = getFinnResult(resultId);
-	const theme = useTheme();
 	return (
 		<div className="fixture-result">
 			<header className="result-topbar">
 				<Link to="/">
 					<Brand />
 				</Link>
-				<Button
-					variant="ghost"
-					onClick={() =>
-						theme.setPreference(
-							document.documentElement.dataset.theme === "dark" ? "light" : "dark",
-						)
-					}
-				>
-					<Icon name="sun" />
-					Switch theme
-				</Button>
 			</header>
 			<main className="result-page">
 				{result ? (
