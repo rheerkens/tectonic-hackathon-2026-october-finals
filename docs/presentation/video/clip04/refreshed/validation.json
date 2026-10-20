@@ -1,0 +1,166 @@
+{
+  "files": [
+    {
+      "file": "source-desktop.mkv",
+      "duration": 41.8,
+      "bytes": 33792662,
+      "sha256": "404d6fa7dde1e9df04fa7897c675d72410c0ce0ec46dceee83bd09527a7190a8",
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 2880,
+          "height": 1800,
+          "avg_frame_rate": "30/1"
+        }
+      ]
+    },
+    {
+      "file": "Finn_clip04_silent.mp4",
+      "duration": 13.166667,
+      "bytes": 1099843,
+      "sha256": "50db8767a3d235c7b113052b5c6603354b20001705f715326b4f7a051bd38539",
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1"
+        }
+      ]
+    },
+    {
+      "file": "Finn_clip04_Edward.mp4",
+      "duration": 13.166667,
+      "bytes": 1307217,
+      "sha256": "572260bdee4859d0719919f6df7d0c9b70d53cad421127561364ea3d1dfc597b",
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1"
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "44100",
+          "channels": 1,
+          "avg_frame_rate": "0/0"
+        }
+      ]
+    },
+    {
+      "file": "Finn_clip04_zonder_stem.mp4",
+      "duration": 13.166667,
+      "bytes": 1120490,
+      "sha256": "6db02fa686cf74e6a2aedb1a84c176b65b8bcf9b76eee912dbe99e1e305c9ce1",
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1"
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "44100",
+          "channels": 1,
+          "avg_frame_rate": "0/0"
+        }
+      ]
+    },
+    {
+      "file": "audio/Finn_clip04_mix.m4a",
+      "duration": 13.166009,
+      "bytes": 200355,
+      "sha256": "926673518d28de945c592a48727f2c8a5997b05491448772afcbc1b4274f27ce",
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "streams": [
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "44100",
+          "channels": 1,
+          "avg_frame_rate": "0/0"
+        }
+      ]
+    },
+    {
+      "file": "audio/effects-timed.m4a",
+      "duration": 13.166009,
+      "bytes": 13628,
+      "sha256": "c70075e80fb565ebff7c360f871af65e3d9f35ecd0e7e70de6a347271c54bdf2",
+      "decodeExit": 0,
+      "decodeErrors": "",
+      "streams": [
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "44100",
+          "channels": 1,
+          "avg_frame_rate": "0/0"
+        }
+      ]
+    }
+  ],
+  "visualReview": {
+    "contactSheet": "review.jpg",
+    "final": "final.png",
+    "animationSequence": "reaction-review.png",
+    "reviewed": true,
+    "observed": "Native Roy call, hangup, waiting, confirmation and animated Finn. Actual answer 24 November 2026, 90% trust, S35."
+  },
+  "subjectiveListeningReviewed": false,
+  "speechCheck": {
+    "method": "Local Whisper base on audio decoded from final MP4",
+    "segments": [
+      {
+        "timestamps": {
+          "from": "00:00:00,000",
+          "to": "00:00:02,000"
+        },
+        "text": "Roy confirms the deadline."
+      },
+      {
+        "timestamps": {
+          "from": "00:00:03,000",
+          "to": "00:00:05,000"
+        },
+        "text": "Finn records his answer."
+      },
+      {
+        "timestamps": {
+          "from": "00:00:06,000",
+          "to": "00:00:10,000"
+        },
+        "text": "Adless can submit payroll changes until the 24th of November."
+      }
+    ],
+    "result": "All three narration phrases are present after placement. Atlas is rendered as Adless by ASR. Exact generation input was Atlas. No subjective listening review claimed.",
+    "inputTextVerifiedInGenerationUI": true,
+    "subjectiveListeningReviewed": false,
+    "integratedLoudnessLUFS": -17.9,
+    "truePeakDbFS": -2.0
+  },
+  "voiceSource": {
+    "file": "audio/Edward_Generation_2.mp3",
+    "sha256": "84f340bea02d8c5b3dda123aec9d143122623f2be04b7debed3ffc35737aad89",
+    "bytes": 146922,
+    "decodeExit": 0,
+    "reusedFromEarlierAudioVersion": true
+  }
+}

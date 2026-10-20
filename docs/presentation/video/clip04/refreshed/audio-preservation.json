@@ -1,0 +1,19 @@
+{
+  "newVideoPacketsUnchanged": true,
+  "narratedAudioPacketsUnchanged": true,
+  "effectsAudioPacketsUnchanged": true,
+  "sourceFilesCopiedByteForByte": true,
+  "videoStreamHashes": {
+    "Finn_clip04_silent.mp4": "SHA256=5489565318f1ce80c8c518aec3d6c5fc411cca9781eee21458936d062d66c5bc",
+    "Finn_clip04_Edward.mp4": "SHA256=5489565318f1ce80c8c518aec3d6c5fc411cca9781eee21458936d062d66c5bc",
+    "Finn_clip04_zonder_stem.mp4": "SHA256=5489565318f1ce80c8c518aec3d6c5fc411cca9781eee21458936d062d66c5bc"
+  },
+  "audioStreamHashes": {
+    "reusableMix": "SHA256=7be490268c80523fa07437b93788aafcd17fbbadfa1edeb63fd4360c7a336513",
+    "oldNarrated": "SHA256=7be490268c80523fa07437b93788aafcd17fbbadfa1edeb63fd4360c7a336513",
+    "newNarrated": "SHA256=7be490268c80523fa07437b93788aafcd17fbbadfa1edeb63fd4360c7a336513",
+    "reusableEffects": "SHA256=60b2a9076e9f734518c9d7b49c507887ae63a1d26371559bc0d684216d9904d3",
+    "oldEffects": "SHA256=60b2a9076e9f734518c9d7b49c507887ae63a1d26371559bc0d684216d9904d3",
+    "newEffects": "SHA256=60b2a9076e9f734518c9d7b49c507887ae63a1d26371559bc0d684216d9904d3"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "status": "Final refreshed native video with Edward narration and sound effects",
+  "main": "Finn_clip04_Edward.mp4",
+  "effectsOnly": "Finn_clip04_zonder_stem.mp4",
+  "silentMaster": "Finn_clip04_silent.mp4",
+  "duration": 13.166666666666666,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "pictureSource": "New native capture source-desktop.mkv, captured in this refreshed clip04 turn. No earlier picture frames used.",
+  "timing": {
+    "fps": 30,
+    "duration": 13.166666666666666,
+    "segments": [
+      {
+        "startFrame": 675,
+        "endFrame": 819
+      },
+      {
+        "startFrame": 969,
+        "endFrame": 1220
+      }
+    ],
+    "crop": [
+      1920,
+      1080,
+      960,
+      660
+    ],
+    "hangupAt": 3.6,
+    "confirmedAnswerAt": 5.166666666666667,
+    "delayAfterHangup": 1.5666666666666667,
+    "source": "source-desktop.mkv",
+    "sourceSpeed": 1,
+    "oldPictureFramesUsed": false,
+    "disclosure": "Visible editorial label outside the app: Simulated call. Synthetic demo."
+  },
+  "voice": {
+    "name": "Edward, British, Dark, Seductive, Low",
+    "model": "Eleven v4",
+    "language": "English",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "speed": 1,
+    "generation": 2,
+    "source": "audio/Edward_Generation_2.mp3",
+    "sourceDuration": 8.124081632653061,
+    "oneGenerationRequest": true
+  },
+  "narration": "Roy confirms the deadline. Finn records his answer. Atlas can submit payroll changes until the twenty fourth of November.",
+  "parts": [
+    {
+      "text": "Roy confirms the deadline.",
+      "sourceStart": 0,
+      "sourceEnd": 2.24,
+      "at": 0.25
+    },
+    {
+      "text": "Finn records his answer.",
+      "sourceStart": 2.24,
+      "sourceEnd": 4.0,
+      "at": 3.7
+    },
+    {
+      "text": "Atlas can submit payroll changes until the twenty fourth of November.",
+      "sourceStart": 4.0,
+      "sourceEnd": 8.124081632653061,
+      "at": 6.0
+    }
+  ],
+  "effects": [
+    {
+      "at": 3.6,
+      "sound": "soft editorial hangup click"
+    },
+    {
+      "at": 5.166667,
+      "sound": "quiet editorial confirmation chime"
+    }
+  ],
+  "music": null,
+  "audioSource": "Same newly authorised clip04 mix as the older picture version. AAC copied without reencoding.",
+  "audioPreservation": "audio-preservation.json",
+  "standaloneDialogueIncluded": false,
+  "fixtureDisclosure": "Simulated call and synthetic frontend fixture. Trust scores are authored demo values. No live connector or CRM write proven. Visible editorial disclosure is outside the app.",
+  "sessionPreserved": true,
+  "desktopReleased": true,
+  "subjectiveListeningReviewed": false,
+  "speechCheck": {
+    "method": "Local Whisper base on audio decoded from final MP4",
+    "segments": [
+      {
+        "timestamps": {
+          "from": "00:00:00,000",
+          "to": "00:00:02,000"
+        },
+        "text": "Roy confirms the deadline."
+      },
+      {
+        "timestamps": {
+          "from": "00:00:03,000",
+          "to": "00:00:05,000"
+        },
+        "text": "Finn records his answer."
+      },
+      {
+        "timestamps": {
+          "from": "00:00:06,000",
+          "to": "00:00:10,000"
+        },
+        "text": "Adless can submit payroll changes until the 24th of November."
+      }
+    ],
+    "result": "All three narration phrases are present after placement. Atlas is rendered as Adless by ASR. Exact generation input was Atlas. No subjective listening review claimed.",
+    "inputTextVerifiedInGenerationUI": true,
+    "subjectiveListeningReviewed": false,
+    "integratedLoudnessLUFS": -17.9,
+    "truePeakDbFS": -2.0
+  },
+  "earlierPictureVersion": "20261020-145204-clip04-full/Finn_clip04_Edward.mp4",
+  "publication": "Central orchestrator copies stable deliverables and owns Git publication."
+}

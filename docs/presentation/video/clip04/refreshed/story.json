@@ -1,0 +1,33 @@
+{
+  "clip": "04",
+  "version": "refreshed native pictures",
+  "narration": "Roy confirms the deadline. Finn records his answer. Atlas can submit payroll changes until the twenty fourth of November.",
+  "scenes": [
+    {
+      "id": "roy-confirmation",
+      "start": 0,
+      "end": 3.6,
+      "caption": "Roy confirms the deadline.",
+      "action": "Existing simulated call with Roy is visible. Native cursor ends the call.",
+      "expected": "Call button disappears at 3.6 seconds."
+    },
+    {
+      "id": "finn-waits",
+      "start": 3.6,
+      "end": 5.166667,
+      "caption": "Finn records his answer.",
+      "action": "Keep the real pending chat visible after hangup.",
+      "expected": "Actual pending state is shown for 1.566667 seconds."
+    },
+    {
+      "id": "november-confirmed",
+      "start": 5.166667,
+      "end": 13.166667,
+      "caption": "Atlas can submit payroll changes until the twenty fourth of November.",
+      "action": "Hold the real confirmed answer and native Finn animation.",
+      "expected": "24 November 2026, 90% trust, S35."
+    }
+  ],
+  "sourceEdit": "picture-timing.json",
+  "disclosure": "Simulated call. Synthetic demo."
+}

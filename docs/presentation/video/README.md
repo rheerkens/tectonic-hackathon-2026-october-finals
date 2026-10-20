@@ -1,17 +1,17 @@
 # Finn videos for presentation preparation
 
-All completed usable exports are listed below. Earlier versions remain available. Rejected takes, raw captures and unfinished renders are not included.
+All four clips now have refreshed native recordings. Earlier exports remain available. Rejected takes, raw captures, session data and unfinished renders are excluded.
 
 ## Recommended versions
 
-1. Clip 1: use the refreshed Edward version.
-2. Clip 2: use the refreshed Edward version with the complete input field, actual full result opening and Finn jump.
-3. Clip 3: use the refreshed Edward version with the visible Call Roy button.
-4. Clip 4: the earlier complete silent export is available. Its newer exports and separate narration are still being finished.
+1. [Clip 1, refreshed pictures with Edward narration](clip01/refreshed/Finn_clip01_Edward.mp4).
+1. [Clip 2, refreshed pictures with Edward narration](clip02/refreshed/Finn_clip02_Edward.mp4).
+1. [Clip 3, refreshed pictures with Edward narration](clip03/refreshed/Finn_clip03_Edward.mp4).
+1. [Clip 4, refreshed pictures with Edward narration](clip04/refreshed/Finn_clip04_Edward.mp4).
 
-The standalone Finn dialogue files for the presentation are in [audio/finn-dialogue](../audio/finn-dialogue/README.md). They are separate from all four videos and are not part of clip 4.
+The two standalone Finn dialogue files are in [audio/finn-dialogue](../audio/finn-dialogue/README.md). They are separate presentation audio and are not included in clip 4 or any other video.
 
-All answers and scores are authored synthetic demonstration fixtures. Contact is simulated. Sound effects are added during editing. The recordings do not prove real connector access, a real call or independently measured accuracy.
+All answers and trust scores are authored synthetic fixtures. Contact with Roy is simulated. Added sound effects are editorial. No real connector access, real call or CRM write is demonstrated.
 
 ## Clip 1
 
@@ -43,8 +43,21 @@ All answers and scores are authored synthetic demonstration fixtures. Contact is
 
 ## Clip 4
 
-1. [Earlier recording, Silent only](clip04/original/Finn_clip04.mp4), 13.167 seconds, 1920 by 1080 pixels. Simulated call ends, then November 24 2026, 90% trust and S35. No Edward or effects track exists. New picture refresh is pending.
+1. [Earlier recording, Silent only](clip04/original/Finn_clip04.mp4), 13.167 seconds, 1920 by 1080 pixels. Original silent recording, preserved unchanged. New picture and audio variants are also available.
+1. [Refreshed native recording, Edward and effects](clip04/refreshed/Finn_clip04_Edward.mp4), 13.167 seconds, 1920 by 1080 pixels. Simulated call ends, then November 24 2026, 90% trust and S35. The standalone Finn dialogue is not included.
+1. [Refreshed native recording, Effects only](clip04/refreshed/Finn_clip04_zonder_stem.mp4), 13.167 seconds, 1920 by 1080 pixels. Simulated call ends, then November 24 2026, 90% trust and S35. The standalone Finn dialogue is not included.
+1. [Refreshed native recording, Silent](clip04/refreshed/Finn_clip04_silent.mp4), 13.167 seconds, 1920 by 1080 pixels. Simulated call ends, then November 24 2026, 90% trust and S35. The standalone Finn dialogue is not included.
+1. [Earlier recording, Edward and effects, added to earlier pictures](clip04/original/Finn_clip04_Edward.mp4), 13.167 seconds, 1920 by 1080 pixels. Simulated call ends, then November 24 2026, 90% trust and S35. The standalone Finn dialogue is not included.
+1. [Earlier recording, Effects only, added to earlier pictures](clip04/original/Finn_clip04_zonder_stem.mp4), 13.167 seconds, 1920 by 1080 pixels. Simulated call ends, then November 24 2026, 90% trust and S35. The standalone Finn dialogue is not included.
+
+## Reusable clip 4 audio
+
+1. [Narration and effects mix](clip04/refreshed/audio/Finn_clip04_mix.m4a).
+2. [Effects only](clip04/refreshed/audio/effects-timed.m4a).
+3. [Original Edward narration](clip04/refreshed/audio/Edward_Generation_2.mp3).
+
+This narration describes the simulated November confirmation. It is separate from the two Finn dialogue files for the presentation.
 
 ## Verification
 
-Every published MP4 was copied without reencoding and verified with SHA256 and a complete FFmpeg decode. Exact hashes and stream metadata are in [manifest.json](manifest.json). The refreshed clip 2 and 3 audio packet hashes match the earlier exports, documented beside each refreshed clip. No fresh subjective listening review is claimed.
+All published media copies match their source SHA256 and decode completely with FFmpeg. Exact hashes and media properties are in [manifest.json](manifest.json). Original and refreshed clip 4 use identical AAC audio payloads without reencoding; evidence is beside the refreshed exports. No subjective listening approval is claimed. In the clip 4 narration, automatic transcription reads Atlas as Adless, so listen to the name before presenting.

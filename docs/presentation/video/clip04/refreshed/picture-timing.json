@@ -1,0 +1,27 @@
+{
+  "fps": 30,
+  "duration": 13.166666666666666,
+  "segments": [
+    {
+      "startFrame": 675,
+      "endFrame": 819
+    },
+    {
+      "startFrame": 969,
+      "endFrame": 1220
+    }
+  ],
+  "crop": [
+    1920,
+    1080,
+    960,
+    660
+  ],
+  "hangupAt": 3.6,
+  "confirmedAnswerAt": 5.166666666666667,
+  "delayAfterHangup": 1.5666666666666667,
+  "source": "source-desktop.mkv",
+  "sourceSpeed": 1,
+  "oldPictureFramesUsed": false,
+  "disclosure": "Visible editorial label outside the app: Simulated call. Synthetic demo."
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "file": "audio\\Edward_Generation_2.mp3",
+    "duration": 8.124063,
+    "bytes": 146922,
+    "sha256": "84f340bea02d8c5b3dda123aec9d143122623f2be04b7debed3ffc35737aad89",
+    "decodeExit": 0,
+    "decodeErrors": "",
+    "streams": [
+      {
+        "codec_type": "audio",
+        "codec_name": "mp3",
+        "sample_rate": "44100",
+        "channels": 1,
+        "avg_frame_rate": "0/0"
+      }
+    ]
+  },
+  {
+    "file": "audio\\Finn_clip04_mix.m4a",
+    "duration": 13.166009,
+    "bytes": 200355,
+    "sha256": "926673518d28de945c592a48727f2c8a5997b05491448772afcbc1b4274f27ce",
+    "decodeExit": 0,
+    "decodeErrors": "",
+    "streams": [
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "sample_rate": "44100",
+        "channels": 1,
+        "avg_frame_rate": "0/0"
+      }
+    ]
+  },
+  {
+    "file": "audio\\effects-timed.m4a",
+    "duration": 13.166009,
+    "bytes": 13628,
+    "sha256": "c70075e80fb565ebff7c360f871af65e3d9f35ecd0e7e70de6a347271c54bdf2",
+    "decodeExit": 0,
+    "decodeErrors": "",
+    "streams": [
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "sample_rate": "44100",
+        "channels": 1,
+        "avg_frame_rate": "0/0"
+      }
+    ]
+  },
+  {
+    "file": "Finn_clip04_Edward.mp4",
+    "duration": 13.166667,
+    "bytes": 1310727,
+    "sha256": "f115c615a478385b3519ae48e771456a7e6129c858973e6e0e0316270721df5a",
+    "decodeExit": 0,
+    "decodeErrors": "",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "30/1"
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "sample_rate": "44100",
+        "channels": 1,
+        "avg_frame_rate": "0/0"
+      }
+    ]
+  },
+  {
+    "file": "Finn_clip04_zonder_stem.mp4",
+    "duration": 13.166667,
+    "bytes": 1124000,
+    "sha256": "96bfee1c083bfb71b3fc4027208f8c3598444033e245aeac68c12ba3959e1b10",
+    "decodeExit": 0,
+    "decodeErrors": "",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "30/1"
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "sample_rate": "44100",
+        "channels": 1,
+        "avg_frame_rate": "0/0"
+      }
+    ]
+  }
+]

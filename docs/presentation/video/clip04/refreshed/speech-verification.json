@@ -1,0 +1,31 @@
+{
+  "method": "Local Whisper base on audio decoded from final MP4",
+  "segments": [
+    {
+      "timestamps": {
+        "from": "00:00:00,000",
+        "to": "00:00:02,000"
+      },
+      "text": "Roy confirms the deadline."
+    },
+    {
+      "timestamps": {
+        "from": "00:00:03,000",
+        "to": "00:00:05,000"
+      },
+      "text": "Finn records his answer."
+    },
+    {
+      "timestamps": {
+        "from": "00:00:06,000",
+        "to": "00:00:10,000"
+      },
+      "text": "Adless can submit payroll changes until the 24th of November."
+    }
+  ],
+  "result": "All three narration phrases are present after placement. Atlas is rendered as Adless by ASR. Exact generation input was Atlas. No subjective listening review claimed.",
+  "inputTextVerifiedInGenerationUI": true,
+  "subjectiveListeningReviewed": false,
+  "integratedLoudnessLUFS": -17.9,
+  "truePeakDbFS": -2.0
+}
