@@ -49,6 +49,12 @@ export function FinnResultContent({ result }: { result: FinnResult }) {
 				<span className="answer-badge">
 					<Tick tone={tone} /> {status} · {score}% trust
 				</span>
+				{tone === "good" && (
+					<div className="result-seal" role="img" aria-label="Confirmed result">
+						<span>✓</span>
+						Confirmed
+					</div>
+				)}
 				{answer && best ? (
 					<>
 						<h2>{result.headline}</h2>
