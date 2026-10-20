@@ -64,6 +64,7 @@ function saveSettings() {
 
 let pet;
 let mini;
+let miniHeight = 96;
 let mainWindow;
 let mainReady = Promise.resolve();
 let appUrl;
@@ -145,12 +146,20 @@ function openPet(url) {
 function openMini(url) {
 	mini = new BrowserWindow({
 		width: 420,
-		height: 600,
+		height: miniHeight,
 		show: false,
 		frame: false,
+		transparent: true,
+		resizable: false,
+		hasShadow: false,
 		alwaysOnTop: true,
 		skipTaskbar: true,
-		webPreferences,
+		webPreferences: { ...webPreferences, enablePreferredSizeMode: true },
+	});
+	mini.webContents.on("preferred-size-changed", (_event, size) => {
+		if (quitting || mini.isDestroyed()) return;
+		miniHeight = Math.max(96, Math.ceil(size.height));
+		positionMini();
 	});
 	mini.loadURL(`${url}/mini`);
 	mini.on("blur", () => {
@@ -159,19 +168,29 @@ function openMini(url) {
 	});
 }
 
-function toggleMini() {
-	// ponytail: a click on Finn first blurs (and hides) Mini; a hide this recent means "close".
-	if (mini.isVisible() || Date.now() - (mini.hiddenAt ?? 0) < 300) return mini.hide();
+function positionMini() {
 	const anchor = petOpen() ? pet.getBounds() : null;
 	const { workArea } = screen.getDisplayMatching(anchor ?? screen.getCursorScreenPoint());
-	const [width, height] = mini.getSize();
+	const width = Math.min(420, workArea.width);
+	const height = Math.min(miniHeight, workArea.height);
 	const left = anchor ? anchor.x - width - 8 : workArea.x + (workArea.width - width) / 2;
 	const x = anchor && left < workArea.x ? anchor.x + anchor.width + 8 : left;
 	const top = anchor
 		? anchor.y + anchor.height - height
 		: workArea.y + (workArea.height - height) / 3;
 	const y = Math.min(Math.max(top, workArea.y), workArea.y + workArea.height - height);
-	mini.setPosition(Math.round(x), Math.round(y));
+	mini.setBounds({
+		x: Math.round(Math.min(Math.max(x, workArea.x), workArea.x + workArea.width - width)),
+		y: Math.round(y),
+		width,
+		height,
+	});
+}
+
+function toggleMini() {
+	// ponytail: a click on Finn first blurs (and hides) Mini; a hide this recent means "close".
+	if (mini.isVisible() || Date.now() - (mini.hiddenAt ?? 0) < 300) return mini.hide();
+	positionMini();
 	mini.show();
 }
 

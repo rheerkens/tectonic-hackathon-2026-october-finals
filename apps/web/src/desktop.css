@@ -931,59 +931,184 @@ body {
 .next-step > p + p {
 	margin-top: 12px;
 }
+.finn-mini-window,
+.finn-mini-window body {
+	background: transparent;
+}
 .finn-mini {
-	padding: 20px;
-	max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+	max-width: 440px;
+	padding: 12px;
 	margin: auto;
 }
-.finn-mini > header {
+.finn-mini-composer,
+.mini-result {
+	border: 1px solid var(--border);
+	background: var(--surface);
+	box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+}
+.finn-mini-composer {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px;
+	border-radius: 28px;
+}
+.finn-mini-composer:focus-within {
+	border-color: var(--border-strong);
+}
+.finn-mini-composer input {
+	min-width: 0;
+	width: 100%;
+	padding: 6px;
+	border: 0;
+	outline: none;
+	background: transparent;
+	font-size: 14px;
+}
+.finn-mini-composer input:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+	border-radius: 6px;
+}
+.finn-mini-close,
+.finn-mini-send {
+	display: grid;
+	place-items: center;
+	flex: 0 0 34px;
+	height: 34px;
+	border: 0;
+	border-radius: 50%;
+}
+.finn-mini-close {
+	background: transparent;
+	color: var(--muted);
+}
+.finn-mini-close:hover {
+	background: var(--surface-2);
+}
+.finn-mini-send {
+	background: var(--accent);
+	color: var(--primary-text);
+}
+.finn-mini-send svg {
+	transform: rotate(-90deg);
+}
+.finn-mini-disclaimer {
+	align-self: center;
+	padding: 2px 8px;
+	border-radius: 8px;
+	background: var(--surface);
+	color: var(--muted);
+	font-size: 10px;
+	text-align: center;
+	line-height: 1.2;
+}
+.mini-result {
+	padding: 18px;
+	border-radius: 22px;
+	max-height: 440px;
+	overflow-y: auto;
+	overflow-wrap: anywhere;
+}
+.mini-result-answer {
+	font-size: 15px;
+	line-height: 1.6;
+}
+.mini-result-waiting,
+.mini-result-status {
+	font-size: 13px;
+	color: var(--muted);
+}
+.mini-result-waiting,
+.mini-result-status p + p {
+	margin-top: 10px;
+}
+.mini-result-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 12px;
+	font-size: 12px;
+	color: var(--muted);
+}
+.mini-result-source {
+	padding: 2px 6px;
+	border-radius: 5px;
+	background: var(--accent-soft);
+	color: var(--text);
+}
+.mini-result-details summary {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 20px;
+	list-style: none;
+	margin-top: 10px;
+	padding: 4px 0;
+	font-size: 12px;
+	color: var(--muted);
+	cursor: pointer;
 }
-.finn-mini .sd-brand {
-	font-size: 21px;
+.mini-result-details summary::-webkit-details-marker {
+	display: none;
 }
-.finn-mini .sd-brand img {
-	width: 30px;
-	height: 30px;
+.mini-result-details[open] summary svg {
+	transform: rotate(90deg);
 }
-.finn-mini h1 {
-	font-size: 24px;
-	margin: 16px 0 20px;
-}
-.finn-mini .dashboard-search {
-	display: grid;
-	grid-template-columns: 24px minmax(0, 1fr);
-	padding: 14px;
-	gap: 10px;
-}
-.finn-mini .dashboard-search .ui-button {
-	grid-column: 1 / -1;
-}
-.finn-mini .dashboard-search .ui-input {
-	font-size: 14px;
-}
-.mini-result {
-	margin-top: 20px;
+.mini-result-evidence {
 	border-top: 1px solid var(--border);
-	padding-top: 20px;
+	margin-top: 10px;
+	padding-top: 12px;
+	font-size: 12px;
+	color: var(--muted);
 }
-.mini-result h2 {
-	margin-bottom: 10px;
+.mini-result-evidence ul {
+	margin: 0;
+	padding-left: 18px;
 }
-.mini-result p {
+.mini-result-evidence li + li {
+	margin-top: 5px;
+}
+.mini-result-evidence p {
+	margin-top: 12px;
+}
+.mini-result-open {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	margin-top: 14px;
+	padding: 12px;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	background: var(--surface-2);
+	color: var(--text);
+	text-align: left;
+	text-decoration: none;
+}
+.mini-result-open:hover {
+	border-color: var(--border-strong);
+}
+.mini-result-open strong,
+.mini-result-open small {
+	display: block;
+}
+.mini-result-open strong {
 	font-size: 13px;
-	line-height: 1.6;
-	margin: 12px 0;
 }
-.mini-status {
-	font-size: 14px;
-	margin-top: 20px;
-}
-.finn-mini .integration-note {
+.mini-result-open small {
 	font-size: 11px;
+	color: var(--muted);
+}
+.mini-result [role="alert"] {
+	margin-top: 10px;
+	color: var(--danger);
+	font-size: 12px;
 }
 @media (max-width: 900px) {
 	.result-layout {
