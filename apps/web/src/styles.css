@@ -161,31 +161,6 @@ a {
 	text-transform: capitalize;
 	font-size: 12px;
 }
-/* Popovers render in the top layer, so the menu is pinned under the header's right edge. */
-.account-menu {
-	position: fixed;
-	inset: 64px max(var(--gutter), calc((100vw - var(--page)) / 2)) auto auto;
-	width: min(300px, calc(100vw - 2 * var(--gutter)));
-	max-height: calc(100dvh - 80px);
-	overflow-y: auto;
-	margin: 0;
-	padding: 8px;
-	border: 1px solid var(--border);
-	border-radius: var(--radius);
-	background: var(--surface);
-	color: var(--text);
-	box-shadow: 0 20px 60px rgb(16 40 28 / 0.16);
-}
-.account-menu-heading {
-	display: grid;
-	gap: 2px;
-	padding: 10px 12px 12px;
-}
-.account-menu-heading small {
-	color: var(--muted);
-	font-size: 12px;
-	overflow-wrap: anywhere;
-}
 .main {
 	max-width: calc(var(--page) + 2 * var(--gutter));
 	margin: auto;
