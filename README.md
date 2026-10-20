@@ -1,5 +1,7 @@
 # SDtrust with Finn
 
+<img src="docs/presentation/v3/assets/Finn_wave.png" alt="Finn waving" width="160">
+
 Tectonic hackathon finals, SD Worx challenge. Finn is a desktop mascot that answers work questions with a next step, a trust score and its sources. When trust is low, Finn asks the colleague who knows.
 
 ## Run
