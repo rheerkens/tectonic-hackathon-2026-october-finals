@@ -21,7 +21,7 @@ export function App() {
 	const path = useLocation({ select: (location) => location.pathname });
 	useEffect(() => () => queries.clear(), [queries]);
 	// The desktop pet shows no account data, so it renders without sign-in.
-	if (path === "/pet") return <Outlet />;
+	if (path === "/pet" || path === "/mini" || path.startsWith("/results/")) return <Outlet />;
 	return (
 		<QueryClientProvider client={queries}>
 			{session.user ? (

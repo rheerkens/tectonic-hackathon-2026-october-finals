@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="nl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SDtrust · Ontwerppreview kennisstart</title>
+<!-- Design preview only. Not wired to apps/web, API or Electron. All content is example data. -->
+<style>
+@font-face {
+	font-family: Manrope;
+	src: url("Manrope.ttf") format("truetype");
+	font-weight: 200 800;
+	font-display: swap;
+}
+
+:root, [data-theme="light"] {
+	--bg: #f8f6f1;
+	--surface: #fffefb;
+	--surface-2: #f0ece3;
+	--ink: #192d46;
+	--ink-soft: #33465f;
+	--muted: #5e6a7a;
+	--line: #e3ddd1;
+	--line-strong: #cfc7b8;
+	--coral: #ee6558;
+	--on-coral: #10203a;
+	--coral-text: #b8392d;
+	--amber: #f3ba55;
+	--amber-soft: #fbedd0;
+	--amber-text: #7f520a;
+	--ok: #2e7556;
+	--ok-soft: #e1efe6;
+	--hi: #e8eef6;
+	--focus: #192d46;
+	--ring: rgb(25 45 70 / 0.14);
+	--toast-bg: #192d46;
+	--toast-ink: #f8f6f1;
+	color-scheme: light;
+}
+
+[data-theme="dark"] {
+	--bg: #0f1c2d;
+	--surface: #162940;
+	--surface-2: #1e3550;
+	--ink: #f8f6f1;
+	--ink-soft: #dad6cc;
+	--muted: #a5b0bf;
+	--line: #263f5c;
+	--line-strong: #36557a;
+	--coral: #ee6558;
+	--on-coral: #10203a;
+	--coral-text: #f4887d;
+	--amber: #f3ba55;
+	--amber-soft: rgb(243 186 85 / 0.16);
+	--amber-text: #f6cd7f;
+	--ok: #79d0a6;
+	--ok-soft: rgb(121 208 166 / 0.14);
+	--hi: rgb(248 246 241 / 0.08);
+	--focus: #f3ba55;
+	--ring: rgb(243 186 85 / 0.22);
+	--toast-bg: #f8f6f1;
+	--toast-ink: #192d46;
+	color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+	margin: 0;
+	font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
+	font-size: 16px;
+	line-height: 1.55;
+	color: var(--ink);
+	background: var(--bg);
+	-webkit-font-smoothing: antialiased;
+	transition: background-color 0.2s, color 0.2s;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+svg { flex: none; }
+
+/* Preview control, outside the product */
+.strip {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px;
+	padding: 6px 32px;
+	font-size: 13px; color: var(--muted);
+	background: var(--surface-2);
+	border-bottom: 1px dashed var(--line-strong);
+}
+.strip b { color: var(--ink); font-weight: 700; }
+.strip .tag {
+	font-weight: 700; color: var(--amber-text);
+	background: var(--amber-soft); border-radius: 999px; padding: 2px 10px;
+}
+.strip .end { margin-left: auto; display: flex; gap: 8px; }
+.strip button {
+	min-height: 32px; padding: 4px 12px; border-radius: 8px;
+	border: 1px solid var(--line-strong); background: var(--surface); font-size: 13px; font-weight: 600;
+}
+
+/* App bar */
+.bar {
+	display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px;
+	padding: 0 32px; min-height: 64px;
+	border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
+.mark {
+	width: 22px; height: 22px; border-radius: 50%;
+	border: 5px solid var(--coral); border-right-color: var(--ink);
+	transform: rotate(-35deg);
+}
+.tabs { display: flex; gap: 4px; align-self: stretch; }
+.tabs button {
+	position: relative; display: flex; align-items: center; gap: 8px;
+	min-height: 44px; padding: 0 14px; border: 0; background: none;
+	font-weight: 600; color: var(--muted);
+}
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-current="page"] { color: var(--ink); font-weight: 800; }
+.tabs button[aria-current="page"]::after {
+	content: ""; position: absolute; left: 14px; right: 14px; bottom: -1px; height: 3px;
+	border-radius: 3px 3px 0 0; background: var(--coral);
+}
+.c {
+	font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+	color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: 0 7px;
+}
+.tools { display: flex; align-items: center; gap: 8px; }
+.ws {
+	display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px;
+	border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-weight: 600; font-size: 14px;
+}
+.ws small { color: var(--muted); font-weight: 600; }
+.live { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); padding: 0 6px; }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.icon-btn {
+	display: grid; place-items: center; width: 40px; height: 40px;
+	border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+}
+.avatar {
+	display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+	background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 800;
+}
+
+.notice {
+	display: flex; align-items: center; gap: 12px;
+	padding: 10px 32px; font-size: 14px;
+	background: var(--hi); border-bottom: 1px solid var(--line);
+}
+.notice[hidden] { display: none; }
+.notice b { font-weight: 800; }
+.notice button { margin-left: auto; border: 0; background: none; font-weight: 700; min-height: 36px; padding: 0 8px; text-decoration: underline; text-underline-offset: 3px; }
+
+main { max-width: 1200px; margin: 0 auto; padding: 64px 40px 120px; }
+[hidden] { display: none !important; }
+
+.eyebrow { margin: 0 0 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* Start */
+.start { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 80px; align-items: start; }
+h1 { margin: 0; font-size: clamp(36px, 4.4vw, 58px); line-height: 1.04; font-weight: 800; letter-spacing: -0.03em; }
+.lede { margin: 16px 0 36px; font-size: 18px; color: var(--muted); max-width: 46ch; }
+
+.ask {
+	display: flex; align-items: center; gap: 8px;
+	padding: 8px 8px 8px 22px;
+	background: var(--surface); border: 1.5px solid var(--line-strong); border-radius: 18px;
+	transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ask:focus-within { border-color: var(--ink); box-shadow: 0 0 0 5px var(--ring); }
+.ask input { flex: 1; min-width: 0; min-height: 52px; border: 0; outline: none; background: none; font-size: 19px; font-weight: 500; }
+.ask input::placeholder { color: var(--muted); opacity: 0.8; }
+.go {
+	display: grid; place-items: center; width: 52px; height: 52px; border: 0; border-radius: 13px;
+	background: var(--coral); color: var(--on-coral);
+}
+.go:hover { filter: brightness(1.05); }
+.ask.compact { padding: 4px 4px 4px 16px; border-radius: 14px; }
+.ask.compact input { font-size: 16px; min-height: 44px; }
+.ask.compact .go { width: 44px; height: 44px; border-radius: 10px; }
+.field-error { margin: 8px 0 0; font-size: 14px; font-weight: 600; color: var(--coral-text); }
+
+.try { margin-top: 22px; }
+.try p { margin: 0 0 10px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.try ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.try button {
+	display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 8px 10px; margin-left: -10px;
+	border: 0; border-radius: 10px; background: none; text-align: left; font-weight: 600; color: var(--ink-soft);
+}
+.try button:hover { background: var(--surface-2); color: var(--ink); }
+.try button svg { color: var(--muted); }
+
+.since { border-left: 1px solid var(--line); padding-left: 40px; }
+.since h2 { margin: 6px 0 4px; font-size: 17px; font-weight: 800; }
+.since .sub { margin: 0 0 20px; font-size: 14px; color: var(--muted); }
+.ledger { list-style: none; margin: 0; padding: 0; }
+.ledger li { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+.ledger time { font-size: 13px; font-weight: 700; color: var(--muted); padding-top: 2px; }
+.ledger p { margin: 0; font-size: 15px; color: var(--ink-soft); }
+.ledger strong { color: var(--ink); font-weight: 700; }
+.ledger .needs time { color: var(--amber-text); }
+.ledger .needs time::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: var(--amber); vertical-align: 1px; }
+.ledger .done time { color: var(--ok); }
+.ledger .done time::before { background: var(--ok); }
+.text-btn {
+	display: inline-flex; align-items: center; gap: 6px; min-height: 40px; margin-top: 4px; padding: 0;
+	border: 0; background: none; font-weight: 700; color: var(--ink);
+	text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 2px; text-underline-offset: 4px;
+}
+.calm { margin: 4px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+
+/* Thinking */
+.thinking { max-width: 720px; }
+.thinking h2 { margin: 0 0 28px; font-size: clamp(24px, 3vw, 32px); font-weight: 800; letter-spacing: -0.02em; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.steps li { display: flex; align-items: center; gap: 12px; color: var(--muted); font-weight: 600; opacity: 0; animation: in 0.3s forwards; }
+.steps li:nth-child(2) { animation-delay: 0.3s; }
+.steps li:nth-child(3) { animation-delay: 0.6s; }
+.steps li svg { color: var(--ok); }
+@keyframes in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* Answer */
+.answer-top { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+.answer-top .ask { flex: 1; max-width: 720px; }
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px 0 6px; border: 0; background: none; font-weight: 700; color: var(--muted); border-radius: 10px; }
+.back:hover { color: var(--ink); background: var(--surface-2); }
+.mismatch { margin: -32px 0 32px; font-size: 14px; color: var(--muted); }
+
+.answer { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 72px; align-items: start; }
+.sheet h2 { margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.12; font-weight: 800; letter-spacing: -0.025em; max-width: 22ch; }
+.trust { display: flex; align-items: center; gap: 10px; margin: 18px 0 32px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.trust i { width: 10px; height: 10px; border-radius: 50%; background: var(--amber); }
+.trust.ok i { background: var(--ok); }
+
+.prose > p { margin: 0 0 22px; font-size: 19px; line-height: 1.7; max-width: 62ch; color: var(--ink-soft); }
+.claim {
+	border-radius: 4px; padding: 1px 2px; margin: 0 -2px;
+	-webkit-box-decoration-break: clone; box-decoration-break: clone;
+	transition: background-color 0.15s, box-shadow 0.15s;
+	cursor: default;
+}
+.claim.pending { background: var(--amber-soft); box-shadow: inset 0 -2px var(--amber); color: var(--ink); }
+.claim.fresh { background: var(--ok-soft); box-shadow: inset 0 -2px var(--ok); color: var(--ink); }
+.claim.lit { background: var(--hi); color: var(--ink); }
+.claim.pending.lit { background: var(--amber-soft); box-shadow: inset 0 -3px var(--amber); }
+.ref { font-size: 12px; font-weight: 800; color: var(--muted); vertical-align: super; line-height: 0; margin-left: 2px; }
+
+.flag {
+	display: inline-flex; align-items: center; gap: 6px; vertical-align: 2px;
+	min-height: 32px; padding: 2px 12px; margin-left: 6px;
+	border: 1px solid var(--amber); border-radius: 999px; background: var(--surface);
+	font-size: 13px; font-weight: 700; color: var(--amber-text); line-height: 1.2;
+}
+.flag:hover { background: var(--amber-soft); }
+.flag[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.review {
+	margin: 0 0 32px; max-width: 720px;
+	border: 1px solid var(--line-strong); border-radius: 18px; background: var(--surface);
+	overflow: hidden;
+	animation: in 0.2s;
+}
+.review > header { padding: 18px 22px 16px; border-bottom: 1px solid var(--line); }
+.review h3 { margin: 0 0 4px; font-size: 18px; font-weight: 800; }
+.review header p { margin: 0; font-size: 14px; color: var(--muted); }
+.compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: stretch; padding: 20px 22px; }
+.compare > div p { margin: 0; }
+.compare .lbl { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.compare .was .lbl { color: var(--ok); }
+.compare .now .lbl { color: var(--amber-text); }
+.compare .val { font-size: 16px; color: var(--ink-soft); }
+.compare del { color: var(--muted); text-decoration-thickness: 2px; }
+.compare ins { text-decoration: none; font-weight: 800; color: var(--ink); background: var(--amber-soft); padding: 0 4px; border-radius: 4px; }
+.compare .arrow { display: grid; place-items: center; color: var(--muted); }
+.review .src {
+	display: flex; align-items: center; gap: 10px; margin: 0 22px; padding: 12px 14px;
+	border-radius: 12px; background: var(--surface-2); font-size: 14px; color: var(--ink-soft);
+}
+.review .src b { color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 20px 22px 8px; }
+.btn {
+	display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+	min-height: 46px; padding: 0 18px; border-radius: 12px; font-weight: 800; font-size: 15px;
+	border: 1px solid transparent;
+}
+.btn.primary { background: var(--coral); color: var(--on-coral); }
+.btn.primary:hover { filter: brightness(1.05); }
+.btn.secondary { background: var(--surface); border-color: var(--line-strong); }
+.btn.secondary:hover { background: var(--surface-2); }
+.btn.ghost { background: none; color: var(--muted); }
+.btn.ghost:hover { color: var(--ink); }
+.owner { display: flex; align-items: center; gap: 8px; margin: 0; padding: 4px 22px 20px; font-size: 13px; color: var(--muted); }
+
+.next { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+
+.margin { position: sticky; top: 24px; }
+.margin h3 { margin: 6px 0 14px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.notes { list-style: none; margin: 0 0 0 -12px; padding: 0; display: grid; gap: 4px; }
+.note {
+	display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px;
+	padding: 12px; border-radius: 12px; transition: background-color 0.15s; cursor: default;
+}
+.note.lit { background: var(--surface-2); }
+.num {
+	display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+	border: 1.5px solid var(--line-strong); font-size: 12px; font-weight: 800; color: var(--ink-soft);
+}
+.note.pending .num { border-color: var(--amber); background: var(--amber-soft); color: var(--amber-text); }
+.note.ok .num { border-color: var(--ok); color: var(--ok); }
+.note b { display: block; font-size: 15px; font-weight: 700; line-height: 1.35; }
+.note span { display: block; font-size: 13px; color: var(--muted); }
+.note .status { margin-top: 6px; font-weight: 700; color: var(--ink-soft); }
+.note.pending .status { color: var(--amber-text); }
+.note .status.ok, .note.ok .status { color: var(--ok); }
+
+.person {
+	display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: center;
+	margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line);
+}
+.person .avatar { width: 40px; height: 40px; background: var(--surface-2); color: var(--ink); border: 1px solid var(--line-strong); }
+.person b { display: block; font-size: 15px; }
+.person span { font-size: 13px; color: var(--muted); }
+
+.toast {
+	position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+	display: flex; align-items: center; gap: 16px;
+	max-width: min(560px, calc(100vw - 32px)); padding: 12px 12px 12px 18px;
+	border-radius: 14px; background: var(--toast-bg); color: var(--toast-ink);
+	font-size: 14px; font-weight: 600; box-shadow: 0 10px 30px rgb(15 28 45 / 0.25);
+}
+.toast button { min-height: 36px; padding: 0 12px; border-radius: 9px; border: 1px solid currentColor; background: none; font-weight: 800; font-size: 13px; white-space: nowrap; }
+.toast:empty { display: none; }
+
+@media (max-width: 1080px) {
+	.start, .answer { grid-template-columns: 1fr; gap: 56px; }
+	.since { border-left: 0; padding-left: 0; }
+	.margin { position: static; }
+	.notes { margin-left: -12px; }
+}
+
+@media (max-width: 900px) {
+	.strip { padding: 6px 20px; }
+	.bar { grid-template-columns: 1fr auto; gap: 0 12px; padding: 0 20px; }
+	.brand { min-height: 60px; }
+	.tabs { grid-column: 1 / -1; order: 3; margin: 0 -20px; padding: 0 8px; border-top: 1px solid var(--line); overflow-x: auto; }
+	.tabs button { white-space: nowrap; }
+	.live span { display: none; }
+	.notice { padding: 10px 20px; }
+	main { padding: 40px 20px 96px; }
+	.answer-top { margin-bottom: 36px; }
+}
+
+@media (max-width: 640px) {
+	.ws small { display: none; }
+	.compare { grid-template-columns: 1fr; }
+	.compare .arrow { transform: rotate(90deg); justify-self: start; }
+	.prose > p { font-size: 17px; }
+	.answer-top { flex-direction: column; align-items: stretch; gap: 8px; }
+	.back { align-self: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="strip" role="note">
+	<b>Ontwerppreview</b>
+	<span>Kennisstart met bronbewust antwoord</span>
+	<span class="tag">Voorbeelddata</span>
+	<span>Geen echte koppelingen, er wordt niets opgeslagen of verstuurd</span>
+	<span class="end"><button type="button" id="reset">Opnieuw beginnen</button></span>
+</div>
+
+<header class="bar">
+	<div class="brand"><span class="mark" aria-hidden="true"></span>SDtrust</div>
+	<nav class="tabs" aria-label="Hoofdnavigatie">
+		<button type="button" data-nav="vragen" aria-current="page">Vragen</button>
+		<button type="button" data-nav="notities">Notities</button>
+		<button type="button" data-nav="chat">Chat</button>
+		<button type="button" data-nav="bronnen">Bronnen <span class="c">Concept</span></button>
+		<button type="button" data-nav="experts">Experts <span class="c">Concept</span></button>
+	</nav>
+	<div class="tools">
+		<button type="button" class="ws" data-nav="werkruimte"><small>Werkruimte</small> Atlas klantteam
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+		</button>
+		<span class="live" title="Live updates"><i aria-hidden="true"></i><span>Live</span></span>
+		<button type="button" class="icon-btn" id="theme" aria-pressed="false" aria-label="Donker thema"></button>
+		<span class="avatar" aria-label="Sebastien">SD</span>
+	</div>
+</header>
+
+<div class="notice" id="notice" role="status" hidden>
+	<span id="noticeText"></span>
+	<button type="button" id="noticeClose">Sluiten</button>
+</div>
+
+<main>
+	<!-- Start -->
+	<section class="start" id="start" aria-labelledby="startTitle">
+		<div>
+			<p class="eyebrow">Dinsdag 20 oktober 2026</p>
+			<h1 id="startTitle">Wat wil je zeker weten?</h1>
+			<p class="lede">Je krijgt een antwoord met bron, datum en wie het heeft bevestigd. Twijfel staat erbij, niet eronder.</p>
+			<form class="ask" id="askForm" novalidate>
+				<label class="sr" for="q">Je vraag</label>
+				<input id="q" name="q" autocomplete="off" placeholder="Stel een vraag over je organisatie" aria-describedby="qError">
+				<button class="go" type="submit" aria-label="Vraag stellen">
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+				</button>
+			</form>
+			<p class="field-error" id="qError" hidden>Typ eerst een vraag, of kies er hieronder een.</p>
+			<div class="try">
+				<p>Vaak gevraagd in Atlas klantteam</p>
+				<ul>
+					<li><button type="button" class="sugg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Wie beheert de onboarding checklist van Atlas?</button></li>
+					<li><button type="button" class="sugg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Wanneer moeten de loonmutaties van november binnen zijn?</button></li>
+					<li><button type="button" class="sugg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Wie kent de regels voor eindejaarspremie in België?</button></li>
+				</ul>
+			</div>
+		</div>
+
+		<aside class="since" aria-labelledby="sinceTitle">
+			<p class="eyebrow">Voorbeelddata</p>
+			<h2 id="sinceTitle">Sinds je vorige bezoek</h2>
+			<p class="sub">Alleen wat jouw kennis raakt.</p>
+			<ol class="ledger">
+				<li class="needs" id="ledgerNeeds">
+					<time>09:12</time>
+					<div>
+						<p id="ledgerText"><strong>Een nieuw signaal raakt een antwoord dat jij beheert.</strong> Wie de onboarding checklist van Atlas beheert, volgens een teamnotitie van vandaag.</p>
+						<button type="button" class="text-btn" id="openFromLedger">Bekijk in het antwoord</button>
+					</div>
+				</li>
+				<li>
+					<time>Gisteren</time>
+					<div><p>Lotte bevestigde <strong>Loonmutaties november 2026</strong>. Geen actie nodig.</p></div>
+				</li>
+				<li>
+					<time>17 okt</time>
+					<div><p>Twee notities over eindejaarspremie in België zijn als bron toegevoegd.</p></div>
+				</li>
+			</ol>
+			<p class="calm">Verder vraagt niets je aandacht. SDtrust meldt zich alleen als een antwoord dat jij beheert verandert.</p>
+		</aside>
+	</section>
+
+	<!-- Thinking -->
+	<section class="thinking" id="thinking" hidden aria-live="polite">
+		<p class="eyebrow">Bronnen raadplegen</p>
+		<h2 id="thinkingQ"></h2>
+		<ol class="steps">
+			<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Teamnotities doorzocht</li>
+			<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Projectnotities en gesprekken doorzocht</li>
+			<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Bevestigingen en geldigheid gecontroleerd</li>
+		</ol>
+	</section>
+
+	<!-- Answer -->
+	<section id="answer" hidden aria-labelledby="headline">
+		<div class="answer-top">
+			<button type="button" class="back" id="back">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Start
+			</button>
+			<form class="ask compact" id="askForm2" novalidate>
+				<label class="sr" for="q2">Je vraag</label>
+				<input id="q2" name="q" autocomplete="off">
+				<button class="go" type="submit" aria-label="Opnieuw vragen">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+				</button>
+			</form>
+		</div>
+		<p class="mismatch" id="mismatch" hidden>Deze preview toont altijd hetzelfde voorbeeldantwoord over Atlas onboarding. Je eigen vraag wordt niet verwerkt.</p>
+
+		<div class="answer">
+			<article class="sheet">
+				<p class="eyebrow">Antwoord · Voorbeelddata</p>
+				<h2 id="headline">Team Operations beheert de checklist, onder voorbehoud.</h2>
+				<p class="trust" id="trust"><i aria-hidden="true"></i><span id="trustText">3 bronnen · 2 bevestigd · 1 wacht op jouw bevestiging</span></p>
+
+				<div class="prose">
+					<p>
+						<span class="claim pending" data-claim="1" tabindex="0" id="claim1">Sinds 20 oktober 2026 beheert Team Operations de onboarding checklist voor nieuwe klanten van Atlas.<span class="ref">1</span></span>
+						<button type="button" class="flag" id="flag" aria-expanded="false" aria-controls="review"><span id="flagText">Wacht op jouw bevestiging</span>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+						</button>
+					</p>
+
+					<div class="review" id="review" hidden>
+						<header>
+							<h3>Klopt deze wijziging?</h3>
+							<p>Collega's zien tot jouw bevestiging nog het eerder bevestigde antwoord.</p>
+						</header>
+						<div class="compare">
+							<div class="was">
+								<p class="lbl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Eerder bevestigd · geldig tot 15 oktober 2026</p>
+								<p class="val">Beheer door <del>Team HR</del></p>
+							</div>
+							<div class="arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+							<div class="now">
+								<p class="lbl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Nieuw signaal · 20 oktober 2026, 09:12</p>
+								<p class="val">Beheer door <ins>Team Operations</ins></p>
+							</div>
+						</div>
+						<p class="src">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+							<span><b>Bron 1 · Teamnotitie</b>, interne communicatie over de nieuwe taakverdeling</span>
+						</p>
+						<div class="actions">
+							<button type="button" class="btn primary" id="confirm">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Klopt, bevestigen
+							</button>
+							<button type="button" class="btn secondary" id="askNoor">Vraag het aan Noor</button>
+							<button type="button" class="btn ghost" id="later">Later</button>
+						</div>
+						<p class="owner">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+							Alleen jij kunt dit bevestigen, jij beheert dit onderwerp.
+						</p>
+					</div>
+
+					<p><span class="claim" data-claim="2" tabindex="0">Het team zet de documenten klaar, verstuurt de welkomstmail en maakt de toegang tot de systemen aan.<span class="ref">2</span></span></p>
+					<p><span class="claim" data-claim="3" tabindex="0">Voor vragen over planning en praktische details kun je bij Noor Peeters terecht. Zij begeleidde de laatste onboarding.<span class="ref">3</span></span></p>
+				</div>
+
+				<div class="next">
+					<button type="button" class="btn secondary" data-nav="chat">Vervolgvraag in Chat</button>
+					<button type="button" class="btn secondary" data-nav="bewaar">Bewaar als notitie</button>
+				</div>
+			</article>
+
+			<aside class="margin" aria-labelledby="marginTitle">
+				<h3 id="marginTitle">Waar dit op steunt</h3>
+				<ol class="notes">
+					<li class="note pending" data-note="1" tabindex="0" id="note1">
+						<span class="num" aria-hidden="true">1</span>
+						<div>
+							<b>Teamnotitie</b>
+							<span>20 oktober 2026 · Interne communicatie</span>
+							<span class="status" id="status1">Nieuw signaal, nog niet bevestigd</span>
+						</div>
+					</li>
+					<li class="note ok" data-note="2" tabindex="0">
+						<span class="num" aria-hidden="true">2</span>
+						<div>
+							<b>Projectnotities Atlas onboarding</b>
+							<span>12 oktober 2026</span>
+							<span class="status">Bevestigd door Noor · 14 oktober 2026</span>
+						</div>
+					</li>
+					<li class="note" data-note="3" tabindex="0">
+						<span class="num" aria-hidden="true">3</span>
+						<div>
+							<b>Teamgesprek onboarding Atlas</b>
+							<span>5 oktober 2026</span>
+							<span class="status">Nog niet bevestigd, informele bron</span>
+						</div>
+					</li>
+				</ol>
+				<div class="person">
+					<span class="avatar" aria-hidden="true">NP</span>
+					<div><b>Noor Peeters</b><span>Projectexpert onboarding · Experts is een concept</span></div>
+				</div>
+			</aside>
+		</div>
+	</section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => [...document.querySelectorAll(s)];
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Theme: follows the system until toggled.
+const sun = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const moon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+function setTheme(t) {
+	document.documentElement.dataset.theme = t;
+	const dark = t === "dark";
+	$("#theme").innerHTML = dark ? sun : moon;
+	$("#theme").setAttribute("aria-pressed", String(dark));
+	$("#theme").setAttribute("aria-label", dark ? "Licht thema" : "Donker thema");
+}
+setTheme(matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+$("#theme").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+
+// Navigation outside the prototyped path.
+const notices = {
+	vragen: null,
+	notities: "<b>Notities</b> bestaat in de werkende app. Deze ontwerppreview toont alleen de vraagstart.",
+	chat: "<b>Chat</b> bestaat in de werkende app. Deze ontwerppreview toont alleen de vraagstart.",
+	bronnen: "<b>Bronnen</b> is een concept. Er is nog geen werkende bronkoppeling.",
+	experts: "<b>Experts</b> is een concept. Expertmatching werkt nog niet.",
+	werkruimte: "<b>Werkruimtekeuze</b> bestaat in de werkende app. Hier staat alles op voorbeelddata.",
+	bewaar: "<b>Bewaren als notitie</b> is hier niet gekoppeld. Er wordt niets opgeslagen.",
+};
+function notice(html) {
+	$("#notice").hidden = !html;
+	if (html) $("#noticeText").innerHTML = html;
+}
+$$("[data-nav]").forEach((b) => b.addEventListener("click", () => {
+	const key = b.dataset.nav;
+	if (key === "vragen") { notice(null); show("start"); return; }
+	notice(notices[key]);
+}));
+$("#noticeClose").onclick = () => notice(null);
+
+// Views
+function show(view) {
+	for (const id of ["start", "thinking", "answer"]) $("#" + id).hidden = id !== view;
+	scrollTo({ top: 0 });
+}
+
+let pendingTimer;
+function ask(q, openReview = false) {
+	q = q.trim();
+	if (!q) { $("#qError").hidden = false; $("#q").setAttribute("aria-invalid", "true"); $("#q").focus(); return; }
+	$("#qError").hidden = true; $("#q").removeAttribute("aria-invalid");
+	notice(null);
+	$("#thinkingQ").textContent = q;
+	$("#q2").value = q;
+	$("#mismatch").hidden = /atlas|onboarding|checklist/i.test(q);
+	show("thinking");
+	clearTimeout(pendingTimer);
+	pendingTimer = setTimeout(() => {
+		show("answer");
+		if (openReview && state !== "confirmed") toggleReview(true);
+		else $("#headline").focus?.();
+	}, reduced ? 150 : 1150);
+}
+$("#askForm").onsubmit = (e) => { e.preventDefault(); ask($("#q").value); };
+$("#askForm2").onsubmit = (e) => { e.preventDefault(); ask($("#q2").value); };
+$("#q").oninput = () => { if ($("#q").value.trim()) $("#qError").hidden = true; };
+$$(".sugg").forEach((b) => b.onclick = () => { $("#q").value = b.textContent.trim(); ask(b.textContent); });
+$("#openFromLedger").onclick = () => { $("#q").value = "Wie beheert de onboarding checklist van Atlas?"; ask($("#q").value, true); };
+$("#back").onclick = () => show("start");
+$("#headline").tabIndex = -1;
+
+// Claim and source linking
+function light(n, on) {
+	$$(`[data-claim="${n}"], [data-note="${n}"]`).forEach((el) => el.classList.toggle("lit", on));
+}
+$$("[data-claim], [data-note]").forEach((el) => {
+	const n = el.dataset.claim || el.dataset.note;
+	for (const [ev, on] of [["mouseenter", true], ["mouseleave", false], ["focus", true], ["blur", false]]) {
+		el.addEventListener(ev, () => light(n, on));
+	}
+});
+
+// Confirmation inside the answer
+let state = "pending";
+function toggleReview(open) {
+	const r = $("#review");
+	r.hidden = !open;
+	$("#flag").setAttribute("aria-expanded", String(open));
+	if (open) { r.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" }); $("#confirm").focus({ preventScroll: true }); }
+}
+$("#flag").onclick = () => toggleReview($("#review").hidden);
+$("#later").onclick = () => { toggleReview(false); $("#flag").focus(); };
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#review").hidden) { toggleReview(false); $("#flag").focus(); } });
+
+const copy = {
+	pending: {
+		headline: "Team Operations beheert de checklist, onder voorbehoud.",
+		trust: "3 bronnen · 2 bevestigd · 1 wacht op jouw bevestiging",
+		flag: "Wacht op jouw bevestiging",
+		status: "Nieuw signaal, nog niet bevestigd",
+		ledger: "<strong>Een nieuw signaal raakt een antwoord dat jij beheert.</strong> Wie de onboarding checklist van Atlas beheert, volgens een teamnotitie van vandaag.",
+		time: "09:12",
+	},
+	asked: {
+		headline: "Team Operations beheert de checklist, onder voorbehoud.",
+		trust: "3 bronnen · 2 bevestigd · 1 voorgelegd aan Noor",
+		flag: "Voorgelegd aan Noor",
+		status: "Voorgelegd aan Noor · 20 oktober 2026",
+		ledger: "<strong>Voorgelegd aan Noor.</strong> Je ziet het hier zodra zij reageert. Tot dan blijft het voorbehoud zichtbaar.",
+		time: "09:15",
+	},
+	confirmed: {
+		headline: "Team Operations beheert de onboarding checklist.",
+		trust: "3 bronnen · wijziging bevestigd door jou",
+		flag: "",
+		status: "Bevestigd door jou · 20 oktober 2026, 09:15",
+		ledger: "<strong>Bevestigd door jou.</strong> Collega's zien nu het nieuwe antwoord over de onboarding checklist.",
+		time: "09:15",
+	},
+};
+function setState(s) {
+	state = s;
+	const c = copy[s];
+	$("#headline").textContent = c.headline;
+	$("#trustText").textContent = c.trust;
+	$("#trust").classList.toggle("ok", s === "confirmed");
+	$("#flagText").textContent = c.flag;
+	$("#flag").hidden = s === "confirmed";
+	$("#claim1").classList.toggle("pending", s !== "confirmed");
+	$("#claim1").classList.toggle("fresh", s === "confirmed");
+	$("#status1").textContent = c.status;
+	$("#note1").classList.toggle("pending", s !== "confirmed");
+	$("#note1").classList.toggle("ok", s === "confirmed");
+	$("#ledgerText").innerHTML = c.ledger;
+	$("#ledgerNeeds").classList.toggle("needs", s === "pending");
+	$("#ledgerNeeds").classList.toggle("done", s === "confirmed");
+	$("#ledgerNeeds time").textContent = c.time;
+	$("#openFromLedger").hidden = s !== "pending";
+}
+
+let toastTimer;
+function toast(msg, undo) {
+	const t = $("#toast");
+	t.innerHTML = "";
+	const span = document.createElement("span");
+	span.textContent = msg;
+	t.append(span);
+	if (undo) {
+		const b = document.createElement("button");
+		b.type = "button";
+		b.textContent = "Ongedaan maken";
+		b.onclick = () => { undo(); t.innerHTML = ""; };
+		t.append(b);
+	}
+	clearTimeout(toastTimer);
+	toastTimer = setTimeout(() => (t.innerHTML = ""), 7000);
+}
+
+$("#confirm").onclick = () => {
+	const prev = state;
+	toggleReview(false);
+	setState("confirmed");
+	$("#headline").focus();
+	toast("Bevestigd. Iedereen in Atlas klantteam ziet nu dit antwoord.", () => setState(prev));
+};
+$("#askNoor").onclick = () => {
+	toggleReview(false);
+	setState("asked");
+	$("#flag").focus();
+	toast("Voorbeeld: in deze preview wordt niets naar Noor verstuurd.");
+};
+
+$("#reset").onclick = () => {
+	clearTimeout(pendingTimer);
+	setState("pending");
+	toggleReview(false);
+	notice(null);
+	$("#toast").innerHTML = "";
+	$("#q").value = "";
+	$("#qError").hidden = true;
+	show("start");
+};
+</script>
+</body>
+</html>

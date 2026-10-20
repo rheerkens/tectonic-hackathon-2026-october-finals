@@ -12,10 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiniRouteImport } from './routes/mini'
 import { Route as PetRouteImport } from './routes/pet'
+import { Route as ResultsResultIdRouteImport } from './routes/results.$resultId'
 import { Route as WWorkspaceIdRouteImport } from './routes/w.$workspaceId'
 import { Route as WWorkspaceIdIndexRouteImport } from './routes/w.$workspaceId.index'
 import { Route as WWorkspaceIdChatRouteImport } from './routes/w.$workspaceId.chat'
+import { Route as WWorkspaceIdExpertsRouteImport } from './routes/w.$workspaceId.experts'
 import { Route as WWorkspaceIdNotesRouteImport } from './routes/w.$workspaceId.notes'
+import { Route as WWorkspaceIdReviewRouteImport } from './routes/w.$workspaceId.review'
+import { Route as WWorkspaceIdSettingsRouteImport } from './routes/w.$workspaceId.settings'
+import { Route as WWorkspaceIdSourcesRouteImport } from './routes/w.$workspaceId.sources'
 import { Route as WWorkspaceIdChatIndexRouteImport } from './routes/w.$workspaceId.chat.index'
 import { Route as WWorkspaceIdChatConversationIdRouteImport } from './routes/w.$workspaceId.chat.$conversationId'
 
@@ -34,6 +39,11 @@ const PetRoute = PetRouteImport.update({
   path: '/pet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResultsResultIdRoute = ResultsResultIdRouteImport.update({
+  id: '/results/$resultId',
+  path: '/results/$resultId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WWorkspaceIdRoute = WWorkspaceIdRouteImport.update({
   id: '/w/$workspaceId',
   path: '/w/$workspaceId',
@@ -49,9 +59,29 @@ const WWorkspaceIdChatRoute = WWorkspaceIdChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => WWorkspaceIdRoute,
 } as any)
+const WWorkspaceIdExpertsRoute = WWorkspaceIdExpertsRouteImport.update({
+  id: '/experts',
+  path: '/experts',
+  getParentRoute: () => WWorkspaceIdRoute,
+} as any)
 const WWorkspaceIdNotesRoute = WWorkspaceIdNotesRouteImport.update({
   id: '/notes',
   path: '/notes',
+  getParentRoute: () => WWorkspaceIdRoute,
+} as any)
+const WWorkspaceIdReviewRoute = WWorkspaceIdReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => WWorkspaceIdRoute,
+} as any)
+const WWorkspaceIdSettingsRoute = WWorkspaceIdSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => WWorkspaceIdRoute,
+} as any)
+const WWorkspaceIdSourcesRoute = WWorkspaceIdSourcesRouteImport.update({
+  id: '/sources',
+  path: '/sources',
   getParentRoute: () => WWorkspaceIdRoute,
 } as any)
 const WWorkspaceIdChatIndexRoute = WWorkspaceIdChatIndexRouteImport.update({
@@ -70,9 +100,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
+  '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
+  '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
+  '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
+  '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
+  '/w/$workspaceId/sources': typeof WWorkspaceIdSourcesRoute
   '/w/$workspaceId/': typeof WWorkspaceIdIndexRoute
   '/w/$workspaceId/chat/$conversationId': typeof WWorkspaceIdChatConversationIdRoute
   '/w/$workspaceId/chat/': typeof WWorkspaceIdChatIndexRoute
@@ -81,7 +116,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
+  '/results/$resultId': typeof ResultsResultIdRoute
+  '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
+  '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
+  '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
+  '/w/$workspaceId/sources': typeof WWorkspaceIdSourcesRoute
   '/w/$workspaceId': typeof WWorkspaceIdIndexRoute
   '/w/$workspaceId/chat/$conversationId': typeof WWorkspaceIdChatConversationIdRoute
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatIndexRoute
@@ -91,9 +131,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/mini': typeof MiniRoute
   '/pet': typeof PetRoute
+  '/results/$resultId': typeof ResultsResultIdRoute
   '/w/$workspaceId': typeof WWorkspaceIdRouteWithChildren
   '/w/$workspaceId/chat': typeof WWorkspaceIdChatRouteWithChildren
+  '/w/$workspaceId/experts': typeof WWorkspaceIdExpertsRoute
   '/w/$workspaceId/notes': typeof WWorkspaceIdNotesRoute
+  '/w/$workspaceId/review': typeof WWorkspaceIdReviewRoute
+  '/w/$workspaceId/settings': typeof WWorkspaceIdSettingsRoute
+  '/w/$workspaceId/sources': typeof WWorkspaceIdSourcesRoute
   '/w/$workspaceId/': typeof WWorkspaceIdIndexRoute
   '/w/$workspaceId/chat/$conversationId': typeof WWorkspaceIdChatConversationIdRoute
   '/w/$workspaceId/chat/': typeof WWorkspaceIdChatIndexRoute
@@ -104,9 +149,14 @@ export interface FileRouteTypes {
     | '/'
     | '/mini'
     | '/pet'
+    | '/results/$resultId'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat'
+    | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
+    | '/w/$workspaceId/review'
+    | '/w/$workspaceId/settings'
+    | '/w/$workspaceId/sources'
     | '/w/$workspaceId/'
     | '/w/$workspaceId/chat/$conversationId'
     | '/w/$workspaceId/chat/'
@@ -115,7 +165,12 @@ export interface FileRouteTypes {
     | '/'
     | '/mini'
     | '/pet'
+    | '/results/$resultId'
+    | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
+    | '/w/$workspaceId/review'
+    | '/w/$workspaceId/settings'
+    | '/w/$workspaceId/sources'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat/$conversationId'
     | '/w/$workspaceId/chat'
@@ -124,9 +179,14 @@ export interface FileRouteTypes {
     | '/'
     | '/mini'
     | '/pet'
+    | '/results/$resultId'
     | '/w/$workspaceId'
     | '/w/$workspaceId/chat'
+    | '/w/$workspaceId/experts'
     | '/w/$workspaceId/notes'
+    | '/w/$workspaceId/review'
+    | '/w/$workspaceId/settings'
+    | '/w/$workspaceId/sources'
     | '/w/$workspaceId/'
     | '/w/$workspaceId/chat/$conversationId'
     | '/w/$workspaceId/chat/'
@@ -136,6 +196,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MiniRoute: typeof MiniRoute
   PetRoute: typeof PetRoute
+  ResultsResultIdRoute: typeof ResultsResultIdRoute
   WWorkspaceIdRoute: typeof WWorkspaceIdRouteWithChildren
 }
 
@@ -162,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/results/$resultId': {
+      id: '/results/$resultId'
+      path: '/results/$resultId'
+      fullPath: '/results/$resultId'
+      preLoaderRoute: typeof ResultsResultIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/w/$workspaceId': {
       id: '/w/$workspaceId'
       path: '/w/$workspaceId'
@@ -183,11 +251,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WWorkspaceIdChatRouteImport
       parentRoute: typeof WWorkspaceIdRoute
     }
+    '/w/$workspaceId/experts': {
+      id: '/w/$workspaceId/experts'
+      path: '/experts'
+      fullPath: '/w/$workspaceId/experts'
+      preLoaderRoute: typeof WWorkspaceIdExpertsRouteImport
+      parentRoute: typeof WWorkspaceIdRoute
+    }
     '/w/$workspaceId/notes': {
       id: '/w/$workspaceId/notes'
       path: '/notes'
       fullPath: '/w/$workspaceId/notes'
       preLoaderRoute: typeof WWorkspaceIdNotesRouteImport
+      parentRoute: typeof WWorkspaceIdRoute
+    }
+    '/w/$workspaceId/review': {
+      id: '/w/$workspaceId/review'
+      path: '/review'
+      fullPath: '/w/$workspaceId/review'
+      preLoaderRoute: typeof WWorkspaceIdReviewRouteImport
+      parentRoute: typeof WWorkspaceIdRoute
+    }
+    '/w/$workspaceId/settings': {
+      id: '/w/$workspaceId/settings'
+      path: '/settings'
+      fullPath: '/w/$workspaceId/settings'
+      preLoaderRoute: typeof WWorkspaceIdSettingsRouteImport
+      parentRoute: typeof WWorkspaceIdRoute
+    }
+    '/w/$workspaceId/sources': {
+      id: '/w/$workspaceId/sources'
+      path: '/sources'
+      fullPath: '/w/$workspaceId/sources'
+      preLoaderRoute: typeof WWorkspaceIdSourcesRouteImport
       parentRoute: typeof WWorkspaceIdRoute
     }
     '/w/$workspaceId/chat/': {
@@ -222,13 +318,21 @@ const WWorkspaceIdChatRouteWithChildren =
 
 interface WWorkspaceIdRouteChildren {
   WWorkspaceIdChatRoute: typeof WWorkspaceIdChatRouteWithChildren
+  WWorkspaceIdExpertsRoute: typeof WWorkspaceIdExpertsRoute
   WWorkspaceIdNotesRoute: typeof WWorkspaceIdNotesRoute
+  WWorkspaceIdReviewRoute: typeof WWorkspaceIdReviewRoute
+  WWorkspaceIdSettingsRoute: typeof WWorkspaceIdSettingsRoute
+  WWorkspaceIdSourcesRoute: typeof WWorkspaceIdSourcesRoute
   WWorkspaceIdIndexRoute: typeof WWorkspaceIdIndexRoute
 }
 
 const WWorkspaceIdRouteChildren: WWorkspaceIdRouteChildren = {
   WWorkspaceIdChatRoute: WWorkspaceIdChatRouteWithChildren,
+  WWorkspaceIdExpertsRoute: WWorkspaceIdExpertsRoute,
   WWorkspaceIdNotesRoute: WWorkspaceIdNotesRoute,
+  WWorkspaceIdReviewRoute: WWorkspaceIdReviewRoute,
+  WWorkspaceIdSettingsRoute: WWorkspaceIdSettingsRoute,
+  WWorkspaceIdSourcesRoute: WWorkspaceIdSourcesRoute,
   WWorkspaceIdIndexRoute: WWorkspaceIdIndexRoute,
 }
 
@@ -240,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MiniRoute: MiniRoute,
   PetRoute: PetRoute,
+  ResultsResultIdRoute: ResultsResultIdRoute,
   WWorkspaceIdRoute: WWorkspaceIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport

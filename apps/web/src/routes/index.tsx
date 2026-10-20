@@ -10,7 +10,7 @@ function WorkspaceHome() {
 		workspaces.find((item) => item.id === session.drafts.workspace(session.user?.id ?? "")) ??
 		workspaces[0];
 	if (workspace)
-		return <Navigate to="/w/$workspaceId/notes" params={{ workspaceId: workspace.id }} replace />;
+		return <Navigate to="/w/$workspaceId" params={{ workspaceId: workspace.id }} replace />;
 	return (
 		<main className="loading">
 			<h1>{listing.isPending ? "Loading workspaces…" : "No workspace available"}</h1>

@@ -5,6 +5,7 @@ declare module "*.css";
 // Present only inside the Electron app; see apps/desktop/preload.cjs.
 interface Window {
 	readonly desktop?: {
+		openResult?(resultId: string): Promise<void>;
 		toggleMini(): void;
 		hideMini(): void;
 		openMain(route: string): void;

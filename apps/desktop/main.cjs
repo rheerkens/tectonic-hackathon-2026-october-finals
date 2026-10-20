@@ -1,5 +1,5 @@
 // Electron shell: starts the API on a free local port and shows the web app it serves,
-// plus Finn, a desktop pet that opens a floating mini chat. The main window opens on demand.
+// plus Finn, a desktop pet that opens a floating mini chat.
 const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, screen } = require("electron");
 const { spawn } = require("node:child_process");
 const { readFileSync, writeFileSync } = require("node:fs");
@@ -48,7 +48,13 @@ async function startApi() {
 	});
 }
 
-const webPreferences = { preload: join(__dirname, "preload.cjs") };
+const webPreferences = {
+	preload: join(__dirname, "preload.cjs"),
+	contextIsolation: true,
+	nodeIntegration: false,
+	sandbox: true,
+};
+const PET_SIZE = { width: 96, height: 104 };
 const settingsPath = () => join(app.getPath("userData"), "desktop.json");
 let settings = { showPet: true, petPosition: null };
 function saveSettings() {
@@ -56,13 +62,54 @@ function saveSettings() {
 	writeFileSync(settingsPath(), JSON.stringify(settings));
 }
 
-let appUrl;
-let main;
 let pet;
 let mini;
+let mainWindow;
+let mainReady = Promise.resolve();
+let appUrl;
 let quitting = false;
+let finnMenu;
+let showPetItem;
 const petOpen = () => pet && !pet.isDestroyed();
+
+function reportOpenError(error) {
+	dialog.showErrorBox("Could not open FINN", String(error));
+}
+
+async function openMain(path) {
+	const create = !mainWindow || mainWindow.isDestroyed();
+	if (create) {
+		mainWindow = new BrowserWindow({ width: 1280, height: 860, show: false, webPreferences });
+		const window = mainWindow;
+		mainReady = Promise.resolve();
+		window.on("closed", () => {
+			if (mainWindow === window) mainWindow = null;
+			if (!quitting && !petOpen()) {
+				settings.showPet = true;
+				showPetItem.checked = true;
+				openPet(appUrl);
+				saveSettings();
+			}
+		});
+	}
+	const window = mainWindow;
+	if (create || path !== undefined) {
+		const target = `${appUrl}${path ?? "/"}`;
+		// Serialize repeated result clicks so one navigation cannot abort the other.
+		mainReady = mainReady.catch(() => {}).then(() => window.loadURL(target));
+	}
+	await mainReady;
+	if (window.isDestroyed() || quitting) throw new Error("FINN window was closed");
+	if (window.isMinimized()) window.restore();
+	window.show();
+	window.focus();
+}
+
 function openPet(url) {
+	if (petOpen()) {
+		pet.showInactive();
+		return;
+	}
 	const { workArea } = screen.getPrimaryDisplay();
 	const [x, y] = settings.petPosition ?? [
 		workArea.x + workArea.width - 136,
@@ -72,45 +119,27 @@ function openPet(url) {
 		x,
 		y,
 		// Half the 192 × 208 sprite cell keeps Finn small but sharp on retina screens.
-		width: 96,
-		height: 104,
+		...PET_SIZE,
 		transparent: true,
 		frame: false,
 		resizable: false,
 		hasShadow: false,
 		alwaysOnTop: true,
 		skipTaskbar: true,
+		show: false,
 		webPreferences,
 	});
-	pet.loadURL(`${url}/pet`);
-	// The pet window has no menu bar on Windows, so right-clicking Finn offers the essentials.
-	pet.webContents.on("context-menu", () =>
-		Menu.buildFromTemplate([...finnActions, { type: "separator" }, { role: "quit" }]).popup({
-			window: pet,
-		}),
-	);
-}
-
-function openMain(url) {
-	main = new BrowserWindow({ width: 1280, height: 860, show: false, webPreferences });
-	main.loadURL(url);
-	// Closing only hides the window; quit from the Finn menu.
-	main.on("close", (event) => {
-		if (quitting) return;
-		event.preventDefault();
-		main.hide();
+	const window = pet;
+	// Normalize constructor DPI rounding while hidden, before the first visible frame.
+	window.setBounds({ x, y, ...PET_SIZE });
+	window.once("ready-to-show", () => {
+		if (!window.isDestroyed() && !quitting) window.showInactive();
 	});
-}
-
-/** Shows the main window, on `route` when given. */
-function showMain(route) {
-	if (route) {
-		const target = new URL(route, appUrl);
-		if (target.origin !== new URL(appUrl).origin) return;
-		if (main.webContents.getURL() !== target.href) main.loadURL(target.href);
-	}
-	main.show();
-	main.focus();
+	pet.loadURL(`${url}/pet`);
+	pet.on("closed", () => {
+		pet = null;
+	});
+	pet.webContents.on("context-menu", () => finnMenu?.popup({ window: pet }));
 }
 
 function openMini(url) {
@@ -146,49 +175,94 @@ function toggleMini() {
 	mini.show();
 }
 
-const finnActions = [
-	{ label: "Open SDtrust", click: () => showMain() },
-	{ label: "Open mini chat", click: toggleMini },
-];
-
 function addFinnMenu(url) {
 	const menu = Menu.getApplicationMenu() ?? new Menu();
-	menu.append(
-		new MenuItem({
-			label: "Finn",
-			submenu: [
-				...finnActions,
-				{
-					label: "Show Finn",
-					type: "checkbox",
-					checked: settings.showPet,
-					click: (item) => {
-						settings.showPet = item.checked;
-						if (item.checked) openPet(url);
-						saveSettings();
-						if (item.checked || !petOpen()) return;
-						pet.close();
-						// Without Finn, keep a window on screen to come back from.
-						showMain();
-					},
-				},
-				{ type: "separator" },
-				{ role: "quit" },
-			],
-		}),
-	);
+	finnMenu = Menu.buildFromTemplate([
+		{ label: "Open mini chat", click: toggleMini },
+		{ label: "Open SDtrust", click: () => openMain().catch(reportOpenError) },
+		{
+			label: "Show Finn",
+			type: "checkbox",
+			checked: true,
+			click: async (item) => {
+				try {
+					if (!item.checked) await openMain();
+					settings.showPet = item.checked;
+					if (item.checked) openPet(url);
+					saveSettings();
+					if (!item.checked && petOpen()) pet.close();
+				} catch (error) {
+					item.checked = settings.showPet;
+					reportOpenError(error);
+				}
+			},
+		},
+		{ type: "separator" },
+		{ label: "Quit", click: () => app.quit() },
+	]);
+	showPetItem = finnMenu.items.find((item) => item.type === "checkbox");
+	menu.append(new MenuItem({ label: "Finn", submenu: finnMenu }));
 	Menu.setApplicationMenu(menu);
 }
 
+function trustedWindow(event, window, path) {
+	if (
+		!window ||
+		window.isDestroyed() ||
+		event.sender !== window.webContents ||
+		event.senderFrame !== window.webContents.mainFrame
+	)
+		return false;
+	try {
+		const url = new URL(event.senderFrame.url);
+		return (
+			url.origin === appUrl &&
+			event.senderFrame.url === window.webContents.getURL() &&
+			(path === undefined || url.pathname === path)
+		);
+	} catch {
+		return false;
+	}
+}
+
+ipcMain.handle("main:open-result", async (event, resultId) => {
+	if (
+		!trustedWindow(event, pet, "/pet") &&
+		!trustedWindow(event, mini, "/mini") &&
+		!trustedWindow(event, mainWindow)
+	)
+		throw new Error("Untrusted result request");
+	if (typeof resultId !== "string" || !/^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/.test(resultId)) {
+		throw new Error("Invalid result ID");
+	}
+	await openMain(`/results/${encodeURIComponent(resultId)}`);
+});
+
+// Keep the existing local-route entry point alongside the narrower result action.
+ipcMain.on("main:open", (event, route) => {
+	if (
+		!trustedWindow(event, pet, "/pet") &&
+		!trustedWindow(event, mini, "/mini") &&
+		!trustedWindow(event, mainWindow)
+	)
+		return;
+	if (typeof route !== "string") return;
+	try {
+		const target = new URL(route, appUrl);
+		if (target.origin !== appUrl) return;
+		void openMain(`${target.pathname}${target.search}${target.hash}`).catch(reportOpenError);
+	} catch {
+		// Ignore malformed routes from renderer callers.
+	}
+});
+
 ipcMain.on("mini:toggle", () => toggleMini());
 ipcMain.on("mini:hide", () => mini?.hide());
-ipcMain.on("main:open", (_event, route) => {
-	if (main && typeof route === "string") showMain(route);
-});
 ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();
-	pet.setPosition(Math.round(x + dx), Math.round(y + dy));
+	// setPosition reads back a rounded size, which can accumulate at fractional Windows DPI.
+	pet.setBounds({ x: Math.round(x + dx), y: Math.round(y + dy), ...PET_SIZE });
 });
 
 app.whenReady().then(async () => {
@@ -200,10 +274,11 @@ app.whenReady().then(async () => {
 	try {
 		const url = await startApi();
 		appUrl = url;
-		openMain(url);
+		// A new launch is always reachable, even if Finn was hidden in the previous session.
+		settings.showPet = true;
 		openMini(url);
-		if (settings.showPet) openPet(url);
 		addFinnMenu(url);
+		openPet(url);
 	} catch (error) {
 		dialog.showErrorBox("Day One could not start", String(error));
 		app.quit();
@@ -213,7 +288,11 @@ app.on("before-quit", () => {
 	quitting = true;
 	saveSettings();
 });
-// Clicking the dock icon (macOS) brings the main window back.
-app.on("activate", () => main && showMain());
+app.on("activate", () => {
+	if (appUrl && !quitting) void openMain().catch(reportOpenError);
+});
 app.on("window-all-closed", () => app.quit());
-app.on("quit", () => api?.kill());
+app.once("quit", () => {
+	api?.kill();
+	api = undefined;
+});
