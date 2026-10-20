@@ -12,6 +12,7 @@ const {
 	Notification,
 	screen,
 	session,
+	shell,
 } = require("electron");
 const { spawn } = require("node:child_process");
 const { readFileSync, writeFileSync } = require("node:fs");
@@ -43,6 +44,8 @@ async function startApi() {
 	api = spawn(command, args, {
 		env: {
 			...process.env,
+			// ponytail: the demo build signs in with synthetic users on a loopback-only API;
+			// ship NODE_ENV=production with AUTH_MODE=clerk before real customer data goes in.
 			NODE_ENV: "development",
 			AUTH_MODE: "dev",
 			SERVE_STATIC: "1",
@@ -54,10 +57,21 @@ async function startApi() {
 		stdio: ["ignore", "pipe", "inherit"],
 	});
 	return new Promise((done, fail) => {
+		const timeout = setTimeout(
+			() => fail(new Error("API did not start within 30 seconds")),
+			30_000,
+		);
+		api.on("error", fail);
 		api.on("exit", (code) => fail(new Error(`API exited with code ${code}`)));
+		// The ready line can arrive split over two chunks, so match on everything read so far.
+		let output = "";
 		api.stdout.on("data", (chunk) => {
 			process.stdout.write(chunk);
-			if (chunk.includes('"api_ready"')) done(`http://127.0.0.1:${port}`);
+			if (output.includes('"api_ready"')) return;
+			output += chunk;
+			if (!output.includes('"api_ready"')) return;
+			clearTimeout(timeout);
+			done(`http://127.0.0.1:${port}`);
 		});
 	});
 }
@@ -84,7 +98,12 @@ let settings = { showPet: true, petPosition: null, petScale: 100 };
 function saveSettings() {
 	// While Finn is mid-jump or inside SDtrust, his desktop spot is the one remembered before.
 	if (petOpen() && !flying && pet.isVisible()) settings.petPosition = pet.getPosition();
-	writeFileSync(settingsPath(), JSON.stringify(settings));
+	try {
+		writeFileSync(settingsPath(), JSON.stringify(settings));
+	} catch (error) {
+		// A read-only or full profile must not crash the app; Finn just forgets his spot.
+		console.error("Could not save desktop settings", error);
+	}
 }
 // Keeps the whole pet on the screen it is on.
 function clampPet({ x, y, width, height }) {
@@ -603,24 +622,6 @@ ipcMain.handle("main:open-result", async (event, resultId) => {
 	await openMain(`/results/${encodeURIComponent(resultId)}`);
 });
 
-// Keep the existing local-route entry point alongside the narrower result action.
-ipcMain.on("main:open", (event, route) => {
-	if (
-		!trustedWindow(event, pet, "/pet") &&
-		!trustedWindow(event, mini, "/mini") &&
-		!trustedWindow(event, mainWindow)
-	)
-		return;
-	if (typeof route !== "string") return;
-	try {
-		const target = new URL(route, appUrl);
-		if (target.origin !== appUrl) return;
-		void openMain(`${target.pathname}${target.search}${target.hash}`).catch(reportOpenError);
-	} catch {
-		// Ignore malformed routes from renderer callers.
-	}
-});
-
 ipcMain.handle("speech:transcribe", async (event, wav) => {
 	if (!trustedWindow(event, mini, "/mini") && !trustedWindow(event, mainWindow))
 		throw new Error("Untrusted speech request");
@@ -638,7 +639,9 @@ ipcMain.handle("speech:transcribe", async (event, wav) => {
 });
 ipcMain.on("speech:cancel", (event) => speech.cancel(event.sender.id));
 
-ipcMain.on("mini:toggle", () => toggleMini());
+ipcMain.on("mini:toggle", (event) => {
+	if (anyTrusted(event)) toggleMini();
+});
 ipcMain.on("mini:show", (event) => {
 	if (trustedWindow(event, pet, "/pet")) void showMiniOnHover().catch(reportOpenError);
 });
@@ -653,7 +656,9 @@ ipcMain.on("mini:hover", (event, inside) => {
 ipcMain.on("mini:engaged", (event, engaged) => {
 	if (trustedWindow(event, mini, "/mini")) miniEngaged = engaged === true;
 });
-ipcMain.on("mini:hide", hideMini);
+ipcMain.on("mini:hide", (event) => {
+	if (anyTrusted(event)) hideMini();
+});
 ipcMain.on("main:finn-dock", (event, active) => {
 	if (!trustedWindow(event, mainWindow)) return;
 	mainWindow.finnDock = active === true;
@@ -667,7 +672,7 @@ ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();
 	// setPosition reads back a rounded size, which can accumulate at fractional Windows DPI.
-	pet.setBounds({ x: Math.round(x + dx), y: Math.round(y + dy), ...petSize() });
+	pet.setBounds(clampPet({ x: Math.round(x + dx), y: Math.round(y + dy), ...petSize() }));
 	if (mini?.isVisible()) void positionMini();
 });
 
@@ -724,10 +729,11 @@ app.whenReady().then(async () => {
 		app.dock.setIcon(join(__dirname, "icon.png"));
 	// Microphone only, for Finn's voice input on the app's own pages; other permissions as before.
 	session.defaultSession.setPermissionRequestHandler((contents, permission, grant, details) => {
-		if (permission !== "media") return grant(true);
+		const own = Boolean(appUrl && details.requestingUrl?.startsWith(`${appUrl}/`));
+		if (permission !== "media") return grant(own);
 		const audioOnly =
 			details.mediaTypes?.length && details.mediaTypes.every((type) => type === "audio");
-		grant(Boolean(appUrl && audioOnly && details.requestingUrl?.startsWith(`${appUrl}/`)));
+		grant(Boolean(own && audioOnly));
 	});
 	try {
 		const url = await startApi();
@@ -742,6 +748,21 @@ app.whenReady().then(async () => {
 		dialog.showErrorBox("SDtrust could not start", String(error));
 		app.quit();
 	}
+});
+// Windows only ever show the app itself: links elsewhere open in the browser, never in Electron.
+app.on("web-contents-created", (_event, contents) => {
+	const external = (url) => {
+		if (url.startsWith("https://")) void shell.openExternal(url);
+	};
+	contents.on("will-navigate", (event, url) => {
+		if (appUrl && new URL(url).origin === appUrl) return;
+		event.preventDefault();
+		external(url);
+	});
+	contents.setWindowOpenHandler(({ url }) => {
+		external(url);
+		return { action: "deny" };
+	});
 });
 app.on("before-quit", () => {
 	quitting = true;

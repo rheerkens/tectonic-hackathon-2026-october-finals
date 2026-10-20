@@ -13,7 +13,6 @@ interface Window {
 		onMiniCompose?(listener: () => void): () => void;
 		toggleMini(): void;
 		hideMini(): void;
-		openMain(route: string): void;
 		movePet(dx: number, dy: number): void;
 		/** Subscribes to the main window closing so Finn can say goodbye; returns an unsubscribe. */
 		onMainClosing?(listener: () => void): () => void;
