@@ -162,7 +162,6 @@ export function FinnChat({
 					<Icon name="arrow-right" size={18} />
 				</button>
 			</form>
-			<span className="finn-mini-disclaimer">Demo · fixture data</span>
 		</>
 	);
 }

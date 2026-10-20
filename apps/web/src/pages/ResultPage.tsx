@@ -29,7 +29,6 @@ export function ResultPage({ resultId }: { resultId: string }) {
 				<Link to="/">
 					<Brand />
 				</Link>
-				<span className="example-badge">Demo · fixture data</span>
 				<Button
 					variant="ghost"
 					onClick={() =>
