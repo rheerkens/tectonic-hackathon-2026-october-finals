@@ -1339,7 +1339,7 @@ body {
 	height: 100%;
 	object-fit: contain;
 }
-/* Near the bottom of the screen the shell flips everything above Finn. */
+/* By default everything sits above Finn; near the top of the screen the shell flips it below. */
 .finn-mini[data-placement="above"] .finn-mini-head {
 	order: 2;
 	flex-direction: column-reverse;

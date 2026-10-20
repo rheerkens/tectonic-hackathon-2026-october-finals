@@ -380,12 +380,12 @@ async function positionMini() {
 	const anchor = petOpen() ? pet.getBounds() : null;
 	const { workArea } = screen.getDisplayMatching(anchor ?? screen.getCursorScreenPoint());
 	const width = Math.min(420, workArea.width);
-	// Keep the existing side layout on platforms where this presentation has not been validated.
-	const shaped = anchor && process.platform === "win32";
+	// Without Finn on screen there is nothing to anchor to: the controls open as a side panel.
+	const shaped = Boolean(anchor);
 	const above = anchor ? anchor.y - workArea.y : 440;
 	const below = anchor ? workArea.y + workArea.height - anchor.y - anchor.height : 440;
-	// Controls and activity sit below Finn, flipping above him near the bottom of the screen.
-	const placement = !shaped ? "side" : below < 240 && above > below ? "above" : "below";
+	// Controls and activity sit above Finn, flipping below him near the top of the screen.
+	const placement = !shaped ? "side" : above < 240 && below > above ? "below" : "above";
 	// About 90 px of the room goes to the toolbar, gaps and padding around the activity.
 	const contentHeight = Math.max(
 		80,
@@ -434,7 +434,12 @@ async function positionMini() {
 			width,
 			height: miniHeight,
 		});
-		if (shaped) window.setShape(layout.surfaces);
+		// Clicks outside the pills reach Finn and the desktop: Windows cuts the window to the pills,
+		// macOS has no setShape, so the window ignores the mouse until the pointer is over a pill.
+		window.shaped = shaped;
+		if (process.platform === "win32") {
+			if (shaped) window.setShape(layout.surfaces);
+		} else window.setIgnoreMouseEvents(shaped, { forward: true });
 	} catch (error) {
 		if (!window.isDestroyed() && !quitting)
 			console.error("Could not position FINN controls", error);
@@ -573,6 +578,8 @@ ipcMain.on("mini:show", (event) => {
 ipcMain.on("mini:hover", (event, inside) => {
 	if (trustedWindow(event, pet, "/pet") || trustedWindow(event, mini, "/mini"))
 		setMiniHover(inside === true);
+	if (process.platform !== "win32" && mini?.shaped && trustedWindow(event, mini, "/mini"))
+		mini.setIgnoreMouseEvents(inside !== true, { forward: true });
 });
 ipcMain.on("mini:engaged", (event, engaged) => {
 	if (trustedWindow(event, mini, "/mini")) miniEngaged = engaged === true;

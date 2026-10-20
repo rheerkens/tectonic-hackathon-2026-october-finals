@@ -327,6 +327,7 @@ export function FinnChat({
 	const finn = useFinn(true);
 	const scale = usePetScale();
 	const root = useRef<HTMLElement>(null);
+	const overSurface = useRef(false);
 	const input = useRef<HTMLTextAreaElement>(null);
 	const transcript = useRef<HTMLDivElement>(null);
 	// Presentation is local to each surface; another window's selection never retargets it.
@@ -352,6 +353,8 @@ export function FinnChat({
 			setView("launcher");
 			setRowsOpen(false);
 			setChatId(null);
+			// The shell hid the window under the pointer; the next show starts click-through again.
+			overSurface.current = false;
 		};
 		if (!open) reset();
 		return window.desktop?.onMiniReset?.(reset);
@@ -444,8 +447,19 @@ export function FinnChat({
 			className={`finn-mini ${className}`}
 			style={{ "--finn-scale": scale / 100 } as CSSProperties}
 			aria-label="Chat with Finn"
-			onPointerEnter={() => !inApp && window.desktop?.setMiniHover?.(true)}
-			onPointerLeave={() => !inApp && window.desktop?.setMiniHover?.(false)}
+			// Only the pills count as hover: on macOS the window spans the transparent gaps too.
+			onMouseMove={(event) => {
+				if (inApp) return;
+				const inside = Boolean((event.target as Element).closest("[data-mini-surface]"));
+				if (inside === overSurface.current) return;
+				overSurface.current = inside;
+				window.desktop?.setMiniHover?.(inside);
+			}}
+			onPointerLeave={() => {
+				if (inApp) return;
+				overSurface.current = false;
+				window.desktop?.setMiniHover?.(false);
+			}}
 		>
 			<div className="finn-mini-head">
 				<div className="finn-mini-pet-slot">{pet}</div>
