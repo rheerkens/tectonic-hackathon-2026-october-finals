@@ -506,11 +506,11 @@ export function FinnChat({
 										<strong>
 											<StatusMark turn={conversation.turns.at(-1)} />
 											<span>{conversation.title}</span>
+											{conversation.unread && (
+												<span className="finn-mini-unread" aria-label="Unread answer" />
+											)}
 										</strong>
 										<small>{preview(conversation)}</small>
-										{conversation.unread && (
-											<span className="finn-mini-unread" aria-label="Unread answer" />
-										)}
 									</button>
 									<button
 										type="button"
