@@ -1,0 +1,435 @@
+{
+  "purpose": "Existing complete exports for presentation preparation. Not every clip has refreshed pictures yet.",
+  "captureBuildForRefresh": "da35424103e47c9228efb28cf3ebf3cb604fc2f9",
+  "evidenceBoundary": "Authored synthetic demonstration data and simulated contact. Sound effects are added in editing. No real call, connector or independently measured confidence claim.",
+  "videos": [
+    {
+      "clip": 1,
+      "source": "20261020-140104-clip01/Finn_clip01_Edward.mp4",
+      "label": "Edward and effects",
+      "picture": "Earlier recording",
+      "note": "Original published version, retained unchanged.",
+      "file": "Finn_clip01_Edward.mp4",
+      "bytes": 387178,
+      "sha256": "6c67ce2364ce34eb0a83d77ed0a81e73f566cb0db62b31dd9e04e84711b55634",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "30/1",
+            "nb_frames": "209"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "284"
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 1,
+      "source": "20261020-140104-clip01/Finn_clip01_zonder_stem.mp4",
+      "label": "Effects only",
+      "picture": "Earlier recording",
+      "note": "",
+      "file": "clip01/original/Finn_clip01_zonder_stem.mp4",
+      "bytes": 296011,
+      "sha256": "a8211da2d323b6ed49e611678f4660d98fdf0ae3cf999efe48508fb7a65c6e6a",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "30/1",
+            "nb_frames": "209"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "303"
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 1,
+      "source": "20261020-140104-clip01/clip01-silent.mp4",
+      "label": "Silent",
+      "picture": "Earlier recording",
+      "note": "",
+      "file": "clip01/original/Finn_clip01_silent.mp4",
+      "bytes": 284563,
+      "sha256": "8327731ac35d3423f65cc84ececcbd2cdd6e2ecedb8ff3e51e2a52a14db79945",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "30/1",
+            "nb_frames": "209"
+          }
+        ],
+        "format": {
+          "duration": "6.966667"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 1,
+      "source": "20261020-refresh-da35424/clip01/Finn_clip01_Edward.mp4",
+      "label": "Edward and effects",
+      "picture": "Refreshed for da35424",
+      "note": "Original approved AAC audio retained byte for byte.",
+      "file": "clip01/refreshed/Finn_clip01_Edward.mp4",
+      "bytes": 365489,
+      "sha256": "a545aaf2b3feb4c4d7b0ffec2899cfbb37b3ae4db891db3a6760f43d0d64b9a2",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "30/1",
+            "nb_frames": "210"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "284"
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 1,
+      "source": "20261020-refresh-da35424/clip01/Finn_clip01_silent.mp4",
+      "label": "Silent",
+      "picture": "Refreshed for da35424",
+      "note": "",
+      "file": "clip01/refreshed/Finn_clip01_silent.mp4",
+      "bytes": 262842,
+      "sha256": "2f26b8d26aa1558229037d39fafefd8be0317ef0c2bcdea2f46680b06b05d76c",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "30/1",
+            "nb_frames": "210"
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 2,
+      "source": "20261020-clip02/Finn_clip02_Edward.mp4",
+      "label": "Edward and effects",
+      "picture": "Earlier recording",
+      "note": "October 22 answer, 92% trust, S4 and full result. New picture refresh is in progress.",
+      "file": "clip02/original/Finn_clip02_Edward.mp4",
+      "bytes": 2508993,
+      "sha256": "ab9802030387ec60535bfef0c1ca859ddde0ace2bb0b61b4b306170a135d166e",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "540"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "777"
+          }
+        ],
+        "format": {
+          "duration": "18.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 2,
+      "source": "20261020-clip02/Finn_clip02_zonder_stem.mp4",
+      "label": "Effects only",
+      "picture": "Earlier recording",
+      "note": "October 22 answer, 92% trust, S4 and full result. New picture refresh is in progress.",
+      "file": "clip02/original/Finn_clip02_zonder_stem.mp4",
+      "bytes": 2261264,
+      "sha256": "50364e47a08c43c48ccd850d5cf53cfec56f3aff4139d32c55d73911cee10be9",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "540"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "777"
+          }
+        ],
+        "format": {
+          "duration": "18.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 2,
+      "source": "20261020-clip02/clip02-picture-v2.mp4",
+      "label": "Silent",
+      "picture": "Earlier recording",
+      "note": "October 22 answer, 92% trust, S4 and full result. New picture refresh is in progress.",
+      "file": "clip02/original/clip02-picture-v2.mp4",
+      "bytes": 2227644,
+      "sha256": "e75432ba4a03fd052444541eec60d52c6db69575d3ca2ac33f7a18c4e12aa782",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "540"
+          }
+        ],
+        "format": {
+          "duration": "18.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-clip03/Finn_clip03_Edward.mp4",
+      "label": "Edward and effects",
+      "picture": "Earlier corrected recording",
+      "note": "15% trust and Waiting for Roy. This recorded build has no Call Roy button. New picture refresh is pending.",
+      "file": "clip03/original/Finn_clip03_Edward.mp4",
+      "bytes": 2212411,
+      "sha256": "554ed0ed9359715f8bf5e91ae69ffdcce83c25e0d72dd457a76609f7a6d033aa",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-clip03/Finn_clip03_zonder_stem.mp4",
+      "label": "Effects and phone ring",
+      "picture": "Earlier corrected recording",
+      "note": "15% trust and Waiting for Roy. This recorded build has no Call Roy button. New picture refresh is pending.",
+      "file": "clip03/original/Finn_clip03_zonder_stem.mp4",
+      "bytes": 2041127,
+      "sha256": "cc11afe30894bfc22906aa7ec9ab04044283d4628c60fa127cb4d28d63315122",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-clip03/Finn_clip03_met_beltoon.mp4",
+      "label": "Phone ring only",
+      "picture": "Earlier corrected recording",
+      "note": "15% trust and Waiting for Roy. This recorded build has no Call Roy button. New picture refresh is pending.",
+      "file": "clip03/original/Finn_clip03_met_beltoon.mp4",
+      "bytes": 2033636,
+      "sha256": "335145729a2cbbf39e71e803827201f1f6cc91d35a1dda3f9bb78bacfc37e364",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 3,
+      "source": "20261020-clip03/Finn_clip03_stil.mp4",
+      "label": "Silent",
+      "picture": "Earlier corrected recording",
+      "note": "15% trust and Waiting for Roy. This recorded build has no Call Roy button. New picture refresh is pending.",
+      "file": "clip03/original/Finn_clip03_stil.mp4",
+      "bytes": 2004886,
+      "sha256": "1329ac0804a058d9a10c03bae2455b87ce3fbf70ca12025cac0ee1b2191b43e5",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "510"
+          }
+        ],
+        "format": {
+          "duration": "17.000000"
+        }
+      },
+      "decodeExit": 0
+    },
+    {
+      "clip": 4,
+      "source": "20261020-145204-clip04-full/Finn_clip04.mp4",
+      "label": "Silent only",
+      "picture": "Earlier recording",
+      "note": "Simulated call ends, then November 24 2026, 90% trust and S35. No Edward or effects track exists. New picture refresh is pending.",
+      "file": "clip04/original/Finn_clip04.mp4",
+      "bytes": 1103353,
+      "sha256": "a50b9270a09f857ee4bd50bd9c97c3d69c886bb730d61a98987cd7a792f58e90",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "nb_frames": "395"
+          }
+        ],
+        "format": {
+          "duration": "13.166667"
+        }
+      },
+      "decodeExit": 0
+    }
+  ]
+}
