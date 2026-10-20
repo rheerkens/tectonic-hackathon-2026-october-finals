@@ -9,21 +9,7 @@ function WorkspaceRoute() {
 		<StudioPage
 			key={workspaceId}
 			workspaceId={workspaceId}
-			view={
-				match({ to: "/w/$workspaceId/chat", fuzzy: true })
-					? "chat"
-					: match({ to: "/w/$workspaceId/notes" })
-						? "notes"
-						: match({ to: "/w/$workspaceId/sources" })
-							? "sources"
-							: match({ to: "/w/$workspaceId/experts" })
-								? "experts"
-								: match({ to: "/w/$workspaceId/settings" })
-									? "settings"
-									: match({ to: "/w/$workspaceId/review" })
-										? "review"
-										: "overview"
-			}
+			view={match({ to: "/w/$workspaceId/settings" }) ? "settings" : "overview"}
 		/>
 	);
 }
