@@ -29,6 +29,7 @@ const packageName = (specifier: string) =>
 const isTest = (file: string) =>
 	/\.(test|spec)\.tsx?$/.test(file) || file.endsWith("/test-fixture.ts");
 const isServer = (file: string) => /\/(server|[^/]+\.server)\.tsx?$/.test(file);
+const slashPath = (file: string) => file.replaceAll("\\", "/");
 function sourceFiles(root: string, area: string) {
 	// Source areas are fixed repo-relative folders; refuse anything resolving outside the repo.
 	const base = resolve(root),
@@ -36,8 +37,9 @@ function sourceFiles(root: string, area: string) {
 	if (!dir.startsWith(base + sep)) throw new Error(`Source area escapes the repo: ${area}`);
 	if (!existsSync(dir)) return [];
 	return Array.from(new Bun.Glob("**/*.{ts,tsx}").scanSync({ cwd: dir }))
+		.map(slashPath)
 		.filter((file) => !isTest(file))
-		.map((file) => resolve(dir, file));
+		.map((file) => slashPath(resolve(dir, file)));
 }
 export function checkBoundaries({
 	root,
@@ -53,10 +55,11 @@ export function checkBoundaries({
 	featureEntries?: string[];
 }) {
 	// Only read files whose real path stays inside the real root, so a symlink cannot escape it.
-	const realRoot = realpathSync(root);
+	root = slashPath(realpathSync(root));
+	const realRoot = root;
 	const contained = (file: string) => {
 		try {
-			const real = realpathSync(file);
+			const real = slashPath(realpathSync(file));
 			return real.startsWith(realRoot + "/") ? real : null;
 		} catch {
 			return null;
@@ -91,7 +94,7 @@ export function checkBoundaries({
 			resolution,
 		).resolvedModule;
 		if (!result) return null;
-		const dependency = realpathSync(result.resolvedFileName);
+		const dependency = slashPath(realpathSync(result.resolvedFileName));
 		return dependency.startsWith(root + "/") && !dependency.includes("/node_modules/")
 			? dependency
 			: null;
@@ -168,7 +171,9 @@ export function checkBoundaries({
 				if (mode === "browser")
 					invalid = dependency
 						? isServer(dependency) ||
-							!browserRoots.some((area) => dependency.startsWith(resolve(root, area) + "/"))
+							!browserRoots.some((area) =>
+								dependency.startsWith(slashPath(resolve(root, area)) + "/"),
+							)
 						: !specifier.endsWith(".css") &&
 							(/^[./]/.test(specifier) || !browserPackages.has(packageName(specifier)));
 				if (mode === "ai")
@@ -215,7 +220,8 @@ export function checkBoundaries({
 			const dependency = local(file, specifier);
 			if (dependency?.includes("/apps/"))
 				diagnostics.add(`Feature must not depend on app composition: ${file} → ${specifier}`);
-			const owner = (path: string) => /^features\/([^/]+)\//.exec(relative(root, path))?.[1];
+			const owner = (path: string) =>
+				/^features\/([^/]+)\//.exec(slashPath(relative(root, path)))?.[1];
 			if (dependency && owner(dependency) && owner(dependency) !== owner(file))
 				diagnostics.add(`Feature must not import another feature: ${file} → ${specifier}`);
 		}
