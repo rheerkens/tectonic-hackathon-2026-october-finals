@@ -1,12 +1,10 @@
 import { Button } from "@day-one/ui/button";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Brand } from "../components/Brand";
 import { FinnDock, type FinnHint } from "../components/FinnDock";
-import { FinnQuestionForm } from "../components/FinnQuestionForm";
 import { FinnResultContent } from "../components/FinnResultContent";
 import { Icon } from "../components/Icon";
-import { getFinnResult, useFinn } from "../state/finn";
+import { getFinnResult } from "../state/finn";
 import type { FinnResult } from "../state/finn-scenarios";
 import { useTheme } from "../state/ThemeProvider";
 
@@ -39,19 +37,7 @@ function resultHint(result: FinnResult): FinnHint {
 }
 export function ResultPage({ resultId }: { resultId: string }) {
 	const result = getFinnResult(resultId);
-	const finn = useFinn(),
-		theme = useTheme(),
-		navigate = useNavigate();
-	const [question, setQuestion] = useState(""),
-		[submitted, setSubmitted] = useState(false);
-	const busy = finn.status === "thinking" || finn.status === "searching";
-	useEffect(() => {
-		if (submitted && !busy && (finn.status === "done" || finn.status === "waiting")) {
-			setSubmitted(false);
-			if (finn.result)
-				void navigate({ to: "/results/$resultId", params: { resultId: finn.result.id } });
-		}
-	}, [submitted, busy, finn.status, finn.result, navigate]);
+	const theme = useTheme();
 	return (
 		<div className="fixture-result">
 			<header className="result-topbar">
@@ -85,24 +71,6 @@ export function ResultPage({ resultId }: { resultId: string }) {
 							</p>
 						</header>
 						<FinnResultContent result={result} />
-						<section className="result-followup">
-							<h2>Ask a follow up</h2>
-							<FinnQuestionForm
-								id="followup-question"
-								value={question}
-								onChange={setQuestion}
-								busy={busy}
-								onSubmit={() => {
-									setSubmitted(true);
-									void finn.ask(question);
-								}}
-							/>
-							{finn.message && (
-								<p role="status" className="integration-note">
-									{finn.message}
-								</p>
-							)}
-						</section>
 					</>
 				) : (
 					<section className="unavailable">

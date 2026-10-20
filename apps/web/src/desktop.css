@@ -1190,12 +1190,6 @@ body {
 	font-size: 12px;
 	line-height: 1.6;
 }
-.result-followup {
-	margin-top: 32px;
-}
-.result-followup > h2 {
-	margin-bottom: 16px;
-}
 .finn-mini-window,
 .finn-mini-window body {
 	background: transparent;
@@ -1698,13 +1692,6 @@ body {
 	}
 	.result-page {
 		padding: 24px 16px;
-	}
-	.result-followup .dashboard-search {
-		display: grid;
-		grid-template-columns: 24px 1fr;
-	}
-	.result-followup .ui-button {
-		grid-column: 1 / -1;
 	}
 }
 .desktop-main {
