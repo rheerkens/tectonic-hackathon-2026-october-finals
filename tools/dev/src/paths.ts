@@ -14,8 +14,9 @@ export function containedPath(base: string, ...segments: string[]) {
 	return file;
 }
 
-/** Reads a regular file without following a symlink at `file`; throws for links, FIFOs and directories. */
-export function readRegularFile(file: string) {
+/** Reads regular file `name` inside `dir` without following a symlink; throws for escapes, links, FIFOs and directories. */
+export function readRegularFile(dir: string, name: string) {
+	const file = containedPath(dir, name);
 	const fd = openSync(file, constants.O_RDONLY | constants.O_NONBLOCK | noFollow);
 	try {
 		if (!fstatSync(fd).isFile()) throw new Error(`Not a regular file: ${file}`);
