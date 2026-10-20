@@ -17,7 +17,9 @@ export type IconName =
 	| "external-link"
 	| "check"
 	| "menu"
-	| "x";
+	| "x"
+	| "square-pen"
+	| "audio-lines";
 export function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
 	return (
 		<svg

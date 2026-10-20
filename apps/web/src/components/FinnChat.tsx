@@ -1,25 +1,16 @@
-import { Link } from "@tanstack/react-router";
-import {
-	type CSSProperties,
-	type ReactNode,
-	type RefObject,
-	useEffect,
-	useRef,
-	useState,
-} from "react";
+import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
 import { type FinnConversation, type FinnTurn, useFinn } from "../state/finn";
 import { useVoice } from "../state/finn-voice";
 import { usePetScale } from "../state/pet-scale";
-import { FinnCall } from "./FinnCall";
+import { FinnAnswer, plain } from "./FinnAnswer";
+import { FinnComposer } from "./FinnComposer";
 import { Icon } from "./Icon";
 
 /** Draft key for a chat that has not been sent yet. */
 const NEW = "new";
 type View = "launcher" | "new" | "chat";
-type Voice = ReturnType<typeof useVoice>;
 
 const working = (turn?: FinnTurn) => turn?.status === "thinking" || turn?.status === "searching";
-const plain = (text: string) => text.replace(/\*\*/g, "").replace(/\s*\[S\d+\]/g, "");
 
 function preview(conversation: FinnConversation) {
 	const turn = conversation.turns.at(-1);
@@ -44,262 +35,6 @@ function StatusMark({ turn }: { turn?: FinnTurn | undefined }) {
 		<span className="finn-mark finn-mark-done" aria-label="Answered">
 			<Icon name="check" size={11} />
 		</span>
-	);
-}
-
-// Two glyphs the shared Lucide sprite lacks (square-pen, audio-lines).
-function Glyph({ name }: { name: "pen" | "voice" }) {
-	return (
-		<svg
-			width="19"
-			height="19"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="1.8"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			aria-hidden="true"
-		>
-			{name === "pen" ? (
-				<>
-					<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-					<path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-				</>
-			) : (
-				<path d="M2 10v3M6 6v11M10 3v18M14 8v7M18 5v13M22 10v3" />
-			)}
-		</svg>
-	);
-}
-
-function Answer({
-	turn,
-	inApp,
-	onNavigate,
-}: {
-	turn: FinnTurn;
-	inApp: boolean;
-	onNavigate?: (() => void) | undefined;
-}) {
-	const [opening, setOpening] = useState(false);
-	const [error, setError] = useState("");
-	const result = turn.status === "done" || turn.status === "waiting" ? turn.result : null;
-	if (!result) {
-		return (
-			<div className="mini-result-status" role="status">
-				<p>{turn.message || (turn.status === "searching" ? "Checking sources…" : "Thinking…")}</p>
-				{turn.message && <p>Try asking about payroll changes or sick leave.</p>}
-			</div>
-		);
-	}
-	const sources = result.sources.filter((source) => source.supports);
-	const openLabel = (
-		<>
-			<span>{opening ? "Opening…" : "Open full result"}</span>
-			<Icon name="arrow-right" size={14} />
-		</>
-	);
-	return (
-		<>
-			<p className="mini-result-answer">
-				{result.answer
-					? plain(result.answer)
-					: "I'm not sure yet. I don't have enough confirmed information to answer."}
-			</p>
-			{result.nextStep.kind === "contact_person" && (
-				<>
-					<p className="mini-result-waiting">Waiting for {result.nextStep.person}.</p>
-					<FinnCall result={result} compact />
-				</>
-			)}
-			<div className="mini-result-meta">
-				<span>{Math.round(result.trust.score * 100)}% trust</span>
-				{sources.map((source) => (
-					<span key={source.code} title={source.title} className="mini-result-source">
-						{source.code}
-					</span>
-				))}
-			</div>
-			<details className="mini-result-details">
-				<summary>
-					View details <Icon name="chevron-right" size={16} />
-				</summary>
-				<div className="mini-result-evidence">
-					<ul>
-						{result.trust.reasons.slice(0, 2).map((reason) => (
-							<li key={reason}>{reason}</li>
-						))}
-					</ul>
-					{sources.map((source) => (
-						<p key={source.code}>
-							<strong>
-								{source.code} · {source.title}
-							</strong>
-							<br />
-							{source.excerpt}
-						</p>
-					))}
-				</div>
-				{window.desktop && !inApp ? (
-					window.desktop.openResult && (
-						<button
-							type="button"
-							className="mini-result-open"
-							disabled={opening}
-							onClick={() => {
-								setOpening(true);
-								setError("");
-								void window.desktop
-									?.openResult?.(result.id)
-									.catch(() => setError("Could not open the result. Try again."))
-									.finally(() => setOpening(false));
-							}}
-						>
-							{openLabel}
-						</button>
-					)
-				) : (
-					<Link
-						className="mini-result-open"
-						to="/results/$resultId"
-						params={{ resultId: result.id }}
-						onClick={onNavigate}
-					>
-						{openLabel}
-					</Link>
-				)}
-				{error && <p role="alert">{error}</p>}
-			</details>
-		</>
-	);
-}
-
-function VoiceStatus({ voice }: { voice: Voice }) {
-	const seconds = `0:${String(voice.seconds).padStart(2, "0")}`;
-	const text = {
-		idle: "",
-		starting: "Waiting for the microphone…",
-		recording: `Listening · ${voice.seconds >= 60 ? "1:00" : seconds} of 1:00`,
-		processing: "Transcribing on this device…",
-		error: voice.error,
-	}[voice.status];
-	return (
-		<p
-			className={voice.status === "error" ? "finn-voice-status is-error" : "finn-voice-status"}
-			role={voice.status === "error" ? "alert" : "status"}
-		>
-			{voice.status === "recording" && <span className="finn-voice-dot" aria-hidden="true" />}
-			<span>{text}</span>
-			<button type="button" onClick={voice.cancel}>
-				{voice.status === "error" ? "Dismiss" : "Cancel"}
-			</button>
-		</p>
-	);
-}
-
-function Composer({
-	draftKey,
-	target,
-	label,
-	placeholder,
-	blocked,
-	voice,
-	onMore,
-	onSent,
-	inputRef,
-}: {
-	draftKey: string;
-	/** Explicit conversation to reply to; null always starts a new chat. */
-	target: string | null;
-	label: string;
-	placeholder: string;
-	blocked: boolean;
-	voice: Voice;
-	onMore?: () => void;
-	onSent: (conversationId: string) => void;
-	inputRef: RefObject<HTMLTextAreaElement | null>;
-}) {
-	const finn = useFinn(true);
-	const text = finn.drafts[draftKey] ?? "";
-	const mine = voice.key === draftKey && voice.status !== "idle";
-	const capturing = mine && (voice.status === "starting" || voice.status === "recording");
-	const voiceBusy = voice.status !== "idle" && voice.status !== "error";
-	// Sending waits for this draft's recording or transcript, so it cannot land in the next draft.
-	const held = blocked || (mine && voiceBusy);
-	return (
-		<>
-			<form
-				className="finn-mini-composer"
-				aria-busy={held}
-				onSubmit={(event) => {
-					event.preventDefault();
-					if (!text.trim() || held) return;
-					const sent = finn.submitQuestion(text, target);
-					if (!sent) return;
-					if (voice.key === draftKey) voice.cancel();
-					finn.setDraft(draftKey, "");
-					onSent(sent.conversationId);
-				}}
-			>
-				{onMore && (
-					<button
-						type="button"
-						className="finn-composer-more"
-						aria-label="Show Finn controls and conversations"
-						onClick={onMore}
-					>
-						<Icon name="x" size={18} />
-					</button>
-				)}
-				<textarea
-					ref={inputRef}
-					rows={1}
-					aria-label={label}
-					placeholder={placeholder}
-					value={text}
-					onChange={(event) => finn.setDraft(draftKey, event.target.value)}
-					onKeyDown={(event) => {
-						// Enter sends like the old single-line field; Shift+Enter adds a line.
-						if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing) return;
-						event.preventDefault();
-						event.currentTarget.form?.requestSubmit();
-					}}
-					autoComplete="off"
-				/>
-				{voice.available &&
-					(capturing ? (
-						<button
-							type="button"
-							className="finn-composer-voice is-recording"
-							aria-label="Stop recording and transcribe"
-							disabled={voice.status === "starting"}
-							onClick={voice.stop}
-						>
-							<span className="finn-stop" aria-hidden="true" />
-						</button>
-					) : (
-						<button
-							type="button"
-							className="finn-composer-voice"
-							aria-label="Speak instead of typing"
-							disabled={voiceBusy}
-							onClick={() => void voice.start(draftKey)}
-						>
-							<Glyph name="voice" />
-						</button>
-					))}
-				<button
-					type="submit"
-					className="finn-mini-send"
-					aria-label="Send question"
-					disabled={held || !text.trim()}
-				>
-					<Icon name="arrow-right" size={18} />
-				</button>
-			</form>
-			{mine && <VoiceStatus voice={voice} />}
-		</>
 	);
 }
 
@@ -477,7 +212,7 @@ export function FinnChat({
 				{open && shownView !== "new" && (
 					<div data-mini-surface className="finn-mini-toolbar" role="toolbar" aria-label="Finn">
 						<button type="button" aria-label="New chat" onClick={() => setView("new")}>
-							<Glyph name="pen" />
+							<Icon name="square-pen" size={19} />
 						</button>
 						{voice.available && (
 							<button
@@ -487,7 +222,7 @@ export function FinnChat({
 								disabled={voice.status === "starting" || voice.status === "processing"}
 								onClick={speak}
 							>
-								<Glyph name="voice" />
+								<Icon name="audio-lines" size={19} />
 							</button>
 						)}
 						{third}
@@ -528,7 +263,7 @@ export function FinnChat({
 						</ul>
 					)}
 					{shownView === "new" && (
-						<Composer
+						<FinnComposer
 							draftKey={NEW}
 							target={null}
 							label="Start a new chat"
@@ -564,11 +299,11 @@ export function FinnChat({
 								{turns.map((turn) => (
 									<article key={turn.id} className="finn-mini-turn">
 										<p className="finn-mini-question">{turn.question}</p>
-										<Answer turn={turn} inApp={inApp} onNavigate={onHide} />
+										<FinnAnswer turn={turn} inApp={inApp} onNavigate={onHide} />
 									</article>
 								))}
 							</div>
-							<Composer
+							<FinnComposer
 								key={chat.id}
 								draftKey={chat.id}
 								target={chat.id}
