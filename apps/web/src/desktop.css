@@ -1071,6 +1071,8 @@ body {
 	--finn-muted: #6b717c;
 	--finn-line: #e4e7ec;
 	--finn-row: #f5f7fa;
+	--finn-hover: #f0f2f5;
+	--finn-red-soft: #fde8e7;
 	--finn-send: #5b8def;
 	--finn-green: #2fa35a;
 	--finn-red: #d93a32;
@@ -1158,7 +1160,7 @@ body {
 	background: var(--finn-line);
 }
 .finn-mini-toolbar button:hover:not(:disabled) {
-	background: #f0f2f5;
+	background: var(--finn-hover);
 }
 .finn-mini-toolbar .finn-collapse svg {
 	transform: rotate(90deg);
@@ -1234,7 +1236,7 @@ body {
 	color: var(--finn-muted);
 }
 .finn-row-dismiss:hover {
-	background: #e4e7ec;
+	background: var(--finn-line);
 	color: var(--finn-ink);
 }
 .finn-row:hover {
@@ -1343,7 +1345,7 @@ body {
 	border-radius: 50%;
 }
 .finn-composer-more {
-	background: #f0f2f5;
+	background: var(--finn-hover);
 	color: var(--finn-ink);
 }
 .finn-composer-more svg {
@@ -1358,7 +1360,7 @@ body {
 	background: #e6e9ee;
 }
 .finn-composer-voice.is-recording {
-	background: #fde8e7;
+	background: var(--finn-red-soft);
 }
 .finn-stop {
 	width: 11px;
