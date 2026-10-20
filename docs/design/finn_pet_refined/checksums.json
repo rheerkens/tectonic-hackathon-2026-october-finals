@@ -1,0 +1,16 @@
+{
+  "animations/idle.gif": "e31c3d4ba3470b37c31047090d64dcd70316d5d1551c407e796e98f9490d72a2",
+  "animations/idle.webp": "0bd5acd7d4d84111416627b81aff42613d4eed46acf24dc002a23851fd78731a",
+  "frames/idle/00.png": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547",
+  "frames/idle/01.png": "25a9f4056e58f76add0946678c2ebea82b166e9fae5785b322b172a0fa36a43d",
+  "frames/idle/02.png": "16f3eb47d6616a71fc604be564b1a34e730aa7ed254b607beea55768a004b271",
+  "frames/idle/03.png": "189c539e6ea1afb7afd2cb1913c507f5b764ebd67a13cae4c59eeb3b5090b3f6",
+  "frames/idle/04.png": "174fd9af88438bc99a53d9c46b6f2e29e3080f1f8fb349761544a1201ce508ad",
+  "frames/idle/05.png": "3c8d43e12f05aa57c6b174999c18e8a56bd2e45df3ce2c72225fe3c70d39fba1",
+  "idle_row.png": "bf82307e50772de4a1d4410c849ae8980ba424e22dbb414978447cabf8f98183",
+  "source_idle_strip.png": "0922177d10e049f84a057a64dc0d6784f8844fb44a0ad9301985ea0753f377a2",
+  "source_playback.mp4": "2f9059dae2ac5691ab3b72591585f9e84018d96af04f677f364942b1e67e78bf",
+  "source_playback_samples.png": "5b05b9df3b8762b47f7161f5a2c2acf74140338e9871906b108db724a89b3fcd",
+  "timing_contact.png": "5c4d34f2142b0f3020fa2f256b7b0bc1cc55353bea8635c644169631ad2cc242",
+  "trial_playback.mp4": "64e20b3c3c93aba2d2449e7253ea9193036ab73f3e34db79806b4ca38b7c2663"
+}

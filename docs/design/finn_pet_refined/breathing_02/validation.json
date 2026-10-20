@@ -1,0 +1,172 @@
+{
+  "ok": true,
+  "checks": {
+    "sixFrames": true,
+    "encodedTimings": true,
+    "infiniteLoop": true,
+    "transparentExports": true,
+    "webpVisibleLossless": true,
+    "constantBounds": true,
+    "constantFootBaseline": true,
+    "otherTenRowsPixelExact": true,
+    "emptyUnusedIdleCells": true,
+    "sourceAtlasHashUnchanged": true
+  },
+  "exports": [
+    {
+      "file": "animations/idle.gif",
+      "sha256": "ebcb4aa4a7d88e13655e35b3f0ba4a72c7c23950c8710e98db3c096d115e391f",
+      "frames": 6,
+      "durationsMs": [
+        900,
+        700,
+        600,
+        600,
+        700,
+        900
+      ],
+      "loop": 0,
+      "size": [
+        192,
+        208
+      ],
+      "alphaPresentAllFrames": true,
+      "visibleRgbAndAlphaExactToPng": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "file": "animations/idle.webp",
+      "sha256": "ceb8fd86f759e47a45644e40445dd9a005384f2aea93a58146cc01196ad74563",
+      "frames": 6,
+      "durationsMs": [
+        900,
+        700,
+        600,
+        600,
+        700,
+        900
+      ],
+      "loop": 0,
+      "size": [
+        192,
+        208
+      ],
+      "alphaPresentAllFrames": true,
+      "visibleRgbAndAlphaExactToPng": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "bounds": [
+    [
+      47,
+      5,
+      145,
+      203
+    ],
+    [
+      47,
+      5,
+      145,
+      203
+    ],
+    [
+      47,
+      5,
+      145,
+      203
+    ],
+    [
+      47,
+      5,
+      145,
+      203
+    ],
+    [
+      47,
+      5,
+      145,
+      203
+    ],
+    [
+      47,
+      5,
+      145,
+      203
+    ]
+  ],
+  "frameDifferences": [
+    {
+      "from": 0,
+      "to": 1,
+      "meanRgbaAbsoluteDifferenceByRegion": {
+        "head": 12.121,
+        "torso": 11.927,
+        "feet": 15.05
+      }
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "meanRgbaAbsoluteDifferenceByRegion": {
+        "head": 16.326,
+        "torso": 15.445,
+        "feet": 21.932
+      }
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "meanRgbaAbsoluteDifferenceByRegion": {
+        "head": 12.437,
+        "torso": 11.013,
+        "feet": 16.563
+      }
+    },
+    {
+      "from": 3,
+      "to": 4,
+      "meanRgbaAbsoluteDifferenceByRegion": {
+        "head": 14.681,
+        "torso": 11.623,
+        "feet": 17.375
+      }
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "meanRgbaAbsoluteDifferenceByRegion": {
+        "head": 13.879,
+        "torso": 12.211,
+        "feet": 16.884
+      }
+    },
+    {
+      "from": 5,
+      "to": 0,
+      "meanRgbaAbsoluteDifferenceByRegion": {
+        "head": 16.152,
+        "torso": 11.031,
+        "feet": 16.424
+      }
+    }
+  ],
+  "limitations": [
+    "New generated artwork needs user visual acceptance.",
+    "Stable bounds do not prove pixel-identical head or feet; small drawing differences remain.",
+    "This breathing-only study keeps eyes open. Blink cadence is retained separately in trial 01.",
+    "GIF uses palette and binary alpha; use PNG or WebP for soft edges.",
+    "No app or account integration."
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "name": "Finn idle timing study 01",
+  "status": "awaiting user visual review",
+  "state": "idle",
+  "row": 0,
+  "frames": 6,
+  "cellWidth": 192,
+  "cellHeight": 208,
+  "durationsMs": [
+    1400,
+    900,
+    90,
+    110,
+    120,
+    1780
+  ],
+  "loopDurationMs": 4400,
+  "loop": 0,
+  "gif": "animations/idle.gif",
+  "webp": "animations/idle.webp",
+  "framesDirectory": "frames/idle",
+  "rowStrip": "idle_row.png",
+  "sourceAtlas": "../finn_pet/spritesheet.png",
+  "sourceAtlasSha256": "4c441420de210d57ef4e84ee908081b0073b40af2710f5ed1914771471b25a88",
+  "sourceDurationsMs": [
+    280,
+    110,
+    110,
+    140,
+    140,
+    320
+  ],
+  "sourcePetId": "pet_6ad720dab3248191ac02cf9d03d91bf5",
+  "transformation": "Timing only. Six source PNGs copied byte for byte in original order. No drawing, morph, interpolation, rescaling or registration change.",
+  "compatibility": "Row 0, six frames, cells 192x208, columns 0..5; columns 6..7 transparent. Original atlas remains authoritative for all other states and look directions. A player must consume these explicit timings to show the study. Fixed original timings will not change.",
+  "frameMapping": [
+    {
+      "frame": 0,
+      "source": "../finn_pet/frames/idle/00.png",
+      "file": "frames/idle/00.png",
+      "sha256": "c715da521a043889db8a434e6af351611587b7a2156cb2c9d62ebcaa982de547"
+    },
+    {
+      "frame": 1,
+      "source": "../finn_pet/frames/idle/01.png",
+      "file": "frames/idle/01.png",
+      "sha256": "25a9f4056e58f76add0946678c2ebea82b166e9fae5785b322b172a0fa36a43d"
+    },
+    {
+      "frame": 2,
+      "source": "../finn_pet/frames/idle/02.png",
+      "file": "frames/idle/02.png",
+      "sha256": "16f3eb47d6616a71fc604be564b1a34e730aa7ed254b607beea55768a004b271"
+    },
+    {
+      "frame": 3,
+      "source": "../finn_pet/frames/idle/03.png",
+      "file": "frames/idle/03.png",
+      "sha256": "189c539e6ea1afb7afd2cb1913c507f5b764ebd67a13cae4c59eeb3b5090b3f6"
+    },
+    {
+      "frame": 4,
+      "source": "../finn_pet/frames/idle/04.png",
+      "file": "frames/idle/04.png",
+      "sha256": "174fd9af88438bc99a53d9c46b6f2e29e3080f1f8fb349761544a1201ce508ad"
+    },
+    {
+      "frame": 5,
+      "source": "../finn_pet/frames/idle/05.png",
+      "file": "frames/idle/05.png",
+      "sha256": "3c8d43e12f05aa57c6b174999c18e8a56bd2e45df3ce2c72225fe3c70d39fba1"
+    }
+  ],
+  "imageGeneration": "Not used. No new or modified drawing in this timing study."
+}

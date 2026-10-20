@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="nl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finn, ademproef 02</title>
+<style>
+*{box-sizing:border-box}body{margin:0;color:var(--foreground,#243246);font:15px/1.5 system-ui,sans-serif}
+main{max-width:840px;margin:auto}.intro{margin:0 0 14px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+article{padding:16px;border:1px solid var(--border,#d2d6dc);border-radius:12px;text-align:center}
+h2{font-size:16px;margin:0 0 10px}p{margin:8px 0}small{display:block;color:var(--muted-foreground,#607080)}
+.stage{background:repeating-conic-gradient(#eeeae3 0% 25%,#fff 0% 50%) 0 0/16px 16px;border-radius:8px;display:flex;justify-content:center;position:relative}
+.stage img{width:192px;height:208px;display:block;object-fit:contain}.dark .stage{background:#243246}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}button,select{font:inherit;padding:8px 12px;background:var(--card,#fff);color:inherit;border:1px solid var(--border,#bbc4cd);border-radius:8px;cursor:pointer}
+.readout{font-variant-numeric:tabular-nums}input{width:100%}.detail{font-size:13px}a{color:inherit}details{margin:14px 0}summary{cursor:pointer}details img{width:100%;height:auto}.native{display:none}.native.on{display:block}.native .pair img{width:192px;height:208px;max-width:100%;object-fit:contain}
+@media(max-width:440px){article{padding:8px}.pair{gap:6px}.stage img{width:144px;height:156px}h2{font-size:14px}}
+</style>
+<main>
+<p class="intro"><strong>Tweede proef: subtiele ademhaling.</strong><br>Vergelijk de goedgekeurde timingproef met zes nieuw getekende ademposes.</p>
+<div class="pair">
+<article><h2>Timingproef 01</h2><div class="stage"><img id="original" src="../frames/idle/00.png" alt="Originele Finn idle animatie"></div><p>4,4 seconden per lus</p><small class="readout" id="originalTime"></small></article>
+<article><h2>Ademproef 02</h2><div class="stage"><img id="variant" src="frames/idle/00.png" alt="Finn idle met rustigere timing"></div><p>4,4 seconden per lus</p><small class="readout" id="variantTime"></small></article>
+</div>
+<div class="controls"><button id="pause">Pauzeren</button><button id="restart">Opnieuw</button><button id="backdrop">Donkere achtergrond</button><button id="encoded">Toon echte exports</button></div>
+<label for="timeline">Vergelijk op dezelfde klok, <span id="clock" class="readout">0 ms</span></label>
+<input id="timeline" type="range" min="0" max="4399" step="1" value="0">
+<p class="detail">Schuiven pauzeert. Beide lussen duren 4,4 seconden. Links zie je de bestaande knippering, rechts de ademhaling met open ogen. Rechts is opnieuw getekend: kleine detailverschillen zijn zichtbaar. Dit is een losse proef voor beoordeling.</p>
+<div id="native" class="native"><label>Bestandsformaat <select id="format"><option value="webp">Transparante WebP</option><option value="gif">GIF</option></select></label><div class="pair"><article><h2>Originele export</h2><div class="stage"><img id="nativeOriginal" src="../animations/idle.webp" alt="Originele geëncodeerde WebP"></div></article><article><h2>Nieuwe export</h2><div class="stage"><img id="nativeVariant" src="animations/idle.webp" alt="Nieuwe geëncodeerde WebP"></div></article></div><small>De echte bestanden spelen zelfstandig. Pauzeren en de tijdlijn bedienen alleen de vergelijking bovenaan.</small></div>
+<details><summary>Bron en zes nieuwe ademposes</summary><img src="qa/native_comparison.png" alt="Originele houding naast de zes nieuwe ademposes"><p class="detail">Ademduur in milliseconden: 900, 700, 600, 600, 700, 900. De algemene schaal en voetenlijn blijven gelijk. Lokaal blijven kleine tekenverschillen in hoofd en schoenen zichtbaar.</p></details>
+</main>
+<script>
+const originalTimes=[1400,900,90,110,120,1780], variantTimes=[900,700,600,600,700,900];
+const newSources=['frames/idle/00.png','frames/idle/01.png','frames/idle/02.png','frames/idle/03.png','frames/idle/04.png','frames/idle/05.png'];
+const oldSources=newSources.map(src=>'../'+src);
+[...oldSources,...newSources].forEach(src=>{const im=new Image();im.src=src});
+let playing=true,position=0,previous=performance.now(),lastOriginal=-1,lastVariant=-1;
+function frameAt(time,durations){let phase=time%durations.reduce((a,b)=>a+b,0);for(let i=0;i<durations.length;i++){if(phase<durations[i])return i;phase-=durations[i]}return 0}
+function render(){const a=frameAt(position,originalTimes),b=frameAt(position,variantTimes);if(a!==lastOriginal){document.querySelector('#original').src=oldSources[a];lastOriginal=a}if(b!==lastVariant){document.querySelector('#variant').src=newSources[b];lastVariant=b}document.querySelector('#originalTime').textContent=`Frame ${a+1} van 6 · ${originalTimes[a]} ms`;document.querySelector('#variantTime').textContent=`Frame ${b+1} van 6 · ${variantTimes[b]} ms`;document.querySelector('#clock').textContent=Math.floor(position)+' ms';document.querySelector('#timeline').value=position}
+function tick(now){if(playing)position=(position+now-previous)%4400;previous=now;render();requestAnimationFrame(tick)}
+document.querySelector('#pause').onclick=()=>{playing=!playing;document.querySelector('#pause').textContent=playing?'Pauzeren':'Afspelen'};
+document.querySelector('#restart').onclick=()=>{position=0;previous=performance.now();render()};
+document.querySelector('#timeline').oninput=e=>{playing=false;document.querySelector('#pause').textContent='Afspelen';position=Number(e.target.value);render()};
+document.querySelector('#backdrop').onclick=e=>{const dark=document.body.classList.toggle('dark');e.target.textContent=dark?'Lichte achtergrond':'Donkere achtergrond'};
+document.querySelector('#encoded').onclick=()=>document.querySelector('#native').classList.toggle('on');
+document.querySelector('#format').onchange=e=>{document.querySelector('#nativeOriginal').src='../animations/idle.'+e.target.value;document.querySelector('#nativeVariant').src='animations/idle.'+e.target.value};
+requestAnimationFrame(tick);
+</script>
+</html>
