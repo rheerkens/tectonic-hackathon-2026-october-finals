@@ -326,8 +326,8 @@
   "gitMutationsPerformed": false,
   "retention": "All experiments, rejected candidates, source captures and exports retained. Only approvedSelections identifies chosen variants.",
   "inventoryExcludesThisManifest": true,
-  "fileCountExcludingThisManifest": 416,
-  "bytesExcludingThisManifest": 56724962,
+  "fileCountExcludingThisManifest": 415,
+  "bytesExcludingThisManifest": 56714052,
   "files": [
     {
       "path": "docs/design/finn_pet_refined/animations/idle.gif",
@@ -341,8 +341,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/animations.json",
-      "bytes": 2546,
-      "sha256": "a04096421a9a174bb6dc8fa433feba18ef0d60397c93004d9d215eecdbee8e03"
+      "bytes": 2470,
+      "sha256": "1e662935938d30197ad43509a53e4e790397f3339ff07d2da882f020d17613b3"
     },
     {
       "path": "docs/design/finn_pet_refined/approved/waving03/build_export.py",
@@ -351,13 +351,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/approved/waving03/comparison.html",
-      "bytes": 3375,
-      "sha256": "3236cddd71e6cb152bcd7a20d940a1909f2e0d5e23bafe2589cb82cd436c376f"
+      "bytes": 3364,
+      "sha256": "80c969fc3b3a6642eec7acd65bc141d85c8b3f32f81b8f19e429854537ef700b"
     },
     {
       "path": "docs/design/finn_pet_refined/approved/waving03/composition.json",
-      "bytes": 431037,
-      "sha256": "fe5882e9a93d80def27130ee0393ff965209239f7ce39d9e71f5c4e913ff3148"
+      "bytes": 431004,
+      "sha256": "a332c57920b962b9ff1993589cb37707b72adfb32b0eddd72d34817016d8ca80"
     },
     {
       "path": "docs/design/finn_pet_refined/approved/waving03/frames/00.png",
@@ -401,8 +401,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/approved/waving03/manifest.json",
-      "bytes": 2448,
-      "sha256": "c55f18edd19551bc3074b204a98feb1899ad411ad10b4cb73bdb5c7c1a15954f"
+      "bytes": 2357,
+      "sha256": "5a52ed25ee64a8b20fdf87df9d4f5cef83f236a4d594b2d840b0c2ab8e01dfbb"
     },
     {
       "path": "docs/design/finn_pet_refined/approved/waving03/waving.webp",
@@ -736,8 +736,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/build_overview.py",
-      "bytes": 7070,
-      "sha256": "06e6722b06a7ae6829346389af4f8b3e3eeef9874d916d07bbd9ff253901818a"
+      "bytes": 7024,
+      "sha256": "4a2c6a80097fc5d3940cd7ab49bc8466e569dfd01969d79689b7af4686c79416"
     },
     {
       "path": "docs/design/finn_pet_refined/build_review.py",
@@ -796,13 +796,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/overview.html",
-      "bytes": 12309,
-      "sha256": "f4d7819d82e3388bf622f410bdb98a6282f68e1a6cfef0122d8b5910f165b679"
+      "bytes": 12296,
+      "sha256": "28a44d317888d993aa3fba3595796c70a62641e55b3124d9bac643292e232a91"
     },
     {
       "path": "docs/design/finn_pet_refined/pose_inventory.md",
-      "bytes": 14459,
-      "sha256": "b39e85f7a7dfb84411e79e9005e74295a92f26c1f014830c77ecb6ca04b47857"
+      "bytes": 14357,
+      "sha256": "a1024351b865dcf0e6aecc58e5b5ce960f7f8a9e528394f5da73b1d6d92c3395"
     },
     {
       "path": "docs/design/finn_pet_refined/preview.html",
@@ -811,28 +811,28 @@
     },
     {
       "path": "docs/design/finn_pet_refined/review.embed.html",
-      "bytes": 473723,
-      "sha256": "affdc191eb1761b4cce3e07932bf7ebf1f335ca456c2e06645edac10667666d9"
+      "bytes": 473676,
+      "sha256": "b5609fedc5f1998579abec05f63c71a7e550147329a6f4faed1b0851dbff8635"
     },
     {
       "path": "docs/design/finn_pet_refined/review.html",
-      "bytes": 5579966,
-      "sha256": "d03072ae85a396288d48f98e08daafe185553a2064dfcbc848fc1fd0044c91e8"
+      "bytes": 5579919,
+      "sha256": "d36c378e73183364a2bf42e2c11ff115ba43214f12340134017f06a4fd5e6473"
     },
     {
       "path": "docs/design/finn_pet_refined/review.template.html",
-      "bytes": 13151,
-      "sha256": "0dffde74c114db9948698bfdb18eb9929ae9ec388b6702cbdf6d2862181f651b"
+      "bytes": 13104,
+      "sha256": "c0a77023287ba857f24f0edc9e0bce65256de58fbd36c60f3178b070ac0360de"
     },
     {
       "path": "docs/design/finn_pet_refined/session_status.json",
-      "bytes": 10573,
-      "sha256": "ea79db351d202e5b4c99a12f57e6c6895c9eb34cab0a3cc13fd6801a419a0fd3"
+      "bytes": 10262,
+      "sha256": "52bc455986ee7fe4772caee22dd89fa1e69351bacf1e7048bcbf22aff9d08f10"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/animation.json",
-      "bytes": 2220,
-      "sha256": "9e743d4bd07f4232b0aa03e70d1230a6027a7a38bf44c2f99f342661591b7129"
+      "bytes": 2096,
+      "sha256": "ab5bed0bc6597c295e7cf30e79f0e331ec8f651d36dc44b41ee306e588ff2102"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/approved/failed.webp",
@@ -911,8 +911,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/comparison.html",
-      "bytes": 462529,
-      "sha256": "f82e366e8f8ae18479906bb63266b3bc875a768312c72393d4625f07ce6aad57"
+      "bytes": 462437,
+      "sha256": "f7936538e47eb776618406087ac3255c5210541b673319e239083e23906511e3"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/export_approved.py",
@@ -921,8 +921,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frame-validation.json",
-      "bytes": 3342,
-      "sha256": "3e5108774202fb56bd0e1b85066783256cbd7f60aed21db545b8aa26309d1326"
+      "bytes": 3060,
+      "sha256": "ee6191c063a1cc7870e92c320f93870d35a6ed862464d15ac8d1e25143ce6195"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/frames/hand_cheek.png",
@@ -996,8 +996,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/provenance.json",
-      "bytes": 8359,
-      "sha256": "429d3d1c4eacb9f9f97094a3094bcb4b395dea4e11d85c369136db64337bdb0e"
+      "bytes": 7963,
+      "sha256": "50ede244b5bf3b1e04a82a3bd5b86749e7f3927039f95388f172b4896878f2b7"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/arm_03/review.md",
@@ -1016,8 +1016,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/current-comparison.html",
-      "bytes": 462529,
-      "sha256": "f82e366e8f8ae18479906bb63266b3bc875a768312c72393d4625f07ce6aad57"
+      "bytes": 462437,
+      "sha256": "f7936538e47eb776618406087ac3255c5210541b673319e239083e23906511e3"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/current.html",
@@ -1026,8 +1026,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/comparison.html",
-      "bytes": 465878,
-      "sha256": "8e083e2a0233d5e1385694f4c9704e776893fe051f9fc11971b468730b8683c2"
+      "bytes": 465786,
+      "sha256": "910aeefbdc9d043f8b38c869c5c8012e6cc56164a34c73289f78039532949bc5"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/edit-target.png",
@@ -1091,8 +1091,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/provenance.json",
-      "bytes": 6437,
-      "sha256": "83ed119fca5d3208341ee59564bb7d1c8fbc3bed987ce14f29287a28a2328d67"
+      "bytes": 6202,
+      "sha256": "2721f519d2ed4b9d8ee15e010961cb7f2634e94b71f2850c189330717fa75740"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/drawn_02/rejected-first-output.png",
@@ -1106,18 +1106,18 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/timing-01-comparison.html",
-      "bytes": 406896,
-      "sha256": "80ccce56bd48b133d9a022ab8694b952c00bd3ef3ae979f34d256b595c580931"
+      "bytes": 406804,
+      "sha256": "a8f46f6cdd63ebd922c4ed9ac5d3ca4a0f626d63b089b84f94ebddb187e68c4b"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/failed/timing_01.json",
-      "bytes": 2592,
-      "sha256": "4f5c15c72e1f3aa9adc6d08ee8fcba31c3810325ab609064731a725853d74b74"
+      "bytes": 2492,
+      "sha256": "de3eec631509272b04d4247b9160783704be32fd17954d444f8dad3cb324eba9"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/idle/current-comparison.html",
-      "bytes": 315480,
-      "sha256": "9fa09a27493089dedb857887b5c9114c736553d81c776127a308cbdd79c92fc3"
+      "bytes": 315371,
+      "sha256": "d566aaf4293b7349416c24e4580c7eec16996d27750bd2f057ffe45eb2d74c00"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/idle/status.md",
@@ -1126,8 +1126,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/approval.json",
-      "bytes": 2208,
-      "sha256": "b2a289e9ad761cfb1666a57ed6d8ebd6095b896374ab9af4f45cdf8d1f88de9a"
+      "bytes": 2131,
+      "sha256": "90b7ba0fe9b69b9262e8766dad42289c4c930f3fedcfc54fd365523343f43499"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/approved/frames/00.png",
@@ -1181,8 +1181,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/approved/manifest.json",
-      "bytes": 2208,
-      "sha256": "b2a289e9ad761cfb1666a57ed6d8ebd6095b896374ab9af4f45cdf8d1f88de9a"
+      "bytes": 2131,
+      "sha256": "90b7ba0fe9b69b9262e8766dad42289c4c930f3fedcfc54fd365523343f43499"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/build_comparison.py",
@@ -1196,8 +1196,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/current-comparison.html",
-      "bytes": 407763,
-      "sha256": "205b2815c62e631e67210fd83e70b1b8ef4825d54e1ba37f19175c451235bc16"
+      "bytes": 407657,
+      "sha256": "300d3a04bbb9ac18ce54e8d1fcab2cabdcbd079014ac092bcaec15903e5088ea"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/jumping-original.html",
@@ -1211,18 +1211,18 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/proposal01-comparison.html",
-      "bytes": 228389,
-      "sha256": "4038e5cd8f378d0e035009c106537a7cecbefaa7d947bf2fe9cf9561ba07755c"
+      "bytes": 228284,
+      "sha256": "610b8a049ec5432a9238c57a7203c7bcf82b331943b2e3f86c1960b25199a400"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/proposal01-timing.json",
-      "bytes": 1503,
-      "sha256": "7bf6d2ca1e0eaec6cd3750bc5c13056576a0d12a0a65db69ecc4d094c1d68588"
+      "bytes": 1446,
+      "sha256": "c6d7f374cc8a6bfca960e96a3045c2f6691e2e9a4b8f5127357901a458c95749"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-comparison.html",
-      "bytes": 407763,
-      "sha256": "205b2815c62e631e67210fd83e70b1b8ef4825d54e1ba37f19175c451235bc16"
+      "bytes": 407657,
+      "sha256": "300d3a04bbb9ac18ce54e8d1fcab2cabdcbd079014ac092bcaec15903e5088ea"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-frames/00.png",
@@ -1256,13 +1256,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-provenance.json",
-      "bytes": 5032,
-      "sha256": "809fb097b71d1d2d5971179a817ce2184e2d30aefa2f72490ca3436ea62b2e87"
+      "bytes": 4768,
+      "sha256": "ef1f32eb4dda53c12ec001115c6c06466724df162ee0259a629ec82bd49b8db9"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/jumping/proposal02-review.json",
-      "bytes": 1427,
-      "sha256": "96fe46f8bc9ff7d8d6fae346faa1178f4f207ebcc16fa1be73b05f2a0e72a081"
+      "bytes": 1353,
+      "sha256": "d09255e34e4395507f7f9593568201d2294b67d3dd962c18396e4d3ff6c79af3"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/approved02/frames/00.png",
@@ -1321,8 +1321,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/approved02/manifest.json",
-      "bytes": 3891,
-      "sha256": "bcec552882617877f509d5eefa5055042ee0c2c90be1c01e2bc4fedd5abb7031"
+      "bytes": 3741,
+      "sha256": "8e280b36185f7c08d4c4a2b664c4dc4a95b6594fbcb2c2e6852a4a8f089cff55"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/approved02/review.webp",
@@ -1346,23 +1346,18 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/comparison01.html",
-      "bytes": 312098,
-      "sha256": "c0b23bbca6111555135dd21a114581ab954e499db38d05e20b4171da83e27bcf"
+      "bytes": 311994,
+      "sha256": "9e100454d4fca27f0215707a4220e899f344d786250ed67b4ef4909c63b58f2d"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/comparison02.html",
-      "bytes": 414154,
-      "sha256": "64ce787df3596a44db8689b1f2a3858046bf58eb51b88a0a4f9d84c9da517ab0"
+      "bytes": 414050,
+      "sha256": "1a769eb3aa3213bccf4d6a20e465bc033f3f78852e5f1a369b1bf55d24acbe8a"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/current.html",
       "bytes": 309707,
       "sha256": "999fd82fed5e71b6501aa84d677ec7c961521d5d9f3d15d58b6d125ba0ef317d"
-    },
-    {
-      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/__pycache__/extract_pair.cpython-313.pyc",
-      "bytes": 3919,
-      "sha256": "ddd60731286b6ea941ddc631f499b6e047da7ad3d0a0d83bfe44c97a8c240db3"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/arm_low.png",
@@ -1381,8 +1376,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/asset_checks.json",
-      "bytes": 772,
-      "sha256": "dfdaa783028eafb84e21863127ae43c25baef754f84826402f26afe5fea02c17"
+      "bytes": 733,
+      "sha256": "f2e4e3c4fa03f433bc1f8f5ccbebe180645b04655b531d8377ef3412f12d0de7"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/extract_low.py",
@@ -1406,8 +1401,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/low_extraction.json",
-      "bytes": 189,
-      "sha256": "343e07b1200316da8b54a67b97003fbea40cc580f6d2c603444ecba62feda806"
+      "bytes": 176,
+      "sha256": "759b487382453a25e444e79b107104420d2ab7e0004c3db223cbfe21054001e0"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_0.png",
@@ -1431,8 +1426,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/pair_extraction.json",
-      "bytes": 440,
-      "sha256": "c9702ca982bc2b6385e814a8a9eab173daf3b3c3d8368bde38a866eabc7fd079"
+      "bytes": 411,
+      "sha256": "3e6b798274687f6f950004d6db7258e1fb325c9d6a9c7764dbdfcda18ae8ef9f"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/drawn02/playback_observations.json",
@@ -1471,8 +1466,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/proposal01.json",
-      "bytes": 2104,
-      "sha256": "5f7c5b7246e3696fd1fb2aac10f2e75bc0e39c40ac352ca37715ffc45d327ea4"
+      "bytes": 2018,
+      "sha256": "043a3fad5fc5eb5da9325ddc774ea802e0efaa140daf83aaf7b08e236ecd6ea0"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/proposal01_notes.md",
@@ -1481,8 +1476,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/proposal02.json",
-      "bytes": 3466,
-      "sha256": "8f1dd34cbb9c1fd676feab63ed3a107c8b9e094de5024e0ff61f7d93a2306c92"
+      "bytes": 3335,
+      "sha256": "bbf27f91748cb64102abff62cfbfdf86fb890251b583cf4edaa63137215b39f9"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/review/proposal02_notes.md",
@@ -1501,13 +1496,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/compare_01.html",
-      "bytes": 311693,
-      "sha256": "e221f77d2cbc50c76a4777023d219b143ab1c88103887e2e4d3d1695fa720f72"
+      "bytes": 311584,
+      "sha256": "d47c6ea45c0fa7dac87ae5f563fc55455ae7175029b9192ad0f6faba27dbf0d2"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/compare_02.html",
-      "bytes": 468730,
-      "sha256": "01acb4ecb86fe52c553f0778d6a058a3d4cbfd27131b69e95ad9b767d59f3ea8"
+      "bytes": 468620,
+      "sha256": "7a2577ccc0af62ea1560e3940c40c00889386889760851c4e21d0d634ccc3cb6"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/current.html",
@@ -1536,8 +1531,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/assembly.json",
-      "bytes": 845,
-      "sha256": "f2aced3d8fab99e68a24e0b22f96ae4384c851ce7dc7e3c1d00bda98bf609c04"
+      "bytes": 795,
+      "sha256": "8ccfca558fdd5d8ee4185d526262739caf6d89b43369cecfa9dd5685df4e1caa"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/build_comparison.py",
@@ -1546,8 +1541,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/candidate.json",
-      "bytes": 9230,
-      "sha256": "ae2a7dd631fbebc0f9885c7ca5c509595117f2e025f41c8624257a8aa0d4fe95"
+      "bytes": 9043,
+      "sha256": "dfb9130217cd37dfac2d2e5075f2d2a7bdfe64b7e83690792adfcc4d3d1accbb"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/candidate.webp",
@@ -1566,8 +1561,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/extraction.json",
-      "bytes": 891,
-      "sha256": "b31f6a4da1821d1ecfde87c530a8d0c824bd6a47010ae5a0066b16c3aacc6e23"
+      "bytes": 842,
+      "sha256": "af0f326e33bf1abd08bd9c4a60f17df93be7d0badb36ba626dd7ad497311d32d"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/high_experiment.png",
@@ -1601,8 +1596,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low_extraction.json",
-      "bytes": 179,
-      "sha256": "03079d35858d326e9ca27e0ae728bf014fd8f267660dad5b7d70697c04614fe3"
+      "bytes": 162,
+      "sha256": "c7ed697f05fe520edc4adf9b14579606f39709fb991dad6b7d4a3b1c2c10d816"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/drawing_02/low_prompt.txt",
@@ -1646,8 +1641,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/thinking/timing_01.json",
-      "bytes": 2187,
-      "sha256": "0703aa8de37245cff00cdc5d7c3ab90c4d11571a054609fb280f1f664d9cb931"
+      "bytes": 2107,
+      "sha256": "86a3a2bf0430dcef574965815ad0fc7e306a9f30671e27b33929f7ce51a4d540"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/approved/frames/00.png",
@@ -1681,13 +1676,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/approved/manifest.json",
-      "bytes": 2482,
-      "sha256": "1735d7fb4f8c1964b3b6a62cf3adda56aee1c2d9f55a674d8a634ce0275c9ac5"
+      "bytes": 2372,
+      "sha256": "3afa92974beeeb6be9e16bb8313407049b6717fc90eddef9993c42a5e952c384"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/approved/validation.json",
-      "bytes": 450,
-      "sha256": "a6f7ba5fe858fab0aa894ccf2303f97829a4d523d71d840821cbeebbd0e0273d"
+      "bytes": 415,
+      "sha256": "00312d7bd8e3c3da82e5a3fd60220e49688f9754597fbca0e11c1140e67ff20a"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/approved/waiting.webp",
@@ -1716,8 +1711,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_01.json",
-      "bytes": 4329,
-      "sha256": "99a1e86e77c21185a9e69a5ced45a2face948570231c7040fe47bcd8e1b69537"
+      "bytes": 4241,
+      "sha256": "a59232d0dde83cc24c5ca6aa66bbf02dfbdd726ef88f2c1c092371b0f12370a4"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_01_review.md",
@@ -1731,8 +1726,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_02.json",
-      "bytes": 6301,
-      "sha256": "826d5d131583b5850ce8d28e80804543156d16b24a5fac6d487e9bd6e0af2944"
+      "bytes": 6181,
+      "sha256": "15ed3f8b59b364dbbed9f612a9cf622b7ad4d250dc712e9b68b29dfe29ffaa2e"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_02_review.md",
@@ -1746,8 +1741,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_03.json",
-      "bytes": 3599,
-      "sha256": "571ceac486380e3411ef7f02f857008a652a8fa07c5779772574ca9aaf084225"
+      "bytes": 3452,
+      "sha256": "c8504565368be0fe4243cb964c07bc315fba03cba78e9706db06618049c1e008"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/comparison_03_review.md",
@@ -1816,8 +1811,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/pixel_inspection.json",
-      "bytes": 531,
-      "sha256": "4d74fbd6c37d402f103f183c43b8703f760c27ae05af30d80ab4480cba8c14c8"
+      "bytes": 497,
+      "sha256": "4f010f33851822d07450fc45b2805cf8085a6e2bbef16614606da5f9ff913a7e"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_02/prompt.txt",
@@ -1926,8 +1921,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/pixel_inspection.json",
-      "bytes": 785,
-      "sha256": "7d156559fe99ac7ed6aba2dffbbe7b64cf666e319b7d840290c9899d3206cde4"
+      "bytes": 735,
+      "sha256": "957f3c516c30dc7ca19dd173ca777171e5b3e3415eeb14dc53e75898a9148147"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waiting/drawn_03/prompt.txt",
@@ -1971,13 +1966,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/comparison.html",
-      "bytes": 428362,
-      "sha256": "ff05b23a5dc8c74af8f3ef862681eac442046e815482399ecd710c936a21fa97"
+      "bytes": 428240,
+      "sha256": "1ba7286f6ab73c1c132882975419716a967a7a87675b2aaddb1675e98e536cf6"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/comparison.template.html",
-      "bytes": 6006,
-      "sha256": "0619a2e2e8325e905c333aa8884e8da51eadb7317fda132e6f3db1d287208b33"
+      "bytes": 5884,
+      "sha256": "7f36bdba74d121136d510205f473c6ad13ed787c26f9d2934e5dc61f2b9ed8c5"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/focused_landing.png",
@@ -2036,8 +2031,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/manifest.json",
-      "bytes": 7579,
-      "sha256": "c9b08750c51d0b2d34774242e7b34fbbe68e9d18f29c52cc2e8a1cf50eb43a51"
+      "bytes": 7308,
+      "sha256": "ecd95969c74b789d0946ed17a7790cba3d36c9614d23327bb82bfc733aa7234e"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/drawing_02/notes.md",
@@ -2131,13 +2126,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/timing_01.json",
-      "bytes": 3416,
-      "sha256": "9a376cb4b579690bbd93a7f60422d017ce5447d6ff1cd4a24915b3222dc4eebd"
+      "bytes": 3286,
+      "sha256": "16afe5ca95ae4d44d5548ccd3662ff82d325cda7375cca5025d51b5080635687"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/timing_01_comparison.html",
-      "bytes": 383200,
-      "sha256": "9250dcd268558190b67c32ff90d02076413cffd1193bee38291e38a3451db0ef"
+      "bytes": 383079,
+      "sha256": "3dd5c1ecd06aee2a7f982e97a13d64ef54249233939cf64f9104869f7795ce9b"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_left/timing_01_notes.md",
@@ -2161,13 +2156,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens-comparison.html",
-      "bytes": 470082,
-      "sha256": "e950de9745d7ef989c099aa4d916dc06a487ff02dcc40eaee01cdb347a063e17"
+      "bytes": 470000,
+      "sha256": "22d75e41d9e85684bb9e6bbc295ef5374130cee02e6fa6f578567257b455ca1e"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/approval.json",
-      "bytes": 520,
-      "sha256": "4ee004aa7ccc7eaed9cc88bc0552177392075ae2ceb3f62073231836684af4be"
+      "bytes": 509,
+      "sha256": "f045b4fbb74da20079288650ffcccb4f3415508e726743fe3227a6917ce9959e"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/build_comparison.py",
@@ -2176,8 +2171,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/candidate.json",
-      "bytes": 4282,
-      "sha256": "e7f0cf58db669569cef7660f1dc31b4988f1717bc5e4ba7be0088480c0471153"
+      "bytes": 4131,
+      "sha256": "ed37c0871d58b2dcdc95e64b21c4cd50454d2544f4cdb852f738b51b86f3d02c"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/candidate.webp",
@@ -2186,13 +2181,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/comparison.template.html",
-      "bytes": 6216,
-      "sha256": "9cf45ab3901ffaad2a004b52158db2e02f5a123bbd64f03f2c8ef72cce25f861"
+      "bytes": 6134,
+      "sha256": "586289241bf0354667a0ffda8006c407ef1fcfc1e8f6605c78f483128a21c626"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/extraction.json",
-      "bytes": 1063,
-      "sha256": "74a388d9be78475035b82a91d7ddddd508a1a9d3940c5d0793d85152a1cb2be5"
+      "bytes": 978,
+      "sha256": "c9709d56908a11194bff789e77a998210fcac31aa3a24f3a1a7a5da3d3d3d7fc"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/frames/A_landing.png",
@@ -2231,13 +2226,13 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/verification.json",
-      "bytes": 414,
-      "sha256": "b66ad7eab311104b8b40fa0cb2171f2efb10078d1c54f5edbfdb1d72d14eeee1"
+      "bytes": 391,
+      "sha256": "2eed9777fd2955168d8b687636cc9b17fc4eb9435cc8e187cfab1466354539bf"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/inbetweens_02/visual_review.md",
-      "bytes": 2658,
-      "sha256": "a7b38df6dd2f802da899fe7917937f76128c9613940f6e257dfe568b1fc04ecb"
+      "bytes": 2633,
+      "sha256": "9990686ada4dc8bd03d53d13ccacfc46b423c2df17ea797461fe0aa1c1ca8ba7"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/status.md",
@@ -2246,8 +2241,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/walk_right/timing_01.json",
-      "bytes": 3903,
-      "sha256": "3b4fd4a7a4af75d0fe7ed4946258f7e41500c28dc0db9608f515ca14947c4e07"
+      "bytes": 3811,
+      "sha256": "bb373e5780a4c7fab584a1832e89f8a2ea1c5a5bfc30fa8ac4ba797d148c0f01"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/body-lock-03/build.py",
@@ -2256,8 +2251,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/body-lock-03/metadata.json",
-      "bytes": 1534,
-      "sha256": "80178c90fea71fc990fa995ba7764dbff856b72a79d3017c4fd40f84e75204ef"
+      "bytes": 1496,
+      "sha256": "20d54742710bce3f124333a8b5e5d4d1ae76e2e6c23c383e6018629890451aa5"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/candidate-01.json",
@@ -2266,18 +2261,18 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/comparison-02.html",
-      "bytes": 436055,
-      "sha256": "6ce7206d6e680591ec68ad456c448d4c394a756a347545fd14680e54d86a9157"
+      "bytes": 435941,
+      "sha256": "257ed906f32b493dca0e2719c995c5840b6a5496e0d5b7a47416caee4452bb9f"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/comparison-03.html",
-      "bytes": 437119,
-      "sha256": "75cc11e3334d3d66f6f8618d5df1639a7ae4a2d091a1ad9e8b104c5f9855b067"
+      "bytes": 436988,
+      "sha256": "854aeeb9dfdc30ee79ed03408143f7b0a0d5ec8072c0ac4bd3fcabf4f9526a93"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/current-comparison.html",
-      "bytes": 270284,
-      "sha256": "c6fdabbea4222cc91009b1e73c82b05e154242c0ad35c032dd6115eec16e6ad9"
+      "bytes": 270282,
+      "sha256": "ee5ac1913c588c067a47909878c12460d44c8c5a929ec725cbd98ee08f220159"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/build.py",
@@ -2331,8 +2326,8 @@
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/metadata.json",
-      "bytes": 6149,
-      "sha256": "4c69003d8f18ed8226520310072f1bcea5b5c6f02f5b9952d9d505cdf01cebea"
+      "bytes": 5906,
+      "sha256": "419928bf1ea03d2c3b079746c71f1d968be7a8ed4012ad6979796139c7837131"
     },
     {
       "path": "docs/design/finn_pet_refined/sessions/waving/inbetween-02/prompt.txt",
@@ -2408,6 +2403,13 @@
       "path": "docs/finn_animation_brief.md",
       "bytes": 21137,
       "sha256": "0bb5380a930c39860305b5ae7f5b6f438b37e9e9bbf5f95b370160b1f29bda88"
+    }
+  ],
+  "hashBasis": "Committed Git blob bytes after repository LF text normalization; binary assets unchanged",
+  "excludedGeneratedFiles": [
+    {
+      "path": "docs/design/finn_pet_refined/sessions/review/drawn02/__pycache__/extract_pair.cpython-313.pyc",
+      "reason": "Ignored Python bytecode cache; reproducible runtime output, not a source artifact"
     }
   ]
 }
