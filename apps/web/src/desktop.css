@@ -583,26 +583,12 @@ body {
 	z-index: 1;
 	width: 72px;
 	height: 72px;
-	display: grid;
-	place-content: center;
-	justify-items: center;
-	border: 1.5px solid color-mix(in srgb, var(--success) 45%, transparent);
-	border-radius: 50%;
-	background: color-mix(in srgb, var(--success) 8%, var(--surface));
-	color: var(--success);
-	font-size: 9px;
-	font-weight: 700;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
-	box-shadow: inset 0 0 0 4px color-mix(in srgb, var(--success) 6%, var(--surface));
+	background: var(--success);
+	mask: url("/trust-seal.svg") center / contain no-repeat;
 	transform: rotate(-10deg);
 }
 .answer-card:has(.result-seal) h2 {
 	padding-right: 80px;
-}
-.result-seal span {
-	font-size: 22px;
-	line-height: 1.1;
 }
 .settings-page {
 	max-width: 920px;
