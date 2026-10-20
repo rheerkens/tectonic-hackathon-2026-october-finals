@@ -48,4 +48,9 @@ contextBridge.exposeInMainWorld("desktop", {
 		ipcRenderer.on("pet:pose", handler);
 		return () => ipcRenderer.removeListener("pet:pose", handler);
 	},
+	onHeadsUp: (listener) => {
+		const handler = () => listener();
+		ipcRenderer.on("finn:heads-up", handler);
+		return () => ipcRenderer.removeListener("finn:heads-up", handler);
+	},
 });

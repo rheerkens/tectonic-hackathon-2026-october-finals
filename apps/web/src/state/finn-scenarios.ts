@@ -450,11 +450,36 @@ const nlHolidayPay: FinnResult = {
 	nextStep: { kind: "none" },
 };
 
+// Unasked: Finn spots the unapproved 25th in Teams (S3) and corrects it before anyone acts on it.
+const d1TeamsCheck: FinnResult = {
+	...d1October,
+	id: "d1-teams-check",
+	question: "Teams: “I thought Atlas could submit until the 25th this time?”",
+	answer:
+		"Careful: the 25th is not approved. Atlas can submit payroll changes until **22 October 2026** [S4], the exception Roy approved.",
+	trust: {
+		...d1October.trust,
+		reasons: [
+			"The 25th comes from a question in Teams, nobody approved it",
+			...d1October.trust.reasons,
+		],
+	},
+	steps: [
+		{ tool: "watch_signals", summary: "New Teams message about the Atlas deadline" },
+		...d1October.steps,
+	],
+};
+
 export const finnScenarios: Record<string, FinnResult> = Object.fromEntries(
-	[d1October, d1November, d1NovemberConfirmed, d2, mealVouchers2027, nlHolidayPay].map((result) => [
-		result.id,
-		result,
-	]),
+	[
+		d1October,
+		d1November,
+		d1NovemberConfirmed,
+		d1TeamsCheck,
+		d2,
+		mealVouchers2027,
+		nlHolidayPay,
+	].map((result) => [result.id, result]),
 );
 
 /** Demo questions in the order of the pitch. A follow-up answers within the previous conversation. */

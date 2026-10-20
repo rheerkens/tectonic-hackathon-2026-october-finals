@@ -262,6 +262,25 @@ function confirmCall(resultId: string) {
 		}
 	}
 }
+/** Finn speaks up unasked: a new Teams message contradicts what he knows, so he posts the correction. */
+function headsUp() {
+	const result = finnScenarios["d1-teams-check"];
+	if (!result) return null;
+	const conversation = { id: uuid(), title: result.question, createdAt: Date.now() };
+	const turn: FinnTurn = {
+		...idle,
+		id: uuid(),
+		createdAt: Date.now(),
+		revision: 1,
+		question: result.question,
+		status: "done",
+		result,
+		stepsShown: result.steps.length,
+	};
+	publish({ kind: "turn", conversation, turn });
+	publish({ kind: "select", id: conversation.id });
+	return conversation.id;
+}
 function markRead(id: string) {
 	const conversation = session.conversations.find((item) => item.id === id);
 	const ids =
@@ -310,6 +329,7 @@ export function useFinn(followSelection = false) {
 		submitQuestion: startQuestion,
 		markRead,
 		confirmCall,
+		headsUp,
 		hideConversation: (id: string) => publish({ kind: "hide", id }),
 		newChat: () => selectConversation(null),
 		reset: () => selectConversation(null),

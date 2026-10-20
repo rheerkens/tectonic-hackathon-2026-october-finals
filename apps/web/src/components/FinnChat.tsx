@@ -402,6 +402,18 @@ export function FinnChat({
 		return () => window.removeEventListener("keydown", escape);
 	}, [open, shownView, onHide]);
 
+	// Only the active surface gets this from the shell, so the correction is posted once.
+	useEffect(
+		() =>
+			window.desktop?.onHeadsUp?.(() => {
+				const id = finn.headsUp();
+				if (!id) return;
+				setChatId(id);
+				setView("chat");
+			}),
+		[finn.headsUp],
+	);
+
 	function openChat(id: string) {
 		finn.selectConversation(id);
 		setChatId(id);

@@ -4,10 +4,12 @@ const {
 	app,
 	BrowserWindow,
 	dialog,
+	globalShortcut,
 	ipcMain,
 	Menu,
 	MenuItem,
 	nativeTheme,
+	Notification,
 	screen,
 	session,
 } = require("electron");
@@ -473,6 +475,29 @@ function toggleMini() {
 	});
 }
 
+// Demo trigger: a Teams message contradicts what Finn knows, and he speaks up unasked.
+const HEADS_UP_KEY = "CommandOrControl+Alt+T";
+function teamsHeadsUp() {
+	if (Notification.isSupported())
+		new Notification({
+			title: "Microsoft Teams · Atlas payroll",
+			body: "I thought Atlas could submit until the 25th this time?",
+		}).show();
+	setTimeout(() => {
+		if (quitting) return;
+		if (mainOpen()) return mainWindow.webContents.send("finn:heads-up");
+		if (!mini || mini.isDestroyed() || !petOpen()) return;
+		mini.webContents.send("finn:heads-up");
+		if (!flying) {
+			pet.webContents.send("pet:pose", "waving");
+			setTimeout(() => petOpen() && !flying && pet.webContents.send("pet:pose", null), 1400);
+		}
+		void positionMini().then(() => {
+			if (!quitting && mini && !mini.isDestroyed() && !mainOpen()) mini.showInactive();
+		});
+	}, 1500);
+}
+
 function addFinnMenu(url) {
 	const menu = Menu.getApplicationMenu() ?? new Menu();
 	finnMenu = Menu.buildFromTemplate([
@@ -495,6 +520,7 @@ function addFinnMenu(url) {
 				}
 			},
 		},
+		{ label: "Simulate Teams message", accelerator: HEADS_UP_KEY, click: teamsHeadsUp },
 		{ type: "separator" },
 		{ label: "Quit", click: () => app.quit() },
 	]);
@@ -668,6 +694,7 @@ app.whenReady().then(async () => {
 		openMini(url);
 		addFinnMenu(url);
 		openPet(url);
+		globalShortcut.register(HEADS_UP_KEY, teamsHeadsUp);
 	} catch (error) {
 		dialog.showErrorBox("SDtrust could not start", String(error));
 		app.quit();
@@ -682,6 +709,7 @@ app.on("before-quit", () => {
 app.on("activate", () => {
 	if (appUrl && !quitting) void openMain().catch(reportOpenError);
 });
+app.on("will-quit", () => globalShortcut.unregisterAll());
 app.on("window-all-closed", () => app.quit());
 app.once("quit", () => {
 	api?.kill();
