@@ -37,12 +37,14 @@
 		"video:test": "python3 -m unittest discover -s tools/video -p \"test_*.py\"",
 		"routes:generate": "bun run --cwd apps/web routes:generate",
 		"typecheck:browser": "tsc -p tsconfig.browser.json",
-		"typecheck:runtime": "tsc -p tsconfig.json"
+		"typecheck:runtime": "tsc -p tsconfig.json",
+		"desktop": "bun run --cwd apps/desktop start"
 	},
 	"dependencies": {},
 	"overrides": {
 		"yaml": "2.9.1",
-		"inline-style-parser": "0.2.9"
+		"inline-style-parser": "0.2.9",
+		"@types/node": "26.6.5"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.15",

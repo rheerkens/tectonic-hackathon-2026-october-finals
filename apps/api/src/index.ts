@@ -5,10 +5,12 @@ import { createApp } from "./app";
 import { readServerConfig } from "./config";
 import { mountWebApp } from "./static";
 
-const root = resolve(import.meta.dir, "../../..");
+// The desktop app runs a compiled API and points APP_ROOT at its bundled web build and migrations.
+const root = process.env.APP_ROOT || resolve(import.meta.dir, "../../..");
 const config = readServerConfig(process.env);
 const handle = openDatabase({
 	path: resolve(root, config.databasePath),
+	migrationsFolder: resolve(root, "packages/db/drizzle"),
 });
 if (config.auth.mode === "dev") seedDatabase(handle.db);
 recoverInterruptedChat(handle.db);

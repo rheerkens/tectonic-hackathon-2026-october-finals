@@ -21,6 +21,12 @@ Choose Alex to edit notes, Sam to read, Jordan as workspace owner, or Casey for 
 
 Chat uses the existing Codex login on the API host. No login is copied into worktrees. The UI shows an actionable message when login is missing or expired. `CHAT_MODEL` defaults to the previous project's `gpt-6-luna`; the pinned pi catalog resolves it. Chat calls use your signed-in account. No live model call runs in the required check.
 
+## Desktop app (Mac + Windows)
+
+`bun run desktop` builds the web app and opens it in Electron with a local API and SQLite under the OS user-data folder. Use `bun dev` in a browser for hot reload while building features.
+
+Every push to `main` builds a Mac `.dmg` and Windows portable `.exe`: GitHub → Actions → Desktop → latest run → Artifacts. Builds are unsigned. On Mac, after dragging the app to Applications, run `xattr -cr "/Applications/Day One.app"` once. On Windows, choose "More info → Run anyway". Local build: `bun run --cwd apps/desktop dist` (output in `apps/desktop/release`).
+
 ## Commands
 
 | Command | Purpose |

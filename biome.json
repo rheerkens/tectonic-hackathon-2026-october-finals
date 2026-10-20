@@ -9,6 +9,8 @@
 			"!**/playwright-report",
 			"!**/drizzle/meta",
 			"!artifacts",
+			"!apps/desktop/build",
+			"!apps/desktop/release",
 			"!.local",
 			"!bun.lock",
 			"!docs/research-snapshots",
