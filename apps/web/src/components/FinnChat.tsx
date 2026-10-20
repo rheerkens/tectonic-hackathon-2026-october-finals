@@ -221,7 +221,7 @@ function Composer({
 	voice: Voice;
 	onMore?: () => void;
 	onSent: () => void;
-	inputRef: RefObject<HTMLInputElement | null>;
+	inputRef: RefObject<HTMLTextAreaElement | null>;
 }) {
 	const finn = useFinn(true);
 	const text = finn.drafts[draftKey] ?? "";
@@ -254,12 +254,19 @@ function Composer({
 						<Icon name="x" size={18} />
 					</button>
 				)}
-				<input
+				<textarea
 					ref={inputRef}
+					rows={1}
 					aria-label={label}
 					placeholder={placeholder}
 					value={text}
 					onChange={(event) => finn.setDraft(draftKey, event.target.value)}
+					onKeyDown={(event) => {
+						// Enter sends like the old single-line field; Shift+Enter adds a line.
+						if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing) return;
+						event.preventDefault();
+						event.currentTarget.form?.requestSubmit();
+					}}
 					autoComplete="off"
 				/>
 				{voice.available &&
@@ -320,7 +327,7 @@ export function FinnChat({
 	const finn = useFinn(true);
 	const scale = usePetScale();
 	const root = useRef<HTMLElement>(null);
-	const input = useRef<HTMLInputElement>(null);
+	const input = useRef<HTMLTextAreaElement>(null);
 	const transcript = useRef<HTMLDivElement>(null);
 	// Presentation is local to each surface; another window's selection never retargets it.
 	const [view, setView] = useState<View>("launcher");
