@@ -1,5 +1,5 @@
 import { existsSync, lstatSync, readFileSync, realpathSync } from "node:fs";
-import { relative, resolve } from "node:path";
+import { relative, resolve, sep } from "node:path";
 import ts from "typescript";
 
 // Browser code may import only these npm packages. Add a package here when the web app needs it.
@@ -30,10 +30,14 @@ const isTest = (file: string) =>
 	/\.(test|spec)\.tsx?$/.test(file) || file.endsWith("/test-fixture.ts");
 const isServer = (file: string) => /\/(server|[^/]+\.server)\.tsx?$/.test(file);
 function sourceFiles(root: string, area: string) {
-	if (!existsSync(resolve(root, area))) return [];
-	return Array.from(new Bun.Glob("**/*.{ts,tsx}").scanSync({ cwd: resolve(root, area) }))
+	// Source areas are fixed repo-relative folders; refuse anything resolving outside the repo.
+	const base = resolve(root),
+		dir = resolve(base, area);
+	if (!dir.startsWith(base + sep)) throw new Error(`Source area escapes the repo: ${area}`);
+	if (!existsSync(dir)) return [];
+	return Array.from(new Bun.Glob("**/*.{ts,tsx}").scanSync({ cwd: dir }))
 		.filter((file) => !isTest(file))
-		.map((file) => resolve(root, area, file));
+		.map((file) => resolve(dir, file));
 }
 export function checkBoundaries({
 	root,

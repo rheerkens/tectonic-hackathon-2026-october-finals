@@ -41,9 +41,10 @@ export function runtimeFile(local: string, name = "runtime.json") {
 	return containedPath(assertProfileDir(local), name);
 }
 export function readRuntime(local: string) {
-	const file = runtimeFile(local);
 	try {
-		return RuntimeSchema.parse(JSON.parse(readRegularFile(file)));
+		return RuntimeSchema.parse(
+			JSON.parse(readRegularFile(assertProfileDir(local), "runtime.json")),
+		);
 	} catch {
 		return null;
 	}

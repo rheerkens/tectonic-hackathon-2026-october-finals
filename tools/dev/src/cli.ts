@@ -38,7 +38,7 @@ else if (command === "stop") {
 			) + "\n",
 		);
 	} else {
-		const files = listLeases(registryDir());
+		const registry = registryDir();
 		process.stdout.write(
 			JSON.stringify(
 				{
@@ -47,11 +47,11 @@ else if (command === "stop") {
 					profile,
 					tailscale: await tailscaleHost(),
 					runtime,
-					profileClaim: readOwner(join(local, "dev.lock")),
-					leases: files.map((file) => {
-						const owner = readOwner(file);
+					profileClaim: readOwner(local, "dev.lock"),
+					leases: listLeases(registry).map((name) => {
+						const owner = readOwner(registry, name);
 						return {
-							file,
+							file: join(registry, name),
 							owner,
 							ownerAlive: owner ? isProcessAlive(owner.pid) : null,
 						};

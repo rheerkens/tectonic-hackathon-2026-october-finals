@@ -9,6 +9,7 @@ import { readWebConfig } from "../../../apps/web/src/config";
 import { reservePorts } from "./leases";
 import { createLifecycle } from "./lifecycle";
 import { claimFile, newOwner } from "./lock";
+import { containedPath } from "./paths";
 import { type ManagedProcess, spawnManaged, stopManaged } from "./procs";
 import {
 	assertProfileDir,
@@ -21,11 +22,12 @@ import { hashPath, localDir, resolveWorktree } from "./worktree";
 export async function launch({ profile }: { profile: string }) {
 	const worktree = await resolveWorktree();
 	// Validate before and after creating it, so no logs, claims or database land outside the checkout.
-	const local = assertProfileDir(localDir(worktree.root, profile));
-	mkdirSync(join(local, "logs"), { recursive: true });
+	const local = assertProfileDir(localDir(worktree.root, profile)),
+		logs = containedPath(local, "logs");
+	mkdirSync(logs, { recursive: true });
 	assertProfileDir(local);
 	const owner = newOwner(worktree.root, profile);
-	const releaseProfile = claimFile(join(local, "dev.lock"), owner);
+	const releaseProfile = claimFile(local, "dev.lock", owner);
 	let lease: Awaited<ReturnType<typeof reservePorts>> | undefined;
 	const children: ManagedProcess[] = [];
 	let runtime: Runtime | undefined;
@@ -102,8 +104,10 @@ export async function launch({ profile }: { profile: string }) {
 			].join(","),
 			SERVE_STATIC: "0",
 		};
-		const onLine = (name: string) => (line: string) => {
-			appendFileSync(join(local, "logs", name + ".log"), line + "\n");
+		// Fixed log files per child, validated to stay inside the profile's logs directory.
+		const logFiles = { api: containedPath(logs, "api.log"), web: containedPath(logs, "web.log") };
+		const onLine = (name: keyof typeof logFiles) => (line: string) => {
+			appendFileSync(logFiles[name], line + "\n");
 			process.stdout.write(`[${name}] ${line}\n`);
 		};
 		const api = spawnManaged({
