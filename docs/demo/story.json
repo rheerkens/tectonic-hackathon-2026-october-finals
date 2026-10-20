@@ -1,30 +1,30 @@
 {
-	"title": "Day One \u00b7 From a thought to a next step",
+	"title": "SDtrust · From a question to a trusted answer",
 	"scenes": [
 		{
-			"id": "sign-in",
-			"chapter": "Choose a workspace",
-			"caption": "Start with a synthetic user",
-			"narration": "Start with a synthetic user. Each person has a role in a workspace, so the same app can show different permissions.",
-			"expectBefore": "Choose your demo user",
+			"id": "overview",
+			"chapter": "Start the day",
+			"caption": "What needs your attention",
+			"narration": "SDtrust opens on what needs your attention: answers with low trust and the latest notes in your workspace.",
+			"expectBefore": "Needs your attention",
 			"actions": [
 				{
-					"kind": "click",
-					"selector": "button.ui-button-primary"
-				},
-				{
 					"kind": "waitText",
-					"text": "A complete journey beats ten unfinished features."
+					"text": "Recent notes"
 				}
 			]
 		},
 		{
 			"id": "notes",
 			"chapter": "Keep an idea",
-			"caption": "Save a note that survives refresh",
-			"narration": "Save a small idea. Notes belong to the workspace, and they survive refreshes and app restarts.",
-			"expectBefore": "Workspace notes",
+			"caption": "Save a note for the whole workspace",
+			"narration": "Save a small idea. Notes belong to the workspace, survive restarts and reach teammates live.",
+			"expectBefore": "Recent notes",
 			"actions": [
+				{
+					"kind": "click",
+					"selector": "a[href$=\"/notes\"] >> nth=0"
+				},
 				{
 					"kind": "fill",
 					"selector": "#note",
@@ -41,55 +41,23 @@
 			]
 		},
 		{
-			"id": "chat",
-			"chapter": "Ask your assistant",
-			"caption": "pi reads SQLite through an authorized tool",
-			"narration": "Ask the assistant about your notes. It uses a real tool to read SQLite, with the same workspace permissions as the rest of the app.",
+			"id": "result",
+			"chapter": "Check before you act",
+			"caption": "Every answer shows its trust and sources",
+			"narration": "Open an answer that needs a closer look. Finn shows how much it can be trusted and which sources support it.",
 			"expectBefore": "Workspace notes",
 			"actions": [
 				{
 					"kind": "click",
-					"selector": "nav[aria-label=\"Workspace pages\"] a[href$=\"/chat\"]"
+					"selector": "nav[aria-label=\"Main navigation\"] a >> nth=0"
 				},
 				{
 					"kind": "click",
-					"selector": "button[aria-label=\"New conversation\"]"
-				},
-				{
-					"kind": "click",
-					"selector": ".suggestions button:first-child"
+					"selector": "a.list-row[href*=\"/results/\"] >> nth=0"
 				},
 				{
 					"kind": "waitSelector",
-					"selector": ".tool-result summary"
-				},
-				{
-					"kind": "waitSelector",
-					"selector": ".chat-markdown"
-				},
-				{
-					"kind": "waitSelector",
-					"selector": ".tool-result[data-status=\"completed\"]"
-				},
-				{
-					"kind": "waitSelector",
-					"selector": "button[aria-label='Send message']"
-				}
-			]
-		},
-		{
-			"id": "history",
-			"chapter": "Pick up later",
-			"caption": "Your private conversation is still here",
-			"narration": "Come back later. Your private conversation and completed tool results are saved. An interrupted request never automatically repeats a write.",
-			"expectBefore": "Studio assistant",
-			"actions": [
-				{
-					"kind": "reload"
-				},
-				{
-					"kind": "waitSelector",
-					"selector": ".chat-markdown"
+					"selector": ".answer-card"
 				}
 			]
 		}

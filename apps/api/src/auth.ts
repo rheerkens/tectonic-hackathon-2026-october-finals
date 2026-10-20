@@ -24,9 +24,8 @@ export async function authenticate(
 	} catch {
 		throw new AppError(401, "Your sign-in is invalid or expired.");
 	}
-	{
-		const user = { id: claims.sub, name: "Signed-in user", email: "" };
-		db.insert(users).values(user).onConflictDoNothing().run();
-		return user;
-	}
+	// ponytail: Clerk users get a placeholder name; read it from the Clerk claims if presence matters.
+	const user = { id: claims.sub, name: "Signed-in user", email: "" };
+	db.insert(users).values(user).onConflictDoNothing().run();
+	return user;
 }

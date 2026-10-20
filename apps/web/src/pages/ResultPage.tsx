@@ -2,13 +2,13 @@ import { Link } from "@tanstack/react-router";
 import { FinnDock, type FinnHint } from "../components/FinnDock";
 import { FinnResultContent, month } from "../components/FinnResultContent";
 import { useFinnResult } from "../state/finn";
-import type { FinnResult } from "../state/finn-scenarios";
+import { CONFIRMED_TRUST, type FinnResult } from "../state/finn-scenarios";
 import { useStudioState } from "../state/StudioContext";
 
-// Same 80% line the answer card uses to call an answer confirmed.
+// Same confirmed line the answer card uses.
 function resultHint(result: FinnResult): FinnHint {
 	const key = `result-${result.id}`;
-	if (result.answer && result.trust.score >= 0.8) {
+	if (result.answer && result.trust.score >= CONFIRMED_TRUST) {
 		const count = result.sources.filter((source) => source.supports).length;
 		return {
 			key,

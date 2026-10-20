@@ -4,7 +4,6 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"test": "playwright test",
 		"install-browser": "PLAYWRIGHT_SKIP_BROWSER_GC=1 playwright install chromium"
 	},
 	"dependencies": {

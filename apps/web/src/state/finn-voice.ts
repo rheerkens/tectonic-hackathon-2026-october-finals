@@ -140,8 +140,10 @@ export function useVoice(onText: (key: string, text: string) => void) {
 				if (token.current === mine) token.current++;
 			};
 			capture.onstop = async () => {
-				// Capture ends before the CPU work starts.
-				release();
+				// Capture ends before the CPU work starts. Only this clip's microphone: after a quick
+				// cancel and restart, stream.current already holds the next recording.
+				for (const track of media.getTracks()) track.stop();
+				if (stream.current === media) stream.current = null;
 				if (token.current !== mine) return;
 				recorder.current = null;
 				setStatus("processing");

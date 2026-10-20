@@ -142,9 +142,25 @@ function subscribe(listener: () => void) {
 	return () => listeners.delete(listener);
 }
 
-/** Forgets every chat and draft in all windows, so the next account starts with an empty Finn. */
-export function resetFinn() {
-	publish({ kind: "reset" });
+/**
+ * Records who owns Finn's chats. A different account forgets every chat and draft in all windows.
+ * The owner lives in localStorage: sign-out unmounts the app and other windows outlive this one.
+ */
+export function claimFinn(userId: string) {
+	const key = "sdtrust.finn-owner";
+	try {
+		const owner = localStorage.getItem(key);
+		if (owner && owner !== userId) {
+			apply({ kind: "reset" });
+			// A one-off channel: subscribing would first ask the other windows for their old chats.
+			const others = new BroadcastChannel("day-one:finn");
+			others.postMessage({ kind: "reset" } satisfies Message);
+			others.close();
+		}
+		localStorage.setItem(key, userId);
+	} catch {
+		// Without storage there is no previous owner to compare with.
+	}
 }
 
 /** Swaps a result for what Finn learned about it on a call, if anything. */

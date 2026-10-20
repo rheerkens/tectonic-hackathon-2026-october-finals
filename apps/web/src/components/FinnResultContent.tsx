@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import type { FinnResult, FinnSource } from "../state/finn-scenarios";
+import { CONFIRMED_TRUST, type FinnResult, type FinnSource } from "../state/finn-scenarios";
 import { FinnCall } from "./FinnCall";
 import { Icon } from "./Icon";
 
@@ -30,7 +30,11 @@ export function FinnResultContent({ result }: { result: FinnResult }) {
 	const evidence = useRef<HTMLDetailsElement>(null);
 	const best = result.sources.find((source) => source.supports);
 	const score = Math.round(result.trust.score * 100);
-	const tone: Tone = !result.answer ? "muted" : result.trust.score >= 0.8 ? "good" : "warn";
+	const tone: Tone = !result.answer
+		? "muted"
+		: result.trust.score >= CONFIRMED_TRUST
+			? "good"
+			: "warn";
 	const status = !result.answer
 		? "Not substantiated"
 		: tone === "good"
