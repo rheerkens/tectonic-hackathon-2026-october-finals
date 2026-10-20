@@ -1461,16 +1461,6 @@ body {
 .finn-mini-send svg {
 	transform: rotate(-90deg);
 }
-.finn-mini-disclaimer {
-	align-self: center;
-	padding: 2px 8px;
-	border-radius: 8px;
-	background: var(--surface);
-	color: var(--muted);
-	font-size: 10px;
-	text-align: center;
-	line-height: 1.2;
-}
 .mini-result {
 	padding: 18px;
 	border-radius: 22px;
@@ -1682,5 +1672,21 @@ body {
 @media (prefers-reduced-motion: reduce) {
 	.finn-dock-panel {
 		animation: none;
+	}
+}
+.finn-dock-pet.entering {
+	animation: finn-run-in 1.3s 0.3s linear backwards;
+}
+.finn-dock-pet.exiting {
+	animation: finn-run-out 0.8s linear forwards;
+}
+@keyframes finn-run-in {
+	from {
+		transform: translateX(180px);
+	}
+}
+@keyframes finn-run-out {
+	to {
+		transform: translateX(180px);
 	}
 }

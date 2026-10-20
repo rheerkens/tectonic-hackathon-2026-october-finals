@@ -1,18 +1,54 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useFinn } from "../state/finn";
-import { useAnnounceFinnMood, usePetMood } from "../state/pet";
+import { announce, type PetAnimation, useAnnounceFinnMood, usePetMood } from "../state/pet";
 import { FinnChat } from "./FinnChat";
+
+// Finn walks in once per window, not on every route change.
+let entered = false;
+const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Finn inside SDtrust: fixed bottom right, opening the compact chat above him. */
 export function FinnDock() {
 	const [open, setOpen] = useState(false);
+	const [phase, setPhase] = useState<"entering" | "waving" | "leaving" | "exiting" | null>(
+		entered || still() ? null : "entering",
+	);
 	const input = useRef<HTMLInputElement>(null);
 	const id = useId();
 	const mood = usePetMood();
 	useAnnounceFinnMood(useFinn());
 	useEffect(() => {
+		entered = true;
+	}, []);
+	useEffect(() => {
 		if (open) input.current?.focus();
 	}, [open]);
+	// Closing SDtrust: Finn waves, runs out to the right, then the shell closes the window.
+	useEffect(
+		() =>
+			window.desktop?.onMainClosing?.(() => {
+				setOpen(false);
+				if (still()) window.desktop?.closeMain?.();
+				else setPhase("leaving");
+			}),
+		[],
+	);
+	useEffect(() => {
+		if (phase !== "waving" && phase !== "leaving") return;
+		const timer = window.setTimeout(
+			() => setPhase(phase === "leaving" ? "exiting" : null),
+			phase === "leaving" ? 1000 : 1400,
+		);
+		return () => window.clearTimeout(timer);
+	}, [phase]);
+	const shown: PetAnimation =
+		phase === "entering"
+			? "running-left"
+			: phase === "exiting"
+				? "running-right"
+				: phase
+					? "waving"
+					: mood;
 	return (
 		<div className="finn-dock">
 			{open && (
@@ -29,15 +65,26 @@ export function FinnDock() {
 			)}
 			<button
 				type="button"
-				className="finn-dock-pet"
+				className={
+					phase === "entering" || phase === "exiting" ? `finn-dock-pet ${phase}` : "finn-dock-pet"
+				}
 				aria-label={open ? "Close chat with Finn" : "Ask Finn"}
 				aria-expanded={open}
 				aria-controls={id}
 				onClick={() => setOpen(!open)}
+				onAnimationEnd={(event) => {
+					if (event.target !== event.currentTarget) return;
+					if (phase === "entering") setPhase("waving");
+					if (phase === "exiting") {
+						// The desktop Finn reappears waving once the window is gone.
+						announce("waving");
+						window.desktop?.closeMain?.();
+					}
+				}}
 			>
 				<picture>
 					<source srcSet="/pet/idle.png" media="(prefers-reduced-motion: reduce)" />
-					<img src={`/pet/${mood}.webp`} alt="" width="96" height="104" draggable={false} />
+					<img src={`/pet/${shown}.webp`} alt="" width="96" height="104" draggable={false} />
 				</picture>
 			</button>
 		</div>

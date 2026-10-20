@@ -88,6 +88,16 @@ async function openMain(path) {
 		// While SDtrust is open Finn lives inside it; closing it sends Finn back to the desktop.
 		if (petOpen()) pet.hide();
 		mini?.hide();
+		window.on("close", (event) => {
+			if (quitting || !window.finnDock || window.finnLeaving) return;
+			event.preventDefault();
+			window.finnLeaving = true;
+			window.webContents.send("main:closing");
+			// Close anyway if the page cannot finish Finn's goodbye.
+			setTimeout(() => {
+				if (!window.isDestroyed()) window.close();
+			}, 2500);
+		});
 		window.on("closed", () => {
 			if (mainWindow === window) mainWindow = null;
 			if (!quitting) {
@@ -325,6 +335,12 @@ ipcMain.on("main:open", (event, route) => {
 
 ipcMain.on("mini:toggle", () => toggleMini());
 ipcMain.on("mini:hide", () => mini?.hide());
+ipcMain.on("main:finn-dock", (event, active) => {
+	if (trustedWindow(event, mainWindow)) mainWindow.finnDock = active === true;
+});
+ipcMain.on("main:close", (event) => {
+	if (trustedWindow(event, mainWindow) && mainWindow.finnLeaving) mainWindow.close();
+});
 ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();

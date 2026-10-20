@@ -205,7 +205,6 @@ export function MiniPage() {
 					>
 						<header className="finn-mini-heading">
 							<h1>Conversations</h1>
-							<small>This app session</small>
 						</header>
 						{finn.conversations.length ? (
 							finn.conversations.map(conversationRow)
@@ -310,9 +309,6 @@ export function MiniPage() {
 					<Icon name="chevron-right" size={18} />
 				</button>
 			</div>
-			<span data-mini-surface className="finn-mini-disclaimer">
-				Demo · this app session
-			</span>
 		</main>
 	);
 }
