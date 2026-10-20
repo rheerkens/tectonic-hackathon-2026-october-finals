@@ -1,5 +1,5 @@
 // Electron shell: starts the API on a free local port and shows the web app it serves,
-// plus Finn, a desktop pet that opens a floating mini chat.
+// plus Finn, a desktop pet that opens a floating mini chat. The main window opens on demand.
 const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, screen } = require("electron");
 const { spawn } = require("node:child_process");
 const { readFileSync, writeFileSync } = require("node:fs");
@@ -56,8 +56,11 @@ function saveSettings() {
 	writeFileSync(settingsPath(), JSON.stringify(settings));
 }
 
+let appUrl;
+let main;
 let pet;
 let mini;
+let quitting = false;
 const petOpen = () => pet && !pet.isDestroyed();
 function openPet(url) {
 	const { workArea } = screen.getPrimaryDisplay();
@@ -80,6 +83,34 @@ function openPet(url) {
 		webPreferences,
 	});
 	pet.loadURL(`${url}/pet`);
+	// The pet window has no menu bar on Windows, so right-clicking Finn offers the essentials.
+	pet.webContents.on("context-menu", () =>
+		Menu.buildFromTemplate([...finnActions, { type: "separator" }, { role: "quit" }]).popup({
+			window: pet,
+		}),
+	);
+}
+
+function openMain(url) {
+	main = new BrowserWindow({ width: 1280, height: 860, show: false, webPreferences });
+	main.loadURL(url);
+	// Closing only hides the window; quit from the Finn menu.
+	main.on("close", (event) => {
+		if (quitting) return;
+		event.preventDefault();
+		main.hide();
+	});
+}
+
+/** Shows the main window, on `route` when given. */
+function showMain(route) {
+	if (route) {
+		const target = new URL(route, appUrl);
+		if (target.origin !== new URL(appUrl).origin) return;
+		if (main.webContents.getURL() !== target.href) main.loadURL(target.href);
+	}
+	main.show();
+	main.focus();
 }
 
 function openMini(url) {
@@ -115,13 +146,18 @@ function toggleMini() {
 	mini.show();
 }
 
+const finnActions = [
+	{ label: "Open SDtrust", click: () => showMain() },
+	{ label: "Open mini chat", click: toggleMini },
+];
+
 function addFinnMenu(url) {
 	const menu = Menu.getApplicationMenu() ?? new Menu();
 	menu.append(
 		new MenuItem({
 			label: "Finn",
 			submenu: [
-				{ label: "Open mini chat", click: toggleMini },
+				...finnActions,
 				{
 					label: "Show Finn",
 					type: "checkbox",
@@ -130,9 +166,14 @@ function addFinnMenu(url) {
 						settings.showPet = item.checked;
 						if (item.checked) openPet(url);
 						saveSettings();
-						if (!item.checked) pet.close();
+						if (item.checked || !petOpen()) return;
+						pet.close();
+						// Without Finn, keep a window on screen to come back from.
+						showMain();
 					},
 				},
+				{ type: "separator" },
+				{ role: "quit" },
 			],
 		}),
 	);
@@ -141,6 +182,9 @@ function addFinnMenu(url) {
 
 ipcMain.on("mini:toggle", () => toggleMini());
 ipcMain.on("mini:hide", () => mini?.hide());
+ipcMain.on("main:open", (_event, route) => {
+	if (main && typeof route === "string") showMain(route);
+});
 ipcMain.on("pet:move", (event, dx, dy) => {
 	if (!petOpen() || event.sender !== pet.webContents || !Number.isFinite(dx + dy)) return;
 	const [x, y] = pet.getPosition();
@@ -155,10 +199,8 @@ app.whenReady().then(async () => {
 	}
 	try {
 		const url = await startApi();
-		const window = new BrowserWindow({ width: 1280, height: 860, webPreferences });
-		window.loadURL(url);
-		// Finn and Mini live as long as the main window does.
-		window.on("closed", () => app.quit());
+		appUrl = url;
+		openMain(url);
 		openMini(url);
 		if (settings.showPet) openPet(url);
 		addFinnMenu(url);
@@ -167,6 +209,11 @@ app.whenReady().then(async () => {
 		app.quit();
 	}
 });
-app.on("before-quit", saveSettings);
+app.on("before-quit", () => {
+	quitting = true;
+	saveSettings();
+});
+// Clicking the dock icon (macOS) brings the main window back.
+app.on("activate", () => main && showMain());
 app.on("window-all-closed", () => app.quit());
 app.on("quit", () => api?.kill());

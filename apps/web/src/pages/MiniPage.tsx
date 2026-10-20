@@ -1,6 +1,8 @@
 import { useChat } from "@day-one/chat/state";
+import { Button } from "@day-one/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { ChatPanel } from "../components/chat/ChatPanel";
+import { openMain } from "../state/desktop";
 import { useAnnouncePetMood } from "../state/pet";
 import { useStudio } from "../state/studio";
 
@@ -29,6 +31,9 @@ export function MiniPage({ workspaceId }: { workspaceId: string }) {
 	}, []);
 	return (
 		<main className="mini">
+			<Button variant="ghost" onClick={() => openMain("/")}>
+				Open SDtrust
+			</Button>
 			<ChatPanel
 				status={chat.status}
 				turns={chat.turns}

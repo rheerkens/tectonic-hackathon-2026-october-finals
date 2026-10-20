@@ -7,6 +7,7 @@ interface Window {
 	readonly desktop?: {
 		toggleMini(): void;
 		hideMini(): void;
+		openMain(route: string): void;
 		movePet(dx: number, dy: number): void;
 	};
 }
