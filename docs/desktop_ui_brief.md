@@ -76,6 +76,14 @@ De laatste typecheck en build slagen op de gecombineerde bron. Gerichte Biome sl
 
 ## Grenzen
 
+## Centrale integratie op main
+
+Op 20 oktober is de UI samen met native commits 210ad6b, 438dc485 en 168f291 geïntegreerd met origin/main 88fbc64. De bestaande main:open route, FINN toestanden en bronicoontjes zijn behouden. De volledige `bun run check` is nu groen voor lint, typecheck en build. `.gitattributes` legt LF vast; gegenereerde animatieverslagen vallen net als de originele assetexport buiten Biome.
+
+Een verse Electron 44.5.1 start vanuit de hoofdmap bevestigt uitsluitend Finn zichtbaar, initcontent 96 bij 104, tien sleepbewegingen zonder groei, miniresultaat D1, hergebruik van het hoofdvenster voor D2 en behoud van de bestaande openMain route. Externe routes en een ongeldig resultId worden geweigerd. Bewijs staat lokaal in `.local/integration/native/inspection.json` en `result.png`. De eigen instantie is via app.quit afgesloten. Geen unit of e2e tests uitgevoerd. De eerdere themabeperking bij volledige herstart blijft open.
+
+## Grenzen van de flow
+
 De FINN flow is een mock met gedeelde fixtures. Er zijn nog geen echte zoektools, live connectoren of verzonden berichten in deze flow.
 Trustscores en redenen komen rechtstreeks uit die fixtures. De UI claimt geen automatische verificatie.
 Er zijn geen werkende privacytoggles zonder onderliggende opslag/API toegevoegd.

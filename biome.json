@@ -15,6 +15,7 @@
 			"!bun.lock",
 			"!docs/research-snapshots",
 			"!docs/design/finn_pet",
+			"!docs/design/finn_pet_refined",
 			"!apps/web/src/routeTree.gen.ts"
 		]
 	},

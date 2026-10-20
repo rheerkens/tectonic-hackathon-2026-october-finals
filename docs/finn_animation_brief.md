@@ -57,3 +57,7 @@ De ademlus duurt 4400 ms, verdeeld als 900, 700, 600, 600, 700 en 900 ms. Deze l
 De GIF en lossless WebP exports, zes PNG frames, rijstrip, volledige kandidaat sheet, bronbeeld, gebruikte prompt en validatierapporten zijn opgeslagen. De validators rapporteren geen structurele fouten. De ingebouwde browserinspectie liep tweemaal vast op een timeout; een aparte Edge preview bevestigde daarna het afspelen, de veranderende frameposities en de weergave op lichte en donkere achtergrond. De vergelijking blijft beschikbaar op http://100.89.117.122:8767/finn_pet_refined/breathing_02/preview.html.
 
 docs/design/finn_pet_refined/overview.html bundelt de bewegende vergelijking en de volledige poseinventaris in een visueel overzicht. Dit is nog steeds uitsluitend een assetlevering. Appgedrag, accountinstellingen en bestaande state namen zijn niet gewijzigd. Er zijn geen unit tests of e2e tests geschreven of uitgevoerd.
+
+## Visuele beoordeling na proef 02
+
+De gebruiker vindt proef 02 visueel te statisch. De zes frames en exporttimings zijn technisch correct, maar vormen geen duidelijk leesbare ademcyclus. Proef 02 geldt daarom als visueel onvoldoende en blijft uitsluitend een bewaard experiment. Proef 01 blijft de voorkeur. Geen van deze proeven vervangt automatisch de originele assets in de app.
