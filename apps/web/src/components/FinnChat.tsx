@@ -60,7 +60,7 @@ export function FinnChat({
 	composeKey?: number;
 	onHide?: () => void;
 }) {
-	const finn = useFinn(true);
+	const finn = useFinn();
 	const scale = usePetScale();
 	const root = useRef<HTMLElement>(null);
 	const overSurface = useRef(false);

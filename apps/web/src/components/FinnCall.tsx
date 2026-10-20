@@ -27,11 +27,21 @@ function Phone() {
 }
 
 export function FinnCall({ result, compact = false }: { result: FinnResult; compact?: boolean }) {
-	const { confirmCall } = useFinn(true);
+	const { confirmCall } = useFinn();
 	const audio = useRef<HTMLAudioElement | null>(null);
 	const root = useRef<HTMLDivElement>(null);
 	const [phase, setPhase] = useState<Phase>("idle");
-	useEffect(() => () => audio.current?.pause(), []);
+	// Set while the thanks clip plays: leaving the call then still records the confirmation.
+	const confirmOnLeave = useRef<(() => void) | null>(null);
+	useEffect(
+		() => () => {
+			audio.current?.pause();
+			// Clearing the clip stops its pending callbacks from starting the next line.
+			audio.current = null;
+			confirmOnLeave.current?.();
+		},
+		[],
+	);
 	// Keep the current line and the end-call button in view, also in the small chat window.
 	useEffect(() => {
 		if (phase !== "idle") root.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -45,8 +55,11 @@ export function FinnCall({ result, compact = false }: { result: FinnResult; comp
 		audio.current?.pause();
 		const clip = new Audio(src);
 		audio.current = clip;
-		clip.onended = next;
-		clip.play().catch(next);
+		const advance = () => {
+			if (audio.current === clip) next();
+		};
+		clip.onended = advance;
+		clip.play().catch(advance);
 	}
 	function start() {
 		setPhase("ringing");
@@ -57,7 +70,12 @@ export function FinnCall({ result, compact = false }: { result: FinnResult; comp
 	}
 	function end() {
 		setPhase("thanks");
-		play(call.thanksAudio, () => confirmCall(result.id));
+		const confirm = () => {
+			confirmOnLeave.current = null;
+			confirmCall(result.id);
+		};
+		confirmOnLeave.current = confirm;
+		play(call.thanksAudio, confirm);
 	}
 
 	const lines = [

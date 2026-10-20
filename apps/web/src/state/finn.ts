@@ -1,4 +1,4 @@
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import { type FinnResult, finnScenarios } from "./finn-scenarios";
 
 /** The shared fixture flow. Conversations live only while app windows remain open. */
@@ -37,9 +37,10 @@ type Message =
 	| { kind: "hide"; id: string }
 	| { kind: "draft"; key: string; draft: Draft }
 	| { kind: "learn"; id: string }
-	| { kind: "snapshot"; session: Session };
+	| { kind: "snapshot"; session: Session }
+	| { kind: "reset" };
 const idle: FinnState = { status: "idle", question: "", stepsShown: 0, result: null, message: "" };
-let session: Session = {
+const empty: Session = {
 	conversations: [],
 	activeId: null,
 	readIds: [],
@@ -47,6 +48,7 @@ let session: Session = {
 	drafts: {},
 	learned: [],
 };
+let session = empty;
 let channel: BroadcastChannel | null = null;
 const listeners = new Set<() => void>();
 // randomUUID only exists in secure contexts; plain HTTP over Tailscale still needs IDs.
@@ -66,6 +68,7 @@ function notify() {
 	for (const listener of listeners) listener();
 }
 function apply(message: Message) {
+	if (message.kind === "reset") session = empty;
 	if (message.kind === "select") session = { ...session, activeId: message.id };
 	if (message.kind === "hide") {
 		session = { ...session, hiddenIds: [...new Set([...session.hiddenIds, message.id])] };
@@ -137,6 +140,11 @@ function subscribe(listener: () => void) {
 		channel.postMessage("sync");
 	}
 	return () => listeners.delete(listener);
+}
+
+/** Forgets every chat and draft in all windows, so the next account starts with an empty Finn. */
+export function resetFinn() {
+	publish({ kind: "reset" });
 }
 
 /** Swaps a result for what Finn learned about it on a call, if anything. */
@@ -290,23 +298,17 @@ function markRead(id: string) {
 	if (ids.length) publish({ kind: "read", ids });
 }
 
-/** Existing consumers follow their own submitted turn even if the mini selects a different chat. */
-export function useFinn(followSelection = false) {
+/** Finn's shared conversations, drafts and actions, synced across every app window. */
+export function useFinn() {
 	const current = useSyncExternalStore(subscribe, () => session);
-	const boundConversation = useRef<string | null>(current.activeId);
-	const [request, setRequest] = useState<{ conversationId: string; turnId: string } | null>(null);
-	if (boundConversation.current === null && current.activeId !== null)
-		boundConversation.current = current.activeId;
 	const active = current.conversations.find((item) => item.id === current.activeId);
-	const followed =
-		!followSelection && request ? findTurn(request.conversationId, request.turnId) : undefined;
-	const selected = followed ?? latest(active) ?? idle;
 	const pending = current.conversations
 		.filter((conversation) => !current.hiddenIds.includes(conversation.id))
 		.flatMap((conversation) => conversation.turns)
 		.filter(busy);
 	const activity =
-		pending.at(-1) ?? (active && !current.hiddenIds.includes(active.id) ? selected : idle);
+		pending.at(-1) ??
+		(active && !current.hiddenIds.includes(active.id) ? (latest(active) ?? idle) : idle);
 	const conversations = current.conversations
 		.filter((conversation) => !current.hiddenIds.includes(conversation.id))
 		.map((conversation) => ({
@@ -314,10 +316,7 @@ export function useFinn(followSelection = false) {
 			unread: conversation.turns.some((turn) => !busy(turn) && !current.readIds.includes(turn.id)),
 		}));
 	return {
-		...selected,
 		conversations,
-		activeConversation: active,
-		activeId: current.activeId,
 		activity,
 		drafts: Object.fromEntries(
 			Object.entries(current.drafts).map(([key, draft]) => [key, draft.text]),
@@ -331,29 +330,6 @@ export function useFinn(followSelection = false) {
 		confirmCall,
 		headsUp,
 		hideConversation: (id: string) => publish({ kind: "hide", id }),
-		newChat: () => selectConversation(null),
-		reset: () => selectConversation(null),
-		ask: async (question: string) => {
-			const next = startQuestion(
-				question,
-				followSelection ? session.activeId : (boundConversation.current ?? session.activeId),
-			);
-			if (next && !followSelection) {
-				boundConversation.current = next.conversationId;
-				setRequest(next);
-			}
-			if (next) {
-				await new Promise<void>((resolve) => {
-					const settled = () => {
-						if (busy(findTurn(next.conversationId, next.turnId))) return;
-						listeners.delete(settled);
-						resolve();
-					};
-					listeners.add(settled);
-					settled();
-				});
-			}
-		},
 	};
 }
 

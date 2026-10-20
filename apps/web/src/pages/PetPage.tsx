@@ -16,7 +16,7 @@ const sourceIcons: Record<FinnSource["kind"], string> = {
 export function PetPage() {
 	const mood = usePetMood();
 	const scale = usePetScale();
-	const finn = useFinn(true).activity;
+	const finn = useFinn().activity;
 	useAnnounceFinnMood(finn);
 	// While searching, the sources FINN reads circle Finn's head.
 	const kinds =

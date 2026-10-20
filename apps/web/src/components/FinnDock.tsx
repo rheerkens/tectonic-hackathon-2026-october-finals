@@ -34,7 +34,7 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	>(entered || still() ? null : window.desktop?.onFinnLanded ? "waiting" : "entering");
 	const mood = usePetMood();
 	// Like the desktop pet, Finn reflects activity across all compact conversations.
-	useAnnounceFinnMood(useFinn(true).activity);
+	useAnnounceFinnMood(useFinn().activity);
 	useEffect(() => {
 		entered = true;
 	}, []);
@@ -134,7 +134,7 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 						<button
 							type="button"
 							className={phase ? `finn-dock-pet ${phase}` : "finn-dock-pet"}
-							aria-label={open ? "Close chat with Finn" : "Ask Finn"}
+							aria-label={open && !openedOnHover.current ? "Close chat with Finn" : "Ask Finn"}
 							aria-expanded={open}
 							onPointerEnter={(event) => {
 								if (event.pointerType !== "mouse" || event.buttons || phase || open) return;

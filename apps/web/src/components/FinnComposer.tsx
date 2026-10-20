@@ -10,17 +10,20 @@ function VoiceStatus({ voice }: { voice: Voice }) {
 	const text = {
 		idle: "",
 		starting: "Waiting for the microphone…",
-		recording: `Listening · ${voice.seconds >= 60 ? "1:00" : seconds} of 1:00`,
+		recording: "Listening",
 		processing: "Transcribing on this device…",
 		error: voice.error,
 	}[voice.status];
 	return (
-		<p
-			className={voice.status === "error" ? "finn-voice-status is-error" : "finn-voice-status"}
-			role={voice.status === "error" ? "alert" : "status"}
-		>
+		<p className={voice.status === "error" ? "finn-voice-status is-error" : "finn-voice-status"}>
 			{voice.status === "recording" && <span className="finn-voice-dot" aria-hidden="true" />}
-			<span>{text}</span>
+			{/* Only the state is announced; the ticking counter would repeat every second. */}
+			<span role={voice.status === "error" ? "alert" : "status"}>
+				{text}
+				{voice.status === "recording" && (
+					<span aria-hidden="true"> · {voice.seconds >= 60 ? "1:00" : seconds} of 1:00</span>
+				)}
+			</span>
 			<button type="button" onClick={voice.cancel}>
 				{voice.status === "error" ? "Dismiss" : "Cancel"}
 			</button>
@@ -50,7 +53,7 @@ export function FinnComposer({
 	onSent: (conversationId: string) => void;
 	inputRef: RefObject<HTMLTextAreaElement | null>;
 }) {
-	const finn = useFinn(true);
+	const finn = useFinn();
 	const text = finn.drafts[draftKey] ?? "";
 	const mine = voice.key === draftKey && voice.status !== "idle";
 	const capturing = mine && (voice.status === "starting" || voice.status === "recording");

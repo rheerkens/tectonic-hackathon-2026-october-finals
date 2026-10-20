@@ -47,8 +47,8 @@ export function FinnResultContent({ result }: { result: FinnResult }) {
 	};
 	return (
 		<div className="answer-stack">
-			<section className={`answer-card answer-card--${tone}`} role="status">
-				<span className="answer-badge">
+			<section className={`answer-card answer-card--${tone}`}>
+				<span className="answer-badge" role="status">
 					<Tick tone={tone} /> {status} · {score}% trust
 				</span>
 				{tone === "good" && (
