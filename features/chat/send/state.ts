@@ -94,7 +94,13 @@ export function useSendChat(
 						queries.setQueryData<History>(
 							historyKey({ ...context, conversationId: selected.id }),
 							(previous) => ({
-								conversation: { ...selected, title: parsed.data.message.slice(0, 60) },
+								conversation: {
+									...selected,
+									title:
+										selected.title === "New conversation"
+											? parsed.data.message.slice(0, 60)
+											: selected.title,
+								},
 								turns: [
 									...(previous?.turns ?? []).filter((turn) => turn.id !== event.turn.id),
 									event.turn,

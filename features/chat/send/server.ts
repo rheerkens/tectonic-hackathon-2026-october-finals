@@ -59,9 +59,12 @@ export function mountSendChat(
 			createdAt: new Date().toISOString(),
 		};
 		db.insert(turns).values(turn).run();
+		// The first message names the conversation; later messages keep that title.
 		db.update(conversations)
 			.set({ title: input.message.slice(0, 60) })
-			.where(eq(conversations.id, conversation.id))
+			.where(
+				and(eq(conversations.id, conversation.id), eq(conversations.title, "New conversation")),
+			)
 			.run();
 		let closed = false;
 		const encoder = new TextEncoder();
@@ -95,10 +98,12 @@ export function mountSendChat(
 						if (!completed) throw new Error("Turn missing.");
 						await emit({ type: "done", turn: completed });
 					} catch (error) {
-						c.get("logError")("chat_failed", error);
+						// A Stop or closed tab is not a failure worth logging.
+						if (!abort.signal.aborted) c.get("logError")("chat_failed", error);
+						// Only a pending turn changes: a reply already saved as completed stays completed.
 						db.update(turns)
 							.set({ status: abort.signal.aborted ? "interrupted" : "failed" })
-							.where(eq(turns.id, turn.id))
+							.where(and(eq(turns.id, turn.id), eq(turns.status, "pending")))
 							.run();
 						if (!abort.signal.aborted && !closed)
 							await emit({

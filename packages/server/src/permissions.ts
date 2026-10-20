@@ -21,7 +21,9 @@ export function requireWorkspaceAccess({
 		.from(memberships)
 		.where(and(eq(memberships.workspaceId, workspaceId), eq(memberships.userId, userId)))
 		.get();
-	if (!member || !roleAtLeast(member.role, required))
+	// Outsiders get the same answer as for a missing workspace, so IDs cannot be probed.
+	if (!member) throw new AppError(404, "Workspace not found.");
+	if (!roleAtLeast(member.role, required))
 		throw new AppError(403, "Your workspace role does not allow this action.");
 	return { ...workspace, role: member.role };
 }
