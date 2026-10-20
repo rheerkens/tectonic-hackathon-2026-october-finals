@@ -64,7 +64,8 @@ def profile_name(value):
     return value
 
 def scene_id(value):
-    if not value.replace('-', '').replace('_', '').isalnum(): raise ValueError('Use simple scene IDs')
+    # Scene IDs become file names in the output folder: ASCII slugs only, never paths.
+    if not isinstance(value, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,63}', value): raise ValueError('Use simple scene IDs')
     return value
 
 def capture_scene(scene, output):
@@ -198,8 +199,9 @@ def timestamp(seconds):
 
 def chapter_card(output, name, title, subtitle, duration=2):
     font = ROOT / 'apps/web/public/fonts/Manrope.ttf'
-    title_file = output / (name + '-title.txt'); title_file.write_text(title)
-    subtitle_file = output / (name + '-subtitle.txt'); subtitle_file.write_text(subtitle)
+    name = scene_id(name)
+    title_file = inside(output / (name + '-title.txt'), output); title_file.write_text(title)
+    subtitle_file = inside(output / (name + '-subtitle.txt'), output); subtitle_file.write_text(subtitle)
     def filter_path(path):
         return str(path).replace('\\', '\\\\').replace(':', '\\:').replace("'", "\\'")
     draw = (f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(title_file)}':fontsize=55:fontcolor=0x26352d:x=80:y=300,"
