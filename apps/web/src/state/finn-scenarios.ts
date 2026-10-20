@@ -25,6 +25,8 @@ export type FinnResult = {
 	id: string;
 	question: string;
 	context: { country: "BE" | "NL"; client: string | null; period: string };
+	/** The answer in a few words, shown large on the result page. */
+	headline: string | null;
 	answer: string | null;
 	trust: { score: number; reasons: string[] };
 	/** Tool calls the scripted agent replays, in order, while FINN is thinking. */
@@ -130,6 +132,7 @@ const d1October: FinnResult = {
 	id: "d1-payroll-changes",
 	question: "Until when can Atlas submit payroll changes?",
 	context: { country: "BE", client: "Atlas", period: "2026-10" },
+	headline: "22 October 2026",
 	answer:
 		"Atlas can submit payroll changes until **22 October 2026** [S4]. This approved client exception replaces the general deadline of 20 October [S1] for October only.",
 	trust: {
@@ -159,6 +162,7 @@ const d1November: FinnResult = {
 	id: "d1-payroll-changes-november",
 	question: "And for next month?",
 	context: { country: "BE", client: "Atlas", period: "2026-11" },
+	headline: null,
 	answer: null,
 	trust: {
 		score: 0.15,
@@ -205,6 +209,7 @@ const d2: FinnResult = {
 	id: "d2-sick-leave",
 	question: "Within what time must a sick leave notice be passed on?",
 	context: { country: "BE", client: "Atlas", period: "2026-10" },
+	headline: "Within 24 hours",
 	answer:
 		"Pass on a sick leave notice **within 24 hours** of the first day of illness [S6]. I found no confirmed separate agreement for Atlas: the 48 hours in Teams [S7] is not approved, so don't use it.",
 	trust: {

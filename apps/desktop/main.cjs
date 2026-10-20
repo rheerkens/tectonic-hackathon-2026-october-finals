@@ -73,6 +73,7 @@ let quitting = false;
 let finnMenu;
 let showPetItem;
 const petOpen = () => pet && !pet.isDestroyed();
+const mainOpen = () => mainWindow && !mainWindow.isDestroyed();
 
 function reportOpenError(error) {
 	dialog.showErrorBox("Could not open FINN", String(error));
@@ -84,9 +85,12 @@ async function openMain(path) {
 		mainWindow = new BrowserWindow({ width: 1280, height: 860, show: false, webPreferences });
 		const window = mainWindow;
 		mainReady = Promise.resolve();
+		// While SDtrust is open Finn lives inside it; closing it sends Finn back to the desktop.
+		if (petOpen()) pet.hide();
+		mini?.hide();
 		window.on("closed", () => {
 			if (mainWindow === window) mainWindow = null;
-			if (!quitting && !petOpen()) {
+			if (!quitting) {
 				settings.showPet = true;
 				showPetItem.checked = true;
 				openPet(appUrl);
@@ -109,7 +113,7 @@ async function openMain(path) {
 
 function openPet(url) {
 	if (petOpen()) {
-		pet.showInactive();
+		if (!mainOpen()) pet.showInactive();
 		return;
 	}
 	const { workArea } = screen.getPrimaryDisplay();
@@ -135,7 +139,7 @@ function openPet(url) {
 	// Normalize constructor DPI rounding while hidden, before the first visible frame.
 	window.setBounds({ x, y, ...PET_SIZE });
 	window.once("ready-to-show", () => {
-		if (!window.isDestroyed() && !quitting) window.showInactive();
+		if (!window.isDestroyed() && !quitting && !mainOpen()) window.showInactive();
 	});
 	pet.loadURL(`${url}/pet`);
 	pet.on("closed", () => {

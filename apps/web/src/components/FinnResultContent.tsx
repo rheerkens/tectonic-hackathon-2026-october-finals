@@ -1,106 +1,160 @@
+import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import type { FinnResult } from "../state/finn-scenarios";
+import type { FinnResult, FinnSource } from "../state/finn-scenarios";
 import { Icon } from "./Icon";
+
+// Answer card and "Why this source?" table follow the semi-final app (Tectonic-hackathon2026 KennisPage).
+type Tone = "good" | "warn" | "muted";
+
+function verdictTone(source: FinnSource): Tone {
+	if (source.supports) return "good";
+	return source.note.startsWith("Not confirmed") ? "warn" : "muted";
+}
+
+function Tick({ tone }: { tone: Tone }) {
+	return (
+		<span className={`answer-tick answer-tick--${tone}`}>
+			<Icon name={tone === "good" ? "check" : tone === "warn" ? "info" : "x"} size={13} />
+		</span>
+	);
+}
+
+const month = (period: string) =>
+	new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(
+		new Date(`${period}-01T12:00:00`),
+	);
+
 export function FinnResultContent({ result }: { result: FinnResult }) {
-	const trust = result.trust.score >= 0.8 ? "High" : result.trust.score >= 0.5 ? "Medium" : "Low";
+	const evidence = useRef<HTMLDetailsElement>(null);
+	const best = result.sources.find((source) => source.supports);
+	const score = Math.round(result.trust.score * 100);
+	const tone: Tone = !result.answer ? "muted" : result.trust.score >= 0.8 ? "good" : "warn";
+	const status = !result.answer
+		? "Not substantiated"
+		: tone === "good"
+			? "Substantiated"
+			: "Partly substantiated";
 	const answer = result.answer?.replace(/\[(S\d+)\]/g, (label, code: string) =>
 		result.sources.some((source) => source.code === code) ? `[${code}](#source-${code})` : label,
 	);
+	const showSource = (code: string) => {
+		if (evidence.current) evidence.current.open = true;
+		document
+			.getElementById(`source-${code}`)
+			?.scrollIntoView({ behavior: "smooth", block: "center" });
+	};
 	return (
-		<div className="result-layout">
-			<div className="result-main">
-				<section className="dashboard-card result-answer">
-					<h2>{answer ? "What you need to know" : "I’m not sure yet"}</h2>
-					{answer ? (
-						<div className="chat-markdown">
+		<div className="answer-stack">
+			<section className={`answer-card answer-card--${tone}`} role="status">
+				<span className="answer-badge">
+					<Tick tone={tone} /> {status} · {score}% trust
+				</span>
+				{answer && best ? (
+					<>
+						<h2>{result.headline}</h2>
+						<div className="answer-text">
 							<ReactMarkdown skipHtml>{answer}</ReactMarkdown>
 						</div>
-					) : (
-						<p>
-							There is no confirmed answer for this context yet. The demo’s next step is shown
-							below.
+						<p className="answer-meta">
+							<span>
+								<Icon name="clock" size={15} /> Valid for {month(result.context.period)}
+							</span>
+							<span>
+								<Icon name="users" size={15} /> Confirmed by {best.author}
+							</span>
 						</p>
-					)}
-					<p className="result-context">
-						{result.context.country} · {result.context.client ?? "All clients"} ·{" "}
-						{result.context.period}
-					</p>
-				</section>
-				{result.nextStep.kind !== "none" && (
-					<section className="dashboard-card next-step" aria-label="Next step">
-						<h2>
-							<Icon name="users" />
-							Next step
-						</h2>
-						{result.nextStep.kind === "contact_person" ? (
-							<>
-								<p>
-									<strong>Waiting for {result.nextStep.person}</strong>
-								</p>
-								<p>{result.nextStep.message}</p>
-								<p className="integration-note">
-									Simulated contact in this demo. No message has been sent.
-								</p>
-							</>
-						) : (
-							<p>{result.nextStep.question}</p>
-						)}
-					</section>
-				)}
-				<section className="dashboard-card result-sources" id="sources">
-					<h2>
-						<Icon name="database" />
-						Sources and reasoning
-					</h2>
-					<p className="muted">
-						Supporting and rejected sources are both shown, so you can check the reasoning.
-					</p>
-					{result.sources.map((source) => (
-						<article key={source.code} id={`source-${source.code}`} className="source-evidence">
-							<div className="source-evidence-heading">
-								<span className="source-code">{source.code}</span>
-								<h3>{source.title}</h3>
-								<span className={source.supports ? "evidence-status supports" : "evidence-status"}>
-									{source.supports ? "Supports answer" : "Not used"}
+						<blockquote className="answer-quote">“{best.excerpt}”</blockquote>
+						<div className="answer-foot">
+							<a
+								className="answer-source-link"
+								href={`#source-${best.code}`}
+								onClick={(event) => {
+									event.preventDefault();
+									showSource(best.code);
+								}}
+							>
+								<Icon name="file-text" size={18} />
+								<span>
+									<strong>{best.title}</strong>
+									<small>
+										{best.code} · {best.kind.toUpperCase()} · {best.date}
+									</small>
 								</span>
-							</div>
-							<p className="source-origin">
-								{source.kind.toUpperCase()} · {source.author} · {source.date}
-							</p>
-							<blockquote>{source.excerpt}</blockquote>
-							<p className="source-reason">{source.note}</p>
-						</article>
-					))}
-				</section>
-			</div>
-			<aside className="result-side">
-				<section className="dashboard-card trust-panel">
-					<h2>Trust in this answer</h2>
-					<p className={`trust-value trust-${trust.toLowerCase()}`}>
-						<strong>{Math.round(result.trust.score * 100)}%</strong>
-						<span>{trust} trust</span>
-					</p>
-					<ul>
-						{result.trust.reasons.map((reason) => (
-							<li key={reason}>{reason}</li>
-						))}
-					</ul>
-					<p className="integration-note">Score and reasoning are supplied by the demo fixture.</p>
-				</section>
-				<section className="dashboard-card" id="people">
-					<h2>
-						<Icon name="users" />
-						People who can help
-					</h2>
-					{result.people.map((person) => (
-						<div key={person.name} className="result-person">
-							<strong>{person.name}</strong>
-							<span>{person.role}</span>
-							<p>{person.why}</p>
+							</a>
+							<button type="button" className="answer-btn" onClick={() => showSource(best.code)}>
+								View source <Icon name="arrow-right" size={16} />
+							</button>
 						</div>
-					))}
+					</>
+				) : (
+					<>
+						<h2>No substantiated answer</h2>
+						<p className="answer-text">
+							No source is confirmed for {result.context.client ?? "this client"} in{" "}
+							{month(result.context.period)}. See below why.
+						</p>
+					</>
+				)}
+			</section>
+
+			{result.nextStep.kind !== "none" && (
+				<section className="answer-card answer-card--warn" aria-label="Next step">
+					<span className="answer-badge">
+						<Tick tone="warn" /> Next step
+					</span>
+					{result.nextStep.kind === "contact_person" ? (
+						<>
+							<h3>Waiting for {result.nextStep.person}</h3>
+							<blockquote className="answer-quote">{result.nextStep.message}</blockquote>
+							<p className="answer-meta">
+								Simulated contact in this demo. No message has been sent.
+							</p>
+						</>
+					) : (
+						<h3>{result.nextStep.question}</h3>
+					)}
 				</section>
-			</aside>
+			)}
+
+			<details ref={evidence} className="answer-evidence">
+				<summary>
+					<span>Why this source?</span>
+					<span className="answer-evidence-count">{result.sources.length} sources</span>
+					<Icon name="chevron-right" size={16} />
+				</summary>
+				<table aria-label="Sources and assessment">
+					<thead>
+						<tr>
+							<th>Source</th>
+							<th>Assessment</th>
+						</tr>
+					</thead>
+					<tbody>
+						{result.sources.map((source) => {
+							const verdict = verdictTone(source);
+							return (
+								<tr key={source.code} id={`source-${source.code}`}>
+									<td>
+										<span className="answer-src" title={source.excerpt}>
+											<Icon name="file-text" size={16} />
+											<span className="answer-src-id">{source.code}</span>
+											<span>{source.title}</span>
+										</span>
+									</td>
+									<td>
+										<span className={`answer-verdict answer-verdict--${verdict}`}>
+											<Tick tone={verdict} /> {source.note}
+										</span>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+				<p className="answer-footnote">
+					<Icon name="info" size={15} /> A valid document does not automatically apply.
+				</p>
+			</details>
 		</div>
 	);
 }

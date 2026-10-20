@@ -2,6 +2,7 @@ import { Button } from "@day-one/ui/button";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Brand } from "../components/Brand";
+import { FinnDock } from "../components/FinnDock";
 import { FinnQuestionForm } from "../components/FinnQuestionForm";
 import { FinnResultContent } from "../components/FinnResultContent";
 import { Icon } from "../components/Icon";
@@ -47,7 +48,13 @@ export function ResultPage({ resultId }: { resultId: string }) {
 						<header className="desktop-page-heading">
 							<Link to="/">Back to overview</Link>
 							<h1>{result.question}</h1>
-							<p>An answer with its context, evidence and next step.</p>
+							<p>
+								{result.context.country === "BE" ? "Belgium" : "Netherlands"} ·{" "}
+								{result.context.client ?? "All clients"} ·{" "}
+								{new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(
+									new Date(`${result.context.period}-01T12:00:00`),
+								)}
+							</p>
 						</header>
 						<FinnResultContent result={result} />
 						<section className="result-followup">
@@ -77,6 +84,7 @@ export function ResultPage({ resultId }: { resultId: string }) {
 					</section>
 				)}
 			</main>
+			<FinnDock />
 		</div>
 	);
 }
