@@ -1,7 +1,7 @@
 /**
  * Hard-coded demo scenarios, adapted from scenarios D1 and D2 of the semi-final project
  * (Tectonic-hackathon2026 docs/demo-scenarios.md, seed sources S1–S34).
- * Shape follows the FinnResult proposal in README.md; `supports` and `note` add the "why not?" per source.
+ * Shape follows the FinnResult proposal in docs/plan.md; `supports` and `note` add the "why not?" per source.
  */
 
 export type FinnSource = {
