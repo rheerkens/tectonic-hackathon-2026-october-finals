@@ -662,7 +662,7 @@ app.whenReady().then(async () => {
 		addFinnMenu(url);
 		openPet(url);
 	} catch (error) {
-		dialog.showErrorBox("Day One could not start", String(error));
+		dialog.showErrorBox("SDtrust could not start", String(error));
 		app.quit();
 	}
 });
