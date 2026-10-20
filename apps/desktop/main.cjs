@@ -104,6 +104,8 @@ let miniLayoutVersion = 0;
 let miniHideTimer;
 let miniVisibilityVersion = 0;
 let miniEngaged = false;
+// Whether the pointer is over one of Mini's pills, as last reported by its page.
+let miniOverSurface = false;
 let mainWindow;
 let mainReady = Promise.resolve();
 let appUrl;
@@ -359,6 +361,7 @@ function hideMini() {
 	clearTimeout(miniHideTimer);
 	miniVisibilityVersion++;
 	miniEngaged = false;
+	miniOverSurface = false;
 	if (!mini || mini.isDestroyed()) return;
 	mini.hiddenAt = Date.now();
 	mini.hide();
@@ -369,8 +372,9 @@ function setMiniHover(inside) {
 	clearTimeout(miniHideTimer);
 	if (!inside) {
 		// Leave enough time to cross the transparent gap from Finn to the controls.
+		// Only the hover preview closes this way; a clicked-into Mini closes on blur.
 		miniHideTimer = setTimeout(() => {
-			if (!miniEngaged) hideMini();
+			if (!miniEngaged && !mini?.isFocused()) hideMini();
 		}, 400);
 	}
 }
@@ -411,13 +415,16 @@ async function positionMini() {
 			}
 			const content = root.querySelector('.finn-mini-content')?.getBoundingClientRect();
 			const slot = root.querySelector('.finn-mini-pet-slot').getBoundingClientRect();
-			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y,
+			// Focusing the composer can scroll the page while the window is still too short;
+			// measure from the document top, where the resized window starts.
+			const sy = window.scrollY;
+			return { height: Math.ceil(root.getBoundingClientRect().height), slotY: slot.y + sy,
 				surfaces: [...root.querySelectorAll('[data-mini-surface]')].map(el => {
 					const r = el.getBoundingClientRect();
 					const inContent = content && el.closest('.finn-mini-content');
 					const top = inContent ? Math.max(r.top, content.top) : r.top;
 					const bottom = inContent ? Math.min(r.bottom, content.bottom) : r.bottom;
-					return { x: Math.floor(r.x - 3), y: Math.floor(top - 3), width: Math.ceil(r.width + 6), height: Math.ceil(bottom - top + 6) };
+					return { x: Math.floor(r.x - 3), y: Math.floor(top + sy - 3), width: Math.ceil(r.width + 6), height: Math.ceil(bottom - top + 6) };
 				}).filter(r => r.width > 6 && r.height > 6) };
 		})()`);
 		if (!layout || version !== miniLayoutVersion || window.isDestroyed() || quitting) return;
@@ -438,10 +445,11 @@ async function positionMini() {
 		});
 		// Clicks outside the pills reach Finn and the desktop: Windows cuts the window to the pills,
 		// macOS has no setShape, so the window ignores the mouse until the pointer is over a pill.
+		// A relayout keeps the pill under the pointer clickable: the page only reports changes.
 		window.shaped = shaped;
 		if (process.platform === "win32") {
 			if (shaped) window.setShape(layout.surfaces);
-		} else window.setIgnoreMouseEvents(shaped, { forward: true });
+		} else window.setIgnoreMouseEvents(shaped && !miniOverSurface, { forward: true });
 	} catch (error) {
 		if (!window.isDestroyed() && !quitting)
 			console.error("Could not position FINN controls", error);
@@ -604,8 +612,10 @@ ipcMain.on("mini:show", (event) => {
 ipcMain.on("mini:hover", (event, inside) => {
 	if (trustedWindow(event, pet, "/pet") || trustedWindow(event, mini, "/mini"))
 		setMiniHover(inside === true);
-	if (process.platform !== "win32" && mini?.shaped && trustedWindow(event, mini, "/mini"))
-		mini.setIgnoreMouseEvents(inside !== true, { forward: true });
+	if (!trustedWindow(event, mini, "/mini")) return;
+	miniOverSurface = inside === true;
+	if (process.platform !== "win32" && mini.shaped)
+		mini.setIgnoreMouseEvents(!miniOverSurface, { forward: true });
 });
 ipcMain.on("mini:engaged", (event, engaged) => {
 	if (trustedWindow(event, mini, "/mini")) miniEngaged = engaged === true;
