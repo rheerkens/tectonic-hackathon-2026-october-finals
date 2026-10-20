@@ -47,7 +47,13 @@ export function ResultPage({ resultId }: { resultId: string }) {
 						<header className="desktop-page-heading">
 							<Link to="/">Back to overview</Link>
 							<h1>{result.question}</h1>
-							<p>An answer with its context, evidence and next step.</p>
+							<p>
+								{result.context.country === "BE" ? "Belgium" : "Netherlands"} ·{" "}
+								{result.context.client ?? "All clients"} ·{" "}
+								{new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(
+									new Date(`${result.context.period}-01T12:00:00`),
+								)}
+							</p>
 						</header>
 						<FinnResultContent result={result} />
 						<section className="result-followup">
