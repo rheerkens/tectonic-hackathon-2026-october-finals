@@ -500,9 +500,14 @@ async function showMiniOnHover() {
 
 function toggleMini() {
 	// A hover preview becomes an active chat on click without closing first.
-	if (mini.isVisible() && !mini.isFocused()) return mini.show();
+	// A click opens straight into the new-chat field; a hover only previews the toolbar.
+	if (mini.isVisible() && !mini.isFocused()) {
+		mini.webContents.send("mini:compose");
+		return mini.show();
+	}
 	// ponytail: a click on Finn first blurs (and hides) Mini; a hide this recent means "close".
 	if (mini.isVisible() || Date.now() - (mini.hiddenAt ?? 0) < 300) return hideMini();
+	mini.webContents.send("mini:compose");
 	void positionMini().then(() => {
 		if (!quitting && mini && !mini.isDestroyed()) mini.show();
 	});

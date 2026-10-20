@@ -10,6 +10,7 @@ interface Window {
 		setMiniHover?(inside: boolean): void;
 		setMiniEngaged?(engaged: boolean): void;
 		onMiniReset?(listener: () => void): () => void;
+		onMiniCompose?(listener: () => void): () => void;
 		toggleMini(): void;
 		hideMini(): void;
 		openMain(route: string): void;

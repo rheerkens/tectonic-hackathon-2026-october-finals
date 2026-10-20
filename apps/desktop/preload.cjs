@@ -10,6 +10,11 @@ contextBridge.exposeInMainWorld("desktop", {
 		ipcRenderer.on("mini:reset", handler);
 		return () => ipcRenderer.removeListener("mini:reset", handler);
 	},
+	onMiniCompose: (listener) => {
+		const handler = () => listener();
+		ipcRenderer.on("mini:compose", handler);
+		return () => ipcRenderer.removeListener("mini:compose", handler);
+	},
 	toggleMini: () => ipcRenderer.send("mini:toggle"),
 	hideMini: () => ipcRenderer.send("mini:hide"),
 	openMain: (route) => ipcRenderer.send("main:open", String(route)),

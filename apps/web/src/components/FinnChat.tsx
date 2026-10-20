@@ -47,6 +47,7 @@ export function FinnChat({
 	open = true,
 	inApp = false,
 	className = "",
+	composeKey = 0,
 	onHide,
 }: {
 	pet: ReactNode;
@@ -55,6 +56,8 @@ export function FinnChat({
 	// Inside SDtrust, results open in place instead of asking the shell for the main window.
 	inApp?: boolean;
 	className?: string;
+	/** Bumped when Finn is clicked open: a click lands in the new-chat field, a hover only shows the toolbar. */
+	composeKey?: number;
 	onHide?: () => void;
 }) {
 	const finn = useFinn(true);
@@ -64,8 +67,7 @@ export function FinnChat({
 	const input = useRef<HTMLTextAreaElement>(null);
 	const transcript = useRef<HTMLDivElement>(null);
 	// Presentation is local to each surface; another window's selection never retargets it.
-	// Opening Finn lands straight in the new-chat field.
-	const [view, setView] = useState<View>("new");
+	const [view, setView] = useState<View>("launcher");
 	const [rowsOpen, setRowsOpen] = useState(true);
 	const [chatId, setChatId] = useState<string | null>(null);
 	const [focused, setFocused] = useState(document.hasFocus());
@@ -84,7 +86,7 @@ export function FinnChat({
 	}, [engaged, inApp]);
 	useEffect(() => {
 		const reset = () => {
-			setView("new");
+			setView("launcher");
 			setRowsOpen(false);
 			setChatId(null);
 			// The shell hid the window under the pointer; the next show starts click-through again.
@@ -93,6 +95,11 @@ export function FinnChat({
 		if (!open) reset();
 		return window.desktop?.onMiniReset?.(reset);
 	}, [open]);
+
+	useEffect(() => {
+		if (composeKey) setView("new");
+	}, [composeKey]);
+	useEffect(() => window.desktop?.onMiniCompose?.(() => setView("new")), []);
 
 	useEffect(() => {
 		const focus = () => setFocused(true);

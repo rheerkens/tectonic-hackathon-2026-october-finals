@@ -14,6 +14,7 @@ const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matche
 /** Finn inside SDtrust: fixed bottom right, opening the same compact chat as the desktop mini. */
 export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 	const [open, setOpen] = useState(false);
+	const [composeKey, setComposeKey] = useState(0);
 	const openedOnHover = useRef(false);
 	const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	useEffect(
@@ -125,6 +126,7 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 			<FinnChat
 				inApp
 				open={open}
+				composeKey={composeKey}
 				className={open ? "finn-dock-panel is-open" : "finn-dock-panel"}
 				onHide={() => setOpen(false)}
 				pet={
@@ -140,6 +142,8 @@ export function FinnDock({ hint }: { hint?: FinnHint | undefined }) {
 								setOpen(true);
 							}}
 							onClick={() => {
+								// A click that leaves the chat open goes straight to the new-chat field.
+								if (!open || openedOnHover.current) setComposeKey((key) => key + 1);
 								if (!open || !openedOnHover.current) setOpen(!open);
 								openedOnHover.current = false;
 							}}
