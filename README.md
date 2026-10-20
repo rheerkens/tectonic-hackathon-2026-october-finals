@@ -15,9 +15,9 @@ Design concepts and the FINN mascot: [docs/design](docs/design).
 
 | Topic | Decision |
 |---|---|
-| Platform | **Electron desktop app** for the demo. The jury device runs Windows or macOS; which one is unknown. During development we run the web variant (same routes, mascot fixed bottom-right in the page). If Electron blocks us, the web variant is the fallback. |
+| Platform | **Electron desktop app** (`apps/desktop`, already on `main`) for the demo. Every push to `main` builds a Mac `.dmg` and a Windows `.exe` in CI. The jury device runs Windows or macOS; which one is unknown. During development we use the web variant (`bun dev`) or `bun run desktop`. If Electron blocks us, the web variant is the fallback. |
 | Language | **English** UI copy. The design concepts use Dutch; translate their labels. |
-| Data | **Fake.** Synthetic Teams messages, mails and CRM records live in SQLite and are seeded in dev. The first version may mock search results completely. Real connectors only if time is left. |
+| Data | **Fake.** Synthetic Teams messages, mails and CRM records live in SQLite and are seeded in dev mode (`seedDatabase`). The packaged app runs the same seed on start. The first version may mock search results completely. Real connectors only if time is left. |
 | AI | **The demo uses a scripted agent, not a live model.** For each demo question, a scripted model replays the right tool calls in the right order. The tools themselves are real and query the seeded SQLite. The demo therefore works offline and on the jury device, with no login. Live Codex through pi (already in the starter) stays available for development and is a stretch goal for the demo. |
 | Users | **One user in the demo.** "Contacting a colleague" is simulated: FINN shows that it sent a Teams message and the conversation waits for a reply. |
 | Score | **Trust in the result.** Not "how well does a person match". Low trust means FINN tells the user and proposes, or takes, a next step. |
@@ -30,17 +30,17 @@ Design concepts and the FINN mascot: [docs/design](docs/design).
 
 ```text
 ┌──────────────────────────────┐
-│ SDtrust app window           │      ┌─────────────┐
-│  Result / trust page         │      │ mini result │  ← bubble above FINN
-│  History                     │      └─────────────┘
-│  Active threads (waiting)    │            🧑 FINN   ← transparent, always on top,
-│  Settings                    │                       bottom-right
+│ SDtrust app window           │   ┌─────────────┐
+│  Result / trust page         │   │ mini window │  ← ask + short result,
+│  History                     │   │             │    next to FINN
+│  Active threads (waiting)    │   └─────────────┘ 🧑 FINN  ← transparent, always on top,
+│  Settings                    │                            draggable, bottom-right
 └──────────────────────────────┘
 ```
 
-1. **FINN (mascot window).** A frameless, transparent, always-on-top Electron window in the bottom-right corner. It has these states: idle, asking (input bubble), thinking, needs input (FINN asks a follow-up question), done (mini result bubble), waiting (FINN contacted someone).
-2. **Mini result bubble.** A short answer, the trust level and the next step above FINN. Click it to open the full result.
-3. **SDtrust app window.** A normal window that opens on demand. It has the result/trust page, history, active threads and settings. See concepts [01](docs/design/desktop_concepts/01.png), [02](docs/design/desktop_concepts/02.png) and [03](docs/design/desktop_concepts/03.png).
+1. **FINN (pet window, exists).** A small, transparent, always-on-top window (`/pet`) that can be dragged. It has sprite animations: `idle`, `waving`, `waiting`, `running`, `jumping`, `failed`, `review` (`apps/web/src/state/pet.ts`). FINN states map onto them: asking, thinking, needs input, done, waiting (FINN contacted someone).
+2. **Mini window (exists as a chat).** A floating window next to FINN (`/mini`), opened by clicking FINN. It becomes the place to ask a question and to see the short answer, trust level and next step. Clicking the result opens the full result page.
+3. **SDtrust app window (exists as the main window).** Today it opens at launch. For the demo it should open on demand. It has the result/trust page, history, active threads and settings. See concepts [01](docs/design/desktop_concepts/01.png), [02](docs/design/desktop_concepts/02.png) and [03](docs/design/desktop_concepts/03.png).
 
 ## Architecture
 
@@ -59,12 +59,12 @@ Electron (apps/desktop)
                      SQLite (seeded synthetic Teams / mail / CRM)
 ```
 
-- Electron is a thin shell. Both windows load routes from the existing Vite app, so the web fallback is the same code. The API and agent stay server-side, as in the starter.
+- Electron is a thin shell. All three windows load routes from the web app served by the local API, so the web fallback is the same code. The API and agent stay server-side, as in the starter. Windows share one origin, so FINN's mood travels over a `BroadcastChannel` instead of IPC.
 - **Scripted agent.** pi's runner already accepts an injected `StreamFn` (`createRunner({ streamFn })` in `packages/ai`; the tests use the same seam). The scripted `StreamFn` matches the demo question and emits a fixed sequence of tool calls and a final text. pi executes the real tools. The UI, tools and stream are identical to the live path; only the model is replaced.
   - Add small delays between steps so the thinking state is visible.
   - Script the follow-up question as well: the scripted agent asks the user, waits for the answer, then continues.
   - An unknown question gets a polite fixed reply ("I can only answer the demo questions right now"), not a crash.
-- **Packaged app runs fully offline.** The API uses `Bun.serve` and `bun:sqlite`, so it can't run inside Electron's Node. Compile it with `bun build --compile` into a sidecar binary per OS (`bun-windows-x64`, `bun-darwin-arm64`). Electron main starts the sidecar on a local port, and the sidecar serves the built web app, the API and a seeded SQLite file. Keep `NODE_ENV` unset and `AUTH_MODE=synthetic`, because the API rejects synthetic users in production mode.
+- **Packaged app runs fully offline (already wired).** Electron main starts a compiled API binary on a free local port with `NODE_ENV=development` and `AUTH_MODE=dev`. That binary serves the built web app, migrates and seeds SQLite in the user-data folder. The demo seed and the scripted agent must therefore live in the API and `seedDatabase`, not in a dev-only script. Never set `NODE_ENV=production` there: the API rejects synthetic users in production mode.
 - **How the agent drives the UI.** The agent calls UI tools, the commands arrive in the client through the chat stream, and the renderer executes them. Realtime messages stay change signals only, as AGENTS.md requires.
   - **v1:** a few fixed commands (`navigate`, `open_result`, `set_finn_state`, `ask_user`) executed by plain client JavaScript.
   - **Target:** one `execute_codesdk` tool. The agent writes a short script against a small typed FINN SDK, and the renderer runs it in a sandbox.
@@ -139,21 +139,21 @@ Then write the seed data that makes the flow true.
 - Stretch: the same flows through live Codex with a real system prompt.
 - **Done when:** both demo questions produce a valid `FinnResult` through the scripted agent with real tool calls, without network access.
 
-### 4. Electron shell
+### 4. Electron shell: remaining work
 
-- `apps/desktop`: mascot window (transparent, frameless, always on top, bottom-right) and app window.
-- Clicks on the transparent area must pass through to the desktop (`setIgnoreMouseEvents` with forwarding), but clicks on FINN must work.
-- IPC lets the mascot window open the app window.
-- Web fallback: a `/finn` route works in a normal browser.
-- Adding `electron` changes the catalog and lockfile, so coordinate first.
-- **Done when:** `bun dev` plus the desktop app shows FINN on the desktop, and clicking FINN opens the app window.
+Already on `main`: the pet window, the mini window, the main window, the compiled API binary, and CI builds.
+
+- Start with only FINN visible. The main (SDtrust) window opens on demand: from the mini window, from the menu, or by the agent. Today it opens at launch, and closing it quits the app.
+- IPC to open the main window on a given route, for example `/results/<id>`.
+- Web fallback: FINN and the mini window also work in a normal browser for development.
+- **Done when:** the app starts with only FINN on screen, and the result opens in the main window without a manual window switch.
 
 ### 5. Mascot states and animation
 
-- All FINN states from *Product surfaces* above.
-- Thinking state: icons for the sources being searched (Teams, mail, CRM) circle FINN's head.
-- Mascot assets: base image in [docs/design/finn.png](docs/design/finn.png). Someone owns producing the state variants.
-- **Done when:** every state is visible and is driven by the FINN state, not by local clicks only.
+- Map FINN states to the existing sprite animations ([docs/design/finn_pet](docs/design/finn_pet)), and drive them from the FINN ask flow instead of the starter chat.
+- Thinking state: icons for the sources being searched (Teams, mail, CRM) circle FINN's head. The pet window is only 96 × 104, so this needs a bigger window or icons inside that space.
+- Turn the mini window into the FINN question and short-result view.
+- **Done when:** every FINN state is visible and is driven by the ask flow, not by local clicks only.
 
 ### 6. Result and trust page
 
@@ -198,21 +198,22 @@ Then write the seed data that makes the flow true.
 
 ### 11. Jury-device build and test
 
-- The demo runs on a jury device, Windows or macOS. Build the Electron app for both.
-- Test the mascot window on the Windows laptop: transparency, always on top, click-through, position with the taskbar and display scaling.
+- The demo runs on a jury device, Windows or macOS. CI already builds both (GitHub → Actions → Desktop → Artifacts).
+- Test the CI `.exe` on the Windows laptop: transparency, always on top, dragging FINN, position with the taskbar and display scaling.
 - Test on a Mac too if anyone has one; otherwise list macOS as untested.
-- Package the API sidecar, the built web app and the seeded SQLite with the Electron app (see *Architecture*).
-- Test with networking disabled.
-- macOS: an unsigned app is blocked by Gatekeeper. Know the right-click → Open workaround, or bring a signed build.
+- Test with networking disabled: both flows must run from the seed and the scripted agent.
+- Builds are unsigned. Windows: "More info → Run anyway". Mac: `xattr -cr "/Applications/Day One.app"`. Rehearse this on a fresh machine, because the jury device will hit it.
 - **Done when:** a packaged build runs both demo flows on the Windows laptop with networking off, and the macOS status is known.
 
-### Suggested split (3 people)
+### Suggested split (Sebastian, Roy, Wanne)
 
-| Person | Owns |
+| Role | Owns |
 |---|---|
 | A: data and agent | 1 (lead, together with the team), 2, 3 |
 | B: desktop and FINN | 4, 5, 8, 11 |
 | C: app window | 6, 7, 9 |
+
+We push directly to `main` and write no tests (see [AGENTS.md](AGENTS.md)). Run `bun run check` before every push.
 | Everyone | 10 |
 
 Fix the contract early: agree on `FinnResult` and the UI command list before splitting up, because B and C build against mocks of them.
@@ -222,7 +223,7 @@ Fix the contract early: agree on `FinnResult` and the UI command list before spl
 When we're behind, cut from the bottom of this list:
 
 1. Both demo flows working end to end through the scripted agent. *(must have)*
-2. Electron mascot window. *(fallback: web route)*
+2. FINN starts alone on screen in the packaged app. *(fallback: web route)*
 3. Result page with trust reasons and source provenance.
 4. Low-trust → contact person → active thread flow.
 5. Thinking animation with source icons.
