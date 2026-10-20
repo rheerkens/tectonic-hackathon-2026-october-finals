@@ -1,6 +1,15 @@
 // Electron shell: starts the API on a free local port and shows the web app it serves,
 // plus Finn, a desktop pet that opens a floating mini chat.
-const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, screen } = require("electron");
+const {
+	app,
+	BrowserWindow,
+	dialog,
+	ipcMain,
+	Menu,
+	MenuItem,
+	nativeTheme,
+	screen,
+} = require("electron");
 const { spawn } = require("node:child_process");
 const { readFileSync, writeFileSync } = require("node:fs");
 const { createServer } = require("node:net");
@@ -82,12 +91,34 @@ function reportOpenError(error) {
 async function openMain(path) {
 	const create = !mainWindow || mainWindow.isDestroyed();
 	if (create) {
-		mainWindow = new BrowserWindow({ width: 1280, height: 860, show: false, webPreferences });
+		mainWindow = new BrowserWindow({
+			width: 1280,
+			height: 860,
+			show: false,
+			webPreferences,
+			// SDtrust draws its own top bar: macOS traffic lights sit inside the sidebar card,
+			// Windows/Linux window buttons float transparent over the top right.
+			titleBarStyle: "hidden",
+			...(process.platform === "darwin"
+				? { trafficLightPosition: { x: 30, y: 30 } }
+				: {
+						titleBarOverlay: {
+							color: "#00000000",
+							symbolColor: nativeTheme.shouldUseDarkColors ? "#ffffff" : "#1f1f1f",
+							height: 36,
+						},
+					}),
+		});
 		const window = mainWindow;
 		mainReady = Promise.resolve();
 		// While SDtrust is open Finn lives inside it; closing it sends Finn back to the desktop.
 		if (petOpen()) pet.hide();
 		mini?.hide();
+		window.webContents.on("dom-ready", () => {
+			void window.webContents.executeJavaScript(
+				`document.documentElement.classList.add("desktop-frameless", "desktop-${process.platform === "darwin" ? "mac" : "win"}")`,
+			);
+		});
 		window.on("close", (event) => {
 			if (quitting || !window.finnDock || window.finnLeaving) return;
 			event.preventDefault();

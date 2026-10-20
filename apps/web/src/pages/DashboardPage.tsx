@@ -25,7 +25,6 @@ export function DashboardPage() {
 					</h1>
 					<p>What would you like to know?</p>
 				</div>
-				<span className="example-badge">Example updates</span>
 			</header>
 			<div className="dashboard-grid">
 				<div className="dashboard-stack">

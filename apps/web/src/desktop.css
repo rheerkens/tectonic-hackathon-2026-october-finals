@@ -1719,3 +1719,38 @@ body {
 		animation: none;
 	}
 }
+
+/* Electron: no native title bar, so SDtrust's own chrome moves the window. */
+.desktop-frameless .desktop-sidebar,
+.desktop-frameless .result-topbar,
+.desktop-frameless body::before {
+	-webkit-app-region: drag;
+}
+.desktop-frameless :is(a, button, input, textarea, select, [role="button"], [role="menu"]) {
+	-webkit-app-region: no-drag;
+}
+/* A thin strip along the top keeps every page draggable. */
+.desktop-frameless body::before {
+	content: "";
+	position: fixed;
+	inset: 0 0 auto;
+	height: 14px;
+	z-index: 100;
+}
+/* macOS: traffic lights sit top-left inside the sidebar card. */
+.desktop-mac .sidebar-glass {
+	padding-top: 54px;
+}
+.desktop-mac .result-topbar {
+	padding-left: 104px;
+}
+/* Windows: window buttons float over the top right, 36px high. */
+.desktop-win body::before {
+	height: 36px;
+}
+.desktop-win .desktop-main {
+	padding-top: 44px;
+}
+.desktop-win .result-topbar {
+	padding-top: 40px;
+}
